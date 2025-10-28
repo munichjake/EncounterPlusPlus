@@ -1,0 +1,437 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://encounterpp.local/schemas/creature-v1.json",
+  "title": "Encounter++ Creature Schema",
+  "description": "D&D 5e creature/monster format for Encounter++ Initiative Tracker",
+  "type": "object",
+  "required": ["name", "ac", "hp", "abilities"],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "encounterpp-creature",
+      "description": "Schema identifier"
+    },
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1,
+      "description": "Schema version number"
+    },
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference URL"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier (slug or UUID)"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Creature name"
+    },
+    "size": {
+      "type": "string",
+      "enum": ["Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"],
+      "description": "Creature size category"
+    },
+    "type": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Creature type (humanoid, dragon, fiend, etc.)"
+        },
+        "tags": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Type tags (goblinoid, any race, etc.)"
+        }
+      }
+    },
+    "alignment": {
+      "type": "string",
+      "description": "Creature alignment"
+    },
+    "ac": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["value"],
+        "properties": {
+          "value": {"type": "integer", "minimum": 0},
+          "type": {"type": "string"},
+          "notes": {"type": "string"}
+        }
+      },
+      "description": "Armor Class entries"
+    },
+    "hp": {
+      "type": "object",
+      "required": ["formula"],
+      "properties": {
+        "average": {"type": "integer", "minimum": 1},
+        "formula": {
+          "type": "string",
+          "pattern": "^\\d+d\\d+(\\s*[+\\-]\\s*\\d+)?$",
+          "description": "Hit dice formula (e.g., 2d6+4)"
+        }
+      },
+      "description": "Hit Points"
+    },
+    "speed": {
+      "type": "object",
+      "properties": {
+        "walk": {"type": "integer", "minimum": 0},
+        "fly": {"type": "integer", "minimum": 0},
+        "hover": {"type": "boolean"},
+        "climb": {"type": "integer", "minimum": 0},
+        "swim": {"type": "integer", "minimum": 0},
+        "burrow": {"type": "integer", "minimum": 0},
+        "notes": {"type": "string"}
+      },
+      "description": "Movement speeds in feet"
+    },
+    "abilities": {
+      "type": "object",
+      "required": ["str", "dex", "con", "int", "wis", "cha"],
+      "properties": {
+        "str": {"type": "integer", "minimum": 1, "maximum": 30},
+        "dex": {"type": "integer", "minimum": 1, "maximum": 30},
+        "con": {"type": "integer", "minimum": 1, "maximum": 30},
+        "int": {"type": "integer", "minimum": 1, "maximum": 30},
+        "wis": {"type": "integer", "minimum": 1, "maximum": 30},
+        "cha": {"type": "integer", "minimum": 1, "maximum": 30}
+      },
+      "additionalProperties": false,
+      "description": "Ability scores"
+    },
+    "proficiencyBonus": {
+      "type": "integer",
+      "description": "Proficiency bonus (auto-calculated from CR if omitted)"
+    },
+    "savingThrows": {
+      "type": "object",
+      "properties": {
+        "str": {"type": "integer"},
+        "dex": {"type": "integer"},
+        "con": {"type": "integer"},
+        "int": {"type": "integer"},
+        "wis": {"type": "integer"},
+        "cha": {"type": "integer"}
+      },
+      "additionalProperties": false,
+      "description": "Saving throw bonuses"
+    },
+    "skills": {
+      "type": "object",
+      "properties": {
+        "acrobatics": {"type": "integer"},
+        "animalHandling": {"type": "integer"},
+        "arcana": {"type": "integer"},
+        "athletics": {"type": "integer"},
+        "deception": {"type": "integer"},
+        "history": {"type": "integer"},
+        "insight": {"type": "integer"},
+        "intimidation": {"type": "integer"},
+        "investigation": {"type": "integer"},
+        "medicine": {"type": "integer"},
+        "nature": {"type": "integer"},
+        "perception": {"type": "integer"},
+        "performance": {"type": "integer"},
+        "persuasion": {"type": "integer"},
+        "religion": {"type": "integer"},
+        "sleightOfHand": {"type": "integer"},
+        "stealth": {"type": "integer"},
+        "survival": {"type": "integer"}
+      },
+      "additionalProperties": false,
+      "description": "Skill bonuses"
+    },
+    "proficiencies": {
+      "type": "object",
+      "properties": {
+        "armor": {"type": "array", "items": {"type": "string"}},
+        "weapons": {"type": "array", "items": {"type": "string"}},
+        "tools": {"type": "array", "items": {"type": "string"}}
+      },
+      "description": "Proficiencies with armor, weapons, and tools"
+    },
+    "senses": {
+      "type": "object",
+      "properties": {
+        "blindsight": {"type": "integer", "minimum": 0},
+        "darkvision": {"type": "integer", "minimum": 0},
+        "tremorsense": {"type": "integer", "minimum": 0},
+        "truesight": {"type": "integer", "minimum": 0},
+        "passivePerception": {"type": "integer", "minimum": 0}
+      },
+      "description": "Senses (ranges in feet)"
+    },
+    "languages": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Languages spoken"
+    },
+    "damageVulnerabilities": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Damage vulnerabilities"
+    },
+    "damageResistances": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Damage resistances"
+    },
+    "damageImmunities": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Damage immunities"
+    },
+    "conditionImmunities": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Condition immunities"
+    },
+    "traits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {"type": "string"},
+          "desc": {"type": "string"},
+          "rules": {
+            "type": "object",
+            "properties": {
+              "recharge": {"type": "string"},
+              "uses": {
+                "type": "object",
+                "properties": {
+                  "max": {"type": "integer"},
+                  "per": {"type": "string", "enum": ["shortRest", "longRest", "day", "recharge"]}
+                }
+              }
+            }
+          }
+        }
+      },
+      "description": "Passive traits and features"
+    },
+    "actions": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/action"},
+      "description": "Actions"
+    },
+    "bonusActions": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/action"},
+      "description": "Bonus actions"
+    },
+    "reactions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {"type": "string"},
+          "desc": {"type": "string"},
+          "rules": {"type": "object"}
+        }
+      },
+      "description": "Reactions"
+    },
+    "legendary": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "properties": {
+            "points": {"type": "integer", "minimum": 1, "default": 3},
+            "actions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["name"],
+                "properties": {
+                  "name": {"type": "string"},
+                  "desc": {"type": "string"},
+                  "cost": {"type": "integer", "minimum": 1, "default": 1}
+                }
+              }
+            }
+          }
+        }
+      ],
+      "description": "Legendary actions"
+    },
+    "lairActions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {"type": "string"},
+          "desc": {"type": "string"}
+        }
+      },
+      "description": "Lair actions"
+    },
+    "spellcasting": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "casterType": {"type": "string", "enum": ["prepared", "known", "innate", "psionics"]},
+          "ability": {"type": "string", "enum": ["str", "dex", "con", "int", "wis", "cha"]},
+          "casterLevel": {"type": "integer", "minimum": 1, "maximum": 20},
+          "attackBonus": {"type": "integer"},
+          "saveDC": {"type": "integer"},
+          "slots": {"type": "object"},
+          "spellsByLevel": {"type": "array"},
+          "innate": {"type": "object"},
+          "notes": {"type": "string"}
+        }
+      },
+      "description": "Spellcasting blocks"
+    },
+    "cr": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 30,
+      "description": "Challenge Rating"
+    },
+    "xp": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Experience Points"
+    },
+    "environment": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Natural environments"
+    },
+    "image": {
+      "oneOf": [
+        {"type": "string", "format": "uri"},
+        {"type": "null"}
+      ],
+      "description": "Image URL or embedded data"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "source": {"type": "string"},
+        "imageUrl": {
+          "oneOf": [
+            {"type": "string", "format": "uri"},
+            {"type": "null"}
+          ]
+        },
+        "tags": {"type": "array", "items": {"type": "string"}},
+        "notes": {"type": "string"}
+      },
+      "description": "Metadata"
+    },
+    "initiativeBonus": {
+      "type": "integer",
+      "description": "Initiative bonus (overrides DEX modifier if set)"
+    }
+  },
+  "definitions": {
+    "action": {
+      "oneOf": [
+        {"$ref": "#/definitions/attackAction"},
+        {"$ref": "#/definitions/saveAction"},
+        {"$ref": "#/definitions/utilityAction"},
+        {"$ref": "#/definitions/descriptionAction"}
+      ]
+    },
+    "attackAction": {
+      "type": "object",
+      "required": ["name", "type", "onHit"],
+      "properties": {
+        "name": {"type": "string"},
+        "type": {
+          "type": "string",
+          "enum": ["meleeWeaponAttack", "rangedWeaponAttack", "meleeSpellAttack", "rangedSpellAttack"]
+        },
+        "attackBonus": {"type": "integer"},
+        "ability": {"type": "string", "enum": ["str", "dex", "con", "int", "wis", "cha"]},
+        "reach": {"type": "integer", "minimum": 0},
+        "range": {
+          "type": "object",
+          "required": ["normal"],
+          "properties": {
+            "normal": {"type": "integer"},
+            "long": {"type": "integer"}
+          }
+        },
+        "target": {"type": "string"},
+        "onHit": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["damage"],
+            "properties": {
+              "damage": {"type": "string"},
+              "type": {"type": "string"},
+              "notes": {"type": "string"}
+            }
+          }
+        },
+        "extra": {"type": "string"},
+        "recharge": {"type": "string"}
+      }
+    },
+    "saveAction": {
+      "type": "object",
+      "required": ["name", "type", "save"],
+      "properties": {
+        "name": {"type": "string"},
+        "type": {"const": "save"},
+        "save": {
+          "type": "object",
+          "required": ["ability", "dc"],
+          "properties": {
+            "ability": {"type": "string", "enum": ["str", "dex", "con", "int", "wis", "cha"]},
+            "dc": {"type": "integer"},
+            "onSuccess": {"type": "string"},
+            "onFailure": {"type": "string"}
+          }
+        },
+        "effects": {"type": "array"},
+        "area": {
+          "type": "object",
+          "properties": {
+            "shape": {"type": "string", "enum": ["cone", "line", "sphere", "cube", "cylinder"]},
+            "size": {"type": "integer"},
+            "unit": {"type": "string"}
+          }
+        },
+        "recharge": {"type": "string"}
+      }
+    },
+    "utilityAction": {
+      "type": "object",
+      "required": ["name", "type"],
+      "properties": {
+        "name": {"type": "string"},
+        "type": {"const": "utility"},
+        "desc": {"type": "string"},
+        "recharge": {"type": "string"}
+      }
+    },
+    "descriptionAction": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {"type": "string"},
+        "desc": {"type": "string"}
+      }
+    }
+  }
+}

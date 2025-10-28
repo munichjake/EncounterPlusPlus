@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://encounterpp.dev/schemas/compact-creatures-v1.json",
+  "title": "Encounter++ Compact Creatures (Bulk) v1",
+  "oneOf": [
+    {
+      "type": "array",
+      "items": {
+        "$ref": "compact-creature-v1.json"
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "creatures"
+      ],
+      "properties": {
+        "schema": {
+          "type": "string",
+          "const": "encounterpp-compact-creatures"
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "creatures": {
+          "type": "array",
+          "items": {
+            "$ref": "compact-creature-v1.json"
+          }
+        }
+      }
+    }
+  ]
+}

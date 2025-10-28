@@ -1,0 +1,288 @@
+[
+  {
+    "id": "g6ZWjPVRDEMfY6rOnt5EA",
+    "createdBy": "jonas.e.albrecht@gmail.com",
+    "createdAt": 1761000537653,
+    "name": "Kenji Orasta",
+    "class": "Fighter 5 / Ranger 3",
+    "level": 8,
+    "race": "Variant Human",
+    "ac": 10,
+    "hp": 52,
+    "initiativeMod": 3,
+    "speed": "30 ft.",
+    "stats": {
+      "str": 13,
+      "dex": 17,
+      "con": 16,
+      "int": 8,
+      "wis": 14,
+      "cha": 14
+    },
+    "avatarUrl": "https://www.dndbeyond.com/avatars/42437/928/1581111423-126322616.jpeg?width=150&height=150&fit=crop&quality=95&auto=webp",
+    "proficiencyBonus": 3,
+    "tags": [
+      "avernus"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "fuQGUrwtHS0Bnw_-cHDu1",
+    "createdBy": "jonas.e.albrecht@gmail.com",
+    "createdAt": 1761085882613,
+    "name": "Klimweeli Klimper Tana Nimtim Donella Fulbil Tebbno",
+    "class": "Artificer 8",
+    "level": 8,
+    "race": "Rock Gnome",
+    "ac": 10,
+    "hp": 43,
+    "initiativeMod": 1,
+    "speed": "25 ft.",
+    "stats": {
+      "str": 9,
+      "dex": 13,
+      "con": 11,
+      "int": 18,
+      "wis": 11,
+      "cha": 12
+    },
+    "avatarUrl": "https://www.dndbeyond.com/avatars/42447/85/1581111423-126473923.jpeg?width=150&height=150&fit=crop&quality=95&auto=webp",
+    "proficiencyBonus": 3,
+    "tags": [
+      "D&D Beyond Import",
+      "avernus"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "8NhiTibVGLrVo81mtJkAL",
+    "ddbId": 150980836,
+    "name": "Lyria",
+    "class": "Ranger 2",
+    "level": 2,
+    "race": "Variant Aasimar",
+    "ac": 10,
+    "hp": 16,
+    "currentHp": 13,
+    "tempHp": 0,
+    "initiativeMod": 2,
+    "speed": "30 ft.",
+    "stats": {
+      "str": 12,
+      "dex": 14,
+      "con": 13,
+      "int": 8,
+      "wis": 15,
+      "cha": 10
+    },
+    "proficiencyBonus": 2,
+    "source": "ddb-import",
+    "avatarUrl": "https://www.dndbeyond.com/avatars/51000/261/1581111423-150980836.jpeg?width=150&height=150&fit=crop&quality=95&auto=webp",
+    "tags": [
+      "ddb-import",
+      "SPG-2502 - Drachen der Sturmwrack Insel"
+    ],
+    "spells": [
+      {
+        "name": "Hunter's Mark",
+        "level": 1,
+        "school": "Divination",
+        "castingTime": "1 3",
+        "range": "Ranged",
+        "duration": "Concentration",
+        "description": "<p>You magically mark one creature you can see within range as your quarry. Until the spell ends, you deal an extra 1d6 Force damage to the target whenever you hit it with an attack roll. You also have Advantage on any Wisdom (Perception or Survival) check you make to find it.</p>\r\n<p>If the target drops to 0 Hit Points before this spell ends, you can take a Bonus Action to move the mark to a new creature you can see within range.</p>\r\n<p><strong><em>Using a Higher-Level Spell Slot.</em></strong> Your Concentration can last longer with a spell slot of level 3&ndash;4 (up to 8 hours) or 5+ (up to 24 hours).</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": ""
+        },
+        "concentration": true,
+        "ritual": false,
+        "prepared": false
+      },
+      {
+        "name": "Guidance",
+        "level": 0,
+        "school": "Divination",
+        "castingTime": "1 1",
+        "range": "Touch",
+        "duration": "Concentration",
+        "description": "<p>You touch a willing creature and choose a skill. Until the spell ends, the creature adds 1d4 to any ability check using the chosen skill.</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": ""
+        },
+        "concentration": true,
+        "ritual": false,
+        "prepared": false
+      },
+      {
+        "name": "Starry Wisp",
+        "level": 0,
+        "school": "Evocation",
+        "castingTime": "1 1",
+        "range": "Ranged",
+        "duration": "Instantaneous",
+        "description": "<p>You launch a mote of light at one creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes 1d8 Radiant damage, and until the end of your next turn, it emits Dim Light in a 10-foot radius and can’t benefit from the Invisible condition.</p>\r\n<p><em><strong>Cantrip Upgrade.</strong></em> The damage increases by 1d8 when you reach levels 5 (2d8), 11 (3d8), and 17 (4d8).</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": ""
+        },
+        "concentration": false,
+        "ritual": false,
+        "prepared": false
+      },
+      {
+        "name": "Light",
+        "level": 0,
+        "school": "Evocation",
+        "castingTime": "1 1",
+        "range": "Touch",
+        "duration": "Time",
+        "description": "<p>You touch one object that is no larger than 10 feet in any dimension. Until the spell ends, the object sheds bright light in a 20-foot radius and dim light for an additional 20 feet. The light can be colored as you like. Completely covering the object with something opaque blocks the light. The spell ends if you cast it again or dismiss it as an action.</p>\r\n<p>If you target an object held or worn by a hostile creature, that creature must succeed on a Dexterity saving throw to avoid the spell.</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": "a firefly or phosphorescent moss"
+        },
+        "concentration": false,
+        "ritual": false,
+        "prepared": true,
+        "source": "racial"
+      }
+    ],
+    "spellSlots": {
+      "level1": {
+        "max": 0,
+        "used": 0
+      },
+      "level2": {
+        "max": 0,
+        "used": 0
+      },
+      "level3": {
+        "max": 0,
+        "used": 0
+      },
+      "level4": {
+        "max": 0,
+        "used": 0
+      },
+      "level5": {
+        "max": 0,
+        "used": 0
+      },
+      "level6": {
+        "max": 0,
+        "used": 0
+      },
+      "level7": {
+        "max": 0,
+        "used": 0
+      },
+      "level8": {
+        "max": 0,
+        "used": 0
+      },
+      "level9": {
+        "max": 0,
+        "used": 0
+      },
+      "pact": {
+        "level": 5,
+        "max": 0,
+        "used": 0
+      }
+    },
+    "features": [
+      {
+        "name": "Healing Hands",
+        "description": "<p>As an action, you can touch a creature and cause it to regain a number of hit points equal to your level. Once you use this trait, you can’t use it again until you finish a <span class=\"No-Break\">long rest.</span></p>",
+        "source": "racial"
+      },
+      {
+        "name": "Languages",
+        "description": "<p>You can speak, read, and write Common and <span class=\"No-Break\">Celestial.</span></p>",
+        "source": "racial"
+      },
+      {
+        "name": "Ability Score Increase",
+        "description": "<p>Your Wisdom score increases by 1, and your Charisma score incre<span class=\"No-Break\">ases by 2.</span></p>",
+        "source": "racial"
+      },
+      {
+        "name": "Age",
+        "description": "<p>Aasimar mature at the same rate as humans but live a few yea<span class=\"No-Break\">rs longer.</span></p>",
+        "source": "racial"
+      },
+      {
+        "name": "Celestial Legacy",
+        "description": "<p>You know the <span class=\"Serif-Character-Style_Italic-Serif\">light</span>&nbsp;cantrip. Once you reach 3rd level, you can cast the <span class=\"Serif-Character-Style_Italic-Serif\">lesser restoration</span>&nbsp;spell once with this trait, and you regain the ability to do so when you finish a long rest. Once you reach 5th level, you can cast the <span class=\"Serif-Character-Style_Italic-Serif\">daylight</span>&nbsp;spell once with this trait as a 3rd-level spell, and you regain the ability to do so when you finish a long rest. Charisma is your spellcasting ability for the<span class=\"No-Break\">se spells.</span></p>",
+        "source": "racial"
+      },
+      {
+        "name": "Size",
+        "description": "<p>Aasimar are built like well-proportioned humans. Your size&nbsp;<span class=\"No-Break\" data-content-chunk-id=\"ce80f080-1c29-4d5f-8a25-091f7f3c557e\">is Medium.</span></p>",
+        "source": "racial"
+      },
+      {
+        "name": "Speed",
+        "description": "<p>Your base walking speed i<span class=\"No-Break\" data-content-chunk-id=\"1112e22c-f156-488c-a920-d143071d6ead\">s 30 feet.</span></p>",
+        "source": "racial"
+      },
+      {
+        "name": "Darkvision",
+        "description": "<p>Thanks to your celestial heritage, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shade<span class=\"No-Break\" data-content-chunk-id=\"fe0c0a41-e5b8-49a8-bb40-3aa4b02e785c\">s of gray.</span></p>",
+        "source": "racial"
+      },
+      {
+        "name": "Celestial Resistance",
+        "description": "<p>You have resistance to necrotic damage and radia<span class=\"No-Break\" data-content-chunk-id=\"60f82fbd-a62a-4a76-a877-33f029c78876\">nt damage.</span></p>",
+        "source": "racial"
+      },
+      {
+        "name": "Magic Initiate (Wizard)",
+        "description": "<p><em>Origin Feat</em></p>\r\n<p>You gain the following benefits.</p>\r\n<p><em><strong>Two Cantrips.</strong></em> You learn two cantrips of your choice from the Wizard spell list. Intelligence, Wisdom, or Charisma is your spellcasting ability for this feat’s spells (choose when you select this feat).</p>\r\n<p><em><strong>Level 1 Spell.</strong> </em>Choose a level 1 spell from the same list you selected for this feat’s cantrips. You always have that spell prepared. You can cast it once without a spell slot, and you regain the ability to cast it in that way when you finish a Long Rest. You can also cast the spell using any spell slots you have.</p>\r\n<p><em><strong>Spell Change.</strong></em> Whenever you gain a new level, you can replace one of the spells you chose for this feat with a different spell of the same level from the chosen spell list.</p>\r\n<p><em><strong>Repeatable.</strong></em> You can take this feat more than once, but you must choose a different spell list each time.</p>",
+        "source": "feat"
+      },
+      {
+        "name": "Sage Ability Score Improvements",
+        "description": "<p>The Sage Background allows you to choose between Constitution, Intelligence, and Wisdom. Increase one of these scores by 2 and another one by 1, or increase all three by 1. None of these increases can raise a score above 20.</p>",
+        "source": "feat"
+      },
+      {
+        "name": "Weapon Mastery",
+        "description": "<p>Your training with weapons allows you to use the mastery properties of two kinds of weapons of your choice with which you have proficiency.</p>\r\n<p>Whenever you finish a Long Rest, you can change the kinds of weapons you chose.</p>",
+        "source": "feat"
+      },
+      {
+        "name": "Dark Bargain",
+        "description": "<p>At your GM's discretion, you can take a Dark Bargain.</p>",
+        "source": "feat"
+      }
+    ],
+    "actions": [
+      {
+        "name": "Hunter’s Mark",
+        "description": "You always have Hunter’s Mark prepared and can cast it without expending a spell slot {{limiteduse}} times per Long Rest.",
+        "actionType": 3
+      },
+      {
+        "name": "Healing Hands",
+        "description": "Once per long rest as an action, touch a creature and restore {{characterlevel#unsigned}} hit points.",
+        "actionType": 1,
+        "source": "racial"
+      }
+    ],
+    "campaignName": "SPG-2502 - Drachen der Sturmwrack Insel",
+    "notes": "",
+    "createdBy": "jonas.e.albrecht@gmail.com",
+    "createdAt": 1761220614492
+  }
+]

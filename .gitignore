@@ -1,0 +1,78 @@
+# Umgebungsvariablen (enthält sensible Daten)
+.env
+server/.env
+client/.env
+
+# Session-Daten (enthält gehashte Tokens)
+data/sessions.json
+
+# Logs
+server/logs/
+*.log
+
+# Dependencies
+node_modules/
+server/node_modules/
+client/node_modules/
+
+# Build outputs
+dist/
+build/
+client/dist/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# User data and settings
+data/user-settings.json
+data/folders.json
+data/allowed-emails.json
+data/campaigns.json
+data/encounters.json
+
+# Import data
+data/imports/
+
+# Image cache
+data/image-cache/
+
+# Creature data (exclude everything except srd/)
+data/creatures/*
+!data/creatures/srd/
+
+# Temporary files
+nul
+
+# Deployment and configuration files
+Caddyfile
+Caddyfile.production
+Caddyfile_complete
+deploy.bat
+
+# Python scripts (utilities/converters)
+*.py
+
+# Documentation files
+*.md
+
+# Stats and analysis
+codebase_stats.json
+bracket_changes.txt
+
+# Test files
+test_user_monsters.js
+
+# Distribution folder
+dist/

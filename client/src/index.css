@@ -1,0 +1,366 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-white dark:bg-slate-900;
+  }
+  body {
+    @apply bg-white dark:bg-slate-900;
+  }
+}
+
+@layer components {
+  .card { @apply bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 shadow-sm transition-shadow hover:shadow-md; }
+  .btn { @apply inline-flex items-center justify-center px-3 py-1.5 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 active:scale-[0.98] transition-all; }
+  .input { @apply w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white dark:bg-slate-800 dark:text-slate-100 transition-shadow; }
+  .h2 { @apply text-lg font-semibold mb-2 dark:text-slate-200; }
+  .lbl { @apply text-sm text-slate-600 dark:text-slate-400 font-medium; }
+}
+
+/* Gebürstetes Metall Münzen */
+.marker-coins {
+    display: inline-flex;
+    gap: 4px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.marker-coins .coin {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.marker-coins.active .coin {
+    background:
+        repeating-linear-gradient(
+            90deg,
+            currentColor 0px,
+            color-mix(in srgb, currentColor 90%, white) 1px,
+            currentColor 2px
+        ),
+        radial-gradient(circle at 40% 40%,
+            color-mix(in srgb, currentColor 85%, white),
+            color-mix(in srgb, currentColor 70%, black));
+    border: 1.5px solid color-mix(in srgb, currentColor 75%, white);
+    box-shadow:
+        inset -2px -2px 4px rgba(0,0,0,0.5),
+        inset 1px 1px 2px rgba(255,255,255,0.3),
+        0 2px 6px rgba(0,0,0,0.4);
+}
+
+.marker-coins.inactive .coin {
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #555 0px,
+            #666 1px,
+            #555 2px
+        ),
+        radial-gradient(circle at 40% 40%, #666, #444);
+    border: 1.5px solid #555;
+    box-shadow: inset -1px -1px 2px rgba(0,0,0,0.4);
+}
+
+/* Farben für verschiedene Typen */
+.marker-coins.spell { color: #9b87f5; }
+.marker-coins.legendary { color: #fbbf24; }
+.marker-coins.resistance { color: #ef4444; }
+.marker-coins.recharge { color: #f97316; }
+
+/* Remove number input spinner arrows */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Darker placeholder text for better visibility */
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+  @apply text-slate-400 dark:text-slate-600;
+  opacity: 1;
+}
+
+input:focus::placeholder,
+textarea:focus::placeholder,
+select:focus::placeholder {
+  @apply text-slate-300 dark:text-slate-700;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUpFromButton {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUpComplete {
+  0% {
+    opacity: 0;
+    transform: translateY(calc(100% + 24px));
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -60px) scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, 10px) scale(1.05);
+  }
+  70% {
+    transform: translate(-50%, -5px) scale(0.98);
+  }
+  100% {
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+@keyframes slideInFromBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutScale {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+}
+
+@keyframes shrinkWidth {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ========================================
+   Select2 Dark Mode Styling
+   ======================================== */
+
+/* Dark mode for Select2 container */
+.dark .select2-container--default .select2-selection--multiple {
+  background-color: rgb(30 41 59) !important; /* slate-800 */
+  border-color: rgb(51 65 85) !important; /* slate-700 */
+  color: rgb(226 232 240) !important; /* slate-200 */
+}
+
+/* Dark mode for selected items (pills) */
+.dark .select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: rgb(59 130 246) !important; /* blue-500 */
+  border-color: rgb(37 99 235) !important; /* blue-600 */
+  color: white !important;
+}
+
+/* Dark mode for remove button in pills */
+.dark .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+  color: white !important;
+  border-right-color: rgb(37 99 235) !important; /* blue-600 */
+}
+
+.dark .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+  color: rgb(239 68 68) !important; /* red-500 */
+}
+
+/* Dark mode for search input */
+.dark .select2-container--default .select2-search--inline .select2-search__field {
+  color: rgb(226 232 240) !important; /* slate-200 */
+}
+
+.dark .select2-container--default .select2-search--inline .select2-search__field::placeholder {
+  color: rgb(100 116 139) !important; /* slate-500 */
+}
+
+/* Dark mode for dropdown */
+.dark .select2-container--default .select2-results__option {
+  background-color: rgb(30 41 59) !important; /* slate-800 */
+  color: rgb(226 232 240) !important; /* slate-200 */
+}
+
+/* Dark mode for highlighted option */
+.dark .select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: rgb(59 130 246) !important; /* blue-500 */
+  color: white !important;
+}
+
+/* Dark mode for selected option */
+.dark .select2-container--default .select2-results__option[aria-selected=true] {
+  background-color: rgb(51 65 85) !important; /* slate-700 */
+}
+
+/* Dark mode for dropdown container */
+.dark .select2-dropdown {
+  background-color: rgb(30 41 59) !important; /* slate-800 */
+  border-color: rgb(51 65 85) !important; /* slate-700 */
+}
+
+/* Dark mode for search in dropdown */
+.dark .select2-search--dropdown .select2-search__field {
+  background-color: rgb(51 65 85) !important; /* slate-700 */
+  border-color: rgb(71 85 105) !important; /* slate-600 */
+  color: rgb(226 232 240) !important; /* slate-200 */
+}
+
+.dark .select2-search--dropdown .select2-search__field::placeholder {
+  color: rgb(100 116 139) !important; /* slate-500 */
+}
+
+/* Dark mode for focus states */
+.dark .select2-container--default.select2-container--focus .select2-selection--multiple {
+  border-color: rgb(59 130 246) !important; /* blue-500 */
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Subtle shiny sweep animation for combat start */
+@keyframes shiny-sweep {
+  0%, 85%, 100% {
+    background-position: -200% center;
+    transform: scale(1);
+  }
+  95% {
+    background-position: 200% center;
+    transform: scale(1.02);
+  }
+}
+
+.shiny-text {
+  background: linear-gradient(
+    135deg,
+    #f59e0b 0%,
+    #f59e0b 35%,
+    #fff8dc 50%,
+    #f59e0b 65%,
+    #f59e0b 100%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shiny-sweep 8s ease-in-out infinite;
+}
+
+/* Concentration border pulse animation */
+@keyframes concentration-pulse {
+  0%, 100% {
+    border-color: rgba(168, 85, 247, 0.5);
+    box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.4);
+  }
+  50% {
+    border-color: rgba(168, 85, 247, 1);
+    box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.2);
+  }
+}

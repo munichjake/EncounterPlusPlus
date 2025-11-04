@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 export function Settings({ isOpen, onClose }) {
   const [diceRollerType, setDiceRollerType] = useState('2d');
+  const [creatureNamingMode, setCreatureNamingMode] = useState('adjective');
+  const [concentrationCheckReminder, setConcentrationCheckReminder] = useState(true);
+  const [autoRollConcentrationNPCs, setAutoRollConcentrationNPCs] = useState(true);
+  const [conditionImmunityReminder, setConditionImmunityReminder] = useState(true);
 
   // Load settings from localStorage on mount
   useEffect(() => {
@@ -12,6 +16,18 @@ export function Settings({ isOpen, onClose }) {
         if (settings.diceRollerType) {
           setDiceRollerType(settings.diceRollerType);
         }
+        if (settings.creatureNamingMode) {
+          setCreatureNamingMode(settings.creatureNamingMode);
+        }
+        if (settings.concentrationCheckReminder !== undefined) {
+          setConcentrationCheckReminder(settings.concentrationCheckReminder);
+        }
+        if (settings.autoRollConcentrationNPCs !== undefined) {
+          setAutoRollConcentrationNPCs(settings.autoRollConcentrationNPCs);
+        }
+        if (settings.conditionImmunityReminder !== undefined) {
+          setConditionImmunityReminder(settings.conditionImmunityReminder);
+        }
       } catch (e) {
         console.error('Failed to load settings:', e);
       }
@@ -21,7 +37,11 @@ export function Settings({ isOpen, onClose }) {
   // Save settings to localStorage
   const saveSettings = () => {
     const settings = {
-      diceRollerType
+      diceRollerType,
+      creatureNamingMode,
+      concentrationCheckReminder,
+      autoRollConcentrationNPCs,
+      conditionImmunityReminder
     };
     localStorage.setItem('app-settings', JSON.stringify(settings));
 
@@ -128,13 +148,198 @@ export function Settings({ isOpen, onClose }) {
               </div>
             </div>
 
-            {/* Info Box */}
-            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3">
-              <div className="flex gap-2">
-                <span className="text-blue-600 dark:text-blue-400 text-lg">ℹ️</span>
-                <div className="text-sm text-blue-800 dark:text-blue-300">
-                  Du kannst jederzeit zwischen den Würfel-Typen wechseln. Die Einstellung wird automatisch gespeichert.
-                </div>
+            {/* Creature Naming Mode Setting */}
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
+                Kreaturen-Benennung bei Duplikaten
+              </label>
+              <div className="space-y-3">
+                {/* None Option */}
+                <label className="flex items-start gap-3 p-3 rounded-lg border-2 transition-all cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 group"
+                  style={{
+                    borderColor: creatureNamingMode === 'none' ? '#3b82f6' : 'transparent',
+                    backgroundColor: creatureNamingMode === 'none' ? 'rgba(59, 130, 246, 0.05)' : 'transparent'
+                  }}
+                >
+                  <input
+                    type="radio"
+                    name="creatureNamingMode"
+                    value="none"
+                    checked={creatureNamingMode === 'none'}
+                    onChange={(e) => setCreatureNamingMode(e.target.value)}
+                    className="mt-1 w-4 h-4 text-blue-600 focus:ring-blue-500"
+                  />
+                  <div className="flex-1">
+                    <div className="font-medium text-slate-900 dark:text-slate-100">
+                      Keine (z.B. "Goblin", "Goblin", "Goblin")
+                    </div>
+                    <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                      Keine automatische Umbenennung bei Duplikaten
+                    </div>
+                  </div>
+                </label>
+
+                {/* Adjective Option */}
+                <label className="flex items-start gap-3 p-3 rounded-lg border-2 transition-all cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 group"
+                  style={{
+                    borderColor: creatureNamingMode === 'adjective' ? '#3b82f6' : 'transparent',
+                    backgroundColor: creatureNamingMode === 'adjective' ? 'rgba(59, 130, 246, 0.05)' : 'transparent'
+                  }}
+                >
+                  <input
+                    type="radio"
+                    name="creatureNamingMode"
+                    value="adjective"
+                    checked={creatureNamingMode === 'adjective'}
+                    onChange={(e) => setCreatureNamingMode(e.target.value)}
+                    className="mt-1 w-4 h-4 text-blue-600 focus:ring-blue-500"
+                  />
+                  <div className="flex-1">
+                    <div className="font-medium text-slate-900 dark:text-slate-100">
+                      Adjektive (z.B. "Brave Goblin", "Fierce Goblin")
+                    </div>
+                    <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                      Verwendet zufällige beschreibende Adjektive
+                    </div>
+                  </div>
+                </label>
+
+                {/* Letter Option */}
+                <label className="flex items-start gap-3 p-3 rounded-lg border-2 transition-all cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 group"
+                  style={{
+                    borderColor: creatureNamingMode === 'letter' ? '#3b82f6' : 'transparent',
+                    backgroundColor: creatureNamingMode === 'letter' ? 'rgba(59, 130, 246, 0.05)' : 'transparent'
+                  }}
+                >
+                  <input
+                    type="radio"
+                    name="creatureNamingMode"
+                    value="letter"
+                    checked={creatureNamingMode === 'letter'}
+                    onChange={(e) => setCreatureNamingMode(e.target.value)}
+                    className="mt-1 w-4 h-4 text-blue-600 focus:ring-blue-500"
+                  />
+                  <div className="flex-1">
+                    <div className="font-medium text-slate-900 dark:text-slate-100">
+                      Buchstaben (z.B. "Goblin A", "Goblin B")
+                    </div>
+                    <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                      Nummeriert mit Buchstaben A-Z
+                    </div>
+                  </div>
+                </label>
+
+                {/* Number Option */}
+                <label className="flex items-start gap-3 p-3 rounded-lg border-2 transition-all cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 group"
+                  style={{
+                    borderColor: creatureNamingMode === 'number' ? '#3b82f6' : 'transparent',
+                    backgroundColor: creatureNamingMode === 'number' ? 'rgba(59, 130, 246, 0.05)' : 'transparent'
+                  }}
+                >
+                  <input
+                    type="radio"
+                    name="creatureNamingMode"
+                    value="number"
+                    checked={creatureNamingMode === 'number'}
+                    onChange={(e) => setCreatureNamingMode(e.target.value)}
+                    className="mt-1 w-4 h-4 text-blue-600 focus:ring-blue-500"
+                  />
+                  <div className="flex-1">
+                    <div className="font-medium text-slate-900 dark:text-slate-100">
+                      Zahlen (z.B. "Goblin 1", "Goblin 2")
+                    </div>
+                    <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                      Einfache numerische Nummerierung
+                    </div>
+                  </div>
+                </label>
+
+                {/* Roman Numerals Option */}
+                <label className="flex items-start gap-3 p-3 rounded-lg border-2 transition-all cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 group"
+                  style={{
+                    borderColor: creatureNamingMode === 'roman' ? '#3b82f6' : 'transparent',
+                    backgroundColor: creatureNamingMode === 'roman' ? 'rgba(59, 130, 246, 0.05)' : 'transparent'
+                  }}
+                >
+                  <input
+                    type="radio"
+                    name="creatureNamingMode"
+                    value="roman"
+                    checked={creatureNamingMode === 'roman'}
+                    onChange={(e) => setCreatureNamingMode(e.target.value)}
+                    className="mt-1 w-4 h-4 text-blue-600 focus:ring-blue-500"
+                  />
+                  <div className="flex-1">
+                    <div className="font-medium text-slate-900 dark:text-slate-100">
+                      Römische Zahlen (z.B. "Goblin I", "Goblin II")
+                    </div>
+                    <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                      Klassische römische Nummerierung
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            {/* Concentration & Condition Settings */}
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
+                Concentration & Condition Checks
+              </label>
+              <div className="space-y-3">
+                {/* Concentration Check Reminder Toggle */}
+                <label className="flex items-center justify-between p-3 rounded-lg border-2 border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                  <div className="flex-1">
+                    <div className="font-medium text-slate-900 dark:text-slate-100">
+                      Concentration Check Reminder
+                    </div>
+                    <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                      Show popup when PCs need concentration checks
+                    </div>
+                  </div>
+                  <input
+                    type="checkbox"
+                    checked={concentrationCheckReminder}
+                    onChange={(e) => setConcentrationCheckReminder(e.target.checked)}
+                    className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+                  />
+                </label>
+
+                {/* Auto Roll Concentration for NPCs Toggle */}
+                <label className="flex items-center justify-between p-3 rounded-lg border-2 border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                  <div className="flex-1">
+                    <div className="font-medium text-slate-900 dark:text-slate-100">
+                      Auto Roll Concentration Checks for NPCs
+                    </div>
+                    <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                      Automatically roll concentration checks for monsters
+                    </div>
+                  </div>
+                  <input
+                    type="checkbox"
+                    checked={autoRollConcentrationNPCs}
+                    onChange={(e) => setAutoRollConcentrationNPCs(e.target.checked)}
+                    className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+                  />
+                </label>
+
+                {/* Condition Immunity Reminder Toggle */}
+                <label className="flex items-center justify-between p-3 rounded-lg border-2 border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                  <div className="flex-1">
+                    <div className="font-medium text-slate-900 dark:text-slate-100">
+                      Condition Immunity Reminder
+                    </div>
+                    <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                      Show warnings when applying conditions to immune creatures
+                    </div>
+                  </div>
+                  <input
+                    type="checkbox"
+                    checked={conditionImmunityReminder}
+                    onChange={(e) => setConditionImmunityReminder(e.target.checked)}
+                    className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+                  />
+                </label>
               </div>
             </div>
           </div>
@@ -163,7 +368,11 @@ export function Settings({ isOpen, onClose }) {
 // Hook to get current settings
 export function useSettings() {
   const [settings, setSettings] = useState({
-    diceRollerType: '2d'
+    diceRollerType: '2d',
+    creatureNamingMode: 'adjective',
+    concentrationCheckReminder: true,
+    autoRollConcentrationNPCs: true,
+    conditionImmunityReminder: true
   });
 
   useEffect(() => {

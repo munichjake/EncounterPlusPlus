@@ -73,7 +73,23 @@ codebase_stats.json
 bracket_changes.txt
 
 # Test files
-test_user_monsters.js
+test_*.js
+test_*.json
+
+# ECR training runs
+ecr_runs/
+
+# ML models
+models/
+
+# Download progress
+download_progress.json
+
+# Mobile app (if not needed in main repo)
+mobile-app/
+
+# AI design files
+*.ai
 
 # Distribution folder
 dist/

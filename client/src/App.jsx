@@ -14,45 +14,97 @@ import { initializeDiceRoller, rollDice } from "./utils/diceRoller.js";
 import { ThreeDDice, ThreeDDiceAPI } from "dddice-js";
 import CampaignManager from "./components/CampaignManager.jsx";
 import EncounterTreeView from "./components/EncounterTreeView.jsx";
+import { ShareCodeModal } from "./components/ShareCodeModal.jsx";
 
 // jQuery and Select2 are loaded via CDN in index.html
 
-// Adjective pool for naming duplicate creatures (50+ adjectives)
-const CREATURE_ADJECTIVES = [
-  "Brave", "Cunning", "Fierce", "Swift", "Mighty", "Clever", "Deadly", "Ancient",
-  "Young", "Old", "Wise", "Foolish", "Angry", "Happy", "Sad", "Grumpy", "Cheerful",
-  "Evil", "Good", "Chaotic", "Lawful", "Sneaky", "Bold", "Timid", "Cruel", "Kind",
-  "Brutal", "Gentle", "Wild", "Tame", "Hungry", "Sleepy", "Alert", "Lazy", "Eager",
-  "Reluctant", "Zealous", "Cowardly", "Noble", "Wicked", "Blessed", "Cursed", "Lucky",
-  "Unlucky", "Scarred", "Pristine", "Battered", "Fresh", "Weary", "Energetic", "Stealthy",
-  "Loud", "Silent", "Howling", "Whispering", "Blazing", "Frozen", "Toxic", "Radiant",
-  "Shadow", "Bright", "Dark", "Pale", "Crimson", "Azure", "Golden", "Silver", "Iron",
-  "Stone", "Crystal", "Ethereal", "Spectral", "Ghostly", "Demonic", "Angelic", "Feral",
-  "Rabid", "Calm", "Frenzied", "Stoic", "Manic", "Serene", "Vicious", "Docile", "Proud"
-];
+// Creature adjectives will be loaded from JSON file
+let CREATURE_ADJECTIVES = [];
 
-// Get a random adjective that hasn't been used yet for this creature type
-function getUniqueAdjective(baseName, existingNames) {
-  const usedAdjectives = existingNames
-    .filter(name => name.includes(baseName))
-    .map(name => name.replace(baseName, '').trim())
-    .filter(adj => CREATURE_ADJECTIVES.includes(adj));
-
-  const availableAdjectives = CREATURE_ADJECTIVES.filter(adj => !usedAdjectives.includes(adj));
-
-  if (availableAdjectives.length === 0) {
-    // If all adjectives used, start adding numbers
-    const maxNumber = existingNames
-      .filter(name => name.includes(baseName))
-      .map(name => {
-        const match = name.match(/(\d+)$/);
-        return match ? parseInt(match[1]) : 0;
-      })
-      .reduce((max, num) => Math.max(max, num), 0);
-    return `${CREATURE_ADJECTIVES[Math.floor(Math.random() * CREATURE_ADJECTIVES.length)]} ${maxNumber + 1}`;
+// Load adjectives from JSON file
+async function loadCreatureAdjectives() {
+  try {
+    const response = await fetch(API('/data/creature-adjectives.json'));
+    const data = await response.json();
+    CREATURE_ADJECTIVES = data.adjectives || [];
+  } catch (error) {
+    console.error('Failed to load creature adjectives:', error);
+    // Fallback to a few basic adjectives if loading fails
+    CREATURE_ADJECTIVES = ["Brave", "Cunning", "Fierce", "Swift", "Mighty"];
   }
+}
 
-  return availableAdjectives[Math.floor(Math.random() * availableAdjectives.length)];
+// Convert number to Roman numerals
+function toRomanNumeral(num) {
+  const romanMap = [
+    [1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'],
+    [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'],
+    [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']
+  ];
+  let result = '';
+  for (const [value, numeral] of romanMap) {
+    while (num >= value) {
+      result += numeral;
+      num -= value;
+    }
+  }
+  return result;
+}
+
+// Get unique identifier for duplicate creatures based on naming mode
+function getUniqueIdentifier(baseName, existingNames, namingMode = 'adjective') {
+  const duplicates = existingNames.filter(name =>
+    name === baseName || name.match(new RegExp(`^(.+\\s)?${baseName}$`))
+  );
+  const index = duplicates.length + 1;
+
+  switch (namingMode) {
+    case 'letter':
+      // A-Z, then AA, AB, etc.
+      const letter = index <= 26
+        ? String.fromCharCode(64 + index)
+        : String.fromCharCode(64 + Math.floor((index - 1) / 26)) + String.fromCharCode(65 + ((index - 1) % 26));
+      return letter;
+
+    case 'number':
+      return index.toString();
+
+    case 'roman':
+      return toRomanNumeral(index);
+
+    case 'adjective':
+    default:
+      // Get unused adjectives for this creature type
+      const usedAdjectives = existingNames
+        .filter(name => name.includes(baseName))
+        .map(name => name.replace(baseName, '').trim())
+        .filter(adj => CREATURE_ADJECTIVES.includes(adj));
+
+      const availableAdjectives = CREATURE_ADJECTIVES.filter(adj => !usedAdjectives.includes(adj));
+
+      if (availableAdjectives.length === 0) {
+        // If all adjectives used, append a number
+        const maxNumber = existingNames
+          .filter(name => name.includes(baseName))
+          .map(name => {
+            const match = name.match(/(\d+)$/);
+            return match ? parseInt(match[1]) : 0;
+          })
+          .reduce((max, num) => Math.max(max, num), 0);
+        return `${CREATURE_ADJECTIVES[Math.floor(Math.random() * CREATURE_ADJECTIVES.length)]} ${maxNumber + 1}`;
+      }
+
+      return availableAdjectives[Math.floor(Math.random() * availableAdjectives.length)];
+  }
+}
+
+// Format creature name based on naming mode
+function formatCreatureName(identifier, baseName, namingMode = 'adjective') {
+  if (namingMode === 'adjective') {
+    return `${identifier} ${baseName}`;
+  } else {
+    return `${baseName} ${identifier}`;
+  }
 }
 
 // Source abbreviation vocabulary with colors
@@ -551,15 +603,24 @@ function capitalizeDefense(text) {
 function formatActionName(name) {
   if (!name) return name;
 
-  // Replace {@recharge N} with formatted badge
-  const rechargeMatch = name.match(/\{@recharge (\d+)\}/i);
-  if (rechargeMatch) {
-    const num = parseInt(rechargeMatch[1]);
+  // Replace {@recharge N} with formatted badge (with or without number)
+  const rechargeMatchWithNum = name.match(/\{@recharge (\d+)\}/i);
+  if (rechargeMatchWithNum) {
+    const num = parseInt(rechargeMatchWithNum[1]);
     const range = num === 6 ? "6" : `${num}-6`;
     // Return without the recharge tag - will be added as badge separately
     return {
       name: name.replace(/\{@recharge \d+\}/i, '').trim(),
       recharge: range
+    };
+  }
+
+  // Handle {@recharge} without number (default is 5-6)
+  const rechargeMatchNoNum = name.match(/\{@recharge\}/i);
+  if (rechargeMatchNoNum) {
+    return {
+      name: name.replace(/\{@recharge\}/i, '').trim(),
+      recharge: "5-6"
     };
   }
 
@@ -594,7 +655,15 @@ function parseDefenseArray(defenseArray) {
 
 export default function App() {
   const { user, loading, logout } = useAuth();
-  const { alert, confirm, prompt, initiativePrompt, modal } = useModal();
+  const [diceContextMenu, setDiceContextMenu] = useState({
+    show: false,
+    x: 0,
+    y: 0,
+    notation: "",
+    type: "damage",
+    onRoll: null,
+  }); // Context menu for dice rolls
+  const { alert, confirm, prompt, initiativePrompt, hpManagement, modal } = useModal(rollDice, setDiceContextMenu);
 
   // Unified HP change logic - always applies temp HP first for damage
   function applyHPChange(combatant, inputValue) {
@@ -646,6 +715,7 @@ export default function App() {
   const [encountersLoading, setEncountersLoading] = useState(true);
   const [currentId, setCurrentId] = useState(null);
   const [selectedCombatantId, setSelectedCombatantId] = useState(null);
+  const [ecrData, setEcrData] = useState(null); // ML-predicted eCR for selected combatant
   const [combatMode, setCombatMode] = useState(false);
   const [diceRollResult, setDiceRollResult] = useState(null);
   const [showDiceRoller, setShowDiceRoller] = useState(false);
@@ -693,6 +763,7 @@ export default function App() {
     y: 0,
     spell: null,
   });
+  const [showShareCodeModal, setShowShareCodeModal] = useState(false);
 
   // Helper function for spell tooltip handlers
   const getSpellTooltipHandlers = (spellName) => ({
@@ -718,6 +789,45 @@ export default function App() {
       setSpellTooltip({ show: false, x: 0, y: 0, spell: null });
     },
   });
+
+  // Condition tooltip and modal state
+  const [conditionsData, setConditionsData] = useState({});
+  const [conditionTooltip, setConditionTooltip] = useState({
+    show: false,
+    x: 0,
+    y: 0,
+    condition: null,
+  });
+  const [selectedCondition, setSelectedCondition] = useState(null);
+  const [conditionName, setConditionName] = useState(null);
+  const [showConditionModal, setShowConditionModal] = useState(false);
+
+  // Helper function for condition tooltip handlers
+  const getConditionTooltipHandlers = (conditionName) => ({
+    onMouseEnter: (e) => {
+      const conditionData = conditionsData[conditionName.toLowerCase()];
+      if (conditionData) {
+        setConditionTooltip({
+          show: true,
+          x: e.clientX,
+          y: e.clientY,
+          condition: conditionData,
+          name: conditionName,
+        });
+      }
+    },
+    onMouseMove: (e) => {
+      setConditionTooltip(prev => ({
+        ...prev,
+        x: e.clientX,
+        y: e.clientY,
+      }));
+    },
+    onMouseLeave: () => {
+      setConditionTooltip({ show: false, x: 0, y: 0, condition: null, name: null });
+    },
+  });
+
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [selectedSpell, setSelectedSpell] = useState(null);
@@ -726,6 +836,7 @@ export default function App() {
   // Collapse states for panels
   const [encounterTreeCollapsed, setEncounterTreeCollapsed] = useState(false);
   const [quickActionsCollapsed, setQuickActionsCollapsed] = useState(false);
+  const [playerScreenControlsCollapsed, setPlayerScreenControlsCollapsed] = useState(false);
   const [activeSidebarPanel, setActiveSidebarPanel] = useState(null); // 'encounters', 'quickActions', 'players', null
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [monsterBrowserCollapsed, setMonsterBrowserCollapsed] = useState(false);
@@ -758,16 +869,28 @@ export default function App() {
     y: 0,
     current: 0,
     max: 0,
+    tempHP: 0,
+    maxHPModifier: 0,
     hitDice: null,
   }); // Custom tooltip for HP
-  const [diceContextMenu, setDiceContextMenu] = useState({
+  const [crTooltip, setCrTooltip] = useState({
     show: false,
     x: 0,
     y: 0,
-    notation: "",
-    type: "damage",
-    onRoll: null,
-  }); // Context menu for dice rolls
+    cr: 0,
+    eCRData: null,
+    loading: false,
+    error: null,
+  }); // Custom tooltip for CR with eCR
+  const [showECRModal, setShowECRModal] = useState(false);
+  const [ecrModalData, setECRModalData] = useState(null);
+  const [damageModifier, setDamageModifier] = useState({
+    show: false,
+    combatantId: null,
+    x: 0,
+    y: 0,
+  }); // Damage modifier tooltip
+  const [bloodiedToasts, setBloodiedToasts] = useState([]); // Toast notifications for bloodied creatures
   const settings = useSettings();
 
   // Callback to update encounters list when encounter name changes
@@ -794,6 +917,89 @@ export default function App() {
   const dddiceRef = useRef(null);
   const dddiceCanvasRef = useRef(null);
   const [dddiceReady, setDddiceReady] = useState(false);
+
+  // Load eCR for selected combatant
+  useEffect(() => {
+    if (!selectedCombatant || !selectedCombatant.name) {
+      setEcrData(null);
+      return;
+    }
+
+    // Only fetch eCR for monster combatants (not players or lair actions)
+    if (selectedCombatant.is_player || selectedCombatantId?.startsWith('lair_')) {
+      setEcrData(null);
+      return;
+    }
+
+    // Fetch eCR prediction from server
+    const fetchECR = async () => {
+      try {
+        const response = await fetch(API('/api/ecr/predict'), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(selectedCombatant),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setEcrData(data);
+        } else {
+          console.error('Failed to fetch eCR:', response.statusText);
+          setEcrData(null);
+        }
+      } catch (error) {
+        console.error('Error fetching eCR:', error);
+        setEcrData(null);
+      }
+    };
+
+    fetchECR();
+  }, [selectedCombatant, selectedCombatantId]);
+
+  // Load creature adjectives on app start
+  useEffect(() => {
+    loadCreatureAdjectives();
+  }, []);
+
+  // Load conditions on app start
+  useEffect(() => {
+    const loadConditions = async () => {
+      try {
+        const response = await fetch(API('/api/conditions'));
+        const data = await response.json();
+
+        // Create a lookup map by condition name (case-insensitive)
+        // Store both PHB and XPHB versions if available
+        const conditionsMap = {};
+        if (data.condition && Array.isArray(data.condition)) {
+          data.condition.forEach(cond => {
+            const name = cond.name.toLowerCase();
+
+            if (!conditionsMap[name]) {
+              // First entry for this condition
+              conditionsMap[name] = {
+                legacy: null,
+                reprinted: null,
+              };
+            }
+
+            // Store based on source
+            if (cond.source === 'PHB') {
+              conditionsMap[name].legacy = cond;
+            } else if (cond.source === 'XPHB') {
+              conditionsMap[name].reprinted = cond;
+            }
+          });
+        }
+        setConditionsData(conditionsMap);
+      } catch (error) {
+        console.error('Failed to load conditions:', error);
+      }
+    };
+    loadConditions();
+  }, []);
 
   useEffect(() => {
     const initDddice = async () => {
@@ -1135,11 +1341,15 @@ export default function App() {
   // Handle Delete key to remove selected combatant
   useEffect(() => {
     const handleKeyDown = async (event) => {
+      // Check if combat is completed
+      const isCompleted = enc?.combatStatus === 'completed';
+
       // Check if Delete or Backspace key is pressed
       if (
         (event.key === "Delete" || event.key === "Backspace") &&
         selectedCombatantId &&
-        enc
+        enc &&
+        !isCompleted  // Don't allow deletion if combat is completed
       ) {
         // Don't trigger if user is typing in an input/textarea
         if (
@@ -1343,23 +1553,48 @@ export default function App() {
       const damage = Math.max(hpDamage, tempHPDamage, hpDamage + tempHPDamage);
 
       const dc = Math.max(10, Math.floor(damage / 2));
-      const roll = rollD20();
       const conMod = combatant.concentrationMod || 0;
-      const total = roll + conMod;
 
-      const passed = total >= dc;
-      setDiceRollResult({
-        type: "concentration",
-        name: combatant.name,
-        roll,
-        modifier: conMod,
-        total,
-        dc,
-        passed,
-      });
+      // Check if this is a player character or sidekick
+      const isPC = combatant.player || combatant.isPC || combatant.source === "ddb-import" || combatant.source === "player-character";
+      const isSidekick = combatant.sidekickOf;
 
-      if (!passed) {
-        patch = { ...patch, concentration: false };
+      if (isPC || isSidekick) {
+        // For PCs and sidekicks, show notification if enabled
+        if (settings.concentrationCheckReminder) {
+          setDiceRollResult({
+            type: "concentration",
+            name: combatant.name,
+            combatantId: id, // Store ID to update concentration later
+            roll: null, // No auto-roll for PCs
+            modifier: conMod,
+            total: null,
+            dc,
+            passed: null, // DM will decide
+            isPlayerCharacter: true, // Flag to show different UI
+          });
+        }
+      } else {
+        // For NPCs/monsters, auto-roll if enabled
+        if (settings.autoRollConcentrationNPCs) {
+          const roll = rollD20();
+          const total = roll + conMod;
+          const passed = total >= dc;
+
+          setDiceRollResult({
+            type: "concentration",
+            name: combatant.name,
+            roll,
+            modifier: conMod,
+            total,
+            dc,
+            passed,
+          });
+
+          if (!passed) {
+            patch = { ...patch, concentration: false };
+          }
+        }
       }
     }
 
@@ -1370,6 +1605,24 @@ export default function App() {
         [id]: { ...enc.combatants[id], ...patch },
       },
     };
+
+    // Check if creature became bloodied (HP < 50%)
+    const updatedCombatant = next.combatants[id];
+    const effectiveMaxHP = (updatedCombatant.baseHP || 0) + (updatedCombatant.maxHPModifier || 0);
+    const oldHPPercent = effectiveMaxHP > 0 ? (oldHP / effectiveMaxHP) * 100 : 100;
+    const newHPPercent = effectiveMaxHP > 0 ? (newHP / effectiveMaxHP) * 100 : 100;
+    const wasNotBloodied = oldHPPercent >= 50;
+    const isNowBloodied = newHPPercent < 50 && newHPPercent > 0;
+
+    if (wasNotBloodied && isNowBloodied) {
+      // Show bloodied toast
+      const toastId = `${id}-${Date.now()}`;
+      setBloodiedToasts(prev => [...prev, { id: toastId, name: combatant.name }]);
+      // Auto-remove toast after 4 seconds
+      setTimeout(() => {
+        setBloodiedToasts(prev => prev.filter(t => t.id !== toastId));
+      }, 4000);
+    }
 
     // If initiative was changed and this combatant has sidekicks, sync them
     if (patch.initiative !== undefined) {
@@ -1486,20 +1739,20 @@ export default function App() {
 
     // Separate PCs from monsters
     const playerCharacters = combatants.filter(
-      (c) => c.isPC || c.source === "ddb-import" || c.source === "player-character"
+      (c) => (c.player || c.isPC || c.source === "ddb-import" || c.source === "player-character") && !c.sidekickOf
     );
     const monsters = combatants.filter(
-      (c) => !c.isPC && c.source !== "ddb-import" && c.source !== "player-character"
+      (c) => !c.player && !c.isPC && c.source !== "ddb-import" && c.source !== "player-character" && !c.sidekickOf
     );
 
     // Auto-roll initiative for monsters (excluding sidekicks - they'll be handled later)
-    monsters.filter(c => !c.sidekickOf).forEach((c) => {
+    monsters.forEach((c) => {
       const roll = rollD20();
       const init = roll + (c.initiativeMod || 0);
       updated.combatants[c.id] = { ...c, initiative: init, initiativeRoll: roll };
     });
 
-    // Show modal for player characters if there are any
+    // Show modal for player characters if there are any (sidekicks excluded)
     if (playerCharacters.length > 0) {      const initiatives = await initiativePrompt(playerCharacters);
       // If user cancelled, don't update anything
       if (!initiatives) return;
@@ -1636,6 +1889,10 @@ export default function App() {
     updated.turnIndex = 0;
     updated.initiativeOrder = [];
 
+    // Remove completed status
+    delete updated.combatStatus;
+    delete updated.completedAt;
+
     save(updated);
   }
 
@@ -1664,7 +1921,134 @@ export default function App() {
     }
   }
 
+  // Duplicate an encounter
+  async function duplicateEncounter(id) {
+    try {
+      // Load full encounter data
+      const response = await apiGet(`/api/encounters/${id}`);
+      const encounter = await response.json();
+
+      // Create duplicate with modified name
+      const tempId = `temp_${Date.now()}`;
+      const duplicateName = `${encounter.name} (Kopie)`;
+      const optimisticEncounter = {
+        id: tempId,
+        name: duplicateName,
+        updatedAt: new Date().toISOString(),
+        folder: encounter.folder,
+        campaignId: encounter.campaignId
+      };
+
+      // Optimistic update: Add to list immediately
+      setEncounters((prev) => [...prev, optimisticEncounter]);
+      setCurrentId(tempId);
+
+      // Background API call
+      const duplicateData = {
+        ...encounter,
+        name: duplicateName,
+        // Reset combat status for duplicate
+        combatStatus: 'prep',
+        turnIndex: 0,
+        roundNumber: 1
+      };
+      delete duplicateData.id; // Let server generate new ID
+      delete duplicateData.createdAt;
+      delete duplicateData.updatedAt;
+
+      const createResponse = await apiPost('/api/encounters', duplicateData);
+      const created = await createResponse.json();
+
+      // Replace temporary encounter with real one
+      setEncounters((prev) =>
+        prev.map((e) => (e.id === tempId ? { id: created.id, name: created.name, updatedAt: created.updatedAt, folder: created.folder, campaignId: created.campaignId } : e))
+      );
+      setCurrentId(created.id);
+    } catch (err) {
+      console.error('Failed to duplicate encounter:', err);
+      await alert('Fehler beim Duplizieren des Encounters');
+      // Rollback: Remove optimistic encounter and refresh
+      setEncounters((prev) => prev.filter((e) => !e.id.startsWith('temp_')));
+    }
+  }
+
+  // Helper function to convert 5e.tools entries array to desc string
+  function convertEntriesToDesc(feature) {
+    if (!feature) return feature;
+
+    // If it already has a desc, use it
+    if (feature.desc) return feature;
+
+    // If it has entries, convert them to desc
+    if (feature.entries) {
+      const desc = Array.isArray(feature.entries)
+        ? feature.entries.map(entry => {
+            if (typeof entry === 'string') return entry;
+            if (typeof entry === 'object' && entry.entries) {
+              // Nested entries
+              return convertEntriesToDesc(entry).desc || '';
+            }
+            return JSON.stringify(entry);
+          }).join(' ')
+        : String(feature.entries);
+
+      return { ...feature, desc };
+    }
+
+    return feature;
+  }
+
+  // Helper function to convert an array of features (traits, actions, etc.)
+  function convertFeaturesArray(features) {
+    if (!features || !Array.isArray(features)) return features;
+    return features.map(convertEntriesToDesc);
+  }
+
+  function formatCR(cr) {
+    if (cr === null || cr === undefined) return '—';
+    const crStr = String(cr);
+
+    // Check if it's already a fraction
+    if (crStr.includes('/')) return crStr;
+
+    // Convert decimals to fractions
+    const crNum = parseFloat(cr);
+    if (crNum === 0.125) return '1/8';
+    if (crNum === 0.25) return '1/4';
+    if (crNum === 0.5) return '1/2';
+
+    // Return as integer or original string
+    return Number.isInteger(crNum) ? String(Math.round(crNum)) : crStr;
+  }
+
+  async function fetchECRForMonster(monster) {
+    if (!monster) return null;
+
+    try {
+      const response = await apiPost('/api/ecr/calculate', { monster });
+      if (!response.ok) throw new Error('Failed to calculate eCR');
+      return await response.json();
+    } catch (err) {
+      console.error('eCR calculation error:', err);
+      return null;
+    }
+  }
+
   async function addMonster(mon) {
+    console.log('Adding monster:', mon.name, 'bonus:', mon.bonus);
+
+    // HOTFIX: Fix Chasme's Drone ability (should be bonus action, not trait)
+    // This is a temporary fix until compact data is regenerated with correct structure
+    if (mon.name === 'Chasme' && (!mon.bonus || mon.bonus.length === 0)) {
+      const droneIndex = (mon.traits || []).findIndex(t => t.name === 'Drone' || t.n === 'Drone');
+      if (droneIndex >= 0) {
+        const droneTrait = mon.traits[droneIndex];
+        mon.bonus = [droneTrait];
+        mon.traits = mon.traits.filter((_, i) => i !== droneIndex);
+        console.log('Fixed Chasme: Moved Drone from traits to bonus');
+      }
+    }
+
     // Check if an encounter is loaded
     if (!enc) {
       await alert("Bitte erstelle oder wähle zuerst ein Encounter aus.");
@@ -1742,7 +2126,7 @@ export default function App() {
         : mon.senses ||
           (mon.darkvision ? `Darkvision ${mon.darkvision} ft.` : "");
 
-    // Auto-generate unique name with adjective if duplicate exists
+    // Auto-generate unique name based on settings if duplicate exists
     const baseName = mon.name || mon.n;
     const existingNames = Object.values(enc.combatants).map(c => c.name);
     const nameCount = existingNames.filter(name =>
@@ -1750,16 +2134,19 @@ export default function App() {
     ).length;
 
     let finalName = baseName;
-    if (nameCount > 0) {
-      // Duplicate detected - add adjective to new creature
-      const adjective = getUniqueAdjective(baseName, existingNames);
-      finalName = `${adjective} ${baseName}`;
+    const namingMode = settings.creatureNamingMode || 'adjective';
 
-      // Also add adjective to the first creature if it doesn't have one yet
+    // Only rename if mode is not 'none' and there are duplicates
+    if (nameCount > 0 && namingMode !== 'none') {
+      // Duplicate detected - add identifier to new creature
+      const identifier = getUniqueIdentifier(baseName, existingNames, namingMode);
+      finalName = formatCreatureName(identifier, baseName, namingMode);
+
+      // Also add identifier to the first creature if it doesn't have one yet
       const firstCreature = Object.values(enc.combatants).find(c => c.name === baseName);
       if (firstCreature) {
-        const firstAdjective = getUniqueAdjective(baseName, [...existingNames, finalName]);
-        firstCreature.name = `${firstAdjective} ${baseName}`;
+        const firstIdentifier = getUniqueIdentifier(baseName, [...existingNames, finalName], namingMode);
+        firstCreature.name = formatCreatureName(firstIdentifier, baseName, namingMode);
       }
     }
 
@@ -1786,6 +2173,22 @@ export default function App() {
       legendaryPoints: mon.legendary?.pts || mon.legendary?.points || 0,
       legendaryPointsMax: mon.legendary?.pts || mon.legendary?.points || 0,
       legendaryActionsRemaining: mon.legendary?.actions?.length > 0 ? 3 : undefined,
+      // Legendary Resistance tracking
+      ...(() => {
+        // Parse "Legendary Resistance (X/Day)" from traits
+        const legendaryResistanceTrait = (mon.traits || mon.trait || []).find(t =>
+          t.name && t.name.match(/Legendary Resistance\s*\((\d+)\/Day\)/i)
+        );
+        if (legendaryResistanceTrait) {
+          const match = legendaryResistanceTrait.name.match(/Legendary Resistance\s*\((\d+)\/Day\)/i);
+          const uses = match ? parseInt(match[1]) : 0;
+          return {
+            legendaryResistanceRemaining: uses,
+            legendaryResistanceMax: uses
+          };
+        }
+        return {};
+      })(),
       // Reaction tracking (boolean: has reaction been used this round?)
       reactionUsed: false,
       // Basic info
@@ -1843,24 +2246,51 @@ export default function App() {
       conditionImmune: mon.conditionImmune,
       condImm: mon.condImm,
       // Traits, Actions, etc. (keep as arrays for proper rendering)
-      traits: mon.traits || mon.trait,
-      actions: mon.actions || mon.action,
-      bonusActions: mon.bonus,
-      reactions: mon.reaction,
+      // Convert 5e.tools entries arrays to desc strings
+      traits: convertFeaturesArray(mon.traits || mon.trait),
+      actions: convertFeaturesArray(mon.actions || mon.action),
+      bonusActions: (() => {
+        // Support both compact format (bonus) and expanded format (bonusActions)
+        const converted = convertFeaturesArray(mon.bonusActions || mon.bonus);
+        if (converted && converted.length > 0) {
+          console.log('Bonus Actions converted:', mon.name, converted);
+        }
+        return converted;
+      })(),
+      reactions: convertFeaturesArray(mon.reaction),
       legendary: mon.legendary,
       legendaryActions: mon.legendaryActions,
       legendaryGroup: mon.legendaryGroup,
       // Spellcasting
       spellcasting: mon.spellcasting,
       // Token and image URLs - always use proxy to bypass CORS
-      // If custom URLs are provided in meta, use those directly
-      // Otherwise, proxy through our server
-      tokenUrl: (mon.meta?.tokenUrl && !mon.meta.tokenUrl.includes('5e.tools')) ?
-        mon.meta.tokenUrl :
-        (mon.name && mon.source ? `${API('')}/api/token/${encodeURIComponent(mon.source)}/${encodeURIComponent(mon.name)}` : null),
-      imageUrl: (mon.meta?.imageUrl && !mon.meta.imageUrl.includes('5e.tools')) ?
-        mon.meta.imageUrl :
-        (mon.name && mon.source ? `${API('')}/api/token/${encodeURIComponent(mon.source)}/${encodeURIComponent(mon.name)}` : null),
+      // Extract source from either mon.source or mon.meta.source
+      tokenUrl: (() => {
+        const source = mon.source || mon.meta?.source;
+        const name = mon.name;
+        // If custom URL provided that's not 5e.tools, use it directly
+        if (mon.meta?.tokenUrl && !mon.meta.tokenUrl.includes('5e.tools')) {
+          return mon.meta.tokenUrl;
+        }
+        // Otherwise use proxy
+        if (name && source) {
+          return `${API('')}/api/token/${encodeURIComponent(source)}/${encodeURIComponent(name)}`;
+        }
+        return null;
+      })(),
+      imageUrl: (() => {
+        const source = mon.source || mon.meta?.source;
+        const name = mon.name;
+        // If custom URL provided that's not 5e.tools, use it directly
+        if (mon.meta?.imageUrl && !mon.meta.imageUrl.includes('5e.tools')) {
+          return mon.meta.imageUrl;
+        }
+        // Otherwise use proxy
+        if (name && source) {
+          return `${API('')}/api/token/${encodeURIComponent(source)}/${encodeURIComponent(name)}`;
+        }
+        return null;
+      })(),
     };
 
     const next = { ...enc, combatants: { ...enc.combatants, [id]: c } };
@@ -2299,6 +2729,253 @@ export default function App() {
     );
   }
 
+  // Parse action description to extract structured attack information
+  function parseActionDescription(desc) {
+    if (!desc) return null;
+
+    // Try to match standard attack pattern (e.g., "mw +5 to hit, reach 5 ft., one target")
+    let attackMatch = desc.match(/^(mw|ms|rw|rs|mw,rw|rw,mw)\s*([+-]?\d+)\s*to hit,?\s*(?:reach\s+([\d\s/]+ft\.)|range\s+([\d\s/]+ft\.))?.*?(?:one|two|three)\s+(\w+)/i);
+
+    // If not found, try abbreviated format (e.g., "m 5, reach 5 ft." or "r 8, range 150 ft.")
+    if (!attackMatch) {
+      attackMatch = desc.match(/^(m|r|mw|rw|ms|rs)\s*([+-]?\d+),?\s*(?:reach\s+([\d\s/]+ft\.)|range\s+([\d\s/]+ft\.))?/i);
+      if (attackMatch) {
+        // For abbreviated format, we need to expand the attack type and extract target from context
+        const [, attackTypeShort, toHit, reach, range] = attackMatch;
+
+        // Expand attack type: m -> mw, r -> rw
+        let attackType = attackTypeShort.toLowerCase();
+        if (attackType === 'm') attackType = 'mw';
+        if (attackType === 'r') attackType = 'rw';
+
+        // Add + sign if missing
+        const toHitWithSign = toHit.startsWith('+') || toHit.startsWith('-') ? toHit : `+${toHit}`;
+
+        // Extract target - default to "target" if not found
+        const targetMatch = desc.match(/(?:one|two|three|any number of)\s+(\w+)/i);
+        const target = targetMatch ? targetMatch[1] : 'target';
+
+        attackMatch = [null, attackType, toHitWithSign, reach, range, target];
+      }
+    }
+
+    if (!attackMatch) {
+      // Check for abbreviated saving throw format: "con 12, each creature in a 30-foot Emanation..."
+      const abbreviatedSaveMatch = desc.match(/^(str|dex|con|int|wis|cha)\s+(\d+),?\s+each creature in a/i);
+      if (abbreviatedSaveMatch) {
+        const [, ability, dc] = abbreviatedSaveMatch;
+
+        // Extract target info: "each creature in a 30-foot Emanation [Area of Effect]"
+        // Look for the full area description until "originating" or similar words
+        const fullAreaMatch = desc.match(/each creature in a\s+(.+?)\s+(?:originating|centered)/i);
+        let targetInfo = null;
+        if (fullAreaMatch) {
+          let areaText = fullAreaMatch[1];
+          // Clean up 5e.tools references like "Emanation [Area of Effect]|XPHB|Emanation"
+          areaText = areaText.replace(/([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*(?:\s+\[[^\]]+\])?)\|(XPHB|PHB|XDMG|DMG|XMM|MM|TCE|TCoE|XGE|SCAG|VGM|MTF|FTD|MOT|VRGR|ERLW|EGTW|AI|IDRotF|WBtW|SCC|AAG|BMT|CoS|SKT|ToA|WDH|WDMM|GoS|SDW|BGDIA|OotA|PotA|RoT|ToD)(?:\|[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)?/g, "$1");
+          targetInfo = `each creature in a ${areaText}`;
+        } else {
+          // Fallback to simpler pattern
+          const simpleMatch = desc.match(/each creature in a\s+(\d+-foot(?:\s+\w+)?(?:\s+\[[^\]]+\])?)/i);
+          if (simpleMatch) {
+            targetInfo = `each creature in a ${simpleMatch[1]}`;
+          }
+        }
+
+        // Extract area (e.g., "30-foot-long, 5-foot-wide Line")
+        const areaMatch = desc.match(/(\d+)-foot-long,\s*(\d+)-foot-wide\s+(\w+)/i);
+        let area = null;
+        if (areaMatch) {
+          area = `${areaMatch[1]}-foot ${areaMatch[3]} (${areaMatch[2]} ft. wide)`;
+        }
+
+        // Extract damage with {@actSaveFail} tag or standard format
+        let damageMatch = desc.match(/\{@actSaveFail\}\s*(\d+)\s*\(([^)]+)\)\s*(\w+)\s*damage/i);
+        if (!damageMatch) {
+          damageMatch = desc.match(/(\d+)\s*\(([^)]+)\)\s*(\w+)\s*damage/i);
+        }
+
+        let damage = null;
+        if (damageMatch) {
+          damage = {
+            average: damageMatch[1],
+            dice: damageMatch[2],
+            type: damageMatch[3]
+          };
+        }
+
+        // Extract failure and success effects separately
+        let failureEffect = null;
+        let successEffect = null;
+
+        // Look for "On a failed save" section (can be followed by comma or colon)
+        const failMatch = desc.match(/On a failed save[,:]\s*(.+?)(?=\.\s*On a successful save|On a successful save|$)/is);
+        if (failMatch) {
+          failureEffect = failMatch[1].trim();
+        }
+
+        // Look for "On a successful save" section (can be followed by comma or colon)
+        const succMatch = desc.match(/On a successful save[,:]\s*(.+?)$/is);
+        if (succMatch) {
+          successEffect = succMatch[1].trim();
+        }
+
+        return {
+          type: 'save',
+          dc,
+          ability: ability.toLowerCase(),
+          targetInfo,
+          area,
+          damage: damage ? { ...damage, halfOnSuccess: successEffect?.includes("half damage") } : null,
+          failureEffect,
+          successEffect,
+          fullDesc: desc
+        };
+      }
+
+      // Check if this is a saving throw action (e.g., "DC 12 Dexterity saving throw")
+      const saveMatch = desc.match(/(?:make a|must succeed on a|succeed on a)?\s*(?:DC\s*)?(\d+)\s+(\w+)\s+saving throw/i);
+      if (saveMatch) {
+        const [, dc, ability] = saveMatch;
+
+        // Extract target information (e.g., "one creature", "each creature in a 30-foot Emanation")
+        const targetMatch = desc.match(/(?:targets?|targeting)\s+(one|two|three|up to \w+|any number of)\s+(\w+)/i);
+        let targetInfo = null;
+        if (targetMatch) {
+          targetInfo = `${targetMatch[1]} ${targetMatch[2]}`;
+        } else {
+          // Try to match "each creature in a X-foot [area type]"
+          const areaTargetMatch = desc.match(/(?:each|all)\s+creature(?:s)?\s+in\s+a\s+([\d-]+(?:-foot)?(?:\s+\w+)?(?:\s+\[[^\]]+\])?)/i);
+          if (areaTargetMatch) {
+            targetInfo = `each creature in a ${areaTargetMatch[1]}`;
+          } else {
+            // Try to match "The target" or "Each target"
+            const simpleTargetMatch = desc.match(/(?:the|each)\s+target/i);
+            if (simpleTargetMatch) {
+              targetInfo = "target";
+            }
+          }
+        }
+
+        // Extract range/distance (e.g., "within 120 feet")
+        const rangeMatch = desc.match(/within\s+(\d+)\s+feet?/i);
+        let range = null;
+        if (rangeMatch) {
+          range = `${rangeMatch[1]} ft.`;
+        }
+
+        // Extract conditions (e.g., "it can see", "that it can hear")
+        const conditionMatch = desc.match(/(?:creature[s]?|target[s]?)\s+(it can see|that it can see|it can hear|that it can hear|within range)/i);
+        let condition = null;
+        if (conditionMatch) {
+          condition = conditionMatch[1].replace(/^that /, '');
+        }
+
+        // Extract damage
+        const damageMatch = desc.match(/(?:taking|take)\s+(\d+)\s*\(([^)]+)\)\s*(\w+)\s*damage/i);
+        let damage = null;
+        if (damageMatch) {
+          damage = {
+            average: damageMatch[1],
+            dice: damageMatch[2],
+            type: damageMatch[3]
+          };
+        }
+
+        // Extract effect area (e.g., "30-foot line that is 5 feet wide" or "20-foot radius")
+        const areaMatch = desc.match(/(\d+)-foot(?:-(?:long|wide))?\s+(line|cone|cube|sphere|cylinder|radius)/i);
+        let area = null;
+        if (areaMatch) {
+          const sizeMatch = desc.match(/(\d+)(?:-foot)?(?:-long)?\s+(\w+)\s+(?:that is|wide|in)\s+(\d+)\s+feet?\s+wide/i);
+          if (sizeMatch) {
+            area = `${sizeMatch[1]}-foot ${sizeMatch[2]} (${sizeMatch[3]} ft. wide)`;
+          } else {
+            area = `${areaMatch[1]}-foot ${areaMatch[2]}`;
+          }
+        }
+
+        // Extract failure and success effects separately
+        let failureEffect = null;
+        let successEffect = null;
+
+        // Look for "On a failed save" section (can be followed by comma or colon)
+        const failMatch = desc.match(/On a failed save[,:]\s*(.+?)(?=\.\s*On a successful save|On a successful save|$)/is);
+        if (failMatch) {
+          failureEffect = failMatch[1].trim();
+        }
+
+        // Look for "On a successful save" section (can be followed by comma or colon)
+        const succMatch = desc.match(/On a successful save[,:]\s*(.+?)$/is);
+        if (succMatch) {
+          successEffect = succMatch[1].trim();
+        }
+
+        return {
+          type: 'save',
+          dc,
+          ability,
+          targetInfo,
+          range,
+          condition,
+          area,
+          damage: damage ? { ...damage, halfOnSuccess: successEffect?.includes("half damage") } : null,
+          failureEffect,
+          successEffect,
+          fullDesc: desc
+        };
+      }
+
+      return null;
+    }
+
+    const [, attackType, toHit, reach, range, target] = attackMatch;
+
+    // Extract all damage instances from Hit: or {@h} notation
+    // This handles cases like "8 (1d10 + 3) piercing damage plus 3 (1d6) lightning damage"
+    const damagePattern = /(\d+)\s*\(([^)]+)\)\s*(\w+)\s*damage/gi;
+    const damages = [];
+    let damageMatch;
+
+    // Find the {@h} or Hit: marker first
+    const hitMarker = desc.match(/{@h}|Hit:/i);
+    const damageStartIndex = hitMarker ? desc.indexOf(hitMarker[0]) + hitMarker[0].length : 0;
+    const damageSection = desc.substring(damageStartIndex);
+
+    while ((damageMatch = damagePattern.exec(damageSection)) !== null) {
+      damages.push({
+        average: damageMatch[1],
+        dice: damageMatch[2],
+        type: damageMatch[3]
+      });
+    }
+
+    // Get remaining description (after all damage)
+    let remainingDesc = desc;
+    if (damages.length > 0) {
+      // Find the last damage match and get text after it
+      const lastDamageText = damages[damages.length - 1];
+      const lastDamagePattern = new RegExp(`${lastDamageText.average}\\s*\\(${lastDamageText.dice.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)\\s*${lastDamageText.type}\\s*damage`, 'i');
+      const lastMatch = damageSection.match(lastDamagePattern);
+      if (lastMatch) {
+        const endOfDamage = damageSection.indexOf(lastMatch[0]) + lastMatch[0].length;
+        remainingDesc = damageSection.substring(endOfDamage).trim();
+
+        // Clean up leading "plus" or punctuation
+        remainingDesc = remainingDesc.replace(/^(?:plus|and|,|\.)?\s*/i, '').trim();
+      }
+    }
+
+    return {
+      type: 'attack',
+      attackType,
+      toHit,
+      reach: reach || range || null,
+      target,
+      damages, // Array of damage objects
+      remainingDesc
+    };
+  }
+
   // Component to render text with clickable dice notation (but NOT attack rolls as those are handled separately)
   function RollableText({
     text,
@@ -2311,20 +2988,54 @@ export default function App() {
     if (!text) return null;
 
     // First, clean up 5e.tools markup tags like {@h}, {@atk mw}, {@damage 2d6}, etc.
+    // Special handling for {@h} Hit: - extract the dice notation (this is typically damage)
+    let cleanText = text.replace(/\{@h\}\s*(\d+)\s*\(([^)]+)\)/g, "$1 ($2)");
     // Special handling for {@damage XdY} - extract the dice notation
-    let cleanText = text.replace(/\{@damage ([^}]+)\}/g, "$1");
+    cleanText = cleanText.replace(/\{@damage ([^}]+)\}/g, "$1");
     // Special handling for {@dice XdY} - extract the dice notation
     cleanText = cleanText.replace(/\{@dice ([^}]+)\}/g, "$1");
     // Special handling for {@dc N} - extract the DC number
     cleanText = cleanText.replace(/\{@dc (\d+)\}/g, "DC $1");
+    // Special handling for {@actSave ABILITY} - convert to saving throw text
+    cleanText = cleanText.replace(/\{@actSave\s+(\w+)\}/gi, (match, ability) => {
+      const abilityUpper = ability.charAt(0).toUpperCase() + ability.slice(1).toLowerCase();
+      return `${abilityUpper} saving throw`;
+    });
+    // Fix malformed saving throw format: "con 12" -> "DC 12 Con saving throw"
+    cleanText = cleanText.replace(/\b(str|dex|con|int|wis|cha)\s+(\d+)/gi, (match, ability, dc) => {
+      const abilityUpper = ability.charAt(0).toUpperCase() + ability.slice(1).toLowerCase();
+      return `DC ${dc} ${abilityUpper} saving throw`;
+    });
+    // Special handling for {@actSaveFail} - convert to "on a failed save" (with period before)
+    cleanText = cleanText.replace(/\.\s*\{@actSaveFail\}/g, ". On a failed save");
+    cleanText = cleanText.replace(/\{@actSaveFail\}/g, " On a failed save,");
+    // Special handling for {@actSaveSuccess} - convert to "on a successful save" (with period before)
+    cleanText = cleanText.replace(/\.\s*\{@actSaveSuccess\}/g, ". On a successful save");
+    cleanText = cleanText.replace(/\{@actSaveSuccess\}/g, " On a successful save,");
     // Special handling for {@condition NAME} - extract the condition name
     cleanText = cleanText.replace(/\{@condition ([^}|]+)(?:\|[^}]+)?\}/g, "$1");
     // Special handling for {@creature NAME} - extract the creature name
     cleanText = cleanText.replace(/\{@creature ([^}|]+)(?:\|\|[^}|]+)?(?:\|[^}]+)?\}/g, "$1");
-    // Special handling for {@quickref ...} - extract the reference name
-    cleanText = cleanText.replace(/\{@quickref ([^}|]+)\|[^}]+\}/g, "$1");
-    // Remove other tags entirely
+    // Special handling for {@quickref ...||X} - extract the reference name and remove ||X notation
+    cleanText = cleanText.replace(/\{@quickref ([^}|]+)(?:\|\|[^}|]+)?(?:\|[^}]+)?\}/g, "$1");
+    // Special handling for {@variantrule NAME} - extract the rule name
+    cleanText = cleanText.replace(/\{@variantrule ([^}|]+)(?:\|[^}]+)?\}/g, "$1");
+    // Remove other tags entirely (recharge tags are handled in formatActionName)
     cleanText = cleanText.replace(/\{@[^}]+\}/g, "");
+
+    // Clean up 5e.tools link references like "Hit Points|XPHB|Hit Point" or "Disadvantage|XPHB"
+    // Pattern matches text (including brackets) followed by source reference and optional alternate text
+    // Examples: "Hit Points|XPHB|Hit Point" -> "Hit Points", "Emanation [Area of Effect]|XPHB|Emanation" -> "Emanation [Area of Effect]"
+    cleanText = cleanText.replace(/([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*(?:\s+\[[^\]]+\])?)\|(XPHB|PHB|XDMG|DMG|XMM|MM|TCE|TCoE|XGE|SCAG|VGM|MTF|FTD|MOT|VRGR|ERLW|EGTW|AI|IDRotF|WBtW|SCC|AAG|BMT|CoS|SKT|ToA|WDH|WDMM|GoS|SDW|BGDIA|OotA|PotA|RoT|ToD)(?:\|[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)?/g, "$1");
+
+    // Remove remaining ||X patterns that might have been left over
+    cleanText = cleanText.replace(/\|\|\d+/g, "");
+
+    // Fix duplicate dice notations by removing consecutive identical dice rolls:
+    // [1d10][1d10] -> [1d10], but keeps [1d10] if it appears only once
+    cleanText = cleanText.replace(/(\[\d+d\d+(?:[+-]\d+)?\])(?:\1)+/g, "$1");
+    // (1d10)(1d10) -> (1d10), but keeps (1d10) if it appears only once
+    cleanText = cleanText.replace(/(\(\d+d\d+(?:[+-]\d+)?\))(?:\1)+/g, "$1");
 
     // If removeAttackText is true, remove "to hit" attack patterns and damage descriptions
     // to avoid duplication when they're already shown as buttons
@@ -2343,13 +3054,78 @@ export default function App() {
       cleanText = cleanText.trim().replace(/^[,.\s]+|[,.\s]+$/g, "");
     }
 
-    // Match dice notation (XdY, XdY+Z, XdY-Z) with optional spaces around operators
+    // Match attack rolls (mw/rw/ms/rs/mw,rw +X to hit) and dice notation (XdY, XdY+Z, XdY-Z)
+    const attackPattern = /(?:mw|ms|rw|rs|mw,rw|mw,rs|rw,mw|rs,mw)[\s,]+([+-]?\d+)\s+to hit/gi;
     const dicePattern = /(\d+d\d+(?:\s*[+-]\s*\d+)?)/gi;
-    const parts = cleanText.split(dicePattern).filter((p) => p); // Remove empty strings
+
+    // First, extract attack rolls
+    const attackMatches = [];
+    let match;
+    while ((match = attackPattern.exec(cleanText)) !== null) {
+      attackMatches.push({
+        fullMatch: match[0],
+        bonus: match[1],
+        index: match.index
+      });
+    }
+
+    // Split text by both attack rolls and dice notation
+    // We need to remove the capturing group from dicePattern to avoid duplicate entries
+    const dicePatternNonCapturing = /\d+d\d+(?:\s*[+-]\s*\d+)?/gi;
+    const combinedPattern = new RegExp(`(${attackPattern.source}|${dicePatternNonCapturing.source})`, 'gi');
+    const parts = cleanText.split(combinedPattern).filter((p) => p); // Remove empty strings
 
     return (
       <>
         {parts.map((part, idx) => {
+          // Check if it's an attack roll (mw/rw/ms/rs +X to hit)
+          const attackMatch = part.match(attackPattern);
+          if (attackMatch) {
+            // Extract the bonus
+            const bonusMatch = part.match(/([+-]?\d+)\s+to hit/i);
+            const bonus = bonusMatch ? bonusMatch[1] : '+0';
+            const notation = bonus.startsWith('+') || bonus.startsWith('-')
+              ? `1d20${bonus}`
+              : `1d20+${bonus}`;
+
+            return (
+              <button
+                key={idx}
+                className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-green-100 dark:bg-green-900/40 hover:bg-green-200 dark:hover:bg-green-800/60 text-green-800 dark:text-green-300 rounded font-mono text-xs font-semibold transition-colors cursor-pointer border border-green-300 dark:border-green-700"
+                onClick={() => {
+                  // Left click: Roll attack
+                  let label = actionName ? `${character} - ${actionName} - Attack` : `Attack ${notation}`;
+                  rollDice({
+                    notation: notation,
+                    rollMode: "normal",
+                    label: label,
+                    character: character || undefined,
+                  });
+                  if (onRoll) onRoll();
+                }}
+                onContextMenu={(e) => {
+                  // Right click: Show context menu for advantage/disadvantage
+                  e.preventDefault();
+                  e.stopPropagation();
+                  let label = actionName ? `${character} - ${actionName} - Attack` : `Attack ${notation}`;
+                  setDiceContextMenu({
+                    show: true,
+                    x: e.clientX,
+                    y: e.clientY,
+                    notation: notation,
+                    type: "d20",
+                    label: label,
+                    onRoll: onRoll,
+                    character: character || undefined,
+                  });
+                }}
+                title="Left: Roll Attack | Right: Adv/Dis"
+              >
+                ⚔️ {part}
+              </button>
+            );
+          }
+
           // Check if it's dice notation (XdY)
           if (part.match(dicePattern)) {
             // Normalize notation by removing spaces for the roller
@@ -2408,13 +3184,19 @@ export default function App() {
     );
   }
 
+  // Check if combat is completed (for disabling controls)
+  const isCompleted = enc?.combatStatus === 'completed';
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 text-slate-900 dark:text-slate-100 transition-colors">
       <header className="sticky top-0 z-40 border-b border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Encounter++
-          </h1>
+          <div className="flex items-center gap-2">
+            <img src="/favicon.svg" alt="Encounter++ Logo" className="w-8 h-8" />
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Encounter++
+            </h1>
+          </div>
 
           {/* Mode Toggle - Always visible */}
           {enc && (
@@ -2537,10 +3319,10 @@ export default function App() {
         }}
       >
         {/* Left Column - Sidebar (Full or Mini) */}
-        <aside className="space-y-4 transition-all duration-700 ease-in-out relative">
+        <aside className="space-y-4 transition-all duration-700 ease-in-out relative overflow-y-auto h-[calc(100vh-80px)] sticky top-20">
           {/* Sidebar Toggle Button */}
           <button
-            className={`h-12 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-700 sticky top-20 z-20 group relative overflow-hidden ${
+            className={`h-12 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-700 sticky top-0 z-20 group relative overflow-hidden mb-4 ${
               sidebarVisible ? 'w-full' : 'w-14'
             }`}
             onClick={() => {
@@ -2580,6 +3362,7 @@ export default function App() {
                   <div className="flex items-center justify-between mb-2">
                     <h2 className="text-sm font-bold text-red-900 dark:text-red-300">
                       ⚔️ Quick Actions
+                      {enc.combatStatus === 'completed' && <span className="ml-2 text-xs text-green-600">(Completed)</span>}
                     </h2>
                     <button
                       onClick={() => setQuickActionsCollapsed(!quickActionsCollapsed)}
@@ -2589,10 +3372,13 @@ export default function App() {
                       {quickActionsCollapsed ? '▼' : '▲'}
                     </button>
                   </div>
-                  {!quickActionsCollapsed && (
+                  {!quickActionsCollapsed && (() => {
+                    const isCompleted = enc.combatStatus === 'completed';
+                    return (
                     <div className="space-y-2">
                       <button
-                        className="btn w-full bg-red-600 text-white hover:bg-red-700 border-red-600 text-sm py-1"
+                        disabled={isCompleted}
+                        className={`btn w-full bg-red-600 text-white hover:bg-red-700 border-red-600 text-sm py-1 ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
                         onClick={rollInitiativeForAll}
                       >
                         🎲 Roll Initiative
@@ -2604,13 +3390,358 @@ export default function App() {
                         🔄 Reset Combat
                       </button>
                       <button
-                        className="btn w-full bg-orange-500 text-white hover:bg-orange-600 border-orange-500 text-sm py-1"
+                        disabled={isCompleted}
+                        className={`btn w-full bg-green-600 text-white hover:bg-green-700 border-green-600 text-sm py-1 ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        onClick={async () => {
+                          if (!enc) return;
+                          try {
+                            const updated = {
+                              ...enc,
+                              combatStatus: 'completed',
+                              completedAt: new Date().toISOString()
+                            };
+                            setEnc(updated);
+                            await apiPut(`/api/encounters/${enc.id}`, updated);
+                            // Refresh encounters list to show checkmark
+                            const encountersResponse = await apiGet('/api/encounters');
+                            const encountersData = await encountersResponse.json();
+                            setEncounters(encountersData);
+                          } catch (error) {
+                            console.error('Failed to finish combat:', error);
+                          }
+                        }}
+                      >
+                        ✅ Finish Combat
+                      </button>
+                      <button
+                        disabled={isCompleted}
+                        className={`btn w-full bg-orange-500 text-white hover:bg-orange-600 border-orange-500 text-sm py-1 ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
                         onClick={addCustom}
                       >
                         ➕ Add Custom
                       </button>
                     </div>
-                  )}
+                    );
+                  })()}
+                </div>
+              )}
+
+              {/* Player Screen Controls - Second position when active */}
+              {combatMode && enc && (
+                <div className={`card bg-cyan-50 dark:bg-cyan-900/20 border-cyan-200 dark:border-cyan-800 transition-all duration-300 ${playerScreenControlsCollapsed ? 'h-12 pb-0' : ''}`}>
+                  <div className="flex items-center justify-between mb-2">
+                    <h2 className="text-sm font-bold text-cyan-900 dark:text-cyan-300">
+                      🖥️ Player Screen Controls
+                      {enc.combatStatus === 'completed' && <span className="ml-2 text-xs text-green-600">(Combat Completed)</span>}
+                    </h2>
+                    <button
+                      onClick={() => setPlayerScreenControlsCollapsed(!playerScreenControlsCollapsed)}
+                      className="w-8 h-8 flex items-center justify-center rounded hover:bg-cyan-200 dark:hover:bg-cyan-800 transition-colors"
+                      title={playerScreenControlsCollapsed ? "Ausklappen" : "Einklappen"}
+                    >
+                      {playerScreenControlsCollapsed ? '▼' : '▲'}
+                    </button>
+                  </div>
+
+                  {!playerScreenControlsCollapsed && (() => {
+                    const isCompleted = enc.combatStatus === 'completed';
+                    return (
+                    <div className="space-y-3">
+                      {/* Open Player Screen Button */}
+                      <button
+                        disabled={isCompleted}
+                        className={`w-full btn bg-gradient-to-r from-indigo-500 to-blue-600 text-white hover:from-indigo-600 hover:to-blue-700 border-none shadow-lg text-sm ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        onClick={async () => {
+                          try {
+                            // Generate a secure token
+                            const response = await apiPost('/api/player-screen/token');
+                            const data = await response.json();
+                            const token = data.token;
+
+                            // Open player screen with token
+                            const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
+                            const url = `${baseUrl}player.html?follow=true&token=${encodeURIComponent(token)}`;
+                            window.open(url, 'playerScreen', 'width=800,height=600,menubar=no,toolbar=no,location=no');
+                          } catch (error) {
+                            console.error('Failed to generate player screen token:', error);
+                            alert('Failed to open player screen');
+                          }
+                        }}
+                      >
+                        📺 Open Player Screen (Auto-Follow)
+                      </button>
+
+                      {/* Share to Mobile Button */}
+                      <button
+                        disabled={isCompleted}
+                        className={`w-full btn bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 border-none shadow-lg text-sm ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        onClick={() => setShowShareCodeModal(true)}
+                      >
+                        📱 Share to Mobile
+                      </button>
+
+                      <hr className="border-cyan-200 dark:border-cyan-700" />
+
+                      {/* Blank Screen Toggle - Always enabled */}
+                      <div>
+                        <label className="flex items-center justify-between cursor-pointer">
+                          <span className="text-sm text-slate-700 dark:text-slate-300">Blank Screen</span>
+                          <label className="toggle-switch">
+                            <input
+                              type="checkbox"
+                              checked={enc.playerScreenSettings?.blankScreen || false}
+                              onChange={(e) => {
+                                const updated = {
+                                  ...enc,
+                                  playerScreenSettings: {
+                                    ...enc.playerScreenSettings,
+                                    blankScreen: e.target.checked
+                                  }
+                                };
+                                setEnc(updated);
+                                apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                              }}
+                            />
+                            <span className="toggle-slider"></span>
+                          </label>
+                        </label>
+                      </div>
+
+                      {/* Black Mode Toggle - Disabled when completed */}
+                      <div>
+                        <label className={`flex items-center justify-between ${isCompleted ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}>
+                          <span className="text-sm text-slate-700 dark:text-slate-300">Black Background</span>
+                          <label className="toggle-switch">
+                            <input
+                              type="checkbox"
+                              disabled={isCompleted}
+                              checked={enc.playerScreenSettings?.blackMode || false}
+                              onChange={(e) => {
+                                const updated = {
+                                  ...enc,
+                                  playerScreenSettings: {
+                                    ...enc.playerScreenSettings,
+                                    blackMode: e.target.checked
+                                  }
+                                };
+                                setEnc(updated);
+                                apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                              }}
+                            />
+                            <span className="toggle-slider"></span>
+                          </label>
+                        </label>
+                      </div>
+
+                      {/* Rotation Control - Disabled when completed */}
+                      <div className={isCompleted ? 'opacity-50' : ''}>
+                        <label className="text-sm text-slate-700 dark:text-slate-300 block mb-2">
+                          Rotation: {enc.playerScreenSettings?.rotation || 0}°
+                        </label>
+                        <div className="flex gap-2">
+                          <button
+                            disabled={isCompleted}
+                            onClick={() => {
+                              const current = enc.playerScreenSettings?.rotation || 0;
+                              const newRotation = (current - 90 + 360) % 360;
+                              const updated = {
+                                ...enc,
+                                playerScreenSettings: {
+                                  ...enc.playerScreenSettings,
+                                  rotation: newRotation
+                                }
+                              };
+                              setEnc(updated);
+                              apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                            }}
+                            className="btn flex-1 bg-slate-600 text-white hover:bg-slate-700 text-xs py-2"
+                          >
+                            ↶ Left
+                          </button>
+                          <button
+                            disabled={isCompleted}
+                            onClick={() => {
+                              const current = enc.playerScreenSettings?.rotation || 0;
+                              const newRotation = (current + 90) % 360;
+                              const updated = {
+                                ...enc,
+                                playerScreenSettings: {
+                                  ...enc.playerScreenSettings,
+                                  rotation: newRotation
+                                }
+                              };
+                              setEnc(updated);
+                              apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                            }}
+                            className="btn flex-1 bg-slate-600 text-white hover:bg-slate-700 text-xs py-2"
+                          >
+                            Right ↷
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* All other toggles - disabled when completed */}
+                      <div className={isCompleted ? 'opacity-50 pointer-events-none' : ''}>
+                      {/* Current Turn Image */}
+                      <div>
+                        <label className="flex items-center justify-between cursor-pointer">
+                          <span className="text-sm text-slate-700 dark:text-slate-300">Current Turn Image</span>
+                          <label className="toggle-switch">
+                            <input
+                              type="checkbox"
+                              disabled={isCompleted}
+                              checked={enc.playerScreenSettings?.showCurrentTurnImage !== false}
+                              onChange={(e) => {
+                                const updated = {
+                                  ...enc,
+                                  playerScreenSettings: {
+                                    ...enc.playerScreenSettings,
+                                    showCurrentTurnImage: e.target.checked
+                                  }
+                                };
+                                setEnc(updated);
+                                apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                              }}
+                            />
+                            <span className="toggle-slider"></span>
+                          </label>
+                        </label>
+                      </div>
+
+                      {/* Initiative Order Images */}
+                      <div>
+                        <label className="flex items-center justify-between cursor-pointer">
+                          <span className="text-sm text-slate-700 dark:text-slate-300">Initiative Order Images</span>
+                          <label className="toggle-switch">
+                            <input
+                              type="checkbox"
+                              disabled={isCompleted}
+                              checked={enc.playerScreenSettings?.showInitiativeImages !== false}
+                              onChange={(e) => {
+                                const updated = {
+                                  ...enc,
+                                  playerScreenSettings: {
+                                    ...enc.playerScreenSettings,
+                                    showInitiativeImages: e.target.checked
+                                  }
+                                };
+                                setEnc(updated);
+                                apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                              }}
+                            />
+                            <span className="toggle-slider"></span>
+                          </label>
+                        </label>
+                      </div>
+
+                      {/* Show Turn Button */}
+                      <div>
+                        <label className="flex items-center justify-between cursor-pointer">
+                          <span className="text-sm text-slate-700 dark:text-slate-300">Show Turn Button</span>
+                          <label className="toggle-switch">
+                            <input
+                              type="checkbox"
+                              disabled={isCompleted}
+                              checked={enc.playerScreenSettings?.showTurnButton !== false}
+                              onChange={(e) => {
+                                const updated = {
+                                  ...enc,
+                                  playerScreenSettings: {
+                                    ...enc.playerScreenSettings,
+                                    showTurnButton: e.target.checked
+                                  }
+                                };
+                                setEnc(updated);
+                                apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                              }}
+                            />
+                            <span className="toggle-slider"></span>
+                          </label>
+                        </label>
+                      </div>
+
+                      {/* Hide Scrollbars */}
+                      <div>
+                        <label className="flex items-center justify-between cursor-pointer">
+                          <span className="text-sm text-slate-700 dark:text-slate-300">Hide Scrollbars</span>
+                          <label className="toggle-switch">
+                            <input
+                              type="checkbox"
+                              disabled={isCompleted}
+                              checked={enc.playerScreenSettings?.hideScrollbars || false}
+                              onChange={(e) => {
+                                const updated = {
+                                  ...enc,
+                                playerScreenSettings: {
+                                  ...enc.playerScreenSettings,
+                                  hideScrollbars: e.target.checked
+                                }
+                              };
+                              setEnc(updated);
+                              apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                            }}
+                          />
+                          <span className="toggle-slider"></span>
+                        </label>
+                        </label>
+                      </div>
+
+                      {/* Zoom Level */}
+                      <div>
+                        <label className="text-sm text-slate-700 dark:text-slate-300 block mb-1">
+                          Zoom: {Math.round((enc.playerScreenSettings?.zoom || 100))}%
+                        </label>
+                        <input
+                          type="range"
+                          min="50"
+                          max="150"
+                          step="5"
+                          disabled={isCompleted}
+                          value={enc.playerScreenSettings?.zoom || 100}
+                          onChange={(e) => {
+                            const updated = {
+                              ...enc,
+                              playerScreenSettings: {
+                                ...enc.playerScreenSettings,
+                                zoom: parseInt(e.target.value)
+                              }
+                            };
+                            setEnc(updated);
+                            apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                          }}
+                          className="w-full"
+                        />
+                      </div>
+
+                      {/* Bloodied Status */}
+                      <div>
+                        <label className="flex items-center justify-between cursor-pointer">
+                          <span className="text-sm text-slate-700 dark:text-slate-300">🩸 Bloodied Status</span>
+                          <label className="toggle-switch">
+                            <input
+                              type="checkbox"
+                              disabled={isCompleted}
+                              checked={enc.playerScreenSettings?.showBloodiedInPlayerView || false}
+                              onChange={(e) => {
+                                const updated = {
+                                ...enc,
+                                playerScreenSettings: {
+                                  ...enc.playerScreenSettings,
+                                  showBloodiedInPlayerView: e.target.checked
+                                }
+                              };
+                              setEnc(updated);
+                              apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                            }}
+                          />
+                          <span className="toggle-slider"></span>
+                        </label>
+                        </label>
+                      </div>
+                      </div>
+                    </div>
+                    );
+                  })()}
                 </div>
               )}
 
@@ -2633,6 +3764,7 @@ export default function App() {
                       currentId={currentId}
                       onSelectEncounter={setCurrentId}
                       onDeleteEncounter={deleteEncounter}
+                      onDuplicateEncounter={duplicateEncounter}
                       onCreateEncounter={createEncounter}
                       campaigns={campaigns}
                       onRefreshEncounters={async () => {
@@ -2658,7 +3790,7 @@ export default function App() {
 
               {/* Combat Mode - Compact Monster Browser */}
               {combatMode && (
-                <div className={`card bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 flex flex-col overflow-hidden transition-all duration-300 ${monsterBrowserCollapsed ? 'h-12' : 'max-h-[300px]'}`}>
+                <div className={`card bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 flex flex-col overflow-hidden transition-all duration-300 ${monsterBrowserCollapsed ? 'h-12' : 'max-h-[800px]'}`}>
                   <div className="flex items-center justify-between mb-2 flex-shrink-0">
                     <h2 className="text-sm font-bold text-red-900 dark:text-red-300">
                       🐉 Quick Add Monsters
@@ -2690,7 +3822,7 @@ export default function App() {
           </div>
 
           {/* Mini Icon Mode - fades in when sidebar collapsed */}
-          <div className={`transition-all duration-700 ease-in-out space-y-2 ${
+          <div className={`transition-all duration-700 ease-in-out space-y-2 sticky top-36 ${
             !sidebarVisible
               ? 'opacity-100 scale-100 max-h-[9999px]'
               : 'opacity-0 scale-0 pointer-events-none max-h-0 overflow-hidden'
@@ -2727,11 +3859,12 @@ export default function App() {
                 {/* Monster Browser Icon (Combat Mode Only) */}
                 {combatMode && (
                   <button
+                    disabled={isCompleted}
                     className={`w-14 h-14 rounded-lg flex items-center justify-center text-2xl transition-all ${
                       activeSidebarPanel === 'monsters'
                         ? 'bg-green-500 text-white shadow-lg'
                         : 'bg-white dark:bg-slate-800 hover:bg-green-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700'
-                    }`}
+                    } ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
                     onClick={() => setActiveSidebarPanel(activeSidebarPanel === 'monsters' ? null : 'monsters')}
                     title="Quick Add Monsters"
                   >
@@ -2742,15 +3875,31 @@ export default function App() {
                 {/* Player Characters Icon (Combat Mode Only) */}
                 {combatMode && enc && (
                   <button
+                    disabled={isCompleted}
                     className={`w-14 h-14 rounded-lg flex items-center justify-center text-2xl transition-all ${
                       activeSidebarPanel === 'players'
                         ? 'bg-purple-500 text-white shadow-lg'
                         : 'bg-white dark:bg-slate-800 hover:bg-purple-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700'
-                    }`}
+                    } ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
                     onClick={() => setActiveSidebarPanel(activeSidebarPanel === 'players' ? null : 'players')}
                     title="Player Characters"
                   >
                     👥
+                  </button>
+                )}
+
+                {/* Player Screen Controls Icon (Combat Mode Only) */}
+                {combatMode && enc && (
+                  <button
+                    className={`w-14 h-14 rounded-lg flex items-center justify-center text-2xl transition-all ${
+                      activeSidebarPanel === 'playerScreen'
+                        ? 'bg-cyan-500 text-white shadow-lg'
+                        : 'bg-white dark:bg-slate-800 hover:bg-cyan-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700'
+                    }`}
+                    onClick={() => setActiveSidebarPanel(activeSidebarPanel === 'playerScreen' ? null : 'playerScreen')}
+                    title="Player Screen Controls"
+                  >
+                    🖥️
                   </button>
                 )}
               </div>
@@ -2782,6 +3931,7 @@ export default function App() {
                       setActiveSidebarPanel(null);
                     }}
                     onDeleteEncounter={deleteEncounter}
+                    onDuplicateEncounter={duplicateEncounter}
                     onCreateEncounter={createEncounter}
                     campaigns={campaigns}
                     onRefreshEncounters={async () => {
@@ -2837,7 +3987,8 @@ export default function App() {
                     🔄 Reset Combat
                   </button>
                   <button
-                    className="btn w-full bg-orange-500 text-white hover:bg-orange-600 border-orange-500"
+                    disabled={isCompleted}
+                    className={`btn w-full bg-orange-500 text-white hover:bg-orange-600 border-orange-500 ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
                     onClick={() => {
                       addCustom();
                       setActiveSidebarPanel(null);
@@ -2926,6 +4077,277 @@ export default function App() {
           </>
         )}
 
+        {/* Player Screen Controls Panel - Visible regardless of sidebar state */}
+        {activeSidebarPanel === 'playerScreen' && enc && (
+              <div className={`fixed top-24 w-80 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 z-40 p-4 transition-all duration-300 ${
+                sidebarVisible ? 'left-[340px]' : 'left-20'
+              }`}>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-lg font-bold text-cyan-900 dark:text-cyan-300">🖥️ Player Screen</h2>
+                  <button
+                    onClick={() => setActiveSidebarPanel(null)}
+                    className="w-8 h-8 flex items-center justify-center rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <div className="space-y-4">
+                  {/* Open Player Screen Button */}
+                  <button
+                    className="w-full btn bg-gradient-to-r from-indigo-500 to-blue-600 text-white hover:from-indigo-600 hover:to-blue-700 border-none shadow-lg"
+                    onClick={() => {
+                      const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
+                      const url = `${baseUrl}player.html?encounter=${encodeURIComponent(currentId)}`;
+                      window.open(url, 'playerScreen', 'width=800,height=600,menubar=no,toolbar=no,location=no');
+                    }}
+                  >
+                    📺 Open Player Screen
+                  </button>
+
+                  {/* Share to Mobile Button */}
+                  <button
+                    className="w-full btn bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 border-none shadow-lg"
+                    onClick={() => setShowShareCodeModal(true)}
+                  >
+                    📱 Share to Mobile
+                  </button>
+
+                  <hr className="border-slate-200 dark:border-slate-700" />
+
+                  {/* Black Mode Toggle */}
+                  <div>
+                    <label className="flex items-center justify-between cursor-pointer">
+                      <span className="text-sm text-slate-700 dark:text-slate-300">Black Mode (Extra Dark)</span>
+                      <input
+                        type="checkbox"
+                        checked={enc.playerScreenSettings?.blackMode || false}
+                        onChange={(e) => {
+                          const updated = {
+                            ...enc,
+                            playerScreenSettings: {
+                              ...enc.playerScreenSettings,
+                              blackMode: e.target.checked
+                            }
+                          };
+                          setEnc(updated);
+                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                        }}
+                        className="w-5 h-5 rounded border-slate-300 dark:border-slate-600"
+                      />
+                    </label>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                      Makes the player screen background completely black
+                    </p>
+                  </div>
+
+                  {/* Rotation Control */}
+                  <div>
+                    <label className="text-sm text-slate-700 dark:text-slate-300 block mb-2">
+                      Rotation: {enc.playerScreenSettings?.rotation || 0}°
+                    </label>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => {
+                          const current = enc.playerScreenSettings?.rotation || 0;
+                          const newRotation = (current - 90 + 360) % 360;
+                          const updated = {
+                            ...enc,
+                            playerScreenSettings: {
+                              ...enc.playerScreenSettings,
+                              rotation: newRotation
+                            }
+                          };
+                          setEnc(updated);
+                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                        }}
+                        className="btn flex-1 bg-slate-600 text-white hover:bg-slate-700 text-xs py-2"
+                      >
+                        ↶ Left
+                      </button>
+                      <button
+                        onClick={() => {
+                          const current = enc.playerScreenSettings?.rotation || 0;
+                          const newRotation = (current + 90) % 360;
+                          const updated = {
+                            ...enc,
+                            playerScreenSettings: {
+                              ...enc.playerScreenSettings,
+                              rotation: newRotation
+                            }
+                          };
+                          setEnc(updated);
+                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                        }}
+                        className="btn flex-1 bg-slate-600 text-white hover:bg-slate-700 text-xs py-2"
+                      >
+                        Right ↷
+                      </button>
+                    </div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                      Rotates the screen in 90° increments
+                    </p>
+                  </div>
+
+                  {/* Show Current Turn Image */}
+                  <div>
+                    <label className="flex items-center justify-between cursor-pointer">
+                      <span className="text-sm text-slate-700 dark:text-slate-300">Current Turn Image</span>
+                      <input
+                        type="checkbox"
+                        checked={enc.playerScreenSettings?.showCurrentTurnImage !== false}
+                        onChange={(e) => {
+                          const updated = {
+                            ...enc,
+                            playerScreenSettings: {
+                              ...enc.playerScreenSettings,
+                              showCurrentTurnImage: e.target.checked
+                            }
+                          };
+                          setEnc(updated);
+                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                        }}
+                        className="w-5 h-5 rounded border-slate-300 dark:border-slate-600"
+                      />
+                    </label>
+                  </div>
+
+                  {/* Show Initiative Order Images */}
+                  <div>
+                    <label className="flex items-center justify-between cursor-pointer">
+                      <span className="text-sm text-slate-700 dark:text-slate-300">Initiative Order Images</span>
+                      <input
+                        type="checkbox"
+                        checked={enc.playerScreenSettings?.showInitiativeImages !== false}
+                        onChange={(e) => {
+                          const updated = {
+                            ...enc,
+                            playerScreenSettings: {
+                              ...enc.playerScreenSettings,
+                              showInitiativeImages: e.target.checked
+                            }
+                          };
+                          setEnc(updated);
+                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                        }}
+                        className="w-5 h-5 rounded border-slate-300 dark:border-slate-600"
+                      />
+                    </label>
+                  </div>
+
+                  {/* Show Turn Button */}
+                  <div>
+                    <label className="flex items-center justify-between cursor-pointer">
+                      <span className="text-sm text-slate-700 dark:text-slate-300">Show Turn Button</span>
+                      <input
+                        type="checkbox"
+                        checked={enc.playerScreenSettings?.showTurnButton !== false}
+                        onChange={(e) => {
+                          const updated = {
+                            ...enc,
+                            playerScreenSettings: {
+                              ...enc.playerScreenSettings,
+                              showTurnButton: e.target.checked
+                            }
+                          };
+                          setEnc(updated);
+                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                        }}
+                        className="w-5 h-5 rounded border-slate-300 dark:border-slate-600"
+                      />
+                    </label>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                      Shows/hides the 180° rotation button on player screen
+                    </p>
+                  </div>
+
+                  {/* Hide Scrollbars */}
+                  <div>
+                    <label className="flex items-center justify-between cursor-pointer">
+                      <span className="text-sm text-slate-700 dark:text-slate-300">Hide Scrollbars</span>
+                      <input
+                        type="checkbox"
+                        checked={enc.playerScreenSettings?.hideScrollbars || false}
+                        onChange={(e) => {
+                          const updated = {
+                            ...enc,
+                            playerScreenSettings: {
+                              ...enc.playerScreenSettings,
+                              hideScrollbars: e.target.checked
+                            }
+                          };
+                          setEnc(updated);
+                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                        }}
+                        className="w-5 h-5 rounded border-slate-300 dark:border-slate-600"
+                      />
+                    </label>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                      Hides scrollbars for a cleaner display
+                    </p>
+                  </div>
+
+                  {/* Zoom Level Control */}
+                  <div>
+                    <label className="text-sm text-slate-700 dark:text-slate-300 block mb-2">
+                      Zoom Level: {Math.round((enc.playerScreenSettings?.zoom || 100))}%
+                    </label>
+                    <input
+                      type="range"
+                      min="50"
+                      max="200"
+                      step="10"
+                      value={enc.playerScreenSettings?.zoom || 100}
+                      onChange={(e) => {
+                        const updated = {
+                          ...enc,
+                          playerScreenSettings: {
+                            ...enc.playerScreenSettings,
+                            zoom: parseInt(e.target.value)
+                          }
+                        };
+                        setEnc(updated);
+                        apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                      }}
+                      className="w-full"
+                    />
+                    <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 mt-1">
+                      <span>50%</span>
+                      <span>200%</span>
+                    </div>
+                  </div>
+
+                  <hr className="border-slate-200 dark:border-slate-700" />
+
+                  {/* Bloodied Status Toggle */}
+                  <div>
+                    <label className="flex items-center justify-between cursor-pointer">
+                      <span className="text-sm text-slate-700 dark:text-slate-300">🩸 Bloodied Status anzeigen</span>
+                      <input
+                        type="checkbox"
+                        checked={enc.playerScreenSettings?.showBloodiedInPlayerView || false}
+                        onChange={(e) => {
+                          const updated = {
+                            ...enc,
+                            playerScreenSettings: {
+                              ...enc.playerScreenSettings,
+                              showBloodiedInPlayerView: e.target.checked
+                            }
+                          };
+                          setEnc(updated);
+                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                        }}
+                        className="w-5 h-5"
+                      />
+                    </label>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                      Zeigt die rote Border-Animation bei Kreaturen unter 50% HP
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
         {/* Middle Column - Creature Database (Prep Mode only) */}
         {!combatMode && (
           <div className="space-y-4">
@@ -2947,7 +4369,8 @@ export default function App() {
                     👥
                   </button>
                   <button
-                    className="btn bg-orange-500 text-white hover:bg-orange-600 border-orange-500 text-xs px-2 py-1"
+                    disabled={isCompleted}
+                    className={`btn bg-orange-500 text-white hover:bg-orange-600 border-orange-500 text-xs px-2 py-1 ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
                     onClick={addCustom}
                     title="Add Custom Creature"
                   >
@@ -3068,7 +4491,8 @@ export default function App() {
                     <div className="sticky top-[4.5rem] z-[5] card bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-900/90 dark:to-amber-900/90 border-orange-200 dark:border-orange-700 shadow-lg">
                       <div className="flex items-center gap-6 justify-center">
                         <button
-                          className="w-10 h-10 flex items-center justify-center rounded-full bg-orange-200 dark:bg-orange-800 hover:bg-orange-300 dark:hover:bg-orange-700 transition-colors text-orange-700 dark:text-orange-300 font-bold"
+                          disabled={isCompleted}
+                          className={`w-10 h-10 flex items-center justify-center rounded-full bg-orange-200 dark:bg-orange-800 hover:bg-orange-300 dark:hover:bg-orange-700 transition-colors text-orange-700 dark:text-orange-300 font-bold ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
                           onClick={prevTurn}
                         >
                           ◀
@@ -3093,7 +4517,8 @@ export default function App() {
                           </div>
                         </div>
                         <button
-                          className="w-10 h-10 flex items-center justify-center rounded-full bg-orange-200 dark:bg-orange-800 hover:bg-orange-300 dark:hover:bg-orange-700 transition-colors text-orange-700 dark:text-orange-300 font-bold"
+                          disabled={isCompleted}
+                          className={`w-10 h-10 flex items-center justify-center rounded-full bg-orange-200 dark:bg-orange-800 hover:bg-orange-300 dark:hover:bg-orange-700 transition-colors text-orange-700 dark:text-orange-300 font-bold ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
                           onClick={nextTurn}
                         >
                           ▶
@@ -3107,25 +4532,34 @@ export default function App() {
                     /* Combat Mode - Full detailed cards */
                     <div className="grid gap-4">
                       {order.map((c, idx) => (
-                        <CombatantRow
-                          key={c.id}
-                          c={c}
-                          idx={idx}
-                          active={
-                            enc.initiativeOrder[idx] ===
-                            enc.initiativeOrder[enc.turnIndex]
-                          }
-                          isSelected={selectedCombatantId === c.id}
-                          onSelect={() =>
-                            setSelectedCombatantId(
-                              selectedCombatantId === c.id ? null : c.id
-                            )
-                          }
-                          onChange={(patch) => updateCombatant(c.id, patch)}
-                          onDamage={(amount) => applyDamage(c.id, amount)}
-                          combatMode={combatMode}
-                          allPlayers={order.filter(p => p.player)}
-                        />
+                        <div key={c.id} className={c.sidekickOf ? 'ml-12' : ''}>
+                          <CombatantRow
+                            c={c}
+                            idx={idx}
+                            active={
+                              enc.initiativeOrder[idx] ===
+                              enc.initiativeOrder[enc.turnIndex]
+                            }
+                            isSelected={selectedCombatantId === c.id}
+                            onSelect={() =>
+                              setSelectedCombatantId(
+                                selectedCombatantId === c.id ? null : c.id
+                              )
+                            }
+                            onChange={(patch) => updateCombatant(c.id, patch)}
+                            onDamage={(amount) => applyDamage(c.id, amount)}
+                            combatMode={combatMode}
+                            allPlayers={order.filter(p => p.player)}
+                            hpManagement={hpManagement}
+                            conditionsData={conditionsData}
+                            getConditionTooltipHandlers={getConditionTooltipHandlers}
+                            setSelectedCondition={setSelectedCondition}
+                            setConditionName={setConditionName}
+                            setShowConditionModal={setShowConditionModal}
+                            settings={settings}
+                            isCompleted={isCompleted}
+                          />
+                        </div>
                       ))}
                     </div>
                   ) : (
@@ -3150,7 +4584,7 @@ export default function App() {
                                 selectedCombatantId === c.id ? null : c.id
                               )
                             }
-                            showDelete={!combatMode}
+                            showDelete={!combatMode && !isCompleted}
                             onDelete={() => deleteCombatant(c.id)}
                           />
                         ))}
@@ -3163,23 +4597,25 @@ export default function App() {
           )}
         </section>
 
-        {/* Right Column - Encounter Details (Prep) or Combatant Details (Combat) */}
-        <aside className="space-y-4">
-          {selectedCombatant && !selectedCombatant.isLair ? (
-            <div className="card h-[calc(100vh-120px)] overflow-y-auto">
-              {/* This will be moved from the fixed overlay below */}
-              <div className="text-center text-slate-500 dark:text-slate-400 py-8">
-                Combatant Details (wird hierher verschoben)
+        {/* Right Column - Combatant Details (Combat only) */}
+        {combatMode && (
+          <aside className="space-y-4">
+            {selectedCombatant && !selectedCombatant.isLair ? (
+              <div className="card h-[calc(100vh-120px)] overflow-y-auto">
+                {/* This will be moved from the fixed overlay below */}
+                <div className="text-center text-slate-500 dark:text-slate-400 py-8">
+                  Combatant Details (wird hierher verschoben)
+                </div>
               </div>
-            </div>
-          ) : (
-            <div className="card h-[calc(100vh-120px)] overflow-y-auto">
-              <div className="text-center text-slate-500 dark:text-slate-400 py-8">
-                {combatMode ? "Select a combatant to view details" : "Current Encounter"}
+            ) : (
+              <div className="card h-[calc(100vh-120px)] overflow-y-auto">
+                <div className="text-center text-slate-500 dark:text-slate-400 py-8">
+                  Select a combatant to view details
+                </div>
               </div>
-            </div>
-          )}
-        </aside>
+            )}
+          </aside>
+        )}
 
       </main>
 
@@ -3227,7 +4663,7 @@ export default function App() {
         </div>
       )}
 
-      {/* Dice Roll Toast - Right of the button */}
+      {/* Dice Roll Toast - Right of the button - 384px width */}
       {diceRollResult && diceRollResult.type === "generic" && (
         <div
           className="fixed bottom-6 left-24 z-40"
@@ -3235,7 +4671,7 @@ export default function App() {
             animation: "slideInFromBottom 0.25s ease-out, fadeOutScale 0.3s ease-in 2.7s forwards",
           }}
         >
-          <div className="relative bg-slate-800 dark:bg-slate-900 border-2 border-slate-700 dark:border-slate-600 rounded-2xl shadow-2xl p-3 w-64 overflow-hidden">
+          <div className="relative bg-slate-800 dark:bg-slate-900 border-2 border-slate-700 dark:border-slate-600 rounded-2xl shadow-2xl p-4 w-96 overflow-hidden">
             {/* Close button */}
             <button
               className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full hover:bg-slate-700 dark:hover:bg-slate-600 flex items-center justify-center text-slate-400 hover:text-white transition-colors text-xs"
@@ -3365,59 +4801,124 @@ export default function App() {
                   {diceRollResult.name}
                 </div>
               )}
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <span className="text-3xl font-bold text-blue-600 dark:text-blue-400">
-                  {diceRollResult.roll}
-                </span>
-                {diceRollResult.modifier && diceRollResult.modifier !== 0 && (
-                  <>
-                    <span className="text-xl text-slate-400">+</span>
-                    <span className="text-2xl font-semibold">
-                      {diceRollResult.modifier}
+
+              {/* For PC/Sidekick concentration checks - show only DC */}
+              {diceRollResult.isPlayerCharacter && diceRollResult.type === "concentration" ? (
+                <>
+                  <div className="text-lg text-slate-700 dark:text-slate-300 mb-2">
+                    Concentration check required!
+                  </div>
+                  <div className="mb-2">
+                    <div className="text-sm text-slate-600 dark:text-slate-400 mb-1">
+                      Difficulty Class (DC):
+                    </div>
+                    <div className="text-4xl font-bold text-purple-600 dark:text-purple-400">
+                      {diceRollResult.dc}
+                    </div>
+                  </div>
+                  {diceRollResult.modifier !== 0 && (
+                    <div className="text-sm text-slate-600 dark:text-slate-300 mt-2">
+                      Constitution Mod: {diceRollResult.modifier >= 0 ? '+' : ''}{diceRollResult.modifier}
+                    </div>
+                  )}
+                  <div className="mt-3 text-xs text-slate-500 dark:text-slate-400 italic">
+                    Player must roll this check themselves
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Original display for NPCs and other rolls */}
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <span className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                      {diceRollResult.roll}
                     </span>
-                  </>
-                )}
-                {diceRollResult.total && (
-                  <>
-                    <span className="text-xl text-slate-400">=</span>
-                    <span className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                      {diceRollResult.total}
-                    </span>
-                  </>
-                )}
-              </div>
-              {diceRollResult.dc && (
-                <div className="text-sm text-slate-600 dark:text-slate-300">
-                  DC {diceRollResult.dc} •{" "}
-                  {diceRollResult.passed ? "✅ Success" : "❌ Failed"}
-                </div>
+                    {diceRollResult.modifier && diceRollResult.modifier !== 0 && (
+                      <>
+                        <span className="text-xl text-slate-400">+</span>
+                        <span className="text-2xl font-semibold">
+                          {diceRollResult.modifier}
+                        </span>
+                      </>
+                    )}
+                    {diceRollResult.total && (
+                      <>
+                        <span className="text-xl text-slate-400">=</span>
+                        <span className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                          {diceRollResult.total}
+                        </span>
+                      </>
+                    )}
+                  </div>
+                  {diceRollResult.dc && (
+                    <div className="text-sm text-slate-600 dark:text-slate-300">
+                      DC {diceRollResult.dc} •{" "}
+                      {diceRollResult.passed ? "✅ Success" : "❌ Failed"}
+                    </div>
+                  )}
+                  {!diceRollResult.passed &&
+                    diceRollResult.type === "concentration" && (
+                      <div className="mt-2 text-sm text-red-700 dark:text-red-300 font-medium">
+                        Concentration lost!
+                      </div>
+                    )}
+                  {diceRollResult.critical &&
+                    diceRollResult.type === "deathSave" && (
+                      <div
+                        className={`mt-2 text-sm font-medium ${
+                          diceRollResult.passed
+                            ? "text-green-700 dark:text-green-300"
+                            : "text-red-700 dark:text-red-300"
+                        }`}
+                      >
+                        {diceRollResult.passed
+                          ? "🎉 Natural 20! Regain 1 HP"
+                          : "💀 Natural 1! Two failures"}
+                      </div>
+                    )}
+                </>
               )}
-              {!diceRollResult.passed &&
-                diceRollResult.type === "concentration" && (
-                  <div className="mt-2 text-sm text-red-700 dark:text-red-300 font-medium">
-                    Concentration lost!
+
+              {/* Different buttons for PC concentration checks vs other rolls */}
+              {diceRollResult.isPlayerCharacter && diceRollResult.type === "concentration" ? (
+                <>
+                  <div className="mt-3 flex gap-2">
+                    <button
+                      className="btn flex-1 bg-green-600 hover:bg-green-700 text-white"
+                      onClick={() => {
+                        // Player succeeded - just dismiss
+                        setDiceRollResult(null);
+                      }}
+                    >
+                      ✅ Success
+                    </button>
+                    <button
+                      className="btn flex-1 bg-red-600 hover:bg-red-700 text-white"
+                      onClick={() => {
+                        // Player failed - remove concentration
+                        if (diceRollResult.combatantId) {
+                          updateCombatant(diceRollResult.combatantId, { concentration: false });
+                        }
+                        setDiceRollResult(null);
+                      }}
+                    >
+                      ❌ Failure
+                    </button>
                   </div>
-                )}
-              {diceRollResult.critical &&
-                diceRollResult.type === "deathSave" && (
-                  <div
-                    className={`mt-2 text-sm font-medium ${
-                      diceRollResult.passed
-                        ? "text-green-700 dark:text-green-300"
-                        : "text-red-700 dark:text-red-300"
-                    }`}
+                  <button
+                    className="mt-2 btn w-full bg-slate-300 hover:bg-slate-400 dark:bg-slate-600 dark:hover:bg-slate-500"
+                    onClick={() => setDiceRollResult(null)}
                   >
-                    {diceRollResult.passed
-                      ? "🎉 Natural 20! Regain 1 HP"
-                      : "💀 Natural 1! Two failures"}
-                  </div>
-                )}
-              <button
-                className="mt-3 btn w-full"
-                onClick={() => setDiceRollResult(null)}
-              >
-                Dismiss
-              </button>
+                    Dismiss
+                  </button>
+                </>
+              ) : (
+                <button
+                  className="mt-3 btn w-full"
+                  onClick={() => setDiceRollResult(null)}
+                >
+                  Dismiss
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -3530,16 +5031,37 @@ export default function App() {
                 character: diceRollerCharacter,
                 timestamp: Date.now(),
               };
-              setDiceRollResult(rollResult);
-              // Add to history (keep last 10 rolls)
-              setRollHistory((prev) => [rollResult, ...prev].slice(0, 10));
 
-              // Auto-dismiss after 3 seconds
-              if (toastDismissTimer) clearTimeout(toastDismissTimer);
-              const timer = setTimeout(() => {
-                setDiceRollResult(null);
-              }, 3000);
-              setToastDismissTimer(timer);
+              // Check if we should delay the toast (for dice animation to finish)
+              const toastDelay = result.__delayToast || 0;
+
+              if (toastDelay > 0) {
+                // Wait for animation to complete before showing toast
+                setTimeout(() => {
+                  setDiceRollResult(rollResult);
+                  // Add to history (keep last 10 rolls)
+                  setRollHistory((prev) => [rollResult, ...prev].slice(0, 10));
+
+                  // Auto-dismiss after 3 seconds
+                  if (toastDismissTimer) clearTimeout(toastDismissTimer);
+                  const timer = setTimeout(() => {
+                    setDiceRollResult(null);
+                  }, 3000);
+                  setToastDismissTimer(timer);
+                }, toastDelay);
+              } else {
+                // Show immediately (for 3D dice or other cases)
+                setDiceRollResult(rollResult);
+                // Add to history (keep last 10 rolls)
+                setRollHistory((prev) => [rollResult, ...prev].slice(0, 10));
+
+                // Auto-dismiss after 3 seconds
+                if (toastDismissTimer) clearTimeout(toastDismissTimer);
+                const timer = setTimeout(() => {
+                  setDiceRollResult(null);
+                }, 3000);
+                setToastDismissTimer(timer);
+              }
             }
           }}
         />
@@ -3761,12 +5283,42 @@ export default function App() {
       {spellTooltip.spell && (
         <div
           className="fixed z-50 bg-white dark:bg-slate-800 rounded-lg shadow-2xl border-2 border-purple-500 dark:border-purple-700 p-4 max-h-96 overflow-y-auto pointer-events-none"
-          style={{
-            right: `${window.innerWidth - spellTooltip.x + 15}px`,
-            top: `${spellTooltip.y + 15}px`,
-            width: "634px",
-            maxWidth: "90vw",
-          }}
+          style={(() => {
+            const tooltipWidth = 634;
+            const tooltipHeight = 400; // max-h-96 (384px) + padding
+            const offset = 15;
+            const padding = 10; // padding from screen edge
+
+            let left = spellTooltip.x + offset;
+            let top = spellTooltip.y + offset;
+
+            // Check right edge
+            if (left + tooltipWidth > window.innerWidth - padding) {
+              left = spellTooltip.x - tooltipWidth - offset;
+            }
+
+            // Check left edge
+            if (left < padding) {
+              left = padding;
+            }
+
+            // Check bottom edge
+            if (top + tooltipHeight > window.innerHeight - padding) {
+              top = spellTooltip.y - tooltipHeight - offset;
+            }
+
+            // Check top edge
+            if (top < padding) {
+              top = padding;
+            }
+
+            return {
+              left: `${left}px`,
+              top: `${top}px`,
+              width: "634px",
+              maxWidth: "90vw",
+            };
+          })()}
         >
           <div className="space-y-2">
             <div className="flex items-baseline gap-2">
@@ -3911,6 +5463,193 @@ export default function App() {
                 return `${spellTooltip.spell.source || ""}${
                   spellTooltip.spell.page ? ` p${spellTooltip.spell.page}` : ""
                 }`;
+              })()}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Condition Tooltip (Hover) */}
+      {conditionTooltip.condition && (
+        <div
+          className="fixed z-50 bg-white dark:bg-slate-800 rounded-lg shadow-2xl border-2 border-amber-500 dark:border-amber-700 p-4 max-h-96 overflow-y-auto pointer-events-none"
+          style={(() => {
+            const tooltipWidth = 500;
+            const tooltipHeight = 400; // max-h-96 (384px) + padding
+            const offset = 15;
+            const padding = 10; // padding from screen edge
+
+            let left = conditionTooltip.x + offset;
+            let top = conditionTooltip.y + offset;
+
+            // Check right edge
+            if (left + tooltipWidth > window.innerWidth - padding) {
+              left = conditionTooltip.x - tooltipWidth - offset;
+            }
+
+            // Check left edge
+            if (left < padding) {
+              left = padding;
+            }
+
+            // Check bottom edge
+            if (top + tooltipHeight > window.innerHeight - padding) {
+              top = conditionTooltip.y - tooltipHeight - offset;
+            }
+
+            // Check top edge
+            if (top < padding) {
+              top = padding;
+            }
+
+            return {
+              left: `${left}px`,
+              top: `${top}px`,
+              width: "500px",
+              maxWidth: "90vw",
+            };
+          })()}
+        >
+          <div className="space-y-2">
+            <div className="flex items-baseline gap-2">
+              <h3 className="text-lg font-bold text-amber-900 dark:text-amber-300">
+                {conditionTooltip.name || "Condition"}
+              </h3>
+              <span className="text-xs text-amber-700 dark:text-amber-400">
+                Condition
+              </span>
+            </div>
+
+            <div className="text-xs text-slate-700 dark:text-slate-300 border-t border-amber-200 dark:border-amber-800 pt-2 max-h-64 overflow-y-auto">
+              {(() => {
+                const { legacy, reprinted } = conditionTooltip.condition;
+
+                // Helper function to parse all entries (not just first)
+                const parseEntries = (entries) => {
+                  if (!entries || !entries.length) return null;
+
+                  const cleanText = (text) => {
+                    if (!text) return "";
+                    return text
+                      .replace(/\{@[^}]+\}/g, (match) => {
+                        const textMatch = match.match(/\{@\w+\s+([^}|]+)(?:\|[^}]+)?\}/);
+                        return textMatch ? textMatch[1] : match;
+                      })
+                      .trim();
+                  };
+
+                  const elements = [];
+
+                  entries.forEach((entry, idx) => {
+                    if (typeof entry === "string") {
+                      elements.push(
+                        <p key={idx} className="leading-relaxed mb-1">
+                          {cleanText(entry)}
+                        </p>
+                      );
+                    } else if (entry.type === "list" && entry.items) {
+                      elements.push(
+                        <ul key={idx} className="list-disc list-inside space-y-0.5 mb-1">
+                          {entry.items.map((item, itemIdx) => (
+                            <li key={itemIdx} className="leading-relaxed">{cleanText(item)}</li>
+                          ))}
+                        </ul>
+                      );
+                    } else if (entry.type === "entries" && entry.entries) {
+                      entry.entries.forEach((subEntry, subIdx) => {
+                        if (typeof subEntry === "string") {
+                          elements.push(
+                            <p key={`${idx}-${subIdx}`} className="leading-relaxed mb-1">
+                              {cleanText(subEntry)}
+                            </p>
+                          );
+                        } else if (subEntry.type === "entries") {
+                          if (subEntry.name) {
+                            elements.push(
+                              <p key={`${idx}-${subIdx}`} className="leading-relaxed mb-1">
+                                <span className="font-medium">{subEntry.name}:</span>{" "}
+                                {cleanText(subEntry.entries?.join(" ") || "")}
+                              </p>
+                            );
+                          }
+                        }
+                      });
+                    }
+                  });
+
+                  return <div className="space-y-1">{elements}</div>;
+                };
+
+                // Check if both versions exist and are identical
+                const areSame = legacy && reprinted &&
+                  JSON.stringify(legacy.entries) === JSON.stringify(reprinted.entries);
+
+                if (areSame) {
+                  // Same content in both versions
+                  return (
+                    <div className="space-y-2">
+                      <div className="flex items-baseline justify-between border-b border-amber-200 dark:border-amber-700 pb-1">
+                        <div className="font-semibold text-amber-800 dark:text-amber-400 text-xs">
+                          Legacy & Reprinted Rules
+                        </div>
+                        <div className="text-xs text-slate-500 dark:text-slate-400">
+                          PHB p{legacy.page || "?"} / XPHB p{reprinted.page || "?"}
+                        </div>
+                      </div>
+                      {parseEntries(legacy.entries)}
+                    </div>
+                  );
+                } else if (legacy && reprinted) {
+                  // Different content - clean separation with spacing only
+                  return (
+                    <>
+                      <div>
+                        <div className="flex items-baseline justify-between border-b border-blue-300 dark:border-blue-700 pb-1 mb-1.5">
+                          <div className="font-semibold text-blue-700 dark:text-blue-400 text-xs">
+                            Legacy Rules (5e2014)
+                          </div>
+                          <div className="text-xs text-slate-500 dark:text-slate-400">
+                            PHB p{legacy.page || "?"}
+                          </div>
+                        </div>
+                        {parseEntries(legacy.entries)}
+                      </div>
+                      <div className="mt-5">
+                        <div className="flex items-baseline justify-between border-b border-green-300 dark:border-green-700 pb-1 mb-1.5">
+                          <div className="font-semibold text-green-700 dark:text-green-400 text-xs">
+                            Reprinted Rules (5e2024)
+                          </div>
+                          <div className="text-xs text-slate-500 dark:text-slate-400">
+                            XPHB p{reprinted.page || "?"}
+                          </div>
+                        </div>
+                        {parseEntries(reprinted.entries)}
+                      </div>
+                    </>
+                  );
+                } else if (reprinted) {
+                  // Only reprinted version
+                  return (
+                    <div className="space-y-2">
+                      <div className="text-xs text-slate-500 dark:text-slate-400 pb-1 border-b border-slate-200 dark:border-slate-700 text-right">
+                        XPHB p{reprinted.page || "?"}
+                      </div>
+                      {parseEntries(reprinted.entries)}
+                    </div>
+                  );
+                } else if (legacy) {
+                  // Only legacy version
+                  return (
+                    <div className="space-y-2">
+                      <div className="text-xs text-slate-500 dark:text-slate-400 pb-1 border-b border-slate-200 dark:border-slate-700 text-right">
+                        PHB p{legacy.page || "?"}
+                      </div>
+                      {parseEntries(legacy.entries)}
+                    </div>
+                  );
+                }
+
+                return null;
               })()}
             </div>
           </div>
@@ -4168,6 +5907,42 @@ export default function App() {
                 </span>
               </div>
 
+              {/* Temp HP */}
+              {hpTooltip.tempHP > 0 && (
+                <div className="flex items-center justify-between text-white">
+                  <span className="text-sm font-medium opacity-90">
+                    🛡️ Temp HP:
+                  </span>
+                  <span className="text-xl font-bold px-3 py-1 bg-blue-500/40 rounded-lg">
+                    {hpTooltip.tempHP}
+                  </span>
+                </div>
+              )}
+
+              {/* Max HP Modifier */}
+              {hpTooltip.maxHPModifier && hpTooltip.maxHPModifier !== 0 && (
+                <div className="flex items-center justify-between text-white">
+                  <span className="text-sm font-medium opacity-90">
+                    ✨ Max HP Mod:
+                  </span>
+                  <span className={`text-xl font-bold px-3 py-1 rounded-lg ${hpTooltip.maxHPModifier > 0 ? 'bg-green-500/40' : 'bg-red-500/40'}`}>
+                    {hpTooltip.maxHPModifier > 0 ? '+' : ''}{hpTooltip.maxHPModifier}
+                  </span>
+                </div>
+              )}
+
+              {/* Effective Max HP */}
+              {hpTooltip.maxHPModifier && hpTooltip.maxHPModifier !== 0 && (
+                <div className="flex items-center justify-between text-white border-t border-white/30 pt-2">
+                  <span className="text-sm font-medium opacity-90">
+                    💫 Effective Max:
+                  </span>
+                  <span className="text-xl font-bold px-3 py-1 bg-purple-500/40 rounded-lg">
+                    {hpTooltip.max + hpTooltip.maxHPModifier}
+                  </span>
+                </div>
+              )}
+
               {/* Hit Dice */}
               {hpTooltip.hitDice && (
                 <div className="border-t-2 border-white/30 pt-2 mt-2">
@@ -4184,6 +5959,428 @@ export default function App() {
         </div>
       )}
 
+      {/* CR Tooltip with eCR */}
+      {crTooltip.show && (
+        <div
+          className="fixed z-50 bg-gradient-to-br from-amber-500 to-orange-600 dark:from-amber-700 dark:to-orange-800 rounded-lg shadow-2xl border-2 border-amber-300 dark:border-amber-500 p-3 pointer-events-none animate-[fadeIn_0.15s_ease-out]"
+          style={{
+            right: `${window.innerWidth - crTooltip.x + 15}px`,
+            top: `${crTooltip.y + 15}px`,
+            width: "360px",
+          }}
+        >
+          <div className="space-y-3">
+            {/* Title */}
+            <div className="flex items-center gap-2 pb-2 border-b-2 border-white/30">
+              <span className="text-2xl">🎯</span>
+              <span className="text-sm font-bold text-white uppercase tracking-wider">
+                Challenge Rating
+              </span>
+            </div>
+
+            {/* Content */}
+            {crTooltip.loading ? (
+              <div className="text-center py-3 text-white">
+                <div className="animate-pulse">Berechne eCR...</div>
+              </div>
+            ) : crTooltip.error ? (
+              <div className="text-center py-3 text-red-200">
+                Fehler beim Berechnen
+              </div>
+            ) : crTooltip.eCRData ? (
+              <div className="space-y-3">
+                {/* CR Comparison */}
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex-1">
+                    <div className="text-[10px] uppercase tracking-wide text-white/70 mb-1">
+                      Estimated CR
+                    </div>
+                    <div className="text-2xl font-bold text-yellow-200 px-3 py-1 bg-white/20 rounded-lg text-center">
+                      {formatCR(crTooltip.eCRData.ecr)}
+                    </div>
+                  </div>
+                  <div className="text-white/50 text-xl">↔️</div>
+                  <div className="flex-1">
+                    <div className="text-[10px] uppercase tracking-wide text-white/70 mb-1 text-right">
+                      Official CR
+                    </div>
+                    <div className="text-2xl font-bold text-white px-3 py-1 bg-white/20 rounded-lg text-center">
+                      {formatCR(crTooltip.cr)}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Confidence Badge */}
+                <div className="flex items-center gap-2 justify-center">
+                  <span className="text-xs uppercase tracking-wide text-white/70">
+                    Konfidenz:
+                  </span>
+                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                    crTooltip.eCRData.confidence === 'high'
+                      ? 'bg-green-500/30 text-green-100'
+                      : crTooltip.eCRData.confidence === 'medium'
+                      ? 'bg-yellow-500/30 text-yellow-100'
+                      : 'bg-red-500/30 text-red-100'
+                  }`}>
+                    {crTooltip.eCRData.confidence === 'high' ? '✓ Hoch' : crTooltip.eCRData.confidence === 'medium' ? '~ Mittel' : '✗ Niedrig'}
+                  </span>
+                </div>
+
+                {/* Stats Grid */}
+                {crTooltip.eCRData.features && (
+                  <div className="grid grid-cols-2 gap-2 border-t-2 border-white/30 pt-3">
+                    <div className="flex items-center justify-between bg-white/10 rounded px-2 py-1">
+                      <span className="text-xs text-white/70">HP:</span>
+                      <span className="text-sm font-bold text-white">{crTooltip.eCRData.features.hp}</span>
+                    </div>
+                    <div className="flex items-center justify-between bg-white/10 rounded px-2 py-1">
+                      <span className="text-xs text-white/70">EHP:</span>
+                      <span className="text-sm font-bold text-white">{crTooltip.eCRData.features.ehp?.toFixed(0)}</span>
+                    </div>
+                    <div className="flex items-center justify-between bg-white/10 rounded px-2 py-1">
+                      <span className="text-xs text-white/70">DPR (raw):</span>
+                      <span className="text-sm font-bold text-white">{crTooltip.eCRData.features.dpr_raw?.toFixed(0)}</span>
+                    </div>
+                    <div className="flex items-center justify-between bg-white/10 rounded px-2 py-1">
+                      <span className="text-xs text-white/70">DPR (eff):</span>
+                      <span className="text-sm font-bold text-white">{crTooltip.eCRData.features.dpr?.toFixed(1)}</span>
+                    </div>
+                    <div className="flex items-center justify-between bg-white/10 rounded px-2 py-1">
+                      <span className="text-xs text-white/70">AC:</span>
+                      <span className="text-sm font-bold text-white">{crTooltip.eCRData.features.ac}</span>
+                    </div>
+                    <div className="flex items-center justify-between bg-white/10 rounded px-2 py-1">
+                      <span className="text-xs text-white/70">Atk Bonus:</span>
+                      <span className="text-sm font-bold text-white">{crTooltip.eCRData.features.attackBonus >= 0 ? '+' : ''}{crTooltip.eCRData.features.attackBonus}</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* ML Info */}
+                <div className="text-[10px] leading-relaxed text-white/70 border-t border-white/30 pt-2">
+                  🤖 Die eCR wird durch ein Machine Learning Modell berechnet, das anhand des Statblocks die Challenge Rating ermittelt.
+                </div>
+              </div>
+            ) : null}
+          </div>
+        </div>
+      )}
+
+      {/* eCR Details Modal */}
+      {showECRModal && ecrModalData && (
+        <div className="fixed inset-0 bg-black/50 z-[100] flex items-center justify-center p-4 animate-[fadeIn_0.15s_ease-out]">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] flex flex-col animate-[slideUp_0.2s_ease-out]">
+            {/* Header */}
+            <div className="p-6 border-b border-slate-200 dark:border-slate-700 bg-gradient-to-r from-amber-500 to-orange-600 dark:from-amber-700 dark:to-orange-800 rounded-t-2xl">
+              <div className="flex items-start gap-4">
+                <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-3xl">🎯</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-2xl font-bold text-white mb-1">Challenge Rating Analyse</h3>
+                  <p className="text-sm text-white/80">Detaillierte Statistiken und ML-basierte Schätzung</p>
+                </div>
+                <button
+                  className="w-10 h-10 rounded-full hover:bg-white/20 flex items-center justify-center text-white text-xl transition-colors"
+                  onClick={() => setShowECRModal(false)}
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 overflow-y-auto p-6">
+              <div className="space-y-6">
+                {/* CR Comparison */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl p-4 border-2 border-amber-300 dark:border-amber-700">
+                    <div className="text-xs uppercase tracking-wide text-amber-700 dark:text-amber-300 font-semibold mb-2">
+                      Estimated CR (ML)
+                    </div>
+                    <div className="text-4xl font-bold text-amber-600 dark:text-amber-400">
+                      {formatCR(ecrModalData.ecr)}
+                    </div>
+                    <div className="mt-2 flex items-center gap-2">
+                      <span className="text-xs uppercase tracking-wide text-amber-700 dark:text-amber-300">
+                        Konfidenz:
+                      </span>
+                      <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
+                        ecrModalData.confidence === 'high'
+                          ? 'bg-green-500/30 text-green-700 dark:text-green-300'
+                          : ecrModalData.confidence === 'medium'
+                          ? 'bg-yellow-500/30 text-yellow-700 dark:text-yellow-300'
+                          : 'bg-red-500/30 text-red-700 dark:text-red-300'
+                      }`}>
+                        {ecrModalData.confidence === 'high' ? '✓ Hoch' : ecrModalData.confidence === 'medium' ? '~ Mittel' : '✗ Niedrig'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700/50 dark:to-slate-800/50 rounded-xl p-4 border-2 border-slate-300 dark:border-slate-600">
+                    <div className="text-xs uppercase tracking-wide text-slate-700 dark:text-slate-300 font-semibold mb-2">
+                      Official CR
+                    </div>
+                    <div className="text-4xl font-bold text-slate-600 dark:text-slate-300">
+                      {formatCR(ecrModalData.officialCR)}
+                    </div>
+                    <div className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+                      Aus dem Monster Manual
+                    </div>
+                  </div>
+                </div>
+
+                {/* Stats Grid with Tooltips */}
+                <div>
+                  <h4 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-4">Combat Statistics</h4>
+                  <div className="grid grid-cols-3 gap-3">
+                    {/* HP */}
+                    <div
+                      className="group relative bg-slate-50 dark:bg-slate-700/50 rounded-lg p-3 border border-slate-200 dark:border-slate-600 hover:border-red-400 dark:hover:border-red-500 transition-colors cursor-help"
+                      title="Hit Points - Gesamte Trefferpunkte des Monsters"
+                    >
+                      <div className="text-xs text-slate-600 dark:text-slate-400 mb-1">HP</div>
+                      <div className="text-2xl font-bold text-red-600 dark:text-red-400">{ecrModalData.features?.hp || '—'}</div>
+                      {/* Tooltip */}
+                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-slate-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-10 shadow-lg">
+                        <div className="font-semibold mb-1">Hit Points (HP)</div>
+                        <div className="text-slate-300">Gesamte Trefferpunkte des Monsters</div>
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900"></div>
+                      </div>
+                    </div>
+
+                    {/* EHP */}
+                    <div
+                      className="group relative bg-slate-50 dark:bg-slate-700/50 rounded-lg p-3 border border-slate-200 dark:border-slate-600 hover:border-purple-400 dark:hover:border-purple-500 transition-colors cursor-help"
+                      title="Effective Hit Points - HP unter Berücksichtigung von AC und Resistenzen"
+                    >
+                      <div className="text-xs text-slate-600 dark:text-slate-400 mb-1">EHP</div>
+                      <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">{ecrModalData.features?.ehp?.toFixed(0) || '—'}</div>
+                      {/* Tooltip */}
+                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-slate-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity w-64 z-10 shadow-lg">
+                        <div className="font-semibold mb-1">Effective Hit Points (EHP)</div>
+                        <div className="text-slate-300">HP multipliziert mit einem Faktor basierend auf AC und Resistenzen. Je höher die AC und mehr Resistenzen, desto höher die EHP.</div>
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900"></div>
+                      </div>
+                    </div>
+
+                    {/* AC */}
+                    <div
+                      className="group relative bg-slate-50 dark:bg-slate-700/50 rounded-lg p-3 border border-slate-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 transition-colors cursor-help"
+                      title="Armor Class - Rüstungsklasse"
+                    >
+                      <div className="text-xs text-slate-600 dark:text-slate-400 mb-1">AC</div>
+                      <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{ecrModalData.features?.ac || '—'}</div>
+                      {/* Tooltip */}
+                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-slate-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-10 shadow-lg">
+                        <div className="font-semibold mb-1">Armor Class (AC)</div>
+                        <div className="text-slate-300">Schwierigkeit, das Monster zu treffen</div>
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900"></div>
+                      </div>
+                    </div>
+
+                    {/* DPR Raw */}
+                    <div
+                      className="group relative bg-slate-50 dark:bg-slate-700/50 rounded-lg p-3 border border-slate-200 dark:border-slate-600 hover:border-orange-400 dark:hover:border-orange-500 transition-colors cursor-help"
+                      title="Damage Per Round (Raw) - Maximaler theoretischer Schaden"
+                    >
+                      <div className="text-xs text-slate-600 dark:text-slate-400 mb-1">DPR (raw)</div>
+                      <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">{ecrModalData.features?.dpr_raw?.toFixed(0) || '—'}</div>
+                      {/* Tooltip */}
+                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-slate-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity w-64 z-10 shadow-lg">
+                        <div className="font-semibold mb-1">DPR Raw</div>
+                        <div className="text-slate-300">Durchschnittlicher Schaden pro Runde (roh). Basiert auf den stärksten Angriffen ohne Hit-Chance-Berücksichtigung.</div>
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900"></div>
+                      </div>
+                    </div>
+
+                    {/* DPR Effective */}
+                    <div
+                      className="group relative bg-slate-50 dark:bg-slate-700/50 rounded-lg p-3 border border-slate-200 dark:border-slate-600 hover:border-red-400 dark:hover:border-red-500 transition-colors cursor-help"
+                      title="Damage Per Round (Effective) - Realistischer Schaden mit Hit-Chance"
+                    >
+                      <div className="text-xs text-slate-600 dark:text-slate-400 mb-1">DPR (eff)</div>
+                      <div className="text-2xl font-bold text-red-600 dark:text-red-400">{ecrModalData.features?.dpr?.toFixed(1) || '—'}</div>
+                      {/* Tooltip */}
+                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-slate-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity w-64 z-10 shadow-lg">
+                        <div className="font-semibold mb-1">DPR Effective</div>
+                        <div className="text-slate-300">Effektiver Schaden pro Runde. Raw DPR multipliziert mit der Hit-Chance gegen typische AC für diese CR.</div>
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900"></div>
+                      </div>
+                    </div>
+
+                    {/* Attack Bonus */}
+                    <div
+                      className="group relative bg-slate-50 dark:bg-slate-700/50 rounded-lg p-3 border border-slate-200 dark:border-slate-600 hover:border-green-400 dark:hover:border-green-500 transition-colors cursor-help"
+                      title="Attack Bonus - Höchster Angriffsbonus"
+                    >
+                      <div className="text-xs text-slate-600 dark:text-slate-400 mb-1">Atk Bonus</div>
+                      <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                        {ecrModalData.features?.attackBonus >= 0 ? '+' : ''}{ecrModalData.features?.attackBonus || '—'}
+                      </div>
+                      {/* Tooltip */}
+                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-slate-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity w-64 z-10 shadow-lg">
+                        <div className="font-semibold mb-1">Attack Bonus</div>
+                        <div className="text-slate-300">Höchster Angriffsbonus des Monsters. Beeinflusst die Trefferwahrscheinlichkeit.</div>
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ML Information */}
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-4 border border-blue-200 dark:border-blue-800">
+                  <div className="flex items-start gap-3">
+                    <div className="text-3xl">🤖</div>
+                    <div className="flex-1">
+                      <h5 className="font-semibold text-slate-900 dark:text-slate-100 mb-2">Machine Learning Modell</h5>
+                      <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                        Die eCR wird durch ein Gradient Boosting Regressor Modell mit 54 Features berechnet. Das Modell wurde auf tausenden von D&D 5e Monstern trainiert und erreicht eine Genauigkeit von ~79.5% auf dem Validierungsset.
+                      </p>
+                      <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
+                        <div className="bg-white/50 dark:bg-slate-800/50 rounded px-2 py-1">
+                          <span className="text-slate-600 dark:text-slate-400">Modell-Typ:</span>
+                          <span className="font-semibold text-slate-900 dark:text-slate-100 ml-1">GBR + Residual Learning</span>
+                        </div>
+                        <div className="bg-white/50 dark:bg-slate-800/50 rounded px-2 py-1">
+                          <span className="text-slate-600 dark:text-slate-400">Features:</span>
+                          <span className="font-semibold text-slate-900 dark:text-slate-100 ml-1">54</span>
+                        </div>
+                        <div className="bg-white/50 dark:bg-slate-800/50 rounded px-2 py-1">
+                          <span className="text-slate-600 dark:text-slate-400">Accuracy:</span>
+                          <span className="font-semibold text-slate-900 dark:text-slate-100 ml-1">~79.5%</span>
+                        </div>
+                        <div className="bg-white/50 dark:bg-slate-800/50 rounded px-2 py-1">
+                          <span className="text-slate-600 dark:text-slate-400">Format:</span>
+                          <span className="font-semibold text-slate-900 dark:text-slate-100 ml-1">ONNX</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="border-t border-slate-200 dark:border-slate-700 p-4 flex justify-end">
+              <button
+                className="btn bg-amber-600 text-white hover:bg-amber-700 border-amber-600 px-6"
+                onClick={() => setShowECRModal(false)}
+              >
+                Schließen
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Damage Modifier Tooltip */}
+      {damageModifier.show && (
+        <div
+          className="fixed z-[60] bg-slate-800 dark:bg-slate-900 border-2 border-red-500 rounded-lg shadow-2xl p-2"
+          style={{
+            left: `${damageModifier.x}px`,
+            top: `${damageModifier.y}px`,
+            transform: 'translateX(-50%)',
+          }}
+        >
+          <div className="flex items-center gap-1">
+            <button
+              className="px-2 py-1 bg-orange-600 hover:bg-orange-700 text-white text-xs font-bold rounded"
+              onClick={() => {
+                const modifier = 2;
+                const damage = Math.ceil(damageModifier.damage * modifier);
+                const input = document.getElementById(`hp-quick-${damageModifier.combatantId}`);
+                updateCombatant(damageModifier.combatantId, applyHPChange(
+                  enc.combatants[damageModifier.combatantId],
+                  `-${damage}`
+                ));
+                if (input) input.value = '';
+                setDamageModifier({ show: false, combatantId: null, x: 0, y: 0 });
+              }}
+              title="Vulnerable (double damage)"
+            >
+              x2
+            </button>
+            <button
+              className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded ring-2 ring-white"
+              onClick={() => {
+                const damage = damageModifier.damage;
+                const input = document.getElementById(`hp-quick-${damageModifier.combatantId}`);
+                updateCombatant(damageModifier.combatantId, applyHPChange(
+                  enc.combatants[damageModifier.combatantId],
+                  `-${damage}`
+                ));
+                if (input) input.value = '';
+                setDamageModifier({ show: false, combatantId: null, x: 0, y: 0 });
+              }}
+              title="Normal damage"
+            >
+              x1
+            </button>
+            <button
+              className="px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded"
+              onClick={() => {
+                const modifier = 0.5;
+                const damage = Math.ceil(damageModifier.damage * modifier);
+                const input = document.getElementById(`hp-quick-${damageModifier.combatantId}`);
+                updateCombatant(damageModifier.combatantId, applyHPChange(
+                  enc.combatants[damageModifier.combatantId],
+                  `-${damage}`
+                ));
+                if (input) input.value = '';
+                setDamageModifier({ show: false, combatantId: null, x: 0, y: 0 });
+              }}
+              title="Resistant (half damage)"
+            >
+              x½
+            </button>
+            <button
+              className="px-2 py-1 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold rounded"
+              onClick={() => {
+                const modifier = 0.25;
+                const damage = Math.ceil(damageModifier.damage * modifier);
+                const input = document.getElementById(`hp-quick-${damageModifier.combatantId}`);
+                updateCombatant(damageModifier.combatantId, applyHPChange(
+                  enc.combatants[damageModifier.combatantId],
+                  `-${damage}`
+                ));
+                if (input) input.value = '';
+                setDamageModifier({ show: false, combatantId: null, x: 0, y: 0 });
+              }}
+              title="Double resistant (quarter damage)"
+            >
+              x¼
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Click outside to close damage modifier */}
+      {damageModifier.show && (
+        <div
+          className="fixed inset-0 z-[59]"
+          onClick={() => setDamageModifier({ show: false, combatantId: null, x: 0, y: 0 })}
+        />
+      )}
+
+      {/* Bloodied Toast Notifications (DM Only) */}
+      <div className="fixed top-4 right-4 z-[100] space-y-2 pointer-events-none">
+        {bloodiedToasts.map((toast) => (
+          <div
+            key={toast.id}
+            className="bg-red-600 text-white px-6 py-3 rounded-lg shadow-2xl border-2 border-red-800 animate-[slideInRight_0.3s_ease-out] flex items-center gap-3 pointer-events-auto"
+          >
+            <svg className="w-6 h-6 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+            </svg>
+            <div>
+              <div className="font-bold text-lg">{toast.name}</div>
+              <div className="text-sm opacity-90">is bloodied!</div>
+            </div>
+          </div>
+        ))}
+      </div>
 
       {/* Spell Details Modal */}
       {showSpellModal && selectedSpell && (
@@ -4622,6 +6819,217 @@ export default function App() {
         </div>
       )}
 
+      {/* Condition Modal */}
+      {showConditionModal && selectedCondition && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+          onClick={() => setShowConditionModal(false)}
+        >
+          <div
+            className="bg-white dark:bg-slate-800 rounded-lg shadow-2xl border-2 border-amber-500 dark:border-amber-700 w-full max-w-2xl max-h-[90vh] overflow-y-auto m-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="sticky top-0 bg-amber-600 dark:bg-amber-700 text-white p-4 flex items-center justify-between border-b-2 border-amber-700 dark:border-amber-800">
+              <div>
+                <h2 className="text-2xl font-bold">{selectedCondition.reprinted?.name || selectedCondition.legacy?.name || "Condition"}</h2>
+                <div className="text-sm opacity-90 mt-1">
+                  Condition
+                </div>
+              </div>
+              <button
+                className="w-8 h-8 rounded-full hover:bg-amber-700 dark:hover:bg-amber-600 flex items-center justify-center transition-colors"
+                onClick={() => setShowConditionModal(false)}
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="p-6 space-y-4">
+              {/* Description */}
+              <div className="text-slate-700 dark:text-slate-300 space-y-4">
+                {(() => {
+                  const { legacy, reprinted } = selectedCondition;
+
+                  // Helper function to remove 5etools tags
+                  const cleanText = (text) => {
+                    if (!text) return "";
+                    return text
+                      .replace(/\{@[^}]+\}/g, (match) => {
+                        const textMatch = match.match(/\{@\w+\s+([^}|]+)(?:\|[^}]+)?\}/);
+                        return textMatch ? textMatch[1] : match;
+                      })
+                      .trim();
+                  };
+
+                  // Function to parse all entries fully
+                  const parseEntries = (entries) => {
+                    if (!entries || !entries.length) return null;
+
+                    const elements = [];
+
+                    entries.forEach((entry, idx) => {
+                      if (typeof entry === "string") {
+                        elements.push(
+                          <p key={idx} className="leading-relaxed">
+                            {cleanText(entry)}
+                          </p>
+                        );
+                      } else if (entry.type === "list" && entry.items) {
+                        elements.push(
+                          <ul key={idx} className="list-disc list-inside space-y-1 ml-2">
+                            {entry.items.map((item, itemIdx) => (
+                              <li key={itemIdx} className="leading-relaxed">
+                                {cleanText(item)}
+                              </li>
+                            ))}
+                          </ul>
+                        );
+                      } else if (entry.type === "entries") {
+                        if (entry.name) {
+                          elements.push(
+                            <div key={idx} className="mb-3">
+                              <h4 className="font-semibold text-amber-900 dark:text-amber-300 mb-1">
+                                {entry.name}
+                              </h4>
+                              {entry.entries && entry.entries.map((subEntry, subIdx) => {
+                                if (typeof subEntry === "string") {
+                                  return (
+                                    <p key={subIdx} className="leading-relaxed ml-2">
+                                      {cleanText(subEntry)}
+                                    </p>
+                                  );
+                                } else if (subEntry.type === "entries") {
+                                  return (
+                                    <div key={subIdx} className="ml-2 mb-2">
+                                      {subEntry.name && (
+                                        <span className="font-medium text-amber-800 dark:text-amber-400">
+                                          {subEntry.name}:
+                                        </span>
+                                      )}{" "}
+                                      {cleanText(subEntry.entries?.join(" ") || "")}
+                                    </div>
+                                  );
+                                }
+                                return null;
+                              })}
+                            </div>
+                          );
+                      } else {
+                        elements.push(
+                          <div key={idx} className="space-y-1">
+                            {entry.entries && entry.entries.map((subEntry, subIdx) => {
+                              if (typeof subEntry === "string") {
+                                return (
+                                  <p key={subIdx} className="leading-relaxed">
+                                    {cleanText(subEntry)}
+                                  </p>
+                                );
+                              } else if (subEntry.type === "entries") {
+                                return (
+                                  <div key={subIdx} className="mb-2">
+                                    {subEntry.name && (
+                                      <span className="font-medium text-amber-800 dark:text-amber-400">
+                                        {subEntry.name}:
+                                      </span>
+                                    )}{" "}
+                                    {cleanText(subEntry.entries?.join(" ") || "")}
+                                  </div>
+                                );
+                              }
+                              return null;
+                            })}
+                          </div>
+                        );
+                      }
+                    }
+                  });
+
+                  return elements;
+                };
+
+                // Check if both versions exist and are identical
+                const areSame = legacy && reprinted &&
+                  JSON.stringify(legacy.entries) === JSON.stringify(reprinted.entries);
+
+                if (areSame) {
+                  // Same content in both versions
+                  return (
+                    <>
+                      <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
+                        <div className="font-semibold text-amber-900 dark:text-amber-300 mb-2">
+                          Legacy & Reprinted Rules:
+                        </div>
+                        <div className="space-y-2">
+                          {parseEntries(legacy.entries)}
+                        </div>
+                        <div className="text-xs text-slate-500 dark:text-slate-400 mt-3 pt-2 border-t border-amber-200 dark:border-amber-800">
+                          PHB p{legacy.page || "?"} / XPHB p{reprinted.page || "?"}
+                        </div>
+                      </div>
+                    </>
+                  );
+                } else if (legacy && reprinted) {
+                  // Different content
+                  return (
+                    <>
+                      <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                        <div className="font-semibold text-blue-900 dark:text-blue-300 mb-2">
+                          Legacy Rules (5e2014):
+                        </div>
+                        <div className="space-y-2">
+                          {parseEntries(legacy.entries)}
+                        </div>
+                        <div className="text-xs text-slate-500 dark:text-slate-400 mt-3 pt-2 border-t border-blue-200 dark:border-blue-800">
+                          PHB p{legacy.page || "?"}
+                        </div>
+                      </div>
+                      <div className="bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+                        <div className="font-semibold text-green-900 dark:text-green-300 mb-2">
+                          Reprinted Rules (5e2024):
+                        </div>
+                        <div className="space-y-2">
+                          {parseEntries(reprinted.entries)}
+                        </div>
+                        <div className="text-xs text-slate-500 dark:text-slate-400 mt-3 pt-2 border-t border-green-200 dark:border-green-800">
+                          XPHB p{reprinted.page || "?"}
+                        </div>
+                      </div>
+                    </>
+                  );
+                } else if (reprinted) {
+                  // Only reprinted version
+                  return (
+                    <>
+                      <div className="space-y-2">
+                        {parseEntries(reprinted.entries)}
+                      </div>
+                      <div className="text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-700 pt-2">
+                        Source: XPHB p{reprinted.page || "?"}
+                      </div>
+                    </>
+                  );
+                } else if (legacy) {
+                  // Only legacy version
+                  return (
+                    <>
+                      <div className="space-y-2">
+                        {parseEntries(legacy.entries)}
+                      </div>
+                      <div className="text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-700 pt-2">
+                        Source: PHB p{legacy.page || "?"}
+                      </div>
+                    </>
+                  );
+                }
+
+                return null;
+              })()}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Dice Context Menu */}
       {diceContextMenu.show && (
         <>
@@ -4652,15 +7060,15 @@ export default function App() {
                 </div>
                 <button
                   className="w-full text-left px-3 py-2 text-sm hover:bg-green-50 dark:hover:bg-green-900/20 text-green-700 dark:text-green-300 rounded transition-colors"
-                  onClick={() => {
-                    const creatureName = selectedCombatant?.name || "Unknown";
-                    rollDice({
+                  onClick={async () => {
+                    const creatureName = diceContextMenu.character || selectedCombatant?.name || "Unknown";
+                    const result = await rollDice({
                       notation: diceContextMenu.notation,
                       rollMode: "advantage",
                       label: diceContextMenu.label || diceContextMenu.notation,
                       character: creatureName,
                     });
-                    if (diceContextMenu.onRoll) diceContextMenu.onRoll();
+                    if (diceContextMenu.onRoll) diceContextMenu.onRoll(result);
                     setDiceContextMenu({ ...diceContextMenu, show: false });
                   }}
                 >
@@ -4668,15 +7076,15 @@ export default function App() {
                 </button>
                 <button
                   className="w-full text-left px-3 py-2 text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded transition-colors"
-                  onClick={() => {
-                    const creatureName = selectedCombatant?.name || "Unknown";
-                    rollDice({
+                  onClick={async () => {
+                    const creatureName = diceContextMenu.character || selectedCombatant?.name || "Unknown";
+                    const result = await rollDice({
                       notation: diceContextMenu.notation,
                       rollMode: "normal",
                       label: diceContextMenu.label || diceContextMenu.notation,
                       character: creatureName,
                     });
-                    if (diceContextMenu.onRoll) diceContextMenu.onRoll();
+                    if (diceContextMenu.onRoll) diceContextMenu.onRoll(result);
                     setDiceContextMenu({ ...diceContextMenu, show: false });
                   }}
                 >
@@ -4684,15 +7092,15 @@ export default function App() {
                 </button>
                 <button
                   className="w-full text-left px-3 py-2 text-sm hover:bg-red-50 dark:hover:bg-red-900/20 text-red-700 dark:text-red-300 rounded transition-colors"
-                  onClick={() => {
-                    const creatureName = selectedCombatant?.name || "Unknown";
-                    rollDice({
+                  onClick={async () => {
+                    const creatureName = diceContextMenu.character || selectedCombatant?.name || "Unknown";
+                    const result = await rollDice({
                       notation: diceContextMenu.notation,
                       rollMode: "disadvantage",
                       label: diceContextMenu.label || diceContextMenu.notation,
                       character: creatureName,
                     });
-                    if (diceContextMenu.onRoll) diceContextMenu.onRoll();
+                    if (diceContextMenu.onRoll) diceContextMenu.onRoll(result);
                     setDiceContextMenu({ ...diceContextMenu, show: false });
                   }}
                 >
@@ -4796,10 +7204,20 @@ export default function App() {
       {showCampaignManager && (
         <CampaignManager onClose={() => setShowCampaignManager(false)} />
       )}
+
+      {/* Share Code Modal */}
+      {showShareCodeModal && currentId && (
+        <ShareCodeModal
+          encounterId={currentId}
+          onClose={() => setShowShareCodeModal(false)}
+        />
+      )}
+
       {/* Statblock Sidebar - Overlay */}
       {selectedCombatant && !selectedCombatant.isLair && (
         <div
-          className="fixed top-16 right-0 h-[calc(100vh-4rem)] w-96 bg-white dark:bg-slate-800 shadow-2xl transform transition-transform duration-300 ease-in-out z-30 translate-x-0 overflow-y-auto"
+          className="fixed top-16 right-0 h-[calc(100vh-4rem)] bg-white dark:bg-slate-800 shadow-2xl transform transition-transform duration-300 ease-in-out z-30 translate-x-0 overflow-y-auto"
+          style={{ width: '400px' }}
         >
           <div className="h-full flex flex-col">
             {/* Header */}
@@ -4819,8 +7237,44 @@ export default function App() {
                   {selectedCombatant.alignment && `, ${selectedCombatant.alignment.charAt(0).toUpperCase() + selectedCombatant.alignment.slice(1).toLowerCase()}`}
                 </span>
                 {selectedCombatant.cr && (
-                  <span className="font-semibold text-white bg-white/20 px-2 py-0.5 rounded">
-                    CR {selectedCombatant.cr}
+                  <span
+                    className="font-semibold text-white bg-white/20 px-2 py-0.5 rounded cursor-pointer hover:bg-white/30 transition-colors"
+                    onClick={async () => {
+                      const data = await fetchECRForMonster(selectedCombatant);
+                      if (data) {
+                        setECRModalData(data);
+                        setShowECRModal(true);
+                      }
+                    }}
+                    onMouseEnter={async (e) => {
+                      setCrTooltip({
+                        show: true,
+                        x: e.clientX,
+                        y: e.clientY,
+                        cr: selectedCombatant.cr,
+                        eCRData: null,
+                        loading: true,
+                        error: null
+                      });
+                      const data = await fetchECRForMonster(selectedCombatant);
+                      if (data) {
+                        setCrTooltip(prev => ({ ...prev, eCRData: data, loading: false }));
+                      } else {
+                        setCrTooltip(prev => ({ ...prev, error: 'Failed to load', loading: false }));
+                      }
+                    }}
+                    onMouseMove={(e) => {
+                      setCrTooltip(prev => ({
+                        ...prev,
+                        x: e.clientX,
+                        y: e.clientY
+                      }));
+                    }}
+                    onMouseLeave={() => {
+                      setCrTooltip({ show: false, x: 0, y: 0, cr: 0, eCRData: null, loading: false, error: null });
+                    }}
+                  >
+                    CR {formatCR(selectedCombatant.cr)}
                   </span>
                 )}
               </div>
@@ -4870,6 +7324,7 @@ export default function App() {
                         });
                       }}
                       placeholder="—"
+                      disabled={isCompleted}
                     />
                   </div>
                   {/* Bonus */}
@@ -4887,6 +7342,7 @@ export default function App() {
                       className="flex-1 text-center text-lg font-bold text-blue-600 dark:text-blue-400 bg-transparent border-0 focus:ring-1 focus:ring-blue-400 rounded p-0"
                       value={selectedCombatant.initiative || ''}
                       onChange={(e) => updateCombatant(selectedCombatant.id, { initiative: parseInt(e.target.value) || 0 })}
+                      disabled={isCompleted}
                     />
                   </div>
                   {/* Tiebreaker */}
@@ -4899,6 +7355,7 @@ export default function App() {
                       value={selectedCombatant.initiativeTieBreaker || ''}
                       onChange={(e) => updateCombatant(selectedCombatant.id, { initiativeTieBreaker: parseFloat(e.target.value) || 0 })}
                       placeholder="0.00"
+                      disabled={isCompleted}
                     />
                   </div>
                 </div>
@@ -4931,11 +7388,18 @@ export default function App() {
                     className="w-full text-center text-2xl font-bold text-green-600 dark:text-green-400 bg-transparent border-0 focus:ring-1 focus:ring-green-400 rounded p-0"
                     value={Array.isArray(selectedCombatant.ac) ? selectedCombatant.ac[0]?.value : selectedCombatant.ac}
                     onChange={(e) => updateCombatant(selectedCombatant.id, { ac: parseInt(e.target.value) || 0 })}
+                    disabled={isCompleted}
                   />
                 </div>
 
                 {/* HP - Compact with inline editing and quick buttons */}
-                <div className="card p-2"
+                <div className="card p-2 cursor-pointer hover:ring-2 hover:ring-red-400 transition-all"
+                  onClick={(e) => {
+                    // Only open modal if not clicking on an input
+                    if (e.target.tagName !== 'INPUT' && hpManagement) {
+                      hpManagement(selectedCombatant, (patch) => updateCombatant(selectedCombatant.id, patch));
+                    }
+                  }}
                   onMouseEnter={(e) => {
                     setHpTooltip({
                       show: true,
@@ -4943,6 +7407,8 @@ export default function App() {
                       y: e.clientY,
                       current: selectedCombatant.hp || 0,
                       max: selectedCombatant.baseHP || 0,
+                      tempHP: selectedCombatant.tempHP || 0,
+                      maxHPModifier: selectedCombatant.maxHPModifier || 0,
                       hitDice: selectedCombatant.hpFormula || null
                     });
                   }}
@@ -4954,26 +7420,58 @@ export default function App() {
                     }));
                   }}
                   onMouseLeave={() => {
-                    setHpTooltip({ show: false, x: 0, y: 0, current: 0, max: 0, hitDice: null });
+                    setHpTooltip({ show: false, x: 0, y: 0, current: 0, max: 0, tempHP: 0, maxHPModifier: 0, hitDice: null });
                   }}
+                  title="Klick für HP Management (oder editiere Werte direkt)"
                 >
                   <div className="flex items-center justify-between mb-0.5">
                     <div className="lbl text-xs">HP</div>
+                    <div className="text-[10px] text-slate-400">💡 Click for modal</div>
                   </div>
                   <div className="flex items-center gap-1 mb-1">
                     <input
-                      type="number"
+                      type="text"
+                      inputMode="numeric"
                       className="w-12 text-center text-xl font-bold text-red-600 dark:text-red-400 bg-transparent border-0 focus:ring-1 focus:ring-red-400 rounded p-0"
-                      value={selectedCombatant.hp || ''}
-                      onChange={(e) => updateCombatant(selectedCombatant.id, { hp: parseInt(e.target.value) || 0 })}
+                      defaultValue={selectedCombatant.hp || ''}
+                      key={`hp-${selectedCombatant.id}-${selectedCombatant.hp}-${selectedCombatant.tempHP || 0}`}
+                      onBlur={(e) => {
+                        const value = e.target.value.trim();
+                        // Handle +/- shortcuts on blur using applyHPChange
+                        if (value.startsWith('+') || value.startsWith('-')) {
+                          updateCombatant(selectedCombatant.id, applyHPChange(selectedCombatant, value));
+                        } else {
+                          // Direct number input
+                          const num = parseInt(value);
+                          if (!isNaN(num) || value === '') {
+                            updateCombatant(selectedCombatant.id, { hp: num || 0 });
+                          }
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          const value = e.target.value.trim();
+                          // Handle +/- shortcuts on Enter using applyHPChange
+                          if (value.startsWith('+') || value.startsWith('-')) {
+                            updateCombatant(selectedCombatant.id, applyHPChange(selectedCombatant, value));
+                          } else {
+                            // Direct number input
+                            const num = parseInt(value);
+                            if (!isNaN(num) || value === '') {
+                              updateCombatant(selectedCombatant.id, { hp: num || 0 });
+                            }
+                          }
+                          // Always blur on Enter
+                          e.target.blur();
+                        }
+                      }}
+                      onClick={(e) => e.stopPropagation()}
+                      onFocus={(e) => e.target.select()}
                     />
                     <span className="text-slate-400">/</span>
-                    <input
-                      type="number"
-                      className="w-12 text-center text-xl font-semibold text-slate-500 dark:text-slate-400 bg-transparent border-0 focus:ring-1 focus:ring-slate-400 rounded p-0"
-                      value={selectedCombatant.baseHP || ''}
-                      onChange={(e) => updateCombatant(selectedCombatant.id, { baseHP: parseInt(e.target.value) || 0 })}
-                    />
+                    <div className="w-12 text-center text-xl font-semibold text-slate-500 dark:text-slate-400 pointer-events-none">
+                      {(selectedCombatant.baseHP || 0) + (selectedCombatant.maxHPModifier || 0)}
+                    </div>
                   </div>
                   {/* Temp HP - Compact, shown as dash when 0 */}
                   <div className="flex items-center gap-1 mb-1">
@@ -4987,6 +7485,13 @@ export default function App() {
                         const val = e.target.value === '' || e.target.value === '—' ? 0 : parseInt(e.target.value);
                         updateCombatant(selectedCombatant.id, { tempHP: isNaN(val) ? 0 : val });
                       }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.target.blur();
+                        }
+                      }}
+                      onClick={(e) => e.stopPropagation()}
+                      onFocus={(e) => e.target.select()}
                       title="Temporary HP - Click to edit"
                     />
                   </div>
@@ -5004,29 +7509,44 @@ export default function App() {
                         }
                       }
                     }}
+                    onClick={(e) => e.stopPropagation()}
+                    onFocus={(e) => e.target.select()}
+                    disabled={isCompleted}
                   />
-                  <div className="grid grid-cols-2 gap-1">
+                  <div className="grid grid-cols-2 gap-1 relative">
                     <button
+                      id={`dmg-btn-${selectedCombatant.id}`}
                       className="px-3 py-1 bg-red-500 hover:bg-red-600 text-white text-xs font-semibold rounded"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         const input = document.getElementById(`hp-quick-${selectedCombatant.id}`);
                         if (input && input.value) {
-                          updateCombatant(selectedCombatant.id, applyHPChange(selectedCombatant, `-${input.value}`));
-                          input.value = '';
+                          // Show damage modifier tooltip
+                          const rect = e.currentTarget.getBoundingClientRect();
+                          setDamageModifier({
+                            show: true,
+                            combatantId: selectedCombatant.id,
+                            x: rect.left + rect.width / 2,
+                            y: rect.bottom + 5,
+                            damage: parseInt(input.value) || 0
+                          });
                         }
                       }}
+                      disabled={isCompleted}
                     >
                       DMG
                     </button>
                     <button
                       className="px-3 py-1 bg-green-500 hover:bg-green-600 text-white text-xs font-semibold rounded"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         const input = document.getElementById(`hp-quick-${selectedCombatant.id}`);
                         if (input && input.value) {
                           updateCombatant(selectedCombatant.id, applyHPChange(selectedCombatant, `+${input.value}`));
                           input.value = '';
                         }
                       }}
+                      disabled={isCompleted}
                     >
                       HEAL
                     </button>
@@ -5181,18 +7701,27 @@ export default function App() {
                 </div>
               )}
 
-              {/* Conditions */}
+              {/* Active Conditions */}
               {selectedCombatant.conditions && selectedCombatant.conditions.length > 0 && (
-                <div className="card space-y-1">
-                  <div className="lbl">Conditions</div>
-                  <div className="flex flex-wrap gap-1">
+                <div className="card bg-orange-50/50 dark:bg-orange-950/20 space-y-2">
+                  <div className="lbl">Active Conditions</div>
+                  <div className="flex flex-wrap gap-2">
                     {selectedCombatant.conditions.map((cond, idx) => (
-                      <span
+                      <button
                         key={idx}
-                        className="px-2 py-1 text-xs bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 rounded"
+                        className="px-3 py-1 text-sm bg-orange-100 hover:bg-orange-200 dark:bg-orange-900/30 dark:hover:bg-orange-900/50 text-orange-800 dark:text-orange-300 rounded-full font-medium border border-orange-300 dark:border-orange-800 cursor-pointer transition-colors"
+                        onClick={() => {
+                          const conditionData = conditionsData[cond.toLowerCase()];
+                          if (conditionData) {
+                            setSelectedCondition(conditionData);
+                            setConditionName(cond);
+                            setShowConditionModal(true);
+                          }
+                        }}
+                        {...getConditionTooltipHandlers(cond)}
                       >
                         {cond}
-                      </span>
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -5202,7 +7731,43 @@ export default function App() {
               <div className="card bg-slate-50/50 dark:bg-slate-900/20 space-y-1 text-sm">
                 <div className="flex justify-between">
                   <span className="lbl">CR</span>
-                  <span className="dark:text-slate-200">{selectedCombatant.cr || '—'}</span>
+                  <div className="relative group">
+                    <span className="dark:text-slate-200 cursor-help">{selectedCombatant.cr || '—'}</span>
+                    {ecrData && (
+                      <div className="absolute bottom-full right-0 mb-2 hidden group-hover:block z-50 w-64 p-3 bg-slate-800 dark:bg-slate-900 border border-slate-600 rounded-lg shadow-xl text-xs">
+                        <div className="font-bold text-amber-400 mb-2">ML Predicted eCR</div>
+                        <div className="space-y-1.5">
+                          <div className="flex justify-between">
+                            <span className="text-slate-400">Predicted eCR:</span>
+                            <span className="text-white font-semibold">{ecrData.ecr}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-slate-400">Official CR:</span>
+                            <span className="text-slate-300">{ecrData.officialCR}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-slate-400">Rule-based:</span>
+                            <span className="text-slate-300">{ecrData.ruleBasedECR}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-slate-400">Confidence:</span>
+                            <span className={`font-medium ${
+                              ecrData.confidence === 'high' ? 'text-green-400' :
+                              ecrData.confidence === 'medium' ? 'text-yellow-400' :
+                              'text-red-400'
+                            }`}>
+                              {ecrData.confidence.toUpperCase()}
+                            </span>
+                          </div>
+                          <div className="border-t border-slate-700 pt-1.5 mt-1.5 text-slate-400 italic text-[10px]">
+                            Trained on {'>'}3000 5e monsters
+                          </div>
+                        </div>
+                        {/* Arrow */}
+                        <div className="absolute top-full right-4 -mt-1 w-0 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4 border-t-slate-800 dark:border-t-slate-900"></div>
+                      </div>
+                    )}
+                  </div>
                 </div>
                 {selectedCombatant.alignment && (
                   <div className="flex justify-between">
@@ -5578,12 +8143,21 @@ export default function App() {
                         {[...selectedCombatant.conditionImmunities]
                           .sort((a, b) => a.localeCompare(b))
                           .map((cond, idx) => (
-                            <span
+                            <button
                               key={idx}
-                              className="px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 rounded-full text-sm font-medium border border-amber-300 dark:border-amber-800"
+                              className="px-3 py-1 bg-amber-100 hover:bg-amber-200 dark:bg-amber-900/30 dark:hover:bg-amber-900/50 text-amber-800 dark:text-amber-300 rounded-full text-sm font-medium border border-amber-300 dark:border-amber-800 cursor-pointer transition-colors"
+                              onClick={() => {
+                                const conditionData = conditionsData[cond.toLowerCase()];
+                                if (conditionData) {
+                                  setSelectedCondition(conditionData);
+                                  setConditionName(cond);
+                                  setShowConditionModal(true);
+                                }
+                              }}
+                              {...getConditionTooltipHandlers(cond)}
                             >
                               {cond.charAt(0).toUpperCase() + cond.slice(1).toLowerCase()}
-                            </span>
+                            </button>
                           ))}
                       </div>
                     </div>
@@ -5911,14 +8485,44 @@ export default function App() {
               {selectedCombatant.traits && selectedCombatant.traits.length > 0 && (
                 <div className="space-y-2">
                   <div className="h2">Traits</div>
-                  {selectedCombatant.traits.map((trait, idx) => (
-                    <div key={idx} className="card bg-slate-50/50 dark:bg-slate-900/20 text-sm">
-                      <div className="font-semibold mb-1 dark:text-slate-200">{trait.name}</div>
-                      <div className="text-slate-700 dark:text-slate-300">
-                        <RollableText text={trait.desc} onRoll={handleRoll} />
+                  {selectedCombatant.traits.map((trait, idx) => {
+                    // Check if this is a Legendary Resistance trait
+                    const isLegendaryResistance = trait.name && trait.name.match(/Legendary Resistance\s*\((\d+)\/Day\)/i);
+
+                    return (
+                      <div key={idx} className="card bg-slate-50/50 dark:bg-slate-900/20 text-sm">
+                        <div className="flex items-center justify-between mb-1">
+                          <div className="font-semibold dark:text-slate-200">{trait.name}</div>
+                          {/* Legendary Resistance Counter */}
+                          {isLegendaryResistance && selectedCombatant.legendaryResistanceMax > 0 && (
+                            <div className={`marker-coins legendary ${(selectedCombatant.legendaryResistanceRemaining ?? 0) > 0 ? 'active' : 'inactive'}`}>
+                              {[...Array(selectedCombatant.legendaryResistanceMax)].map((_, i) => (
+                                <div
+                                  key={i}
+                                  className="coin"
+                                  onClick={() => {
+                                    const current = selectedCombatant.legendaryResistanceRemaining ?? 0;
+                                    updateCombatant(selectedCombatant.id, {
+                                      legendaryResistanceRemaining: current >= (i + 1) ? i : i + 1
+                                    });
+                                  }}
+                                  title={`Legendary Resistance ${i + 1}`}
+                                  style={{
+                                    opacity: (selectedCombatant.legendaryResistanceRemaining ?? 0) >= (i + 1) ? 1 : 0.3,
+                                    width: '24px',
+                                    height: '24px'
+                                  }}
+                                />
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                        <div className="text-slate-700 dark:text-slate-300">
+                          <RollableText text={trait.desc} onRoll={handleRoll} />
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
 
@@ -5930,10 +8534,11 @@ export default function App() {
                     const formatted = formatActionName(action.name);
                     const rechargeKey = `recharge_action_${idx}`;
                     const isAvailable = selectedCombatant.rechargeAbilities?.[rechargeKey] ?? true;
+                    const parsed = parseActionDescription(action.desc);
 
                     return (
                       <div key={idx} className="card bg-slate-50 dark:bg-slate-800/50 border-l-4 border-slate-400 dark:border-slate-500 text-sm">
-                        <div className="flex items-center justify-between mb-1">
+                        <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-2">
                             <div className="font-semibold text-slate-800 dark:text-slate-200">{formatted.name}</div>
                             {formatted.recharge && (
@@ -5956,9 +8561,213 @@ export default function App() {
                             </div>
                           )}
                         </div>
-                        <div className="text-slate-700 dark:text-slate-300">
-                          <RollableText text={action.desc} onRoll={handleRoll} />
-                        </div>
+
+                        {parsed && parsed.type === 'attack' ? (
+                          <>
+                            {/* Structured Attack Table */}
+                            <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 mb-2 text-xs bg-slate-100 dark:bg-slate-900/30 p-2 rounded">
+                              <div className="font-semibold text-slate-600 dark:text-slate-400">Type:</div>
+                              <div className="text-slate-700 dark:text-slate-300">
+                                {parsed.attackType.toUpperCase() === 'MW' && 'Melee Weapon'}
+                                {parsed.attackType.toUpperCase() === 'RW' && 'Ranged Weapon'}
+                                {parsed.attackType.toUpperCase() === 'MS' && 'Melee Spell'}
+                                {parsed.attackType.toUpperCase() === 'RS' && 'Ranged Spell'}
+                                {(parsed.attackType.toUpperCase() === 'MW,RW' || parsed.attackType.toUpperCase() === 'RW,MW') && 'Melee or Ranged Weapon'}
+                              </div>
+
+                              <div className="font-semibold text-slate-600 dark:text-slate-400">To Hit:</div>
+                              <div>
+                                <button
+                                  className="inline-flex items-center gap-1 px-2 py-0.5 bg-green-100 dark:bg-green-900/40 hover:bg-green-200 dark:hover:bg-green-800/60 text-green-800 dark:text-green-300 rounded font-mono text-xs font-semibold transition-colors cursor-pointer border border-green-300 dark:border-green-700"
+                                  onClick={() => {
+                                    const bonus = parsed.toHit.startsWith('+') || parsed.toHit.startsWith('-') ? parsed.toHit : `+${parsed.toHit}`;
+                                    const notation = `1d20${bonus}`;
+                                    rollDice({
+                                      notation: notation,
+                                      rollMode: "normal",
+                                      label: `${selectedCombatant.name} - ${action.name} - Attack`,
+                                      character: selectedCombatant.name
+                                    });
+                                    handleRoll();
+                                  }}
+                                  onContextMenu={(e) => {
+                                    e.preventDefault();
+                                    const bonus = parsed.toHit.startsWith('+') || parsed.toHit.startsWith('-') ? parsed.toHit : `+${parsed.toHit}`;
+                                    const notation = `1d20${bonus}`;
+                                    setDiceContextMenu({
+                                      show: true,
+                                      x: e.clientX,
+                                      y: e.clientY,
+                                      notation: notation,
+                                      type: "d20",
+                                      label: `${selectedCombatant.name} - ${action.name} - Attack`,
+                                      character: selectedCombatant.name
+                                    });
+                                  }}
+                                  title="Left: Roll | Right: Adv/Dis"
+                                >
+                                  ⚔️ {parsed.toHit.startsWith('+') || parsed.toHit.startsWith('-') ? parsed.toHit : `+${parsed.toHit}`}
+                                </button>
+                              </div>
+
+                              {parsed.reach && (
+                                <>
+                                  <div className="font-semibold text-slate-600 dark:text-slate-400">
+                                    {parsed.attackType.toLowerCase().includes('r') ? 'Range:' : 'Reach:'}
+                                  </div>
+                                  <div className="text-slate-700 dark:text-slate-300">{parsed.reach}</div>
+                                </>
+                              )}
+
+                              <div className="font-semibold text-slate-600 dark:text-slate-400">Target:</div>
+                              <div className="text-slate-700 dark:text-slate-300 capitalize">{parsed.target}</div>
+
+                              {parsed.damages && parsed.damages.length > 0 && (
+                                <>
+                                  <div className="font-semibold text-slate-600 dark:text-slate-400">Damage:</div>
+                                  <div className="flex flex-col gap-1">
+                                    {parsed.damages.map((dmg, dmgIdx) => (
+                                      <div key={dmgIdx} className="flex items-center gap-2">
+                                        <button
+                                          className="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-100 dark:bg-blue-900/40 hover:bg-blue-200 dark:hover:bg-blue-800/60 text-blue-800 dark:text-blue-300 rounded font-mono text-xs font-semibold transition-colors cursor-pointer border border-blue-300 dark:border-blue-700"
+                                          onClick={() => {
+                                            rollDice({
+                                              notation: dmg.dice.replace(/\s+/g, ''),
+                                              rollMode: "normal",
+                                              label: `${selectedCombatant.name} - ${action.name} - ${dmg.type} Damage`,
+                                              character: selectedCombatant.name
+                                            });
+                                            handleRoll();
+                                          }}
+                                          onContextMenu={(e) => {
+                                            e.preventDefault();
+                                            setDiceContextMenu({
+                                              show: true,
+                                              x: e.clientX,
+                                              y: e.clientY,
+                                              notation: dmg.dice.replace(/\s+/g, ''),
+                                              type: "damage",
+                                              label: `${selectedCombatant.name} - ${action.name} - ${dmg.type} Damage`,
+                                              character: selectedCombatant.name
+                                            });
+                                          }}
+                                          title="Left: Roll | Right: Crit"
+                                        >
+                                          🎲 {dmg.dice}
+                                        </button>
+                                        <span className="text-slate-600 dark:text-slate-400">
+                                          {dmg.type} <span className="text-xs">(avg: {dmg.average})</span>
+                                        </span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </>
+                              )}
+                            </div>
+
+                            {/* Remaining description */}
+                            {parsed.remainingDesc && parsed.remainingDesc.trim() !== '.' && parsed.remainingDesc.trim() !== '' && (
+                              <div className="text-slate-700 dark:text-slate-300 text-xs">
+                                <RollableText text={parsed.remainingDesc} onRoll={handleRoll} character={selectedCombatant.name} actionName={action.name} removeAttackText={true} />
+                              </div>
+                            )}
+                          </>
+                        ) : parsed && parsed.type === 'save' ? (
+                          <>
+                            {/* Saving Throw Action */}
+                            <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 mb-2 text-xs bg-slate-100 dark:bg-slate-900/30 p-2 rounded">
+                              {parsed.targetInfo && (
+                                <>
+                                  <div className="font-semibold text-slate-600 dark:text-slate-400">Target:</div>
+                                  <div className="text-slate-700 dark:text-slate-300 capitalize">{parsed.targetInfo}</div>
+                                </>
+                              )}
+
+                              {parsed.range && (
+                                <>
+                                  <div className="font-semibold text-slate-600 dark:text-slate-400">Range:</div>
+                                  <div className="text-slate-700 dark:text-slate-300">{parsed.range}</div>
+                                </>
+                              )}
+
+                              {parsed.condition && (
+                                <>
+                                  <div className="font-semibold text-slate-600 dark:text-slate-400">Condition:</div>
+                                  <div className="text-slate-700 dark:text-slate-300">{parsed.condition}</div>
+                                </>
+                              )}
+
+                              {parsed.area && (
+                                <>
+                                  <div className="font-semibold text-slate-600 dark:text-slate-400">Area:</div>
+                                  <div className="text-slate-700 dark:text-slate-300 capitalize">{parsed.area}</div>
+                                </>
+                              )}
+
+                              <div className="font-semibold text-slate-600 dark:text-slate-400">Save:</div>
+                              <div className="text-slate-700 dark:text-slate-300">
+                                DC {parsed.dc} {parsed.ability.charAt(0).toUpperCase() + parsed.ability.slice(1)}
+                              </div>
+
+                              {parsed.damage && (
+                                <>
+                                  <div className="font-semibold text-slate-600 dark:text-slate-400">Damage Type:</div>
+                                  <div className="text-slate-700 dark:text-slate-300 capitalize">{parsed.damage.type}</div>
+
+                                  <div className="font-semibold text-slate-600 dark:text-slate-400">On Failure:</div>
+                                  <div className="flex items-center gap-2">
+                                    <button
+                                      className="inline-flex items-center gap-1 px-2 py-0.5 bg-red-100 dark:bg-red-900/40 hover:bg-red-200 dark:hover:bg-red-800/60 text-red-800 dark:text-red-300 rounded font-mono text-xs font-semibold transition-colors cursor-pointer border border-red-300 dark:border-red-700"
+                                      onClick={() => {
+                                        rollDice({
+                                          notation: parsed.damage.dice.replace(/\s+/g, ''),
+                                          rollMode: "normal",
+                                          label: `${selectedCombatant.name} - ${action.name} - Damage`,
+                                          character: selectedCombatant.name
+                                        });
+                                        handleRoll();
+                                      }}
+                                      onContextMenu={(e) => {
+                                        e.preventDefault();
+                                        setDiceContextMenu({
+                                          show: true,
+                                          x: e.clientX,
+                                          y: e.clientY,
+                                          notation: parsed.damage.dice.replace(/\s+/g, ''),
+                                          type: "damage",
+                                          label: `${selectedCombatant.name} - ${action.name} - Damage`,
+                                          character: selectedCombatant.name
+                                        });
+                                      }}
+                                      title="Left: Roll | Right: Crit"
+                                    >
+                                      🎲 {parsed.damage.dice}
+                                    </button>
+                                    <span className="text-slate-600 dark:text-slate-400">
+                                      (avg: {parsed.damage.average})
+                                    </span>
+                                  </div>
+
+                                  {parsed.successEffect && (
+                                    <>
+                                      <div className="font-semibold text-slate-600 dark:text-slate-400">On Success:</div>
+                                      <div className="text-slate-700 dark:text-slate-300 capitalize">{parsed.successEffect}</div>
+                                    </>
+                                  )}
+                                </>
+                              )}
+                            </div>
+
+                            {/* Full Description Text */}
+                            <div className="text-slate-700 dark:text-slate-300 text-xs mt-2">
+                              <RollableText text={action.desc} onRoll={handleRoll} character={selectedCombatant.name} actionName={action.name} />
+                            </div>
+                          </>
+                        ) : (
+                          <div className="text-slate-700 dark:text-slate-300">
+                            <RollableText text={action.desc} onRoll={handleRoll} character={selectedCombatant.name} actionName={action.name} />
+                          </div>
+                        )}
                       </div>
                     );
                   })}
@@ -5969,14 +8778,182 @@ export default function App() {
               {selectedCombatant.bonusActions && selectedCombatant.bonusActions.length > 0 && (
                 <div className="space-y-2">
                   <div className="h2 text-blue-700 dark:text-blue-400">Bonus Actions</div>
-                  {selectedCombatant.bonusActions.map((action, idx) => (
-                    <div key={idx} className="card bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-400 dark:border-blue-500 text-sm">
-                      <div className="font-semibold mb-1 text-blue-800 dark:text-blue-200">{action.name}</div>
-                      <div className="text-slate-700 dark:text-slate-300">
-                        <RollableText text={action.desc} onRoll={handleRoll} />
+                  {selectedCombatant.bonusActions.map((action, idx) => {
+                    const formatted = formatActionName(action.name);
+                    const rechargeKey = `recharge_bonus_${idx}`;
+                    const isAvailable = selectedCombatant.rechargeAbilities?.[rechargeKey] ?? true;
+                    const parsed = parseActionDescription(action.desc);
+
+                    return (
+                      <div key={idx} className="card bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-400 dark:border-blue-500 text-sm">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <div className="font-semibold text-blue-800 dark:text-blue-200">{formatted.name}</div>
+                            {formatted.recharge && (
+                              <span className="px-2 py-0.5 bg-orange-500 text-white text-xs font-bold rounded-full">
+                                Recharge {formatted.recharge}
+                              </span>
+                            )}
+                          </div>
+                          {formatted.recharge && (
+                            <div className={`marker-coins recharge ${isAvailable ? 'active' : 'inactive'}`}>
+                              <div
+                                className="coin"
+                                onClick={() => {
+                                  const newRecharge = { ...selectedCombatant.rechargeAbilities || {} };
+                                  newRecharge[rechargeKey] = !isAvailable;
+                                  updateCombatant(selectedCombatant.id, { rechargeAbilities: newRecharge });
+                                }}
+                                title={isAvailable ? "Click to mark as used" : "Click to mark as available"}
+                              />
+                            </div>
+                          )}
+                        </div>
+
+                        {parsed && parsed.type === 'attack' ? (
+                          <>
+                            {/* Structured Attack Table */}
+                            <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 mb-2 text-xs bg-blue-100 dark:bg-blue-900/30 p-2 rounded">
+                              <div className="font-semibold text-slate-600 dark:text-slate-400">Type:</div>
+                              <div className="text-slate-700 dark:text-slate-300">
+                                {parsed.attackType.toUpperCase() === 'MW' && 'Melee Weapon'}
+                                {parsed.attackType.toUpperCase() === 'RW' && 'Ranged Weapon'}
+                                {parsed.attackType.toUpperCase() === 'MS' && 'Melee Spell'}
+                                {parsed.attackType.toUpperCase() === 'RS' && 'Ranged Spell'}
+                                {(parsed.attackType.toUpperCase() === 'MW,RW' || parsed.attackType.toUpperCase() === 'RW,MW') && 'Melee or Ranged Weapon'}
+                              </div>
+
+                              <div className="font-semibold text-slate-600 dark:text-slate-400">To Hit:</div>
+                              <div className="text-slate-700 dark:text-slate-300">
+                                <button
+                                  onClick={() => handleRoll(`1d20${parsed.toHit}`, selectedCombatant.name, `${action.name} Attack`)}
+                                  className="px-2 py-0.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-mono rounded shadow-sm"
+                                >
+                                  {parsed.toHit}
+                                </button>
+                              </div>
+
+                              <div className="font-semibold text-slate-600 dark:text-slate-400">Reach/Range:</div>
+                              <div className="text-slate-700 dark:text-slate-300">{parsed.reach}</div>
+
+                              {parsed.target && (
+                                <>
+                                  <div className="font-semibold text-slate-600 dark:text-slate-400">Target:</div>
+                                  <div className="text-slate-700 dark:text-slate-300">{parsed.target}</div>
+                                </>
+                              )}
+                            </div>
+
+                            {/* Damage Buttons */}
+                            {parsed.damages && parsed.damages.length > 0 && (
+                              <div className="mb-2">
+                                <div className="font-semibold text-xs text-slate-600 dark:text-slate-400 mb-1">Hit:</div>
+                                <div className="flex flex-wrap gap-2">
+                                  {parsed.damages.map((dmg, dmgIdx) => (
+                                    <button
+                                      key={dmgIdx}
+                                      onClick={() => handleRoll(dmg.dice, selectedCombatant.name, `${action.name} Damage`)}
+                                      className="px-2 py-1 bg-red-500 hover:bg-red-600 text-white text-xs font-mono rounded shadow-sm"
+                                    >
+                                      {dmg.average} ({dmg.dice}) {dmg.type}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Remaining Description */}
+                            {parsed.remainingDesc && (
+                              <div className="text-slate-700 dark:text-slate-300">
+                                <RollableText text={parsed.remainingDesc} onRoll={handleRoll} character={selectedCombatant.name} actionName={action.name} />
+                              </div>
+                            )}
+                          </>
+                        ) : parsed && parsed.type === 'save' ? (
+                          <>
+                            <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-xs mb-2">
+                              <div className="font-semibold text-slate-600 dark:text-slate-400">Type:</div>
+                              <div className="text-slate-700 dark:text-slate-300">{parsed.ability.toUpperCase()} Saving Throw</div>
+
+                              <div className="font-semibold text-slate-600 dark:text-slate-400">DC:</div>
+                              <div className="text-slate-700 dark:text-slate-300">{parsed.dc}</div>
+
+                              {parsed.targetInfo && (
+                                <>
+                                  <div className="font-semibold text-slate-600 dark:text-slate-400">Target:</div>
+                                  <div className="text-slate-700 dark:text-slate-300">{parsed.targetInfo}</div>
+                                </>
+                              )}
+
+                              {parsed.area && (
+                                <>
+                                  <div className="font-semibold text-slate-600 dark:text-slate-400">Area:</div>
+                                  <div className="text-slate-700 dark:text-slate-300 capitalize">{parsed.area}</div>
+                                </>
+                              )}
+
+                              {parsed.damage && (
+                                <>
+                                  <div className="font-semibold text-slate-600 dark:text-slate-400">Damage Type:</div>
+                                  <div className="text-slate-700 dark:text-slate-300 capitalize">{parsed.damage.type}</div>
+
+                                  <div className="font-semibold text-slate-600 dark:text-slate-400">On Failure:</div>
+                                  <div className="flex items-center gap-2">
+                                    <button
+                                      className="inline-flex items-center gap-1 px-2 py-0.5 bg-red-100 dark:bg-red-900/40 hover:bg-red-200 dark:hover:bg-red-800/60 text-red-800 dark:text-red-300 rounded font-mono text-xs font-semibold transition-colors cursor-pointer border border-red-300 dark:border-red-700"
+                                      onClick={() => {
+                                        rollDice({
+                                          notation: parsed.damage.dice.replace(/\s+/g, ''),
+                                          rollMode: "normal",
+                                          label: `${selectedCombatant.name} - ${action.name} - Damage`,
+                                          character: selectedCombatant.name
+                                        });
+                                        handleRoll();
+                                      }}
+                                    >
+                                      <span className="text-[10px]">🎲</span>
+                                      {parsed.damage.average} ({parsed.damage.dice})
+                                    </button>
+                                  </div>
+
+                                  {parsed.damage.halfOnSuccess && (
+                                    <>
+                                      <div className="font-semibold text-slate-600 dark:text-slate-400">On Success:</div>
+                                      <div className="text-slate-700 dark:text-slate-300">Half damage</div>
+                                    </>
+                                  )}
+                                </>
+                              )}
+                            </div>
+
+                            {/* Failure Effect */}
+                            {parsed.failureEffect && (
+                              <div className="mt-3 p-2 bg-red-50 dark:bg-red-900/10 rounded border-l-2 border-red-400">
+                                <div className="font-semibold text-red-800 dark:text-red-300 text-xs mb-1">On a Failed Save:</div>
+                                <div className="text-slate-700 dark:text-slate-300 text-xs">
+                                  <RollableText text={parsed.failureEffect} onRoll={handleRoll} character={selectedCombatant.name} actionName={action.name} />
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Success Effect */}
+                            {parsed.successEffect && (
+                              <div className="mt-2 p-2 bg-green-50 dark:bg-green-900/10 rounded border-l-2 border-green-400">
+                                <div className="font-semibold text-green-800 dark:text-green-300 text-xs mb-1">On a Successful Save:</div>
+                                <div className="text-slate-700 dark:text-slate-300 text-xs">
+                                  <RollableText text={parsed.successEffect} onRoll={handleRoll} character={selectedCombatant.name} actionName={action.name} />
+                                </div>
+                              </div>
+                            )}
+                          </>
+                        ) : (
+                          <div className="text-slate-700 dark:text-slate-300">
+                            <RollableText text={action.desc} onRoll={handleRoll} character={selectedCombatant.name} actionName={action.name} />
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
 
@@ -7084,9 +10061,11 @@ function TagInput({ value, onChange }) {
   );
 }
 
-function ConditionAutocomplete({ value, onChange }) {
+function ConditionAutocomplete({ value, onChange, conditionImmunities = [], settings }) {
   const [input, setInput] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [pendingImmune, setPendingImmune] = useState({}); // Tracks immune conditions awaiting confirmation
+
   const commonConditions = [
     "Blinded",
     "Charmed",
@@ -7106,11 +10085,36 @@ function ConditionAutocomplete({ value, onChange }) {
   const conditions = value || [];
   const filtered = commonConditions.filter(
     (c) =>
-      !conditions.includes(c) && c.toLowerCase().includes(input.toLowerCase())
+      !conditions.includes(c) &&
+      !pendingImmune[c] &&
+      c.toLowerCase().includes(input.toLowerCase())
   );
 
+  // Check if a condition is immune (case-insensitive)
+  const isImmune = (cond) => {
+    if (!conditionImmunities || !Array.isArray(conditionImmunities)) {
+      return false;
+    }
+    return conditionImmunities.some(immune =>
+      immune.toLowerCase() === cond.toLowerCase()
+    );
+  };
+
   const addCondition = (cond) => {
-    onChange([...conditions, cond]);
+    console.log('[ConditionAutocomplete] addCondition called with:', cond);
+    console.log('[ConditionAutocomplete] conditionImmunities:', conditionImmunities);
+    console.log('[ConditionAutocomplete] isImmune check:', isImmune(cond));
+    console.log('[ConditionAutocomplete] current conditions:', conditions);
+
+    // Check if should show immunity reminder
+    if (isImmune(cond) && settings?.conditionImmunityReminder) {
+      console.log('[ConditionAutocomplete] Adding to pending immune:', cond);
+      // Add to pending immune conditions instead of active conditions
+      setPendingImmune({ ...pendingImmune, [cond]: true });
+    } else {
+      console.log('[ConditionAutocomplete] Adding to active conditions:', cond);
+      onChange([...conditions, cond]);
+    }
     setInput("");
     setShowSuggestions(false);
   };
@@ -7119,18 +10123,59 @@ function ConditionAutocomplete({ value, onChange }) {
     onChange(conditions.filter((c) => c !== cond));
   };
 
+  const confirmImmuneCondition = (cond) => {
+    // Move from pending to active conditions
+    const newPending = { ...pendingImmune };
+    delete newPending[cond];
+    setPendingImmune(newPending);
+    onChange([...conditions, cond]);
+  };
+
+  const rejectImmuneCondition = (cond) => {
+    // Remove from pending
+    const newPending = { ...pendingImmune };
+    delete newPending[cond];
+    setPendingImmune(newPending);
+  };
+
   return (
     <div className="space-y-2">
       <div className="flex flex-wrap gap-2">
+        {/* Pending immune conditions with confirm/reject buttons */}
+        {Object.keys(pendingImmune).map((cond) => (
+          <span
+            key={cond}
+            className="inline-flex items-center gap-1.5 px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 rounded-full text-sm font-medium border border-red-300 dark:border-red-800"
+            title={`${cond} is immune against being ${cond}`}
+          >
+            {cond}
+            <button
+              onClick={() => confirmImmuneCondition(cond)}
+              className="hover:text-red-900 dark:hover:text-red-100 font-bold text-base leading-none"
+              title={`${cond} is immune against being ${cond}`}
+            >
+              &#10003;
+            </button>
+            <button
+              onClick={() => rejectImmuneCondition(cond)}
+              className="hover:text-red-900 dark:hover:text-red-100 font-bold text-base leading-none"
+              title={`${cond} is immune against being ${cond}`}
+            >
+              &#10005;
+            </button>
+          </span>
+        ))}
+
+        {/* Active conditions with remove button */}
         {conditions.map((cond) => (
           <span
             key={cond}
-            className="inline-flex items-center gap-1 px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm font-medium"
+            className="inline-flex items-center gap-1 px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 rounded-full text-sm font-medium"
           >
             {cond}
             <button
               onClick={() => removeCondition(cond)}
-              className="hover:text-amber-900"
+              className="hover:text-amber-900 dark:hover:text-amber-100"
             >
               ×
             </button>
@@ -7146,22 +10191,33 @@ function ConditionAutocomplete({ value, onChange }) {
             setInput(e.target.value);
             setShowSuggestions(true);
           }}
-          onFocus={() => setShowSuggestions(true)}
-          onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+          onFocus={() => {
+            console.log('[ConditionAutocomplete] Input focused');
+            setShowSuggestions(true);
+          }}
+          onBlur={() => {
+            console.log('[ConditionAutocomplete] Input blurred, will hide suggestions in 300ms');
+            setTimeout(() => setShowSuggestions(false), 300);
+          }}
           onKeyDown={(e) => {
             if (e.key === "Enter" && input.trim()) {
+              console.log('[ConditionAutocomplete] Enter pressed with:', input.trim());
               addCondition(input.trim());
               e.preventDefault();
             }
           }}
         />
         {showSuggestions && filtered.length > 0 && (
-          <div className="absolute z-50 w-full mt-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-lg max-h-48 overflow-auto">
+          <div className="absolute z-[100] w-full mt-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl max-h-48 overflow-auto">
             {filtered.map((cond) => (
               <button
                 key={cond}
                 className="w-full text-left px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 text-sm dark:text-slate-200"
-                onClick={() => addCondition(cond)}
+                onMouseDown={(e) => {
+                  console.log('[ConditionAutocomplete] Suggestion clicked:', cond);
+                  e.preventDefault(); // Prevent blur
+                  addCondition(cond);
+                }}
               >
                 {cond}
               </button>
@@ -7179,6 +10235,7 @@ function InlineEdit({
   className = "",
   type = "text",
   onBlur,
+  editValue, // Optional: different value to show when editing starts
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [tempValue, setTempValue] = useState(value);
@@ -7202,7 +10259,8 @@ function InlineEdit({
       <div
         className={`cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700 rounded px-2 py-1 transition-colors ${className}`}
         onClick={() => {
-          setTempValue(value);
+          // Use editValue if provided, otherwise use value
+          setTempValue(editValue !== undefined ? editValue : value);
           setIsEditing(true);
         }}
       >
@@ -7217,16 +10275,16 @@ function InlineEdit({
       type={type}
       className={`border-2 border-blue-400 dark:border-blue-500 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-700 dark:text-slate-100 ${className}`}
       value={tempValue}
-      onChange={(e) =>
-        setTempValue(
-          type === "number" ? Number(e.target.value) : e.target.value
-        )
-      }
+      onChange={(e) => {
+        // For text inputs, keep the value as string to preserve +/- prefixes
+        const newValue = type === "number" ? Number(e.target.value) : e.target.value;
+        setTempValue(newValue);
+      }}
       onBlur={handleSave}
       onKeyDown={(e) => {
         if (e.key === "Enter") handleSave();
         if (e.key === "Escape") {
-          setTempValue(value);
+          setTempValue(editValue !== undefined ? editValue : value);
           setIsEditing(false);
         }
       }}
@@ -7302,6 +10360,112 @@ function QuickHPInput({
   );
 }
 
+function AdjectiveSelector({ currentName, onChange }) {
+  const settings = useSettings();
+  const namingMode = settings.creatureNamingMode || 'adjective';
+
+  // Extract base name and identifier based on naming mode
+  const extractNameParts = (name) => {
+    const words = name.trim().split(' ');
+    if (words.length === 1) {
+      return { identifier: null, baseName: name };
+    }
+
+    if (namingMode === 'adjective') {
+      // Check if first word is an adjective from our list
+      const firstWord = words[0];
+      if (CREATURE_ADJECTIVES.includes(firstWord)) {
+        return {
+          identifier: firstWord,
+          baseName: words.slice(1).join(' ')
+        };
+      }
+    } else {
+      // For letter/number/roman modes, identifier is at the end
+      const lastWord = words[words.length - 1];
+      // Check if last word looks like an identifier
+      if (/^[A-Z]+$|^\d+$|^[IVXLCDM]+$/.test(lastWord)) {
+        return {
+          identifier: lastWord,
+          baseName: words.slice(0, -1).join(' ')
+        };
+      }
+    }
+
+    // No identifier found
+    return { identifier: null, baseName: name };
+  };
+
+  const { identifier, baseName } = extractNameParts(currentName);
+
+  // Generate 9 random adjectives (excluding current one if it exists)
+  const getRandomAdjectives = (excludeAdj) => {
+    const available = CREATURE_ADJECTIVES.filter(adj => adj !== excludeAdj);
+    const shuffled = [...available].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 9);
+  };
+
+  const [randomAdjectives, setRandomAdjectives] = useState(() => getRandomAdjectives(identifier));
+  const [isFading, setIsFading] = useState(false);
+
+  const handleAdjectiveClick = (newAdjective) => {
+    const newName = formatCreatureName(newAdjective, baseName, namingMode);
+
+    // Start fade out
+    setIsFading(true);
+
+    // After fade out completes, change name and generate new adjectives
+    setTimeout(() => {
+      onChange(newName);
+      setRandomAdjectives(getRandomAdjectives(newAdjective));
+      setIsFading(false);
+    }, 300); // Match the CSS transition duration
+  };
+
+  // Only show selector for adjective mode
+  if (namingMode !== 'adjective') {
+    return (
+      <p className="text-xs text-slate-500 dark:text-slate-400">
+        Diese Kreatur verwendet den Benennungsmodus "{namingMode}". Adjektiv-Auswahl ist nur im Adjektiv-Modus verfügbar.
+      </p>
+    );
+  }
+
+  // If no adjective in current name, don't show selector
+  if (!identifier) {
+    return (
+      <p className="text-xs text-slate-500 dark:text-slate-400">
+        Diese Kreatur hat kein Adjektiv. Adjektive werden automatisch vergeben, wenn mehrere gleiche Kreaturen hinzugefügt werden.
+      </p>
+    );
+  }
+
+  return (
+    <div>
+      <div className="mb-2 text-sm text-slate-600 dark:text-slate-300">
+        Aktuell: <span className="font-semibold">{identifier}</span>
+      </div>
+      <div
+        className={`grid grid-cols-3 gap-2 transition-opacity duration-300 ${isFading ? 'opacity-0' : 'opacity-100'}`}
+      >
+        {randomAdjectives.map((adj) => (
+          <button
+            key={adj}
+            className="px-3 py-2 text-sm bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 rounded-lg transition-colors text-slate-700 dark:text-slate-200"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleAdjectiveClick(adj);
+            }}
+            disabled={isFading}
+          >
+            {adj}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function CombatantRow({
   c,
   idx,
@@ -7311,6 +10475,14 @@ function CombatantRow({
   isSelected,
   onDamage,
   allPlayers = [],
+  hpManagement,
+  conditionsData = {},
+  getConditionTooltipHandlers,
+  setSelectedCondition,
+  setConditionName,
+  setShowConditionModal,
+  settings,
+  isCompleted = false,
 }) {
   const [open, setOpen] = useState(false);
   const [showHPInput, setShowHPInput] = useState(false);
@@ -7345,21 +10517,24 @@ function CombatantRow({
     );
   }
 
+  const effectiveMaxHP = (c.baseHP ?? 0) + (c.maxHPModifier ?? 0);
   const hpPercent =
-    c.baseHP > 0 ? Math.max(0, Math.min(100, (c.hp / c.baseHP) * 100)) : 100;
+    effectiveMaxHP > 0 ? Math.max(0, Math.min(100, (c.hp / effectiveMaxHP) * 100)) : 100;
   const hpColor =
     hpPercent > 60
       ? "bg-green-500"
       : hpPercent > 30
       ? "bg-yellow-500"
       : "bg-red-500";
+  const isBloodied = hpPercent > 0 && hpPercent < 50;
 
   return (
     <div
-      className={`card relative overflow-hidden cursor-pointer transition-all ${
+      className={`card relative ${open ? 'overflow-visible' : 'overflow-hidden'} cursor-pointer transition-all ${
         active ? "ring-2 ring-blue-500 shadow-lg" : ""
       } ${isSelected ? "ring-2 ring-purple-400" : ""} ${
         c.concentration ? "border-l-4 border-l-purple-500" : ""
+      } ${isBloodied ? "bloodied-border" : ""
       }`}
       style={c.concentration ? { animation: 'concentration-pulse 2s ease-in-out infinite' } : {}}
       onClick={(e) => {
@@ -7406,6 +10581,7 @@ function CombatantRow({
               value={c.name}
               onChange={(name) => onChange({ name })}
               className="font-semibold text-lg dark:text-slate-100"
+              disabled={isCompleted}
             />
             {c.sidekickOf && (
               <span className="px-2 py-0.5 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 rounded text-xs font-semibold">
@@ -7423,6 +10599,7 @@ function CombatantRow({
               onChange={(initiative) => onChange({ initiative })}
               type="number"
               className="w-16 text-center font-bold text-2xl text-blue-600 dark:text-blue-400"
+              disabled={isCompleted}
             />
             <div className="text-[10px] text-slate-400 dark:text-slate-500 flex gap-2">
               <span>Mod: {c.initiativeMod >= 0 ? '+' : ''}{c.initiativeMod || 0}</span>
@@ -7437,29 +10614,29 @@ function CombatantRow({
               onChange={(ac) => onChange({ ac })}
               type="number"
               className="w-16 text-center dark:text-slate-100"
+              disabled={isCompleted}
             />
           </div>
 
           <div className="flex items-center gap-2">
             <span className="text-xs text-slate-500 dark:text-slate-400">HP</span>
-            <div className="flex items-center gap-1">
-              <InlineEdit
-                value={`${c.hp ?? 0}${c.tempHP > 0 ? `+${c.tempHP}` : ''}`}
-                onChange={(val) => {
-                  if (!val) return;
-                  onChange(applyHPChange(c, val));
-                }}
-                type="text"
-                className="w-24 text-center font-bold dark:text-slate-100"
-                placeholder="+10/-5"
-              />
+            <div
+              className={`flex items-center gap-1 rounded px-2 py-1 transition-colors ${isCompleted ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700'}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (!isCompleted && hpManagement) {
+                  hpManagement(c, onChange);
+                }
+              }}
+              title={isCompleted ? 'Combat completed' : 'Klick für HP Management'}
+            >
+              <span className="text-center font-bold dark:text-slate-100 min-w-[3rem]">
+                {c.hp ?? 0}{c.tempHP > 0 ? `+${c.tempHP}` : ''}
+              </span>
               <span className="text-slate-400 dark:text-slate-500">/</span>
-              <InlineEdit
-                value={c.baseHP}
-                onChange={(baseHP) => onChange({ baseHP })}
-                type="number"
-                className="w-16 text-center text-slate-600 dark:text-slate-300 font-medium"
-              />
+              <span className="text-center text-slate-600 dark:text-slate-300 font-medium min-w-[2rem]">
+                {(c.baseHP ?? 0) + (c.maxHPModifier ?? 0)}
+              </span>
             </div>
           </div>
         </div>
@@ -7467,11 +10644,12 @@ function CombatantRow({
         {/* Second Row: Action Buttons */}
         <div className="flex items-center gap-2 pl-11">
           <button
+            disabled={isCompleted}
             className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
               c.concentration
                 ? "bg-purple-500 dark:bg-purple-600 text-white"
                 : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-purple-100 dark:hover:bg-purple-900/30"
-            }`}
+            } ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
             onClick={(e) => {
               e.stopPropagation();
               onChange({ concentration: !c.concentration });
@@ -7481,11 +10659,12 @@ function CombatantRow({
           </button>
 
           <button
+            disabled={isCompleted}
             className={`p-2 rounded-lg text-lg transition-all ${
               c.visibleToPlayers !== false
                 ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
                 : "bg-slate-100 dark:bg-slate-700 text-slate-400 dark:text-slate-500"
-            }`}
+            } ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
             onClick={(e) => {
               e.stopPropagation();
               onChange({ visibleToPlayers: c.visibleToPlayers === false });
@@ -7519,12 +10698,21 @@ function CombatantRow({
       {c.conditions && c.conditions.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-1">
           {c.conditions.map((cond) => (
-            <span
+            <button
               key={cond}
-              className="px-2 py-0.5 bg-amber-100 text-amber-800 rounded-full text-xs font-medium"
+              className="px-2 py-0.5 bg-amber-100 hover:bg-amber-200 dark:bg-amber-900/30 dark:hover:bg-amber-900/50 text-amber-800 dark:text-amber-300 rounded-full text-xs font-medium cursor-pointer transition-colors border border-amber-300 dark:border-amber-800"
+              onClick={() => {
+                const conditionData = conditionsData[cond.toLowerCase()];
+                if (conditionData) {
+                  setSelectedCondition(conditionData);
+                  setConditionName(cond);
+                  setShowConditionModal(true);
+                }
+              }}
+              {...getConditionTooltipHandlers(cond)}
             >
               {cond}
-            </span>
+            </button>
           ))}
         </div>
       )}
@@ -7539,15 +10727,17 @@ function CombatantRow({
                 value={c.notes || ""}
                 onChange={(e) => onChange({ notes: e.target.value })}
                 placeholder="Notizen hinzufügen..."
+                disabled={isCompleted}
               />
             </div>
 
             <div>
-              <label className="lbl mb-1 block">Sidekick zuweisen</label>
+              <label className="lbl mb-1 block">Diesen Eintrag als Sidekick zuweisen</label>
               <select
                 className="input w-full"
                 value={c.sidekickOf || ''}
                 onChange={(e) => onChange({ sidekickOf: e.target.value || null })}
+                disabled={isCompleted}
               >
                 <option value="">Kein Sidekick</option>
                 {allPlayers.map(p => (
@@ -7555,7 +10745,22 @@ function CombatantRow({
                 ))}
               </select>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Sidekicks teilen die Initiative mit ihrem zugeordneten Spieler
+                Dieser Eintrag wird als Sidekick dem ausgewählten Spieler zugeordnet und teilt dessen Initiative
+              </p>
+            </div>
+
+            <div>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={c.player || false}
+                  onChange={(e) => onChange({ player: e.target.checked })}
+                  className="w-4 h-4 rounded border-slate-300 dark:border-slate-600"
+                />
+                <span className="lbl">Is Player Character</span>
+              </label>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Spielercharaktere müssen ihre Initiative manuell eingeben
               </p>
             </div>
 
@@ -7564,16 +10769,28 @@ function CombatantRow({
               <ConditionAutocomplete
                 value={c.conditions || []}
                 onChange={(conditions) => onChange({ conditions })}
+                conditionImmunities={c.conditionImmunities || []}
+                settings={settings}
               />
             </div>
           </div>
 
-          <div>
-            <h4 className="font-semibold mb-2">Spell Slots</h4>
-            <SlotEditor
-              slots={c.spellSlots || {}}
-              onChange={(slots) => onChange({ spellSlots: slots })}
-            />
+          <div className="space-y-4">
+            <div>
+              <h4 className="font-semibold mb-2">Spell Slots</h4>
+              <SlotEditor
+                slots={c.spellSlots || {}}
+                onChange={(slots) => onChange({ spellSlots: slots })}
+              />
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-2">Adjektiv ändern</h4>
+              <AdjectiveSelector
+                currentName={c.name}
+                onChange={(newName) => onChange({ name: newName })}
+              />
+            </div>
           </div>
         </div>
       )}
@@ -8028,7 +11245,7 @@ function MonsterBrowser({ onPick, onEdit, disabled, RollableText, combatMode, se
         </div>
       )}
 
-      <ul className="divide-y divide-green-100 dark:divide-green-800 bg-white dark:bg-slate-800 rounded-xl border border-green-200 dark:border-green-800 max-h-64 overflow-auto">
+      <ul className="divide-y divide-green-100 dark:divide-green-800 bg-white dark:bg-slate-800 rounded-xl border border-green-200 dark:border-green-800 max-h-[calc(100vh-600px)] overflow-auto">
         {list.length === 0 ? (
           <li className="py-3 px-3 text-sm text-slate-500 dark:text-slate-400 text-center">
             {hasActiveFilters
@@ -8040,7 +11257,11 @@ function MonsterBrowser({ onPick, onEdit, disabled, RollableText, combatMode, se
             const displayHP =
               typeof m.hp === "object" && m.hp !== null ? m.hp.average : m.hp;
             const displayAC =
-              typeof m.ac === "object" && m.ac !== null ? m.ac.value : m.ac;
+              Array.isArray(m.ac) && m.ac.length > 0
+                ? m.ac[0].value
+                : typeof m.ac === "object" && m.ac !== null
+                ? m.ac.value
+                : m.ac;
             return (
               <li
                 key={`${m.id}-${index}`}

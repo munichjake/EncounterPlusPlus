@@ -1,4 +1,5 @@
 import React from 'react';
+import { CRWithTooltip } from './CRWithTooltip';
 
 /**
  * Kompakte Teilnehmer-Zeile für Prep Mode
@@ -28,8 +29,8 @@ export function CompactParticipantRow({ c, idx, active, onSelect, isSelected, on
 
       {/* CR (optional) */}
       {c.cr !== undefined && (
-        <div className="text-xs text-slate-500 dark:text-slate-400 shrink-0">
-          CR {c.cr}
+        <div className="text-xs text-slate-500 dark:text-slate-400 shrink-0" onClick={(e) => e.stopPropagation()}>
+          <CRWithTooltip monster={c} displayCR={c.cr} />
         </div>
       )}
 

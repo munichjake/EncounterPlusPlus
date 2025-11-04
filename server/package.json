@@ -17,6 +17,8 @@
     "helmet": "^8.1.0",
     "nanoid": "^5.0.7",
     "nodemailer": "^7.0.9",
+    "onnxruntime-node": "^1.23.0",
+    "qrcode": "^1.5.4",
     "winston": "^3.18.3",
     "winston-daily-rotate-file": "^5.0.0"
   }

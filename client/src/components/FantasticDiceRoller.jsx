@@ -257,11 +257,27 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
         const d20s = dicePool.filter(d => d.sides === 20);
         dicesToRoll = [...dicePool, ...d20s.map(d => ({ ...d, id: Date.now() + Math.random() }))];
       }
-      const rolls = dicesToRoll.map(d => Math.floor(Math.random() * d.sides) + 1);      setRollingDice(rolls.map((value, i) => ({
+      const rolls = dicesToRoll.map(d => Math.floor(Math.random() * d.sides) + 1);
+
+      // Determine which dice are selected for advantage/disadvantage
+      let selectedIndex = -1;
+      if (rollMode !== 'normal') {
+        const d20Indices = rolls.map((val, i) => dicesToRoll[i].sides === 20 ? i : -1).filter(i => i >= 0);
+        if (d20Indices.length >= 2) {
+          const selectedValue = rollMode === 'advantage'
+            ? Math.max(...d20Indices.map(i => rolls[i]))
+            : Math.min(...d20Indices.map(i => rolls[i]));
+          // Find the first index that matches the selected value
+          selectedIndex = d20Indices.find(i => rolls[i] === selectedValue);
+        }
+      }
+
+      setRollingDice(rolls.map((value, i) => ({
         id: dicesToRoll[i].id,
         sides: dicesToRoll[i].sides,
         value,
-        rolling: false
+        rolling: false,
+        isSelected: rollMode !== 'normal' && dicesToRoll[i].sides === 20 ? (i === selectedIndex) : null
       })));
 
       // Wait a moment to show final result      await new Promise(resolve => setTimeout(resolve, 300));
@@ -313,36 +329,40 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
       total = total + (modifier || 0);
     }
 
+    // Reset rolling state but keep dice visible
+    setIsRolling(false);
+
+    // Determine animation duration based on whether there's a modifier
+    // With modifier: Bonus fade (0.7s) + calculation animation (0.7s) = 1.2s
+    // Without modifier: Just the total scale-in (0.5s)
+    const animationDuration = modifier !== 0 ? 1200 : 500;
+    const totalDisplayTime = modifier !== 0 ? 2500 : 2000;
+
+    // Immediately trigger the callbacks but with delay information
+    const resultData = {
+      rolls: rollsForDisplay,
+      total,
+      modifier,
+      notation: buildNotation(),
+      rollMode,
+      __delayToast: animationDuration // Special flag to delay toast display
+    };
+
     if (onResult) {
-      onResult({
-        rolls: rollsForDisplay,
-        total,
-        modifier,
-        notation: buildNotation(),
-        rollMode
-      });
+      onResult(resultData);
     }
 
     // Call the wrapper callback if it exists
     if (window.__diceRollerCallback) {
-      window.__diceRollerCallback({
-        rolls: rollsForDisplay,
-        total,
-        modifier,
-        notation: buildNotation(),
-        rollMode
-      });
+      window.__diceRollerCallback(resultData);
       window.__diceRollerCallback = null; // Clear after use
     }
 
-    // Reset rolling state but keep dice visible
-    setIsRolling(false);
-
-    // Keep dice visible for 2 seconds before closing
+    // Keep dice visible for appropriate time
     setTimeout(() => {
       setRollingDice([]);
       onClose();
-    }, 2000);
+    }, totalDisplayTime);
   };
 
   const diceButtons = [
@@ -359,7 +379,7 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
     <>
       {/* Dice Tray - Left Panel - Slides up from button */}
       {showPanel && (
-      <div className="dice-roller-container fixed left-6 z-[60] bg-slate-800/98 backdrop-blur-lg border-2 border-slate-700 rounded-2xl shadow-2xl overflow-hidden transition-opacity duration-200" style={{ width: '140px', bottom: '96px', opacity: showPanel ? 1 : 0 }}>
+      <div className="dice-roller-container fixed left-6 z-[110] bg-slate-800/98 backdrop-blur-lg border-2 border-slate-700 rounded-2xl shadow-2xl overflow-hidden transition-opacity duration-200" style={{ width: '140px', bottom: '96px', opacity: showPanel ? 1 : 0 }}>
         {/* Dice Buttons - Vertical Stack */}
         <div className="p-2 space-y-1.5">
           {diceButtons.map(({ sides, label }, index) => (
@@ -400,7 +420,7 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
 
       {/* Roll Display Panel - Right of Dice Tray */}
       {showPanel && dicePool.length > 0 && (
-        <div className="dice-roller-container fixed left-[162px] z-[60] bg-slate-800/98 backdrop-blur-lg border-2 border-slate-700 rounded-2xl shadow-2xl p-3 animate-[slideInLeft_0.3s_ease-out]" style={{ width: '240px', bottom: '96px' }}>
+        <div className="dice-roller-container fixed left-[162px] z-[110] bg-slate-800/98 backdrop-blur-lg border-2 border-slate-700 rounded-2xl shadow-2xl p-3 animate-[slideInLeft_0.3s_ease-out]" style={{ width: '240px', bottom: '96px' }}>
           <div className="text-xs text-slate-400 mb-2 uppercase tracking-wide text-center">Roll Formula</div>
 
           {/* Editable Notation Input */}
@@ -501,23 +521,100 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
       {rollingDice.length > 0 && (
         <>
           {/* Dark Overlay */}
-          <div className="fixed inset-0 bg-black/60 z-40 animate-[fadeIn_0.2s_ease-out]" />
+          <div className="fixed inset-0 bg-black/60 z-[105] animate-[fadeIn_0.2s_ease-out]" />
 
           {/* Dice Display */}
-          <div className="fixed inset-0 pointer-events-none z-50 flex items-center justify-center">
-            <div className="flex flex-wrap gap-4 max-w-2xl justify-center">
-              {rollingDice.map((die, idx) => (
-                <div
-                  key={die.id}
-                  className={`w-24 h-24 rounded-xl flex items-center justify-center text-4xl font-bold shadow-2xl transition-all duration-100 ${
-                    die.rolling
-                      ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white animate-pulse scale-110'
-                      : 'bg-gradient-to-br from-green-500 to-emerald-600 text-white scale-100'
-                  }`}
-                >
-                  {die.value}
+          <div className="fixed inset-0 pointer-events-none z-[120] flex items-center justify-center">
+            <div className="flex flex-col items-center gap-6">
+              {/* Bonus Display - Only shown if modifier exists, displayed above dice while rolling */}
+              {modifier !== 0 && rollingDice[0]?.rolling && (
+                <div className="text-6xl font-bold text-blue-300 animate-pulse">
+                  {modifier > 0 ? `+${modifier}` : modifier}
                 </div>
-              ))}
+              )}
+
+              {/* Dice Container */}
+              <div className="flex flex-wrap gap-4 max-w-2xl justify-center">
+                {rollingDice.map((die) => {
+                  // Determine styling based on selection state
+                  let sizeClass = 'w-24 h-24';
+                  let textClass = 'text-4xl';
+                  let colorClass = 'bg-gradient-to-br from-blue-500 to-purple-600';
+                  let scaleClass = 'scale-110';
+
+                  if (!die.rolling && die.isSelected !== null) {
+                    // Advantage/Disadvantage mode - style based on selection
+                    if (die.isSelected) {
+                      // Selected die: larger and green
+                      sizeClass = 'w-32 h-32';
+                      textClass = 'text-5xl';
+                      colorClass = 'bg-gradient-to-br from-green-500 to-emerald-600';
+                      scaleClass = 'scale-110';
+                    } else {
+                      // Not selected die: smaller and red
+                      sizeClass = 'w-20 h-20';
+                      textClass = 'text-3xl';
+                      colorClass = 'bg-gradient-to-br from-red-500 to-red-600';
+                      scaleClass = 'scale-90';
+                    }
+                  } else if (!die.rolling) {
+                    // Normal mode - green
+                    colorClass = 'bg-gradient-to-br from-green-500 to-emerald-600';
+                    scaleClass = 'scale-100';
+                  }
+
+                  return (
+                    <div
+                      key={die.id}
+                      className={`${sizeClass} rounded-xl flex items-center justify-center ${textClass} font-bold shadow-2xl transition-all duration-500 ${
+                        die.rolling
+                          ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white animate-pulse scale-110'
+                          : `${colorClass} text-white ${scaleClass}`
+                      }`}
+                    >
+                      {die.value}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Total Display - Only shown if there's a modifier */}
+              {!rollingDice[0]?.rolling && modifier !== 0 && (
+                <div className="flex items-center gap-4 animate-[slideUp_0.7s_ease-out]">
+                  {/* Dice Sum */}
+                  <div className="text-5xl font-bold text-white">
+                    {rollingDice.reduce((sum, die) => {
+                      if (die.isSelected !== null) {
+                        return die.isSelected ? die.value : sum;
+                      }
+                      return sum + die.value;
+                    }, 0)}
+                  </div>
+
+                  {/* Plus Sign and Modifier (animates in) */}
+                  <div className="text-4xl font-bold text-green-300 animate-[fadeIn_0.5s_ease-out_0.3s_both]">
+                    {modifier > 0 ? '+' : ''}
+                  </div>
+                  <div className="text-5xl font-bold text-green-300 animate-[fadeIn_0.5s_ease-out_0.3s_both]">
+                    {modifier}
+                  </div>
+
+                  {/* Equals Sign */}
+                  <div className="text-4xl font-bold text-blue-300 animate-[fadeIn_0.5s_ease-out_0.5s_both]">
+                    =
+                  </div>
+
+                  {/* Final Total (larger, emphasized) */}
+                  <div className="text-7xl font-bold text-yellow-300 animate-[scaleIn_0.5s_ease-out_0.7s_both] drop-shadow-[0_0_20px_rgba(253,224,71,0.5)]">
+                    {rollingDice.reduce((sum, die) => {
+                      if (die.isSelected !== null) {
+                        return die.isSelected ? die.value + modifier : sum;
+                      }
+                      return sum + die.value;
+                    }, 0) + (rollingDice[0]?.isSelected === null ? modifier : 0)}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </>

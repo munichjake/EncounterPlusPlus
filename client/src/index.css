@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CSS Custom Property for border animation */
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0turn;
+}
+
 @layer base {
   html {
     @apply bg-white dark:bg-slate-900;
@@ -17,6 +24,35 @@
   .input { @apply w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white dark:bg-slate-800 dark:text-slate-100 transition-shadow; }
   .h2 { @apply text-lg font-semibold mb-2 dark:text-slate-200; }
   .lbl { @apply text-sm text-slate-600 dark:text-slate-400 font-medium; }
+
+  /* iOS-style Toggle Switch */
+  .toggle-switch {
+    @apply relative inline-block w-11 h-6 flex-shrink-0;
+  }
+
+  .toggle-switch input {
+    @apply opacity-0 w-0 h-0;
+  }
+
+  .toggle-slider {
+    @apply absolute cursor-pointer inset-0 bg-slate-300 dark:bg-slate-600 rounded-full transition-all duration-300;
+  }
+
+  .toggle-slider:before {
+    @apply absolute content-[''] h-5 w-5 left-0.5 bottom-0.5 bg-white rounded-full transition-all duration-300 shadow-md;
+  }
+
+  input:checked + .toggle-slider {
+    @apply bg-green-500;
+  }
+
+  input:checked + .toggle-slider:before {
+    @apply transform translate-x-5;
+  }
+
+  input:focus + .toggle-slider {
+    @apply ring-2 ring-green-400 ring-opacity-50;
+  }
 }
 
 /* Gebürstetes Metall Münzen */
@@ -237,6 +273,14 @@ select:focus::placeholder {
   }
 }
 
+.animate-fadeIn {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.animate-fadeIn-fast {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
 @keyframes slideInFromRight {
   0% {
     opacity: 0;
@@ -363,4 +407,116 @@ select:focus::placeholder {
     border-color: rgba(168, 85, 247, 1);
     box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.2);
   }
+}
+
+/* Slide in from right animation for toasts */
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Rotating border gradient for bloodied state */
+@keyframes bloodied-spin {
+  to {
+    --border-angle: 1turn;
+  }
+}
+
+/* Bloodied card styling with rotating gradient border */
+.bloodied-border {
+  --border-angle: 0turn;
+  border: solid 4px transparent !important;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-image:
+    /* Main card background - default to slate for player view */
+    linear-gradient(rgba(51, 65, 85, 0.5), rgba(51, 65, 85, 0.5)),
+    /* Rotating gradient border */
+    conic-gradient(
+      from var(--border-angle),
+      transparent 20%,
+      #ef4444 40%,
+      #dc2626 50%,
+      #991b1b 60%,
+      transparent 80%
+    );
+  animation: bloodied-spin 3s linear infinite;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.5) !important;
+}
+
+/* Dark mode bloodied border (DM screen) */
+.dark .bloodied-border {
+  background-image:
+    /* Main card background in dark mode */
+    linear-gradient(rgb(30 41 59), rgb(30 41 59)),
+    /* Rotating gradient border */
+    conic-gradient(
+      from var(--border-angle),
+      transparent 20%,
+      #ef4444 40%,
+      #dc2626 50%,
+      #991b1b 60%,
+      transparent 80%
+    );
+}
+
+/* Player view specific bloodied border (handles different background colors) */
+/* Current turn - yellow/orange gradient */
+.bg-gradient-to-r.from-yellow-500\/20.to-orange-500\/20.bloodied-border {
+  background-image:
+    /* Solid opaque background layer that covers everything */
+    linear-gradient(to right, rgb(78, 62, 25), rgb(82, 51, 25)),
+    /* Rotating gradient border */
+    conic-gradient(
+      from var(--border-angle),
+      transparent 25%,
+      #ef4444 45%,
+      #dc2626 50%,
+      #991b1b 55%,
+      transparent 75%
+    ) !important;
+  background-origin: padding-box, border-box !important;
+  background-clip: padding-box, border-box !important;
+}
+
+/* Next turn - darker slate */
+.bg-slate-700\/70.bloodied-border {
+  background-image:
+    /* Solid opaque background layer */
+    linear-gradient(rgb(51, 65, 85), rgb(51, 65, 85)),
+    /* Rotating gradient border */
+    conic-gradient(
+      from var(--border-angle),
+      transparent 25%,
+      #ef4444 45%,
+      #dc2626 50%,
+      #991b1b 55%,
+      transparent 75%
+    ) !important;
+  background-origin: padding-box, border-box !important;
+  background-clip: padding-box, border-box !important;
+}
+
+/* Other turns - lighter slate */
+.bg-slate-700\/50.bloodied-border {
+  background-image:
+    /* Solid opaque background layer */
+    linear-gradient(rgb(51, 65, 85), rgb(51, 65, 85)),
+    /* Rotating gradient border */
+    conic-gradient(
+      from var(--border-angle),
+      transparent 25%,
+      #ef4444 45%,
+      #dc2626 50%,
+      #991b1b 55%,
+      transparent 75%
+    ) !important;
+  background-origin: padding-box, border-box !important;
+  background-clip: padding-box, border-box !important;
 }

@@ -227,7 +227,7 @@ export default function DiceRollerDDDice({ onClose, onResult, initialNotation, a
     <>
       {/* Dice Tray Panel - hide when rolling */}
       {showUI && (
-      <div className="dice-roller-container fixed left-6 z-[60] bg-slate-800/98 backdrop-blur-lg border-2 border-slate-700 rounded-2xl shadow-2xl overflow-hidden" style={{ width: '140px', bottom: '96px' }}>
+      <div className="dice-roller-container fixed left-6 z-[110] bg-slate-800/98 backdrop-blur-lg border-2 border-slate-700 rounded-2xl shadow-2xl overflow-hidden" style={{ width: '140px', bottom: '96px' }}>
         <div className="p-2 space-y-1.5">
           {diceButtons.map(({ sides, label }) => (
             <button
@@ -255,7 +255,7 @@ export default function DiceRollerDDDice({ onClose, onResult, initialNotation, a
 
       {/* Roll Panel - hide when rolling */}
       {showUI && dicePool.length > 0 && (
-        <div className="dice-roller-container fixed left-[162px] z-[60] bg-slate-800/98 backdrop-blur-lg border-2 border-slate-700 rounded-2xl shadow-2xl p-3" style={{ width: '280px', bottom: '96px' }}>
+        <div className="dice-roller-container fixed left-[162px] z-[110] bg-slate-800/98 backdrop-blur-lg border-2 border-slate-700 rounded-2xl shadow-2xl p-3" style={{ width: '280px', bottom: '96px' }}>
           <div className="text-xs text-slate-400 mb-2 uppercase tracking-wide text-center">Roll Formula</div>
           <input
             type="text"

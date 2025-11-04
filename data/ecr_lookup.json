@@ -1,0 +1,9874 @@
+{
+  "Animated Coffin": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Factol Skall": {
+    "cr": 17.0,
+    "ecr": 13.0
+  },
+  "Heralds of Dust Exorcist": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Ancient Deep Crow": {
+    "cr": 15.0,
+    "ecr": 13.0
+  },
+  "Auspicia Dran": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Brahma Lutier": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Chaos Quadrapod": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Clockwork Dragon": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Deep Crow": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Donaar Blit'zen": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Flabbergast": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Jim Darkmagic": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "K'thriss Drow'b": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Keg Robot": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "M\u00f4rg\u00e6n": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Oak Truestrike": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Omin Dran": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Pendragon Beestinger": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Phoenix Anvil": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Portentia Dran": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Prophetess Dran": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Rosie Beestinger": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Splugoth the Returned": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Viari": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Walnut Dankgrass": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Giant Zombie Constrictor Snake": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Hamish Hewland": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Kyrilla, Accursed Gorgon": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Skeletal Horror": {
+    "cr": 6.0,
+    "ecr": 7.0
+  },
+  "Mercenary Envoy": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Tyreus, Illusionist": {
+    "cr": 13.0,
+    "ecr": 11.0
+  },
+  "Exul": {
+    "cr": 11.0,
+    "ecr": 10.0
+  },
+  "Malivar": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Greater Shadow Horror": {
+    "cr": 12.0,
+    "ecr": 11.0
+  },
+  "Morwena Veilmist": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Usagt": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Big Water Slurpent": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Birdsquirrel": {
+    "cr": 0.25,
+    "ecr": 0.125
+  },
+  "Crystal Cave Merfolk": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Dankwood Hag": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Dum-Dum Goblin": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Dwarf": {
+    "cr": 0.25,
+    "ecr": 1.0
+  },
+  "Great Kroom, Purple Worm": {
+    "cr": 15.0,
+    "ecr": 14.0
+  },
+  "Hangry Otyugh": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Hill Giant, Blorbo": {
+    "cr": 4.0,
+    "ecr": 5.0
+  },
+  "Saleeth the Couatl": {
+    "cr": 4.0,
+    "ecr": 6.0
+  },
+  "Aartuk Elder": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Aartuk Starhorror": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Aartuk Weedling": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Adult Lunar Dragon": {
+    "cr": 13.0,
+    "ecr": 12.0
+  },
+  "Adult Solar Dragon": {
+    "cr": 14.0,
+    "ecr": 14.0
+  },
+  "Ancient Lunar Dragon": {
+    "cr": 19.0,
+    "ecr": 16.0
+  },
+  "Ancient Solar Dragon": {
+    "cr": 21.0,
+    "ecr": 22.0
+  },
+  "Astral Elf Aristocrat": {
+    "cr": 8.0,
+    "ecr": 5.0
+  },
+  "Astral Elf Commander": {
+    "cr": 7.0,
+    "ecr": 8.0
+  },
+  "Astral Elf Honor Guard": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Astral Elf Star Priest": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Astral Elf Warrior": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Autognome": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "B'rohg": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Braxat": {
+    "cr": 9.0,
+    "ecr": 12.0
+  },
+  "Brown Scavver": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Cosmic Horror": {
+    "cr": 18.0,
+    "ecr": 14.0
+  },
+  "Esthetic": {
+    "cr": 12.0,
+    "ecr": 11.0
+  },
+  "Eye Monger": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Feyr": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Gaj": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Giant Space Hamster": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Giff Shipmate": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Giff Shock Trooper": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Giff Warlord": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Githyanki Buccaneer": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Githyanki Star Seer": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Githyanki Xenomancer": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Gray Scavver": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Hadozee Explorer": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Hadozee Shipmate": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Hadozee Warrior": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Jammer Leech": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Kindori": {
+    "cr": 7.0,
+    "ecr": 8.0
+  },
+  "Lunar Dragon Wyrmling": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Megapede": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Mercane": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Murder Comet": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Neh-thalggu": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Neogi Hatchling Swarm": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Neogi Pirate": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Neogi Void Hunter": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Night Scavver": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Plasmoid Boss": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Plasmoid Explorer": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Plasmoid Warrior": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Psurlon": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Psurlon Leader": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Psurlon Ringer": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Reigar": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Solar Dragon Wyrmling": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Space Clown": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Space Eel": {
+    "cr": 0.5,
+    "ecr": 0.125
+  },
+  "Space Hamster": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Space Swine": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Ssurran Defiler": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Ssurran Poisoner": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Starlight Apparition": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Thri-kreen Gladiator": {
+    "cr": 7.0,
+    "ecr": 7.0
+  },
+  "Thri-kreen Hunter": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Thri-kreen Mystic": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Vampirate": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Vampirate Captain": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Vampirate Mage": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Void Scavver": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Young Lunar Dragon": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Young Solar Dragon": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Zodar": {
+    "cr": 16.0,
+    "ecr": 13.0
+  },
+  "Abyssal Chicken": {
+    "cr": 0.25,
+    "ecr": 0.125
+  },
+  "Amrik Vanthampur": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Arkhan the Cruel": {
+    "cr": 16.0,
+    "ecr": 12.0
+  },
+  "Bel": {
+    "cr": 25.0,
+    "ecr": 22.0
+  },
+  "Black Gauntlet of Bane": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Bone Whelk": {
+    "cr": 0.25,
+    "ecr": 1.0
+  },
+  "Crokek'toeck": {
+    "cr": 14.0,
+    "ecr": 12.0
+  },
+  "Death's Head of Bhaal": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Duke Thalamra Vanthampur": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Fiendish Flesh Golem": {
+    "cr": 8.0,
+    "ecr": 9.0
+  },
+  "Fist of Bane": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Gideon Lightward": {
+    "cr": 6.0,
+    "ecr": 7.0
+  },
+  "Hellwasp": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Hollyphant": {
+    "cr": 5.0,
+    "ecr": 2.0
+  },
+  "Iron Consul": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Kostchtchie": {
+    "cr": 25.0,
+    "ecr": 18.0
+  },
+  "Krull": {
+    "cr": 6.0,
+    "ecr": 7.0
+  },
+  "Mahadi the Rakshasa": {
+    "cr": 14.0,
+    "ecr": 13.0
+  },
+  "Master of Souls": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Mortlock Vanthampur": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Necromite of Myrkul": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Night Blade": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Nine-Fingers Keene": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Reaper of Bhaal": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Rilsa Rael": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Skull Lasher of Myrkul": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Smiler the Defiler": {
+    "cr": 7.0,
+    "ecr": 9.0
+  },
+  "Thavius Kreeg": {
+    "cr": 0.5,
+    "ecr": 2.0
+  },
+  "Thurstwell Vanthampur": {
+    "cr": 0.125,
+    "ecr": 0.0
+  },
+  "Torogar Steelfist": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Ulder Ravengard": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Aerosaur": {
+    "cr": 10.0,
+    "ecr": 11.0
+  },
+  "Altisaur": {
+    "cr": 13.0,
+    "ecr": 12.0
+  },
+  "Bag Jelly": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Barrowghast": {
+    "cr": 7.0,
+    "ecr": 7.0
+  },
+  "Cairnwight": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Ceratops": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Cinder Hulk": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Cloud Giant Destiny Gambler": {
+    "cr": 19.0,
+    "ecr": 14.0
+  },
+  "Cloud Giant of Evil Air": {
+    "cr": 12.0,
+    "ecr": 9.0
+  },
+  "Cradle of the Cloud Scion": {
+    "cr": 26.0,
+    "ecr": 20.0
+  },
+  "Cradle of the Fire Scion": {
+    "cr": 25.0,
+    "ecr": 20.0
+  },
+  "Cradle of the Frost Scion": {
+    "cr": 24.0,
+    "ecr": 18.0
+  },
+  "Cradle of the Hill Scion": {
+    "cr": 22.0,
+    "ecr": 19.0
+  },
+  "Cradle of the Stone Scion": {
+    "cr": 23.0,
+    "ecr": 18.0
+  },
+  "Cradle of the Storm Scion": {
+    "cr": 27.0,
+    "ecr": 21.0
+  },
+  "Death Giant Reaper": {
+    "cr": 12.0,
+    "ecr": 10.0
+  },
+  "Death Giant Shrouded One": {
+    "cr": 15.0,
+    "ecr": 11.0
+  },
+  "Dust Hulk": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Echo of Demogorgon": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Ettin Ceremorph": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Fensir Devourer": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Fensir Skirmisher": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Firbolg Primeval Warden": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Firbolg Wanderer": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Fire Giant Forgecaller": {
+    "cr": 18.0,
+    "ecr": 14.0
+  },
+  "Fire Giant of Evil Fire": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Fire Hellion": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Firegaunt": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Flesh Colossus": {
+    "cr": 20.0,
+    "ecr": 12.0
+  },
+  "Fomorian Deep Crawler": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Fomorian Noble": {
+    "cr": 15.0,
+    "ecr": 13.0
+  },
+  "Fomorian Warlock of the Dark": {
+    "cr": 12.0,
+    "ecr": 11.0
+  },
+  "Frost Giant Ice Shaper": {
+    "cr": 17.0,
+    "ecr": 13.0
+  },
+  "Frost Giant of Evil Water": {
+    "cr": 11.0,
+    "ecr": 10.0
+  },
+  "Frostmourn": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Fury of Kostchtchie": {
+    "cr": 14.0,
+    "ecr": 12.0
+  },
+  "Gargantua": {
+    "cr": 21.0,
+    "ecr": 17.0
+  },
+  "Giant Goose": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Giant Lynx": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Giant Ox": {
+    "cr": 3.0,
+    "ecr": 5.0
+  },
+  "Giant Ram": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Giant Tick": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Gigant": {
+    "cr": 20.0,
+    "ecr": 14.0
+  },
+  "Goliath Giant-Kin": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Grinning Cat": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Hill Giant Avalancher": {
+    "cr": 12.0,
+    "ecr": 10.0
+  },
+  "Lightning Hulk": {
+    "cr": 9.0,
+    "ecr": 5.0
+  },
+  "Maw of Yeenoghu": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Mist Hulk": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Mud Hulk": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Regisaur": {
+    "cr": 14.0,
+    "ecr": 12.0
+  },
+  "Rime Hulk": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Runic Colossus": {
+    "cr": 21.0,
+    "ecr": 17.0
+  },
+  "Scion of Grolantor": {
+    "cr": 22.0,
+    "ecr": 18.0
+  },
+  "Scion of Memnor": {
+    "cr": 26.0,
+    "ecr": 21.0
+  },
+  "Scion of Skoraeus": {
+    "cr": 23.0,
+    "ecr": 19.0
+  },
+  "Scion of Stronmaus": {
+    "cr": 27.0,
+    "ecr": 21.0
+  },
+  "Scion of Surtur": {
+    "cr": 25.0,
+    "ecr": 20.0
+  },
+  "Scion of Thrym": {
+    "cr": 24.0,
+    "ecr": 19.0
+  },
+  "Spectral Cloud": {
+    "cr": 13.0,
+    "ecr": 10.0
+  },
+  "Spotted Lion": {
+    "cr": 3.0,
+    "ecr": 5.0
+  },
+  "Stalker of Baphomet": {
+    "cr": 12.0,
+    "ecr": 10.0
+  },
+  "Stone Giant of Evil Earth": {
+    "cr": 9.0,
+    "ecr": 10.0
+  },
+  "Stone Giant Rockspeaker": {
+    "cr": 16.0,
+    "ecr": 14.0
+  },
+  "Storm Crab": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Storm Giant Tempest Caller": {
+    "cr": 20.0,
+    "ecr": 16.0
+  },
+  "Storm Herald": {
+    "cr": 17.0,
+    "ecr": 15.0
+  },
+  "Tempest Spirit": {
+    "cr": 15.0,
+    "ecr": 10.0
+  },
+  "Titanothere": {
+    "cr": 5.0,
+    "ecr": 7.0
+  },
+  "Troll Amalgam": {
+    "cr": 17.0,
+    "ecr": 10.0
+  },
+  "Troll Mutate": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Ambitious Assassin": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Aspirant of the Comet": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Asteria": {
+    "cr": 18.0,
+    "ecr": 16.0
+  },
+  "Aurnozci": {
+    "cr": 22.0,
+    "ecr": 19.0
+  },
+  "Boss Augustus": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Boss Delour": {
+    "cr": 9.0,
+    "ecr": 5.0
+  },
+  "Breath Drinker": {
+    "cr": 14.0,
+    "ecr": 10.0
+  },
+  "Brusipha": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Enchanting Infiltrator": {
+    "cr": 11.0,
+    "ecr": 12.0
+  },
+  "Euryale": {
+    "cr": 18.0,
+    "ecr": 18.0
+  },
+  "Fate Hag": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Gremorly's Ghost": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Grim Champion of Bloodshed": {
+    "cr": 20.0,
+    "ecr": 17.0
+  },
+  "Grim Champion of Desolation": {
+    "cr": 25.0,
+    "ecr": 20.0
+  },
+  "Grim Champion of Pestilence": {
+    "cr": 15.0,
+    "ecr": 10.0
+  },
+  "Harrow Hawk": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Harrow Hound": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Hierophant Medusa": {
+    "cr": 17.0,
+    "ecr": 17.0
+  },
+  "Hierophant of the Comet": {
+    "cr": 11.0,
+    "ecr": 8.0
+  },
+  "Hulgaz": {
+    "cr": 14.0,
+    "ecr": 11.0
+  },
+  "Initiate of the Comet": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Living Portent": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Malaxxix": {
+    "cr": 18.0,
+    "ecr": 16.0
+  },
+  "Minotaur Archaeologist": {
+    "cr": 0.25,
+    "ecr": 0.125
+  },
+  "Minotaur Infiltrator": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Oddlewin": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Otherworldly Corrupter": {
+    "cr": 17.0,
+    "ecr": 15.0
+  },
+  "Pazrodine": {
+    "cr": 21.0,
+    "ecr": 19.0
+  },
+  "Riffler": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Ruin Spider": {
+    "cr": 5.0,
+    "ecr": 7.0
+  },
+  "Sir Jared": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Solar Bastion Knight": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Talon Beast": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Veiled Presence": {
+    "cr": 21.0,
+    "ecr": 19.0
+  },
+  "Werevulture": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Animated Broom": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Animated Chained Library": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Arrant Quill": {
+    "cr": 11.0,
+    "ecr": 10.0
+  },
+  "Bak Mei": {
+    "cr": 13.0,
+    "ecr": 9.0
+  },
+  "Canopic Golem": {
+    "cr": 13.0,
+    "ecr": 14.0
+  },
+  "Cloud Giant Ghost": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Corrupted Avatar of Lurue": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Faerl": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Fungal Servant": {
+    "cr": 15.0,
+    "ecr": 11.0
+  },
+  "Gingwatzim": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Grippli Warrior": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Immortal Lotus Monk": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Jade Tigress": {
+    "cr": 8.0,
+    "ecr": 3.0
+  },
+  "K'Tulah": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Kiddywidget": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Lichen Lich": {
+    "cr": 18.0,
+    "ecr": 16.0
+  },
+  "Lightning Golem": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Master Sage": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Miirym": {
+    "cr": 22.0,
+    "ecr": 17.0
+  },
+  "Mimic Chair": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Nintra Siotta": {
+    "cr": 16.0,
+    "ecr": 17.0
+  },
+  "Parasite-infested Behir": {
+    "cr": 11.0,
+    "ecr": 11.0
+  },
+  "Ram Sugar": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Sage": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Sapphire Sentinel": {
+    "cr": 10.0,
+    "ecr": 6.0
+  },
+  "Shemshime": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Skitterwidget": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Steel Crane": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Storm Giant Skeleton": {
+    "cr": 16.0,
+    "ecr": 14.0
+  },
+  "Swarm of Animated Books": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Valin Sarnaster": {
+    "cr": 16.0,
+    "ecr": 11.0
+  },
+  "Varnyr": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Zikzokrishka": {
+    "cr": 17.0,
+    "ecr": 17.0
+  },
+  "Abigor": {
+    "cr": 22.0,
+    "ecr": 21.0
+  },
+  "Aeshma": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Affliction Devil (Kocrachon)": {
+    "cr": 10.0,
+    "ecr": 7.0
+  },
+  "Anacreda": {
+    "cr": 17.0,
+    "ecr": 16.0
+  },
+  "Anagwendol": {
+    "cr": 16.0,
+    "ecr": 11.0
+  },
+  "Asmodeus": {
+    "cr": 30.0,
+    "ecr": 28.0
+  },
+  "Avatar of Baalzebul": {
+    "cr": 18.0,
+    "ecr": 14.0
+  },
+  "Awful Fisher": {
+    "cr": 18.0,
+    "ecr": 17.0
+  },
+  "Ayperobo Swarm": {
+    "cr": 12.0,
+    "ecr": 11.0
+  },
+  "Baalzebul": {
+    "cr": 26.0,
+    "ecr": 22.0
+  },
+  "Barachiel": {
+    "cr": 13.0,
+    "ecr": 12.0
+  },
+  "Belial": {
+    "cr": 25.0,
+    "ecr": 23.0
+  },
+  "Brother Adramalech": {
+    "cr": 21.0,
+    "ecr": 17.0
+  },
+  "Brother Morax": {
+    "cr": 21.0,
+    "ecr": 21.0
+  },
+  "Buer": {
+    "cr": 21.0,
+    "ecr": 19.0
+  },
+  "Corruption Devil (Paeliryon)": {
+    "cr": 14.0,
+    "ecr": 12.0
+  },
+  "Devorastus": {
+    "cr": 20.0,
+    "ecr": 14.0
+  },
+  "Dispater": {
+    "cr": 27.0,
+    "ecr": 24.0
+  },
+  "Displacer Fiend": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Ekengarik": {
+    "cr": 16.0,
+    "ecr": 13.0
+  },
+  "Eriflamme": {
+    "cr": 28.0,
+    "ecr": 25.0
+  },
+  "Fiendish Formian": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Fierna": {
+    "cr": 25.0,
+    "ecr": 22.0
+  },
+  "Fire Kraken": {
+    "cr": 21.0,
+    "ecr": 19.0
+  },
+  "Glasya": {
+    "cr": 25.0,
+    "ecr": 22.0
+  },
+  "Greater Tyrant Shadow": {
+    "cr": 22.0,
+    "ecr": 20.0
+  },
+  "Halog": {
+    "cr": 7.0,
+    "ecr": 7.0
+  },
+  "Hellcat (Bezekira)": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Jenevere": {
+    "cr": 17.0,
+    "ecr": 12.0
+  },
+  "Koh Tam": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Lesser Tyrant Shadow": {
+    "cr": 10.0,
+    "ecr": 7.0
+  },
+  "Levistus": {
+    "cr": 26.0,
+    "ecr": 21.0
+  },
+  "Maelephant Nomad": {
+    "cr": 14.0,
+    "ecr": 11.0
+  },
+  "Mammon": {
+    "cr": 26.0,
+    "ecr": 22.0
+  },
+  "Mephistopheles": {
+    "cr": 27.0,
+    "ecr": 23.0
+  },
+  "Miasmorne": {
+    "cr": 16.0,
+    "ecr": 14.0
+  },
+  "Oneirovore": {
+    "cr": 11.0,
+    "ecr": 12.0
+  },
+  "Pain Devil (Excruciarch)": {
+    "cr": 12.0,
+    "ecr": 10.0
+  },
+  "Ramius": {
+    "cr": 14.0,
+    "ecr": 11.0
+  },
+  "Rimmon": {
+    "cr": 20.0,
+    "ecr": 16.0
+  },
+  "Roth\u00e9": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Sarevok": {
+    "cr": 15.0,
+    "ecr": 13.0
+  },
+  "Shredwing": {
+    "cr": 12.0,
+    "ecr": 9.0
+  },
+  "Slayer": {
+    "cr": 12.0,
+    "ecr": 9.0
+  },
+  "Styx Dragon": {
+    "cr": 20.0,
+    "ecr": 17.0
+  },
+  "Tiax": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Tyrant Shadow": {
+    "cr": 17.0,
+    "ecr": 16.0
+  },
+  "Vorvolaka": {
+    "cr": 14.0,
+    "ecr": 10.0
+  },
+  "Waeloquay": {
+    "cr": 18.0,
+    "ecr": 17.0
+  },
+  "War Devil": {
+    "cr": 16.0,
+    "ecr": 12.0
+  },
+  "Zagum": {
+    "cr": 20.0,
+    "ecr": 15.0
+  },
+  "Zariel": {
+    "cr": 26.0,
+    "ecr": 24.0
+  },
+  "Zythan": {
+    "cr": 13.0,
+    "ecr": 11.0
+  },
+  "Baba Lysaga": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Baba Lysaga's Creeping Hut": {
+    "cr": 11.0,
+    "ecr": 11.0
+  },
+  "Barovian Witch": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Broom of Animated Attack": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Ezmerelda d'Avenir": {
+    "cr": 8.0,
+    "ecr": 5.0
+  },
+  "Guardian Portrait": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Izek Strazni": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Madam Eva": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Mongrelfolk": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Phantom Warrior": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Pidlwick II": {
+    "cr": 0.25,
+    "ecr": 0.125
+  },
+  "Rahadin": {
+    "cr": 10.0,
+    "ecr": 8.0
+  },
+  "Rictavio": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Strahd von Zarovich": {
+    "cr": 15.0,
+    "ecr": 12.0
+  },
+  "Strahd Zombie": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Strahd's Animated Armor": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Tree Blight": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Vladimir Horngaard": {
+    "cr": 7.0,
+    "ecr": 10.0
+  },
+  "Aboleth Spawn": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Alyxian Aboleth": {
+    "cr": 12.0,
+    "ecr": 12.0
+  },
+  "Alyxian the Absolved": {
+    "cr": 14.0,
+    "ecr": 12.0
+  },
+  "Alyxian the Callous": {
+    "cr": 12.0,
+    "ecr": 13.0
+  },
+  "Alyxian the Dispossessed": {
+    "cr": 13.0,
+    "ecr": 10.0
+  },
+  "Alyxian the Hunter": {
+    "cr": 10.0,
+    "ecr": 8.0
+  },
+  "Alyxian the Tormented": {
+    "cr": 11.0,
+    "ecr": 10.0
+  },
+  "Animated Glass Statue": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Ayo Jabe (Tier 1)": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Ayo Jabe (Tier 2)": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Ayo Jabe (Tier 3)": {
+    "cr": 8.0,
+    "ecr": 9.0
+  },
+  "Corrupted Giant Shark": {
+    "cr": 9.0,
+    "ecr": 6.0
+  },
+  "Dancing Flame": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Death Embrace": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Dermot Wurder (Tier 1)": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Dermot Wurder (Tier 2)": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Dermot Wurder (Tier 3)": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Galeokaerda": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Galsariad Ardyth (Tier 1)": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Galsariad Ardyth (Tier 2)": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Galsariad Ardyth (Tier 3)": {
+    "cr": 8.0,
+    "ecr": 5.0
+  },
+  "Insight Acuere": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Irvan Wastewalker (Tier 1)": {
+    "cr": 3.0,
+    "ecr": 5.0
+  },
+  "Irvan Wastewalker (Tier 2)": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Irvan Wastewalker (Tier 3)": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Laurin Ophidas": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Light Devourer": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Maggie Keeneyes (Tier 1)": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Maggie Keeneyes (Tier 2)": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Maggie Keeneyes (Tier 3)": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Monastic High Curator": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Monastic Infiltrator": {
+    "cr": 6.0,
+    "ecr": 7.0
+  },
+  "Monastic Operative": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Occult Extollant": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Occult Initiate": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Occult Silvertongue": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Olara": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Ruidium Elephant": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Scholarly Agent": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Scholarly Excavator": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Scholarly Mastermind": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Scuttling Serpentmaw": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Slithering Bloodfin": {
+    "cr": 9.0,
+    "ecr": 6.0
+  },
+  "Swarm of Sorrowfish": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Verin Thelyss": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Young Horizonback Tortoise": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Ebondeath": {
+    "cr": 4.0,
+    "ecr": 8.0
+  },
+  "Anchorite of Talos": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Don-Jon Raskin": {
+    "cr": 0.5,
+    "ecr": 2.0
+  },
+  "Falcon the Hunter": {
+    "cr": 4.0,
+    "ecr": 5.0
+  },
+  "Gorthok the Thunder Boar": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Rock Gnome Recluse": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Pech": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Yarnspinner": {
+    "cr": 10.0,
+    "ecr": 7.0
+  },
+  "Fume Drake": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Kobold Tinkerer": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Merrow Extortionist": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Spore Servant Octopus": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Tarak": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Varnoth": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Anhkolox": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Aurak Draconian": {
+    "cr": 6.0,
+    "ecr": 3.0
+  },
+  "Baaz Draconian": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Bozak Draconian": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Caradoc": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Dragon Army Dragonnel": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Dragon Army Officer": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Dragon Army Soldier": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Fewmaster Gholcag": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Greater Death Dragon": {
+    "cr": 14.0,
+    "ecr": 14.0
+  },
+  "Istarian Drone": {
+    "cr": 6.0,
+    "ecr": 7.0
+  },
+  "Kalaman Soldier": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Kansaldi Fire-Eyes": {
+    "cr": 11.0,
+    "ecr": 8.0
+  },
+  "Kapak Draconian": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Kender Skirmisher": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Leedara": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Lesser Death Dragon": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Lohezet": {
+    "cr": 12.0,
+    "ecr": 10.0
+  },
+  "Lord Soth": {
+    "cr": 19.0,
+    "ecr": 15.0
+  },
+  "Red Ruin": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Sea Elf Scout": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Sivak Draconian": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Skeletal Knight": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Wasteland Dragonnel": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Wersten Kern": {
+    "cr": 14.0,
+    "ecr": 7.0
+  },
+  "Aeorian Absorber": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Aeorian Nullifier": {
+    "cr": 12.0,
+    "ecr": 10.0
+  },
+  "Aeorian Reverser": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Blood Hunter": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Bol'bara": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Bristled Moorbounder": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Core Spawn Crawler": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Core Spawn Emissary": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Core Spawn Seer": {
+    "cr": 13.0,
+    "ecr": 10.0
+  },
+  "Core Spawn Worm": {
+    "cr": 15.0,
+    "ecr": 13.0
+  },
+  "Frost Giant Zombie": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Frost Worm": {
+    "cr": 17.0,
+    "ecr": 14.0
+  },
+  "Gearkeeper Construct": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Gloomstalker": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Guardian Wolf": {
+    "cr": 4.0,
+    "ecr": 5.0
+  },
+  "Horizonback Tortoise": {
+    "cr": 8.0,
+    "ecr": 11.0
+  },
+  "Husk Zombie": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Kobold Underling": {
+    "cr": 0.125,
+    "ecr": 0.5
+  },
+  "Merrow Shallowpriest": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Moorbounder": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Nergaliid": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Sahuagin Warlock of Uk'otoa": {
+    "cr": 3.0,
+    "ecr": 1.0
+  },
+  "Sea Fury": {
+    "cr": 12.0,
+    "ecr": 9.0
+  },
+  "Shadowghast": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Sken Zabriss": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Swavain Basilisk": {
+    "cr": 7.0,
+    "ecr": 4.0
+  },
+  "Udaak": {
+    "cr": 16.0,
+    "ecr": 10.0
+  },
+  "Vox Seeker": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Yinra Emberwind": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Belashyrra": {
+    "cr": 22.0,
+    "ecr": 19.0
+  },
+  "Bone Knight": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Changeling": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Clawfoot": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Dolgaunt": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Dolgrim": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Dusk Hag": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Dyrrn": {
+    "cr": 24.0,
+    "ecr": 21.0
+  },
+  "Expeditious Messenger": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Fastieth": {
+    "cr": 0.25,
+    "ecr": 0.0
+  },
+  "Hashalaq Quori": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Inspired": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Iron Defender": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Kalaraq Quori": {
+    "cr": 19.0,
+    "ecr": 12.0
+  },
+  "Kalashtar": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Karrnathi Undead Soldier": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Lady Illmarrow": {
+    "cr": 22.0,
+    "ecr": 17.0
+  },
+  "Living Burning Hands": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Living Cloudkill": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Living Lightning Bolt": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Mordakhesh": {
+    "cr": 15.0,
+    "ecr": 13.0
+  },
+  "Radiant Idol": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Rak Tulkhesh": {
+    "cr": 28.0,
+    "ecr": 24.0
+  },
+  "Shifter": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Sul Khatesh": {
+    "cr": 28.0,
+    "ecr": 25.0
+  },
+  "Tarkanan Assassin": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "The Lord of Blades": {
+    "cr": 18.0,
+    "ecr": 16.0
+  },
+  "Tsucora Quori": {
+    "cr": 7.0,
+    "ecr": 3.0
+  },
+  "Undying Councilor": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Undying Soldier": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Valenar Hawk": {
+    "cr": 0.125,
+    "ecr": 0.0
+  },
+  "Valenar Hound": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Valenar Steed": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Warforged Colossus": {
+    "cr": 25.0,
+    "ecr": 21.0
+  },
+  "Warforged Soldier": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Warforged Titan": {
+    "cr": 8.0,
+    "ecr": 9.0
+  },
+  "Zakya Rakshasa": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Adult Amethyst Dragon": {
+    "cr": 16.0,
+    "ecr": 15.0
+  },
+  "Adult Crystal Dragon": {
+    "cr": 12.0,
+    "ecr": 12.0
+  },
+  "Adult Deep Dragon": {
+    "cr": 11.0,
+    "ecr": 11.0
+  },
+  "Adult Emerald Dragon": {
+    "cr": 14.0,
+    "ecr": 14.0
+  },
+  "Adult Moonstone Dragon": {
+    "cr": 15.0,
+    "ecr": 15.0
+  },
+  "Adult Sapphire Dragon": {
+    "cr": 15.0,
+    "ecr": 16.0
+  },
+  "Adult Topaz Dragon": {
+    "cr": 13.0,
+    "ecr": 15.0
+  },
+  "Amethyst Dragon Wyrmling": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Amethyst Greatwyrm": {
+    "cr": 26.0,
+    "ecr": 25.0
+  },
+  "Ancient Amethyst Dragon": {
+    "cr": 23.0,
+    "ecr": 22.0
+  },
+  "Ancient Crystal Dragon": {
+    "cr": 19.0,
+    "ecr": 15.0
+  },
+  "Ancient Deep Dragon": {
+    "cr": 18.0,
+    "ecr": 14.0
+  },
+  "Ancient Dragon Turtle": {
+    "cr": 24.0,
+    "ecr": 24.0
+  },
+  "Ancient Emerald Dragon": {
+    "cr": 21.0,
+    "ecr": 19.0
+  },
+  "Ancient Moonstone Dragon": {
+    "cr": 21.0,
+    "ecr": 19.0
+  },
+  "Ancient Sapphire Dragon": {
+    "cr": 22.0,
+    "ecr": 20.0
+  },
+  "Ancient Sea Serpent": {
+    "cr": 14.0,
+    "ecr": 13.0
+  },
+  "Ancient Topaz Dragon": {
+    "cr": 20.0,
+    "ecr": 18.0
+  },
+  "Animated Breath": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Aspect of Bahamut": {
+    "cr": 30.0,
+    "ecr": 27.0
+  },
+  "Aspect of Tiamat": {
+    "cr": 30.0,
+    "ecr": 27.0
+  },
+  "Black Greatwyrm": {
+    "cr": 27.0,
+    "ecr": 26.0
+  },
+  "Blue Greatwyrm": {
+    "cr": 27.0,
+    "ecr": 26.0
+  },
+  "Brass Greatwyrm": {
+    "cr": 28.0,
+    "ecr": 26.0
+  },
+  "Bronze Greatwyrm": {
+    "cr": 28.0,
+    "ecr": 26.0
+  },
+  "Copper Greatwyrm": {
+    "cr": 28.0,
+    "ecr": 26.0
+  },
+  "Crystal Dragon Wyrmling": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Crystal Greatwyrm": {
+    "cr": 26.0,
+    "ecr": 25.0
+  },
+  "Deep Dragon Wyrmling": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Dracohydra": {
+    "cr": 11.0,
+    "ecr": 11.0
+  },
+  "Draconian Dreadnought": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Draconian Foot Soldier": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Draconian Infiltrator": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Draconian Mage": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Draconian Mastermind": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Draconic Shard": {
+    "cr": 17.0,
+    "ecr": 13.0
+  },
+  "Dragon Blessed": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Dragon Chosen": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Dragon Speaker": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Dragon Turtle Wyrmling": {
+    "cr": 4.0,
+    "ecr": 5.0
+  },
+  "Dragonblood Ooze": {
+    "cr": 5.0,
+    "ecr": 2.0
+  },
+  "Dragonbone Golem": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Dragonborn of Bahamut": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Dragonborn of Sardior": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Dragonborn of Tiamat": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Dragonflesh Abomination": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Dragonflesh Grafter": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Dragonnel": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Egg Hunter Adult": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Egg Hunter Hatchling": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Elder Brain Dragon": {
+    "cr": 22.0,
+    "ecr": 20.0
+  },
+  "Emerald Dragon Wyrmling": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Emerald Greatwyrm": {
+    "cr": 26.0,
+    "ecr": 25.0
+  },
+  "Eyedrake": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Gem Stalker": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Ghost Dragon": {
+    "cr": 17.0,
+    "ecr": 13.0
+  },
+  "Giant Canary": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Gold Greatwyrm": {
+    "cr": 28.0,
+    "ecr": 26.0
+  },
+  "Green Greatwyrm": {
+    "cr": 27.0,
+    "ecr": 26.0
+  },
+  "Hoard Mimic": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Hoard Scarab": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Hollow Dragon": {
+    "cr": 18.0,
+    "ecr": 16.0
+  },
+  "Liondrake": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Metallic Peacekeeper": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Metallic Warbler": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Moonstone Dragon Wyrmling": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Red Greatwyrm": {
+    "cr": 27.0,
+    "ecr": 26.0
+  },
+  "Sapphire Dragon Wyrmling": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Sapphire Greatwyrm": {
+    "cr": 26.0,
+    "ecr": 25.0
+  },
+  "Silver Greatwyrm": {
+    "cr": 28.0,
+    "ecr": 26.0
+  },
+  "Swarm of Hoard Scarabs": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Topaz Dragon Wyrmling": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Topaz Greatwyrm": {
+    "cr": 26.0,
+    "ecr": 25.0
+  },
+  "White Greatwyrm": {
+    "cr": 27.0,
+    "ecr": 26.0
+  },
+  "Young Amethyst Dragon": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Young Crystal Dragon": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Young Deep Dragon": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Young Dragon Turtle": {
+    "cr": 10.0,
+    "ecr": 7.0
+  },
+  "Young Emerald Dragon": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Young Moonstone Dragon": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Young Sapphire Dragon": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Young Sea Serpent": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Young Topaz Dragon": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Anarch": {
+    "cr": 0.25,
+    "ecr": 0.125
+  },
+  "Archon of the Triumvirate": {
+    "cr": 14.0,
+    "ecr": 13.0
+  },
+  "Arclight Phoenix": {
+    "cr": 12.0,
+    "ecr": 8.0
+  },
+  "Aurelia": {
+    "cr": 23.0,
+    "ecr": 22.0
+  },
+  "Battleforce Angel": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Biomancer": {
+    "cr": 10.0,
+    "ecr": 8.0
+  },
+  "Blistercoil Weird": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Blood Drinker Vampire": {
+    "cr": 8.0,
+    "ecr": 5.0
+  },
+  "Blood Witch": {
+    "cr": 7.0,
+    "ecr": 4.0
+  },
+  "Bloodfray Giant": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Borborygmos": {
+    "cr": 18.0,
+    "ecr": 15.0
+  },
+  "Cackler": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Category 1 Krasis": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Category 2 Krasis": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Category 3 Krasis": {
+    "cr": 16.0,
+    "ecr": 13.0
+  },
+  "Conclave Dryad": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Cosmotronic Blastseeker": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Counterflux Blastseeker": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Deathpact Angel": {
+    "cr": 14.0,
+    "ecr": 11.0
+  },
+  "Devkarin Lich": {
+    "cr": 14.0,
+    "ecr": 9.0
+  },
+  "Druid of the Old Ways": {
+    "cr": 7.0,
+    "ecr": 7.0
+  },
+  "Felidar": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Firefist": {
+    "cr": 7.0,
+    "ecr": 8.0
+  },
+  "Firemane Angel": {
+    "cr": 12.0,
+    "ecr": 9.0
+  },
+  "Flux Blastseeker": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Fluxcharger": {
+    "cr": 7.0,
+    "ecr": 4.0
+  },
+  "Flying Horror": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Frontline Medic": {
+    "cr": 0.25,
+    "ecr": 0.125
+  },
+  "Galvanic Blastseeker": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Galvanice Weird": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Gloamwing": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Golgari Shaman": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Guardian Giant": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Horncaller": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Hybrid Brute": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Hybrid Flier": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Hybrid Poisoner": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Hybrid Shocker": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Hybrid Spy": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Indentured Spirit": {
+    "cr": 1.0,
+    "ecr": 0.25
+  },
+  "Isperia": {
+    "cr": 21.0,
+    "ecr": 16.0
+  },
+  "Jarad Vod Savo": {
+    "cr": 22.0,
+    "ecr": 13.0
+  },
+  "Kraul Death Priest": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Kraul Warrior": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Lawmage": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Lazav": {
+    "cr": 17.0,
+    "ecr": 14.0
+  },
+  "Master of Cruelties": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Mind Drinker Vampire": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Mind Mage": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Nightveil Specter": {
+    "cr": 10.0,
+    "ecr": 6.0
+  },
+  "Niv-Mizzet": {
+    "cr": 26.0,
+    "ecr": 25.0
+  },
+  "Nivix Cyclops": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Obzedat Ghost": {
+    "cr": 8.0,
+    "ecr": 9.0
+  },
+  "Orzhov Giant": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Precognitive Mage": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Rakdos": {
+    "cr": 24.0,
+    "ecr": 20.0
+  },
+  "Rakdos Lampooner": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Rakdos Performer, Blade Juggler": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Rakdos Performer, Fire Eater": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Rakdos Performer, High-Wire Acrobat": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Reckoner": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Rubblebelt Stalker": {
+    "cr": 0.5,
+    "ecr": 0.125
+  },
+  "Scorchbringer Guard": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Servitor Thrull": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Shadow Horror": {
+    "cr": 9.0,
+    "ecr": 6.0
+  },
+  "Sire of Insanity": {
+    "cr": 12.0,
+    "ecr": 11.0
+  },
+  "Skittering Horror": {
+    "cr": 15.0,
+    "ecr": 12.0
+  },
+  "Skyjek Roc": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Skyswimmer": {
+    "cr": 13.0,
+    "ecr": 13.0
+  },
+  "Soldier": {
+    "cr": 0.5,
+    "ecr": 0.125
+  },
+  "Sunder Shaman": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Thought Spy": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Trostani": {
+    "cr": 18.0,
+    "ecr": 19.0
+  },
+  "Undercity Medusa": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Winged Thrull": {
+    "cr": 0.5,
+    "ecr": 2.0
+  },
+  "Wurm": {
+    "cr": 14.0,
+    "ecr": 12.0
+  },
+  "Zegana": {
+    "cr": 16.0,
+    "ecr": 11.0
+  },
+  "Amphisbaena": {
+    "cr": 0.5,
+    "ecr": 0.0
+  },
+  "Bullywug Croaker": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Bullywug Royal": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Drowned Ascetic": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Drowned Assassin": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Drowned Blade": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Drowned Master": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Giant Coral Snake": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Giant Sea Eel": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Harpy Matriarch": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Juvenile Kraken": {
+    "cr": 14.0,
+    "ecr": 14.0
+  },
+  "Koalinth": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Koalinth Sergeant": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Kysh": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Living Iron Statue": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Lizardfolk Commoner": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Lizardfolk Render": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Lizardfolk Scaleshield": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Lizardfolk Subchief": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Locathah": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Locathah Hunter": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Maw of Sekolah": {
+    "cr": 7.0,
+    "ecr": 7.0
+  },
+  "Merfolk Salvager": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Minotaur Living Crystal Statue": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Monstrous Peryton": {
+    "cr": 11.0,
+    "ecr": 10.0
+  },
+  "Mr. Dory": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Oceanus": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Pirate Bosun": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Pirate Captain": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Pirate Deck Wizard": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Pirate First Mate": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Rip Tide Priest": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Sahuagin Blademaster": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Sahuagin Champion": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Sahuagin Coral Smasher": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Sahuagin Deep Diver": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Sahuagin Hatchling Swarm": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Sahuagin High Priestess": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Sahuagin Wave Shaper": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Sanbalet": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Shell Shark": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Skeletal Alchemist": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Skeletal Juggernaut": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Skeletal Swarm": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Skum": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Thousand Teeth": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Vampiric Jade Statue": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Doric": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Edgin Darvis": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Forge Fitzwilliam": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Holga Kilgore": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Simon Aumar": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Sofina": {
+    "cr": 15.0,
+    "ecr": 11.0
+  },
+  "Xenk Yendar": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Demogorgon": {
+    "cr": 26.0,
+    "ecr": 22.0
+  },
+  "Evil Mage": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Thessalhydra": {
+    "cr": 4.0,
+    "ecr": 5.0
+  },
+  "Curate": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Gray Ooze Glob": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Ivlis": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Jacko": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Kuo-toa Marauder": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Lizardfolk Warden": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Narthus": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Pral": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Sprite Skirmisher": {
+    "cr": 0.25,
+    "ecr": 0.125
+  },
+  "Vinx": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Wight Lifedrinker": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Ambush Drake": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Azbara Jos": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Blagothkus": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Captain Othelstan": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Dragonclaw": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Dragonwing": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Dralmorrer Borngray": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Frulam Mondath": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Guard Drake": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Jamna Gleamsilver": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Langdedrosa Cyanwrath": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Pharblex Spattergoo": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Rath Modar": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Rezmir": {
+    "cr": 7.0,
+    "ecr": 8.0
+  },
+  "Talis the White": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Trepsin": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Auril (First Form)": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Auril (Second Form)": {
+    "cr": 10.0,
+    "ecr": 8.0
+  },
+  "Auril (Third Form)": {
+    "cr": 11.0,
+    "ecr": 11.0
+  },
+  "Avarice": {
+    "cr": 7.0,
+    "ecr": 4.0
+  },
+  "Awakened White Moose": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Bjornhild Solvigsdottir": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Chardalyn Berserker": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Chardalyn Dragon": {
+    "cr": 11.0,
+    "ecr": 10.0
+  },
+  "Coldlight Walker": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Demos Magen": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Dzaan's Simulacrum": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Frost Druid": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Frost Giant Skeleton": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Galvan Magen": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Giant Walrus": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Gnoll Vampire": {
+    "cr": 8.0,
+    "ecr": 5.0
+  },
+  "Gnome Ceremorph": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Gnome Squidling": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Goliath Warrior": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Goliath Werebear": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Grandolpha Muzgardt": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Gunvald Halraggson": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Hypnos Magen": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Ice Troll": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Icewind Kobold": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Icewind Kobold Zombie": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Isarr Kronenstrom": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Jarund Elkhardt": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Kobold Vampire Spawn": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Living Bigby's Hand": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Living Blade of Disaster": {
+    "cr": 8.0,
+    "ecr": 4.0
+  },
+  "Mountain Goat": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Nass Lantomir's Ghost": {
+    "cr": 6.0,
+    "ecr": 2.0
+  },
+  "Prisoner 237": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Sephek Kaltro": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Snow Golem": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Spellix Romwod": {
+    "cr": 0.5,
+    "ecr": 2.0
+  },
+  "Sperm Whale": {
+    "cr": 8.0,
+    "ecr": 9.0
+  },
+  "Spitting Mimic": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Tomb Tapper": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Vellynne Harpell": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Verbeeg Longstrider": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Verbeeg Marauder": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Walrus": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Xardorok Sunblight": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Yeti Tyke": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "\"The Demogorgon\"": {
+    "cr": 8.0,
+    "ecr": 10.0
+  },
+  "Barbatos": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Lynx Creatlach": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Moghadam": {
+    "cr": 12.0,
+    "ecr": 5.0
+  },
+  "Neo-Otyugh": {
+    "cr": 7.0,
+    "ecr": 8.0
+  },
+  "Sir Ursas": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Thessalar": {
+    "cr": 12.0,
+    "ecr": 9.0
+  },
+  "Thessalkraken": {
+    "cr": 14.0,
+    "ecr": 14.0
+  },
+  "Two-Headed Crocodile": {
+    "cr": 1.0,
+    "ecr": 0.25
+  },
+  "Two-Headed Owlbear": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Aurumvorax": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Aurumvorax Den Leader": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Bakunawa": {
+    "cr": 12.0,
+    "ecr": 11.0
+  },
+  "Haint": {
+    "cr": 7.0,
+    "ecr": 3.0
+  },
+  "Pari": {
+    "cr": 13.0,
+    "ecr": 11.0
+  },
+  "Riverine": {
+    "cr": 12.0,
+    "ecr": 14.0
+  },
+  "Soul Shaker": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Tlacatecolo": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Tlexolotl": {
+    "cr": 10.0,
+    "ecr": 6.0
+  },
+  "Whistler": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Wynling": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Charmayne Daymore": {
+    "cr": 10.0,
+    "ecr": 8.0
+  },
+  "Clockwork Defender": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Markos Delphi": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Prisoner 13": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Sythian Skalderang": {
+    "cr": 7.0,
+    "ecr": 4.0
+  },
+  "Tixie Tockworth": {
+    "cr": 7.0,
+    "ecr": 4.0
+  },
+  "Goblin Gang Member": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Krenko": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Loading Rig": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Brain in a Jar": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Clockwork Kraken": {
+    "cr": 10.0,
+    "ecr": 8.0
+  },
+  "Garret Levistusson": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Mary Greymalkin": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Ooze-Folk": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Ash Zombie": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Mormesk the Wraith": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Nezznar the Black Spider": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Redbrand Ruffian": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Sildar Hallwinter": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Astral Blight": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Amble": {
+    "cr": 10.0,
+    "ecr": 5.0
+  },
+  "Gar Shatterkeel": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Shoalar Quanderil": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Young Kraken": {
+    "cr": 14.0,
+    "ecr": 11.0
+  },
+  "Alax Jadescales": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Ervan Soulfallen": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Achaierai": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Aribeth de Tylmarande": {
+    "cr": 10.0,
+    "ecr": 6.0
+  },
+  "Bebilith": {
+    "cr": 12.0,
+    "ecr": 11.0
+  },
+  "Bhaal, Ravager": {
+    "cr": 24.0,
+    "ecr": 22.0
+  },
+  "Bhaal, Slayer": {
+    "cr": 20.0,
+    "ecr": 17.0
+  },
+  "Bodhi Irenicus": {
+    "cr": 15.0,
+    "ecr": 14.0
+  },
+  "Borivik Windheim": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Cornelius Watson": {
+    "cr": 12.0,
+    "ecr": 8.0
+  },
+  "Cryonax": {
+    "cr": 22.0,
+    "ecr": 21.0
+  },
+  "Dagryn": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Darien": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Deep Spider": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Dread Doppelganger": {
+    "cr": 5.0,
+    "ecr": 7.0
+  },
+  "Edwin Odesseiron": {
+    "cr": 15.0,
+    "ecr": 13.0
+  },
+  "Eo Ashmajiir": {
+    "cr": 11.0,
+    "ecr": 10.0
+  },
+  "Faldorn": {
+    "cr": 13.0,
+    "ecr": 7.0
+  },
+  "Farastu Stalker": {
+    "cr": 7.0,
+    "ecr": 4.0
+  },
+  "Flimp Shagglecran": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Gibberling": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Hamadryad": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Imoen": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Jaheira": {
+    "cr": 13.0,
+    "ecr": 10.0
+  },
+  "Jon Irenicus": {
+    "cr": 22.0,
+    "ecr": 15.0
+  },
+  "Kagain": {
+    "cr": 11.0,
+    "ecr": 12.0
+  },
+  "Kelubar Consul": {
+    "cr": 11.0,
+    "ecr": 7.0
+  },
+  "Kivan": {
+    "cr": 7.0,
+    "ecr": 7.0
+  },
+  "Lothar": {
+    "cr": 9.0,
+    "ecr": 10.0
+  },
+  "Minsc and Boo!": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Montaron and the Laughing Skull": {
+    "cr": 11.0,
+    "ecr": 8.0
+  },
+  "Naes Inuus": {
+    "cr": 13.0,
+    "ecr": 13.0
+  },
+  "Nauk": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Pazuzu": {
+    "cr": 25.0,
+    "ecr": 22.0
+  },
+  "Pelyious Avhoste": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Phaerimm": {
+    "cr": 15.0,
+    "ecr": 9.0
+  },
+  "Saemon Havarian": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Shator Warden": {
+    "cr": 14.0,
+    "ecr": 8.0
+  },
+  "Sirene": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Skeleton Lord": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Skeleton Warrior": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Ssendam, Lord of Madness": {
+    "cr": 23.0,
+    "ecr": 18.0
+  },
+  "Suldil Baldoriel": {
+    "cr": 10.0,
+    "ecr": 8.0
+  },
+  "Sword Spider": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Tasloi": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Tasloi Sniper": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Tiberius Inuus": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Valygar": {
+    "cr": 9.0,
+    "ecr": 11.0
+  },
+  "Vellin Farstride": {
+    "cr": 9.0,
+    "ecr": 10.0
+  },
+  "Viconia DeVir": {
+    "cr": 13.0,
+    "ecr": 12.0
+  },
+  "Viktor": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Wolfwere": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Wolfwere Alpha": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Xan Moonblade": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Xzar the Chaos Clone": {
+    "cr": 11.0,
+    "ecr": 7.0
+  },
+  "Asteroid Spider": {
+    "cr": 15.0,
+    "ecr": 12.0
+  },
+  "Clockwork Horror": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Eldritch Lich": {
+    "cr": 15.0,
+    "ecr": 11.0
+  },
+  "Fractine": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Gadabout": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Goon Balloon": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Nightmare Beast": {
+    "cr": 16.0,
+    "ecr": 16.0
+  },
+  "Puppeteer Parasite": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Star Lancer": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Yggdrasti": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Dream Eater": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Ember": {
+    "cr": 22.0,
+    "ecr": 20.0
+  },
+  "Forest Master": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Foresworn": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Irda Seeker": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Irda Veil Keeper": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Nevermind Gnome Inventor": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Nevermind Gnome Mastermind": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Thanoi Hunter": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Traag Draconian": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Verminaard": {
+    "cr": 17.0,
+    "ecr": 15.0
+  },
+  "Blaze": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Creeper": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Ender Dragon": {
+    "cr": 19.0,
+    "ecr": 16.0
+  },
+  "Enderman": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Wolf of the Overworld": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Archon of Boundaries": {
+    "cr": 15.0,
+    "ecr": 12.0
+  },
+  "Beanstalk Wurm": {
+    "cr": 18.0,
+    "ecr": 12.0
+  },
+  "Deathless Rider": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Dunbarrow Witch": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Faerie Borrower": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Faerie Pathlighter": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Faerie Pest": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Gingerbrute": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Goose Mother": {
+    "cr": 7.0,
+    "ecr": 4.0
+  },
+  "High Fae Impostor": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "High Fae Kindguard": {
+    "cr": 12.0,
+    "ecr": 9.0
+  },
+  "High Fae Mage": {
+    "cr": 12.0,
+    "ecr": 11.0
+  },
+  "High Fae Noble": {
+    "cr": 13.0,
+    "ecr": 9.0
+  },
+  "Knight of Eldraine": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Nightmare Haunt": {
+    "cr": 5.0,
+    "ecr": 2.0
+  },
+  "Ogre Chitterlord": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Redtooth Werefox": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Sewer King": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Snapping Hydra": {
+    "cr": 11.0,
+    "ecr": 10.0
+  },
+  "Specter of Night": {
+    "cr": 12.0,
+    "ecr": 8.0
+  },
+  "Sweettooth Horror": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Tempest Hart": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Treefolk": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Witchkite": {
+    "cr": 15.0,
+    "ecr": 13.0
+  },
+  "Witchstalker": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Assassin Bug": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Blindheim": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Crab Folk": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Dire Corby": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Eye of Fear and Flame": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Fog Giant": {
+    "cr": 11.0,
+    "ecr": 11.0
+  },
+  "Forlarren": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Jermlaine": {
+    "cr": 0.125,
+    "ecr": 0.0
+  },
+  "Khargra": {
+    "cr": 0.125,
+    "ecr": 0.0
+  },
+  "Mite": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Needle Lord": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Needle Spawn": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Norker": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Norker War Leader": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Screaming Devilkin": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Xill": {
+    "cr": 3.0,
+    "ecr": 1.0
+  },
+  "Ygorl, Lord of Entropy": {
+    "cr": 23.0,
+    "ecr": 20.0
+  },
+  "Dankwood Duergar": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Dankwood Grung": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "King Robbit the Slimy": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Sludge Hag": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Spiderfrog": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Coral": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Dandylion": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Rain": {
+    "cr": 5.0,
+    "ecr": 2.0
+  },
+  "Scrapper": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Seth the Shapeshifting Dragon": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Sheldon the Blueberry Dragon": {
+    "cr": 7.0,
+    "ecr": 7.0
+  },
+  "Aarakocra": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Aboleth": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Abominable Yeti": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Acolyte": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Adult Black Dragon": {
+    "cr": 14.0,
+    "ecr": 15.0
+  },
+  "Adult Blue Dracolich": {
+    "cr": 17.0,
+    "ecr": 17.0
+  },
+  "Adult Blue Dragon": {
+    "cr": 16.0,
+    "ecr": 15.0
+  },
+  "Adult Brass Dragon": {
+    "cr": 13.0,
+    "ecr": 13.0
+  },
+  "Adult Bronze Dragon": {
+    "cr": 15.0,
+    "ecr": 14.0
+  },
+  "Adult Copper Dragon": {
+    "cr": 14.0,
+    "ecr": 13.0
+  },
+  "Adult Gold Dragon": {
+    "cr": 17.0,
+    "ecr": 17.0
+  },
+  "Adult Green Dragon": {
+    "cr": 15.0,
+    "ecr": 14.0
+  },
+  "Adult Red Dragon": {
+    "cr": 17.0,
+    "ecr": 17.0
+  },
+  "Adult Silver Dragon": {
+    "cr": 16.0,
+    "ecr": 15.0
+  },
+  "Adult White Dragon": {
+    "cr": 13.0,
+    "ecr": 15.0
+  },
+  "Air Elemental": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Allosaurus": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Ancient Black Dragon": {
+    "cr": 21.0,
+    "ecr": 21.0
+  },
+  "Ancient Blue Dragon": {
+    "cr": 23.0,
+    "ecr": 23.0
+  },
+  "Ancient Brass Dragon": {
+    "cr": 20.0,
+    "ecr": 19.0
+  },
+  "Ancient Bronze Dragon": {
+    "cr": 22.0,
+    "ecr": 23.0
+  },
+  "Ancient Copper Dragon": {
+    "cr": 21.0,
+    "ecr": 20.0
+  },
+  "Ancient Gold Dragon": {
+    "cr": 24.0,
+    "ecr": 25.0
+  },
+  "Ancient Green Dragon": {
+    "cr": 22.0,
+    "ecr": 21.0
+  },
+  "Ancient Red Dragon": {
+    "cr": 24.0,
+    "ecr": 23.0
+  },
+  "Ancient Silver Dragon": {
+    "cr": 23.0,
+    "ecr": 22.0
+  },
+  "Ancient White Dragon": {
+    "cr": 20.0,
+    "ecr": 19.0
+  },
+  "Androsphinx": {
+    "cr": 17.0,
+    "ecr": 15.0
+  },
+  "Animated Armor": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Ankheg": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Ankylosaurus": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Ape": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Arcanaloth": {
+    "cr": 12.0,
+    "ecr": 10.0
+  },
+  "Archmage": {
+    "cr": 12.0,
+    "ecr": 8.0
+  },
+  "Assassin": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Awakened Tree": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Axe Beak": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Azer": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Balor": {
+    "cr": 19.0,
+    "ecr": 15.0
+  },
+  "Bandit": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Bandit Captain": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Banshee": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Barbed Devil": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Barlgura": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Basilisk": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Bearded Devil": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Behir": {
+    "cr": 11.0,
+    "ecr": 12.0
+  },
+  "Beholder": {
+    "cr": 13.0,
+    "ecr": 12.0
+  },
+  "Beholder Zombie": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Berserker": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Black Bear": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Black Dragon Wyrmling": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Black Pudding": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Blink Dog": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Blood Hawk": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Blue Dragon Wyrmling": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Blue Slaad": {
+    "cr": 7.0,
+    "ecr": 7.0
+  },
+  "Boar": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Bone Devil": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Bone Naga (Guardian)": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Bone Naga (Spirit)": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Brass Dragon Wyrmling": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Bronze Dragon Wyrmling": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Brown Bear": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Bugbear": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Bugbear Chief": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Bulette": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Bullywug": {
+    "cr": 0.25,
+    "ecr": 0.125
+  },
+  "Cambion": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Camel": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Carrion Crawler": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Cave Bear": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Centaur": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Chain Devil": {
+    "cr": 8.0,
+    "ecr": 4.0
+  },
+  "Chasme": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Chimera": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Chuul": {
+    "cr": 4.0,
+    "ecr": 5.0
+  },
+  "Clay Golem": {
+    "cr": 9.0,
+    "ecr": 6.0
+  },
+  "Cloaker": {
+    "cr": 8.0,
+    "ecr": 5.0
+  },
+  "Cloud Giant": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Cockatrice": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Constrictor Snake": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Copper Dragon Wyrmling": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Couatl": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Crocodile": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Cult Fanatic": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Cultist": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Cyclops": {
+    "cr": 6.0,
+    "ecr": 7.0
+  },
+  "Dao": {
+    "cr": 11.0,
+    "ecr": 10.0
+  },
+  "Darkmantle": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Death Dog": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Death Knight": {
+    "cr": 17.0,
+    "ecr": 15.0
+  },
+  "Death Slaad": {
+    "cr": 10.0,
+    "ecr": 6.0
+  },
+  "Death Tyrant": {
+    "cr": 14.0,
+    "ecr": 13.0
+  },
+  "Deep Gnome (Svirfneblin)": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Demilich": {
+    "cr": 18.0,
+    "ecr": 15.0
+  },
+  "Deva": {
+    "cr": 10.0,
+    "ecr": 12.0
+  },
+  "Dire Wolf": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Displacer Beast": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Djinni": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Doppelganger": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Draft Horse": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Dragon Turtle": {
+    "cr": 17.0,
+    "ecr": 15.0
+  },
+  "Dretch": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Drider": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Drow": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Drow Elite Warrior": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Drow Mage": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Drow Priestess of Lolth": {
+    "cr": 8.0,
+    "ecr": 4.0
+  },
+  "Druid": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Dryad": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Duergar": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Duodrone": {
+    "cr": 0.25,
+    "ecr": 0.125
+  },
+  "Dust Mephit": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Earth Elemental": {
+    "cr": 5.0,
+    "ecr": 7.0
+  },
+  "Efreeti": {
+    "cr": 11.0,
+    "ecr": 10.0
+  },
+  "Elephant": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Elk": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Empyrean": {
+    "cr": 23.0,
+    "ecr": 20.0
+  },
+  "Erinyes": {
+    "cr": 12.0,
+    "ecr": 7.0
+  },
+  "Ettercap": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Ettin": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Faerie Dragon (Blue)": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Faerie Dragon (Green)": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Faerie Dragon (Indigo)": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Faerie Dragon (Orange)": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Faerie Dragon (Red)": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Faerie Dragon (Violet)": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Faerie Dragon (Yellow)": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Fire Elemental": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Fire Giant": {
+    "cr": 9.0,
+    "ecr": 10.0
+  },
+  "Fire Snake": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Flameskull": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Flesh Golem": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Flumph": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Flying Snake": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Flying Sword": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Fomorian": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Frost Giant": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Galeb Duhr": {
+    "cr": 6.0,
+    "ecr": 7.0
+  },
+  "Gargoyle": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Gas Spore": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Gelatinous Cube": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Ghast": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Ghost": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Ghoul": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Giant Ape": {
+    "cr": 7.0,
+    "ecr": 8.0
+  },
+  "Giant Badger": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Giant Bat": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Giant Boar": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Giant Centipede": {
+    "cr": 0.25,
+    "ecr": 0.125
+  },
+  "Giant Constrictor Snake": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Giant Crab": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Giant Crocodile": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Giant Eagle": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Giant Elk": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Giant Frog": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Giant Goat": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Giant Hyena": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Giant Lizard": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Giant Octopus": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Giant Owl": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Giant Poisonous Snake": {
+    "cr": 0.25,
+    "ecr": 0.0
+  },
+  "Giant Rat": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Giant Scorpion": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Giant Sea Horse": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Giant Shark": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Giant Spider": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Giant Toad": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Giant Vulture": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Giant Wasp": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Giant Weasel": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Giant Wolf Spider": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Gibbering Mouther": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Githyanki Knight": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Githyanki Warrior": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Githzerai Monk": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Githzerai Zerth": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Glabrezu": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Gladiator": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Gnoll": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Gnoll Fang of Yeenoghu": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Gnoll Pack Lord": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Goblin": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Goblin Boss": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Gold Dragon Wyrmling": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Gorgon": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Goristro": {
+    "cr": 17.0,
+    "ecr": 14.0
+  },
+  "Gray Ooze": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Gray Slaad": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Green Dragon Wyrmling": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Green Hag": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Green Slaad": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Grell": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Grick": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Grick Alpha": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Griffon": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Grimlock": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Guard": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Guardian Naga": {
+    "cr": 10.0,
+    "ecr": 8.0
+  },
+  "Gynosphinx": {
+    "cr": 11.0,
+    "ecr": 11.0
+  },
+  "Half-Ogre (Ogrillon)": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Half-Red Dragon Veteran": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Harpy": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Hell Hound": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Helmed Horror": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Hezrou": {
+    "cr": 8.0,
+    "ecr": 9.0
+  },
+  "Hill Giant": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Hippogriff": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Hobgoblin": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Hobgoblin Captain": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Hobgoblin Warlord": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Hook Horror": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Horned Devil": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Hunter Shark": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Hydra": {
+    "cr": 8.0,
+    "ecr": 9.0
+  },
+  "Ice Devil": {
+    "cr": 14.0,
+    "ecr": 11.0
+  },
+  "Ice Mephit": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Imp": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Incubus": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Intellect Devourer": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Invisible Stalker": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Iron Golem": {
+    "cr": 16.0,
+    "ecr": 14.0
+  },
+  "Jackalwere": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Kenku": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Killer Whale": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Knight": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Kobold": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Kraken": {
+    "cr": 23.0,
+    "ecr": 20.0
+  },
+  "Kuo-toa": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Kuo-toa Archpriest": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Kuo-toa Monitor": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Kuo-toa Whip": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Lamia": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Lich": {
+    "cr": 21.0,
+    "ecr": 18.0
+  },
+  "Lion": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Lizard King": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Lizard Queen": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Lizardfolk": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Lizardfolk Shaman": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Mage": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Magma Mephit": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Magmin": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Mammoth": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Manes": {
+    "cr": 0.125,
+    "ecr": 0.0
+  },
+  "Manticore": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Marid": {
+    "cr": 11.0,
+    "ecr": 11.0
+  },
+  "Marilith": {
+    "cr": 16.0,
+    "ecr": 11.0
+  },
+  "Mastiff": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Medusa": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Merfolk": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Merrow": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Mezzoloth": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Mimic": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Mind Flayer": {
+    "cr": 7.0,
+    "ecr": 8.0
+  },
+  "Mind Flayer Arcanist": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Minotaur": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Minotaur Skeleton": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Monodrone": {
+    "cr": 0.125,
+    "ecr": 0.0
+  },
+  "Mud Mephit": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Mule": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Mummy": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Mummy Lord": {
+    "cr": 15.0,
+    "ecr": 14.0
+  },
+  "Myconid Adult": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Myconid Sovereign": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Nalfeshnee": {
+    "cr": 13.0,
+    "ecr": 11.0
+  },
+  "Needle Blight": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Night Hag": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Nightmare": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Noble": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Nothic": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Nycaloth": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Ochre Jelly": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Ogre": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Ogre Zombie": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Oni": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Orc": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Orc Eye of Gruumsh": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Orc War Chief": {
+    "cr": 4.0,
+    "ecr": 5.0
+  },
+  "Orog": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Otyugh": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Owlbear": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Panther": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Pegasus": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Pentadrone": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Peryton": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Phase Spider": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Piercer": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Pit Fiend": {
+    "cr": 20.0,
+    "ecr": 15.0
+  },
+  "Pixie": {
+    "cr": 0.25,
+    "ecr": 0.125
+  },
+  "Planetar": {
+    "cr": 16.0,
+    "ecr": 14.0
+  },
+  "Plesiosaurus": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Poisonous Snake": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Polar Bear": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Poltergeist": {
+    "cr": 2.0,
+    "ecr": 0.5
+  },
+  "Pony": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Priest": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Pseudodragon": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Pteranodon": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Purple Worm": {
+    "cr": 15.0,
+    "ecr": 13.0
+  },
+  "Quadrone": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Quaggoth": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Quaggoth Spore Servant": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Quaggoth Thonot": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Quasit": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Rakshasa": {
+    "cr": 13.0,
+    "ecr": 10.0
+  },
+  "Red Dragon Wyrmling": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Red Slaad": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Reef Shark": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Remorhaz": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Revenant": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Rhinoceros": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Riding Horse": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Roc": {
+    "cr": 11.0,
+    "ecr": 11.0
+  },
+  "Roper": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Rug of Smothering": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Rust Monster": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Saber-Toothed Tiger": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Sahuagin": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Sahuagin Baron": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Sahuagin Priestess": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Salamander": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Satyr": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Scarecrow": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Scout": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Sea Hag": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Shadow": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Shadow Demon": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Shambling Mound": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Shield Guardian": {
+    "cr": 7.0,
+    "ecr": 8.0
+  },
+  "Silver Dragon Wyrmling": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Skeleton": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Slaad Tadpole": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Smoke Mephit": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Solar": {
+    "cr": 21.0,
+    "ecr": 19.0
+  },
+  "Spectator": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Specter": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Spined Devil": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Spirit Naga": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Sprite": {
+    "cr": 0.25,
+    "ecr": 0.125
+  },
+  "Spy": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Steam Mephit": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Stirge": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Stone Giant": {
+    "cr": 7.0,
+    "ecr": 7.0
+  },
+  "Stone Golem": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Storm Giant": {
+    "cr": 13.0,
+    "ecr": 11.0
+  },
+  "Succubus": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Swarm of Bats": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Swarm of Beetles": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Swarm of Centipedes": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Swarm of Insects": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Swarm of Poisonous Snakes": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Swarm of Quippers": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Swarm of Rats": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Swarm of Ravens": {
+    "cr": 0.25,
+    "ecr": 0.125
+  },
+  "Swarm of Spiders": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Swarm of Wasps": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Tarrasque": {
+    "cr": 30.0,
+    "ecr": 26.0
+  },
+  "Thri-kreen": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Thug": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Tiger": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Treant": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Tribal Warrior": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Triceratops": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Tridrone": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Troglodyte": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Troll": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Twig Blight": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Tyrannosaurus Rex": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Ultroloth": {
+    "cr": 13.0,
+    "ecr": 11.0
+  },
+  "Umber Hulk": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Unicorn": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Vampire": {
+    "cr": 13.0,
+    "ecr": 13.0
+  },
+  "Vampire Spawn": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Vampire Spellcaster": {
+    "cr": 15.0,
+    "ecr": 12.0
+  },
+  "Vampire Warrior": {
+    "cr": 15.0,
+    "ecr": 12.0
+  },
+  "Veteran": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Vine Blight": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Violet Fungus": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Vrock": {
+    "cr": 6.0,
+    "ecr": 7.0
+  },
+  "Warhorse": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Warhorse Skeleton": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Water Elemental": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Water Weird": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Werebear": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Wereboar": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Wererat": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Weretiger": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Werewolf": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "White Dragon Wyrmling": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Wight": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Will-o'-Wisp": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Winged Kobold": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Winter Wolf": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Wolf": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Worg": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Wraith": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Wyvern": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Xorn": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Yeti": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Yochlol": {
+    "cr": 10.0,
+    "ecr": 8.0
+  },
+  "Young Black Dragon": {
+    "cr": 7.0,
+    "ecr": 8.0
+  },
+  "Young Blue Dragon": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Young Brass Dragon": {
+    "cr": 6.0,
+    "ecr": 7.0
+  },
+  "Young Bronze Dragon": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Young Copper Dragon": {
+    "cr": 7.0,
+    "ecr": 8.0
+  },
+  "Young Gold Dragon": {
+    "cr": 10.0,
+    "ecr": 7.0
+  },
+  "Young Green Dragon": {
+    "cr": 8.0,
+    "ecr": 9.0
+  },
+  "Young Red Dragon": {
+    "cr": 10.0,
+    "ecr": 7.0
+  },
+  "Young Red Shadow Dragon": {
+    "cr": 13.0,
+    "ecr": 10.0
+  },
+  "Young Remorhaz": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Young Silver Dragon": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Young White Dragon": {
+    "cr": 6.0,
+    "ecr": 7.0
+  },
+  "Yuan-ti Abomination": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Yuan-ti Malison (Type 1)": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Yuan-ti Malison (Type 2)": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Yuan-ti Malison (Type 3)": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Yuan-ti Pureblood": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Zombie": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Abhorrent Overlord": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Akroan Hoplite": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Alseid": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Anvilwrought Raptor": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Aphemia": {
+    "cr": 5.0,
+    "ecr": 2.0
+  },
+  "Arasta": {
+    "cr": 21.0,
+    "ecr": 18.0
+  },
+  "Archon of Falling Stars": {
+    "cr": 12.0,
+    "ecr": 13.0
+  },
+  "Ashen Rider": {
+    "cr": 16.0,
+    "ecr": 12.0
+  },
+  "Blood-Toll Harpy": {
+    "cr": 0.125,
+    "ecr": 0.0
+  },
+  "Broken King Antigonos": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Bronze Sable": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Burnished Hart": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Colossus of Akros": {
+    "cr": 23.0,
+    "ecr": 18.0
+  },
+  "Doomwake Giant": {
+    "cr": 11.0,
+    "ecr": 10.0
+  },
+  "Eater of Hope": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Fleecemane Lion": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Flitterstep Eidolon": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Ghostblade Eidolon": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Gold-Forged Sentinel": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Hippocamp": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Hundred-Handed One": {
+    "cr": 15.0,
+    "ecr": 13.0
+  },
+  "Hythonia": {
+    "cr": 17.0,
+    "ecr": 14.0
+  },
+  "Ironscale Hydra": {
+    "cr": 12.0,
+    "ecr": 11.0
+  },
+  "Lampad": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Leonin Iconoclast": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Meletian Hoplite": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Naiad": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Nightmare Shepherd": {
+    "cr": 11.0,
+    "ecr": 7.0
+  },
+  "Nyx-Fleece Ram": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Oracle": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Oread": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Phylaskia": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Polukranos": {
+    "cr": 19.0,
+    "ecr": 16.0
+  },
+  "Returned Drifter": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Returned Kakomantis": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Returned Palamnite": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Returned Sentry": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Satyr Reveler": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Satyr Thornbearer": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Setessan Hoplite": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Theran Chimera": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Triton Master of Waves": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Triton Shorestalker": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Tromokratis": {
+    "cr": 26.0,
+    "ecr": 23.0
+  },
+  "Two-Headed Cerberus": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Typhon": {
+    "cr": 15.0,
+    "ecr": 11.0
+  },
+  "Underworld Cerberus": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Winged Bull": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Winged Lion": {
+    "cr": 4.0,
+    "ecr": 5.0
+  },
+  "Woe Strider": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Abjurer Wizard": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Adult Kruthik": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Adult Oblex": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Air Elemental Myrmidon": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Alhoon": {
+    "cr": 10.0,
+    "ecr": 6.0
+  },
+  "Alkilith": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Allip": {
+    "cr": 5.0,
+    "ecr": 2.0
+  },
+  "Amnizu": {
+    "cr": 18.0,
+    "ecr": 14.0
+  },
+  "Angry Sorrowsworn": {
+    "cr": 13.0,
+    "ecr": 12.0
+  },
+  "Annis Hag": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Apprentice Wizard": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Archdruid": {
+    "cr": 12.0,
+    "ecr": 9.0
+  },
+  "Archer": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Armanite": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Astral Dreadnought": {
+    "cr": 21.0,
+    "ecr": 19.0
+  },
+  "Aurochs": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Autumn Eladrin": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Babau": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Bael": {
+    "cr": 19.0,
+    "ecr": 15.0
+  },
+  "Balhannoth": {
+    "cr": 11.0,
+    "ecr": 10.0
+  },
+  "Banderhobb": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Baphomet": {
+    "cr": 23.0,
+    "ecr": 20.0
+  },
+  "Bard": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Barghest": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Berbalang": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Bheur Hag": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Black Abishai": {
+    "cr": 7.0,
+    "ecr": 4.0
+  },
+  "Blackguard": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Blue Abishai": {
+    "cr": 17.0,
+    "ecr": 10.0
+  },
+  "Bodak": {
+    "cr": 6.0,
+    "ecr": 3.0
+  },
+  "Boggle": {
+    "cr": 0.125,
+    "ecr": 0.5
+  },
+  "Boneclaw": {
+    "cr": 12.0,
+    "ecr": 10.0
+  },
+  "Brontosaurus": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Bulezau": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Cadaver Collector": {
+    "cr": 14.0,
+    "ecr": 11.0
+  },
+  "Canoloth": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Catoblepas": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Cave Fisher": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Champion": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Chitine": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Choker": {
+    "cr": 1.0,
+    "ecr": 0.25
+  },
+  "Choldrith": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Clockwork Bronze Scout": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Clockwork Iron Cobra": {
+    "cr": 4.0,
+    "ecr": 5.0
+  },
+  "Clockwork Oaken Bolter": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Clockwork Stone Defender": {
+    "cr": 4.0,
+    "ecr": 6.0
+  },
+  "Cloud Giant Smiling One": {
+    "cr": 11.0,
+    "ecr": 10.0
+  },
+  "Conjurer Wizard": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Corpse Flower": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Darkling": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Darkling Elder": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Death Kiss": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Deathlock": {
+    "cr": 4.0,
+    "ecr": 1.0
+  },
+  "Deathlock Mastermind": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Deathlock Wight": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Deep Roth\u00e9": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Deep Scion": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Deinonychus": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Derro": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Derro Savant": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Devourer": {
+    "cr": 13.0,
+    "ecr": 8.0
+  },
+  "Dhergoloth": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Dimetrodon": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Dire Troll": {
+    "cr": 13.0,
+    "ecr": 10.0
+  },
+  "Diviner Wizard": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Dolphin": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Dolphin Delighter": {
+    "cr": 3.0,
+    "ecr": 1.0
+  },
+  "Draegloth": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Drow Arachnomancer": {
+    "cr": 13.0,
+    "ecr": 9.0
+  },
+  "Drow Favored Consort": {
+    "cr": 18.0,
+    "ecr": 13.0
+  },
+  "Drow House Captain": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Drow Inquisitor": {
+    "cr": 14.0,
+    "ecr": 9.0
+  },
+  "Drow Matron Mother": {
+    "cr": 20.0,
+    "ecr": 18.0
+  },
+  "Drow Shadowblade": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Duergar Despot": {
+    "cr": 12.0,
+    "ecr": 8.0
+  },
+  "Duergar Hammerer": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Duergar Kavalrachni": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Duergar Mind Master": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Duergar Screamer": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Duergar Soulblade": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Duergar Stone Guard": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Duergar Warlord": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Duergar Xarrorn": {
+    "cr": 2.0,
+    "ecr": 0.5
+  },
+  "Dybbuk": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Earth Elemental Myrmidon": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Eidolon": {
+    "cr": 12.0,
+    "ecr": 8.0
+  },
+  "Elder Brain": {
+    "cr": 14.0,
+    "ecr": 13.0
+  },
+  "Elder Oblex": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Elder Tempest": {
+    "cr": 23.0,
+    "ecr": 19.0
+  },
+  "Enchanter Wizard": {
+    "cr": 5.0,
+    "ecr": 2.0
+  },
+  "Evoker Wizard": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Female Steeder": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Fire Elemental Myrmidon": {
+    "cr": 7.0,
+    "ecr": 7.0
+  },
+  "Fire Giant Dreadnought": {
+    "cr": 14.0,
+    "ecr": 12.0
+  },
+  "Firenewt Warlock of Imix": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Firenewt Warrior": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Flail Snail": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Flind": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Fraz-Urb'luu": {
+    "cr": 23.0,
+    "ecr": 20.0
+  },
+  "Froghemoth": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Frost Giant Everlasting One": {
+    "cr": 12.0,
+    "ecr": 10.0
+  },
+  "Frost Salamander": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Gauth": {
+    "cr": 6.0,
+    "ecr": 3.0
+  },
+  "Gazer": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Geryon": {
+    "cr": 22.0,
+    "ecr": 19.0
+  },
+  "Giant Strider": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Giff": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Girallon": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Githyanki Gish": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Githyanki Kith'rak": {
+    "cr": 12.0,
+    "ecr": 10.0
+  },
+  "Githyanki Supreme Commander": {
+    "cr": 14.0,
+    "ecr": 15.0
+  },
+  "Githzerai Anarch": {
+    "cr": 16.0,
+    "ecr": 15.0
+  },
+  "Githzerai Enlightened": {
+    "cr": 10.0,
+    "ecr": 6.0
+  },
+  "Gnoll Flesh Gnawer": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Gnoll Hunter": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Gnoll Witherling": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Gray Render": {
+    "cr": 12.0,
+    "ecr": 11.0
+  },
+  "Graz'zt": {
+    "cr": 24.0,
+    "ecr": 19.0
+  },
+  "Green Abishai": {
+    "cr": 15.0,
+    "ecr": 11.0
+  },
+  "Grung": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Grung Elite Warrior": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Grung Wildling": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Hadrosaurus": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Hellfire Engine": {
+    "cr": 16.0,
+    "ecr": 10.0
+  },
+  "Hobgoblin Devastator": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Hobgoblin Iron Shadow": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Howler": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Hungry Sorrowsworn": {
+    "cr": 11.0,
+    "ecr": 11.0
+  },
+  "Hutijin": {
+    "cr": 21.0,
+    "ecr": 17.0
+  },
+  "Hydroloth": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Illusionist Wizard": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Juiblex": {
+    "cr": 23.0,
+    "ecr": 19.0
+  },
+  "Ki-rin": {
+    "cr": 12.0,
+    "ecr": 13.0
+  },
+  "Kobold Dragonshield": {
+    "cr": 1.0,
+    "ecr": 3.0
+  },
+  "Kobold Inventor": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Kobold Scale Sorcerer": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Korred": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Kraken Priest": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Kruthik Hive Lord": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Leucrotta": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Leviathan": {
+    "cr": 20.0,
+    "ecr": 18.0
+  },
+  "Lonely Sorrowsworn": {
+    "cr": 9.0,
+    "ecr": 6.0
+  },
+  "Lost Sorrowsworn": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Male Steeder": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Martial Arts Adept": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Marut": {
+    "cr": 25.0,
+    "ecr": 23.0
+  },
+  "Master Thief": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Maurezhi": {
+    "cr": 7.0,
+    "ecr": 4.0
+  },
+  "Maw Demon": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Meazel": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Meenlock": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Merregon": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Merrenoloth": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Mindwitness": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Moloch": {
+    "cr": 21.0,
+    "ecr": 18.0
+  },
+  "Molydeus": {
+    "cr": 21.0,
+    "ecr": 17.0
+  },
+  "Morkoth": {
+    "cr": 11.0,
+    "ecr": 7.0
+  },
+  "Mouth of Grolantor": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Nabassu": {
+    "cr": 15.0,
+    "ecr": 11.0
+  },
+  "Nagpa": {
+    "cr": 17.0,
+    "ecr": 16.0
+  },
+  "Narzugon": {
+    "cr": 13.0,
+    "ecr": 6.0
+  },
+  "Necromancer Wizard": {
+    "cr": 9.0,
+    "ecr": 6.0
+  },
+  "Neogi": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Neogi Hatchling": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Neogi Master": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Neothelid": {
+    "cr": 13.0,
+    "ecr": 12.0
+  },
+  "Nightwalker": {
+    "cr": 20.0,
+    "ecr": 11.0
+  },
+  "Nilbog": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Nupperibo": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Oblex Spawn": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Ogre Battering Ram": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Ogre Bolt Launcher": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Ogre Chain Brute": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Ogre Howdah": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Oinoloth": {
+    "cr": 12.0,
+    "ecr": 7.0
+  },
+  "Orcus": {
+    "cr": 26.0,
+    "ecr": 23.0
+  },
+  "Orthon": {
+    "cr": 10.0,
+    "ecr": 7.0
+  },
+  "Ox": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Phoenix": {
+    "cr": 16.0,
+    "ecr": 13.0
+  },
+  "Quetzalcoatlus": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Quickling": {
+    "cr": 1.0,
+    "ecr": 0.25
+  },
+  "Red Abishai": {
+    "cr": 19.0,
+    "ecr": 15.0
+  },
+  "Redcap": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Retriever": {
+    "cr": 14.0,
+    "ecr": 13.0
+  },
+  "Rot Troll": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Rutterkin": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Sea Spawn": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Shadar-kai Gloom Weaver": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Shadar-kai Shadow Dancer": {
+    "cr": 7.0,
+    "ecr": 4.0
+  },
+  "Shadar-kai Soul Monger": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Shadow Mastiff": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Shadow Mastiff Alpha": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Shoosuva": {
+    "cr": 8.0,
+    "ecr": 5.0
+  },
+  "Sibriex": {
+    "cr": 18.0,
+    "ecr": 13.0
+  },
+  "Skulk": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Skull Lord": {
+    "cr": 15.0,
+    "ecr": 12.0
+  },
+  "Slithering Tracker": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Spawn of Kyuss": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Spirit Troll": {
+    "cr": 11.0,
+    "ecr": 6.0
+  },
+  "Spring Eladrin": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Star Spawn Grue": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Star Spawn Hulk": {
+    "cr": 10.0,
+    "ecr": 7.0
+  },
+  "Star Spawn Larva Mage": {
+    "cr": 16.0,
+    "ecr": 12.0
+  },
+  "Star Spawn Mangler": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Star Spawn Seer": {
+    "cr": 13.0,
+    "ecr": 12.0
+  },
+  "Steel Predator": {
+    "cr": 16.0,
+    "ecr": 13.0
+  },
+  "Stegosaurus": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Stench Kow": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Stone Cursed": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Stone Giant Dreamwalker": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Storm Giant Quintessent": {
+    "cr": 16.0,
+    "ecr": 14.0
+  },
+  "Summer Eladrin": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Swarm of Cranium Rats": {
+    "cr": 5.0,
+    "ecr": 2.0
+  },
+  "Swarm of Rot Grubs": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Swashbuckler": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Sword Wraith Commander": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Sword Wraith Warrior": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Tanarukk": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Thorny Vegepygmy": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Titivilus": {
+    "cr": 16.0,
+    "ecr": 15.0
+  },
+  "Tlincalli": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Tortle": {
+    "cr": 0.25,
+    "ecr": 1.0
+  },
+  "Tortle Druid": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Transmuter Wizard": {
+    "cr": 5.0,
+    "ecr": 2.0
+  },
+  "Trapper": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Ulitharid": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Vampiric Mist": {
+    "cr": 3.0,
+    "ecr": 1.0
+  },
+  "Vargouille": {
+    "cr": 1.0,
+    "ecr": 0.25
+  },
+  "Vegepygmy": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Vegepygmy Chief": {
+    "cr": 2.0,
+    "ecr": 0.5
+  },
+  "Velociraptor": {
+    "cr": 0.25,
+    "ecr": 0.125
+  },
+  "Venom Troll": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "War Priest": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Warlock of the Archfey": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Warlock of the Fiend": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Warlock of the Great Old One": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Warlord": {
+    "cr": 12.0,
+    "ecr": 12.0
+  },
+  "Wastrilith": {
+    "cr": 13.0,
+    "ecr": 9.0
+  },
+  "Water Elemental Myrmidon": {
+    "cr": 7.0,
+    "ecr": 8.0
+  },
+  "White Abishai": {
+    "cr": 6.0,
+    "ecr": 3.0
+  },
+  "Winter Eladrin": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Wood Woad": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Wretched Sorrowsworn": {
+    "cr": 0.25,
+    "ecr": 0.125
+  },
+  "Xvart": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Xvart Warlock of Raxivort": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Yagnoloth": {
+    "cr": 11.0,
+    "ecr": 8.0
+  },
+  "Yeenoghu": {
+    "cr": 24.0,
+    "ecr": 19.0
+  },
+  "Yeth Hound": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Young Kruthik": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Yuan-ti Anathema": {
+    "cr": 12.0,
+    "ecr": 10.0
+  },
+  "Yuan-ti Broodguard": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Yuan-ti Mind Whisperer": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Yuan-ti Nightmare Speaker": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Yuan-ti Pit Master": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Zaratan": {
+    "cr": 22.0,
+    "ecr": 20.0
+  },
+  "Zuggtmoy": {
+    "cr": 23.0,
+    "ecr": 19.0
+  },
+  "Adult Time Dragon": {
+    "cr": 18.0,
+    "ecr": 15.0
+  },
+  "Ancient Time Dragon": {
+    "cr": 26.0,
+    "ecr": 22.0
+  },
+  "Athar Null": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Aurumach Rilmani": {
+    "cr": 17.0,
+    "ecr": 15.0
+  },
+  "Avoral Guardinal": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Baernaloth": {
+    "cr": 17.0,
+    "ecr": 14.0
+  },
+  "Bariaur Wanderer": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Bleak Cabal Void Soother": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Cranium Rat Squeaker Swarm": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Cuprilach Rilmani": {
+    "cr": 12.0,
+    "ecr": 12.0
+  },
+  "Dabus": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Darkweaver": {
+    "cr": 10.0,
+    "ecr": 8.0
+  },
+  "Decaton Modron": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Doomguard Doom Lord": {
+    "cr": 12.0,
+    "ecr": 11.0
+  },
+  "Doomguard Rot Blade": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Eater of Knowledge": {
+    "cr": 6.0,
+    "ecr": 7.0
+  },
+  "Equinal Guardinal": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Farastu Demodand": {
+    "cr": 11.0,
+    "ecr": 10.0
+  },
+  "Fated Shaker": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Ferrumach Rilmani": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Fraternity of Order Law Bender": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Githzerai Futurist": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Githzerai Traveler": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Githzerai Uniter": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Hands of Havoc Fire Starter": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Harmonium Captain": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Harmonium Peacekeeper": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Heralds of Dust Remnant": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Hexton Modron": {
+    "cr": 13.0,
+    "ecr": 12.0
+  },
+  "Hound Archon": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Kelubar Demodand": {
+    "cr": 13.0,
+    "ecr": 11.0
+  },
+  "Kolyarut": {
+    "cr": 20.0,
+    "ecr": 20.0
+  },
+  "Lantern Archon": {
+    "cr": 2.0,
+    "ecr": 0.5
+  },
+  "Maelephant": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Mercykiller Bloodhound": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Mind's Eye Matter Smith": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Musteval Guardinal": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Nonaton Modron": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Octon Modron": {
+    "cr": 11.0,
+    "ecr": 11.0
+  },
+  "Planar Incarnate": {
+    "cr": 22.0,
+    "ecr": 19.0
+  },
+  "Razorvine Blight": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Septon Modron": {
+    "cr": 12.0,
+    "ecr": 11.0
+  },
+  "Shator Demodand": {
+    "cr": 16.0,
+    "ecr": 12.0
+  },
+  "Shemeshka": {
+    "cr": 14.0,
+    "ecr": 11.0
+  },
+  "Society of Sensation Muse": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Swarm of Sunflies": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Time Dragon Wyrmling": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Transcendent Order Conduit": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Transcendent Order Instinct": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Vargouille Reflection": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Warden Archon": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Young Time Dragon": {
+    "cr": 11.0,
+    "ecr": 11.0
+  },
+  "Abyssal Wretch": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Bronze Scout": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Gloom Weaver": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Iron Cobra": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Oaken Bolter": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Shadow Dancer": {
+    "cr": 7.0,
+    "ecr": 4.0
+  },
+  "Soul Monger": {
+    "cr": 11.0,
+    "ecr": 7.0
+  },
+  "Stone Defender": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "The Angry": {
+    "cr": 13.0,
+    "ecr": 12.0
+  },
+  "The Hungry": {
+    "cr": 11.0,
+    "ecr": 11.0
+  },
+  "The Lonely": {
+    "cr": 9.0,
+    "ecr": 6.0
+  },
+  "The Lost": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "The Wretched": {
+    "cr": 0.25,
+    "ecr": 0.125
+  },
+  "Goon": {
+    "cr": 0.125,
+    "ecr": 0.0
+  },
+  "Mr. Greystone": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Scarlet Sentinel": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Clown": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Imelda": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Magnifico": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Slurmy": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Awakened Zurkhwood": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Bridesmaid of Zuggtmoy": {
+    "cr": 0.125,
+    "ecr": 0.5
+  },
+  "Chamberlain of Zuggtmoy": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Chuul Spore Servant": {
+    "cr": 4.0,
+    "ecr": 5.0
+  },
+  "Deepking Horgar Steelshadow V": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Droki": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Drow Spore Servant": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Duergar Darkhaft": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Duergar Keeper of the Flame": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Duergar Spore Servant": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Emerald Enclave Scout": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Giant Riding Lizard": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Grisha": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Hook Horror Spore Servant": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Ixitxachitl": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Ixitxachitl Cleric": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Lords' Alliance Guard": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Lords' Alliance Spy": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Narrak": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "The Pudding King": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Troglodyte Champion of Laogzed": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Vampiric Ixitxachitl": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Vampiric Ixitxachitl Cleric": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Veteran of the Gauntlet": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Yestabrod": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Zhentarim Thug": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Aberrant Zealot": {
+    "cr": 8.0,
+    "ecr": 5.0
+  },
+  "Cloaker Mutate": {
+    "cr": 10.0,
+    "ecr": 8.0
+  },
+  "Dwarf Skeleton": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Encephalon Cluster": {
+    "cr": 10.0,
+    "ecr": 8.0
+  },
+  "Encephalon Gemmule": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Feral Ashenwight": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Fiendish Auger": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Flesh Meld": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Goblin Psi Brawler": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Goblin Psi Commander": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Grell Psychic": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Humanoid Mutate": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Iarno \"Glasstaff\" Albrek": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Infected Elder Brain": {
+    "cr": 11.0,
+    "ecr": 7.0
+  },
+  "Intellect Snare": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Lowarnizel": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Mind Flayer Clairvoyant": {
+    "cr": 11.0,
+    "ecr": 10.0
+  },
+  "Mind Flayer Prophet": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Nezznar the Spider": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Oculorb": {
+    "cr": 9.0,
+    "ecr": 6.0
+  },
+  "Oshundo the Alhoon": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Otyugh Mutate": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Psionic Ashenwight": {
+    "cr": 7.0,
+    "ecr": 4.0
+  },
+  "Qunbraxel": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Refraction of Ilvaash": {
+    "cr": 15.0,
+    "ecr": 13.0
+  },
+  "Ruxithid the Chosen": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Aerisi Kalinoth": {
+    "cr": 7.0,
+    "ecr": 4.0
+  },
+  "Bastian Thermandar": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Black Earth Guard": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Black Earth Priest": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Burrowshark": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Crushing Wave Priest": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Crushing Wave Reaver": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Dark Tide Knight": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Drannin Splithelm": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Elizar Dryflagon": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Eternal Flame Guardian": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Eternal Flame Priest": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Fathomer": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Feathergale Knight": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Flamewrath": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Ghald": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Hellenrae": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Howling Hatred Initiate": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Howling Hatred Priest": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Hurricane": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Imix": {
+    "cr": 19.0,
+    "ecr": 16.0
+  },
+  "Marlos Urnrayle": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Miraj Vizann": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Ogr\u00e9moch": {
+    "cr": 20.0,
+    "ecr": 20.0
+  },
+  "Olhydra": {
+    "cr": 18.0,
+    "ecr": 19.0
+  },
+  "One-Eyed Shiver": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Oreioth": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Razerblast": {
+    "cr": 5.0,
+    "ecr": 7.0
+  },
+  "Sacred Stone Monk": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Skyweaver": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Stonemelder": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Thurl Merosska": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Vanifer": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Wiggan Nettlebee": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Windharrow": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Yan-C-Bin": {
+    "cr": 18.0,
+    "ecr": 16.0
+  },
+  "Criosphinx": {
+    "cr": 13.0,
+    "ecr": 13.0
+  },
+  "Manticore, Heart-Piercer": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Serpopard": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Homarid": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Kavu Predator": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Steel Leaf Kavu": {
+    "cr": 4.0,
+    "ecr": 7.0
+  },
+  "Creepy Doll": {
+    "cr": 2.0,
+    "ecr": 0.5
+  },
+  "Geist": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Vampire Neonate": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Werewolf (Krallenhorde)": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Gremlin": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Sky Leviathan": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Chupacabra": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Elder Dinosaur": {
+    "cr": 30.0,
+    "ecr": 26.0
+  },
+  "Frilled Deathspitter": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Gishath, Sun's Avatar": {
+    "cr": 10.0,
+    "ecr": 12.0
+  },
+  "Sunbird": {
+    "cr": 13.0,
+    "ecr": 13.0
+  },
+  "Archon of Redemption": {
+    "cr": 10.0,
+    "ecr": 7.0
+  },
+  "Android": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Barkburr": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Champion of Gorm": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Champion of Madarua": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Champion of Usamigaras": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Combat Robot": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Derro Apprentice": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Derro Raider": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Derwyth": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Drelnza": {
+    "cr": 15.0,
+    "ecr": 13.0
+  },
+  "Froghemoth Elder": {
+    "cr": 15.0,
+    "ecr": 13.0
+  },
+  "Guardian of Gorm": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Horrid Plant": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Leprechaun": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Mage of Usamigaras": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Maschin-i-Bozorg": {
+    "cr": 8.0,
+    "ecr": 5.0
+  },
+  "Memory Web": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Nafas": {
+    "cr": 23.0,
+    "ecr": 17.0
+  },
+  "Nafik": {
+    "cr": 6.0,
+    "ecr": 3.0
+  },
+  "Sion": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Swarm of Gibberlings": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "The Gardener": {
+    "cr": 12.0,
+    "ecr": 12.0
+  },
+  "Tower Hand": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Tower Sage": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Vegepygmy Moldmaker": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Vegepygmy Scavenger": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Vegepygmy Thorny Hunter": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Warrior of Madarua": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Wolf-in-Sheep's-Clothing": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Worker Robot": {
+    "cr": 3.0,
+    "ecr": 5.0
+  },
+  "Zargon the Returner": {
+    "cr": 17.0,
+    "ecr": 15.0
+  },
+  "Billy Beaver": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Buster the Bear": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Layla the Lizard": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Piggy Wiggle Butt": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Thomas T. Toad": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Dragonfang": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Dragonsoul": {
+    "cr": 7.0,
+    "ecr": 7.0
+  },
+  "Ice Toad": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Naergoth Bladelord": {
+    "cr": 11.0,
+    "ecr": 8.0
+  },
+  "Neronvain": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Severin": {
+    "cr": 11.0,
+    "ecr": 11.0
+  },
+  "Tiamat": {
+    "cr": 30.0,
+    "ecr": 28.0
+  },
+  "Dirt-Under-Nails": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Rotter": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Archaic": {
+    "cr": 18.0,
+    "ecr": 18.0
+  },
+  "Art Elemental Mascot": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Beledros Witherbloom": {
+    "cr": 24.0,
+    "ecr": 23.0
+  },
+  "Brackish Trudge": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Cogwork Archivist": {
+    "cr": 4.0,
+    "ecr": 5.0
+  },
+  "Daemogoth": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Daemogoth Titan": {
+    "cr": 16.0,
+    "ecr": 14.0
+  },
+  "First-Year Student": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Fractal Mascot": {
+    "cr": 0.25,
+    "ecr": 1.0
+  },
+  "Galazeth Prismari": {
+    "cr": 23.0,
+    "ecr": 19.0
+  },
+  "Groff": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Inkling Mascot": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Lorehold Apprentice": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Lorehold Pledgemage": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Lorehold Professor of Chaos": {
+    "cr": 7.0,
+    "ecr": 4.0
+  },
+  "Lorehold Professor of Order": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Mage Hunter": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Murgaxor": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Oracle of Strixhaven": {
+    "cr": 15.0,
+    "ecr": 12.0
+  },
+  "Oriq Blood Mage": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Oriq Recruiter": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Pest Mascot": {
+    "cr": 0.25,
+    "ecr": 1.0
+  },
+  "Prismari Apprentice": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Prismari Pledgemage": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Prismari Professor of Expression": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Prismari Professor of Perfection": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Quandrix Apprentice": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Quandrix Pledgemage": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Quandrix Professor of Substance": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Quandrix Professor of Theory": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Relic Sloth": {
+    "cr": 2.0,
+    "ecr": 4.0
+  },
+  "Ruin Grinder": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Shadrix Silverquill": {
+    "cr": 22.0,
+    "ecr": 20.0
+  },
+  "Silverquill Apprentice": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Silverquill Pledgemage": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Silverquill Professor of Radiance": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Silverquill Professor of Shadow": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Spirit Statue Mascot": {
+    "cr": 0.25,
+    "ecr": 1.0
+  },
+  "Strixhaven Campus Guide": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Tanazir Quandrix": {
+    "cr": 24.0,
+    "ecr": 23.0
+  },
+  "Velomachus Lorehold": {
+    "cr": 25.0,
+    "ecr": 24.0
+  },
+  "Witherbloom Apprentice": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Witherbloom Pledgemage": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Witherbloom Professor of Decay": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Witherbloom Professor of Growth": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Y'demi": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Giant Shark Skeleton": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Lhammaruntosz": {
+    "cr": 16.0,
+    "ecr": 16.0
+  },
+  "Aarakocra Simulacrum": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Chief Guh": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Countess Sansuri": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Crag Cat": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Duke Zalto": {
+    "cr": 9.0,
+    "ecr": 11.0
+  },
+  "Harshnag": {
+    "cr": 9.0,
+    "ecr": 10.0
+  },
+  "Hulking Crab": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Iymrith": {
+    "cr": 23.0,
+    "ecr": 24.0
+  },
+  "Jarl Storvald": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "King Hekaton": {
+    "cr": 13.0,
+    "ecr": 13.0
+  },
+  "Klauth": {
+    "cr": 25.0,
+    "ecr": 25.0
+  },
+  "Maegera the Dawn Titan": {
+    "cr": 23.0,
+    "ecr": 20.0
+  },
+  "Purple Wormling": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Slarkrethel": {
+    "cr": 25.0,
+    "ecr": 22.0
+  },
+  "Thane Kayalithica": {
+    "cr": 7.0,
+    "ecr": 9.0
+  },
+  "Thunderbeast Skeleton": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Uthgardt Shaman": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Yakfolk Priest": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Yakfolk Warrior": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Zaltember": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Zephyros": {
+    "cr": 13.0,
+    "ecr": 12.0
+  },
+  "Skull Flier": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Statue of Talos": {
+    "cr": 10.0,
+    "ecr": 8.0
+  },
+  "Tooth-N-Claw": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Adranach": {
+    "cr": 12.0,
+    "ecr": 9.0
+  },
+  "Ashari Firetamer": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Ashari Skydancer": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Ashari Stoneguard": {
+    "cr": 7.0,
+    "ecr": 7.0
+  },
+  "Ashari Waverider": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Centaur Skeleton": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Champion of Ravens": {
+    "cr": 21.0,
+    "ecr": 15.0
+  },
+  "Cinderslag Elemental": {
+    "cr": 8.0,
+    "ecr": 5.0
+  },
+  "Clasp Cutthroat": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Clasp Enforcer": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Cobalt Golem": {
+    "cr": 18.0,
+    "ecr": 15.0
+  },
+  "Cold Snap Spirit": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Cyclops Stormcaller": {
+    "cr": 10.0,
+    "ecr": 7.0
+  },
+  "Demonfeed Spider": {
+    "cr": 8.0,
+    "ecr": 4.0
+  },
+  "Demonfeed Spiderling": {
+    "cr": 1.0,
+    "ecr": 0.25
+  },
+  "Doty X": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Ember Roc": {
+    "cr": 14.0,
+    "ecr": 11.0
+  },
+  "Flaming Skeleton": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Forge Guardian": {
+    "cr": 27.0,
+    "ecr": 25.0
+  },
+  "Grog Strongjaw": {
+    "cr": 18.0,
+    "ecr": 17.0
+  },
+  "Jourrael, the Caedogeist": {
+    "cr": 15.0,
+    "ecr": 9.0
+  },
+  "Keyleth, Voice of the Tempest": {
+    "cr": 18.0,
+    "ecr": 17.0
+  },
+  "Kraghammer Goat-Knight": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Mage Hunter Golem": {
+    "cr": 15.0,
+    "ecr": 14.0
+  },
+  "Magma Landshark": {
+    "cr": 14.0,
+    "ecr": 13.0
+  },
+  "Master Adranach": {
+    "cr": 21.0,
+    "ecr": 18.0
+  },
+  "Percival de Rolo": {
+    "cr": 18.0,
+    "ecr": 13.0
+  },
+  "Pike Trickfoot": {
+    "cr": 17.0,
+    "ecr": 12.0
+  },
+  "Plainscow": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Platinum Golem": {
+    "cr": 16.0,
+    "ecr": 12.0
+  },
+  "Ravager Slaughter Lord": {
+    "cr": 9.0,
+    "ecr": 12.0
+  },
+  "Ravager Stabby-Stabber": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Remnant Chosen": {
+    "cr": 12.0,
+    "ecr": 7.0
+  },
+  "Remnant Cultist": {
+    "cr": 7.0,
+    "ecr": 3.0
+  },
+  "Rivermaw Brawler": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Rivermaw Stormborn": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Scanlan Shorthalt": {
+    "cr": 15.0,
+    "ecr": 12.0
+  },
+  "Taryon Darrington": {
+    "cr": 9.0,
+    "ecr": 5.0
+  },
+  "Trinket": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Vex'ahlia": {
+    "cr": 18.0,
+    "ecr": 16.0
+  },
+  "Vos'skyriss Serpentfolk": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Vos'skyriss Serpentfolk Ghost": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Wraithroot Tree": {
+    "cr": 14.0,
+    "ecr": 13.0
+  },
+  "Young Magma Landshark": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Animated Table": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Belak the Outcast": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Calcryx": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Centaur Mummy": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Dread Warrior": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Duergar Spy": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Durnn": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Erky Timbers": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Four-Armed Gargoyle": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Giant Crayfish": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Giant Ice Toad": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Giant Lightning Eel": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Giant Skeleton": {
+    "cr": 7.0,
+    "ecr": 8.0
+  },
+  "Giant Subterranean Lizard": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Greater Zombie": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Grenl": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Guthash": {
+    "cr": 0.25,
+    "ecr": 1.0
+  },
+  "Huge Giant Crab": {
+    "cr": 8.0,
+    "ecr": 9.0
+  },
+  "Kaarghaz": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Kalka-Kylla": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Kelpie": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Malformed Kraken": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Nahual": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Nereid": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Ooze Master": {
+    "cr": 10.0,
+    "ecr": 6.0
+  },
+  "Sea Lion": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Sharwyn Hucrele": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Sir Braford": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Siren": {
+    "cr": 3.0,
+    "ecr": 1.0
+  },
+  "Snarla": {
+    "cr": 5.0,
+    "ecr": 2.0
+  },
+  "Snurrevin": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Tarul Var": {
+    "cr": 13.0,
+    "ecr": 9.0
+  },
+  "Tecuziztecatl": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Thayan Apprentice": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Thayan Warrior": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Thorn Slinger": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Tloques-Popolocas": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "White Maw": {
+    "cr": 10.0,
+    "ecr": 8.0
+  },
+  "Yusdrayl": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Acererak": {
+    "cr": 23.0,
+    "ecr": 20.0
+  },
+  "Albino Dwarf Spirit Warrior": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Albino Dwarf Warrior": {
+    "cr": 0.25,
+    "ecr": 1.0
+  },
+  "Aldani (Lobsterfolk)": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Ankylosaurus Zombie": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Artus Cimber": {
+    "cr": 7.0,
+    "ecr": 4.0
+  },
+  "Asharra": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Assassin Vine": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Atropal": {
+    "cr": 13.0,
+    "ecr": 12.0
+  },
+  "Bag of Nails": {
+    "cr": 8.0,
+    "ecr": 5.0
+  },
+  "Clay Gladiator": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Dragonbait": {
+    "cr": 5.0,
+    "ecr": 8.0
+  },
+  "Eblis": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Giant Four-Armed Gargoyle": {
+    "cr": 10.0,
+    "ecr": 8.0
+  },
+  "Giant Snapping Turtle": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Girallon Zombie": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Hew Hackinstone": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Jaculi": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Kamadan": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "King of Feathers": {
+    "cr": 8.0,
+    "ecr": 9.0
+  },
+  "Liara Portyr": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Mantrap": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Mwaxanar\u00e9": {
+    "cr": 0.125,
+    "ecr": 0.5
+  },
+  "Pterafolk": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Ras Nsi": {
+    "cr": 7.0,
+    "ecr": 4.0
+  },
+  "Spiked Tomb Guardian": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Stone Juggernaut": {
+    "cr": 12.0,
+    "ecr": 8.0
+  },
+  "Su-monster": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Tabaxi Hunter": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Tabaxi Minstrel": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Tomb Dwarf": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Tomb Guardian": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Tri-flower Frond": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Tyrannosaurus Zombie": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Valindra Shadowmantle": {
+    "cr": 21.0,
+    "ecr": 12.0
+  },
+  "Volothamp \"Volo\" Geddarm": {
+    "cr": 0.25,
+    "ecr": 2.0
+  },
+  "Withers": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Xandala": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Yellow Musk Creeper": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Yellow Musk Zombie": {
+    "cr": 0.25,
+    "ecr": 1.0
+  },
+  "Zindar": {
+    "cr": 8.0,
+    "ecr": 5.0
+  },
+  "Zorbo": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Morte": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Decapus": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Geonid": {
+    "cr": 0.25,
+    "ecr": 1.0
+  },
+  "Giant Slug": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Topi": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Vecna the Archlich": {
+    "cr": 26.0,
+    "ecr": 19.0
+  },
+  "Alustriel Silverhand": {
+    "cr": 21.0,
+    "ecr": 16.0
+  },
+  "Black Rose Bearer": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Blade Lieutenant": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Blade Scout": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Blazebear": {
+    "cr": 12.0,
+    "ecr": 10.0
+  },
+  "Bone Roc": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Borthak": {
+    "cr": 15.0,
+    "ecr": 14.0
+  },
+  "Camlash": {
+    "cr": 19.0,
+    "ecr": 15.0
+  },
+  "Citadel Spider": {
+    "cr": 18.0,
+    "ecr": 15.0
+  },
+  "Deadbark Dryad": {
+    "cr": 13.0,
+    "ecr": 9.0
+  },
+  "Deathwolf": {
+    "cr": 15.0,
+    "ecr": 11.0
+  },
+  "Degloth": {
+    "cr": 11.0,
+    "ecr": 8.0
+  },
+  "False Lich": {
+    "cr": 21.0,
+    "ecr": 14.0
+  },
+  "Glaive": {
+    "cr": 11.0,
+    "ecr": 10.0
+  },
+  "Granite Juggernaut": {
+    "cr": 12.0,
+    "ecr": 8.0
+  },
+  "Hazvongel": {
+    "cr": 14.0,
+    "ecr": 12.0
+  },
+  "Hertilod": {
+    "cr": 17.0,
+    "ecr": 15.0
+  },
+  "Kakkuu Spyder-Fiend": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Kas the Betrayer": {
+    "cr": 23.0,
+    "ecr": 18.0
+  },
+  "Mirror Shade": {
+    "cr": 10.0,
+    "ecr": 6.0
+  },
+  "Miska the Wolf-Spider": {
+    "cr": 24.0,
+    "ecr": 20.0
+  },
+  "Moonlight Guardian": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Phisarazu Spyder-Fiend": {
+    "cr": 13.0,
+    "ecr": 9.0
+  },
+  "Quavilithku Spyder-Fiend": {
+    "cr": 17.0,
+    "ecr": 13.0
+  },
+  "Raklupis Spyder-Fiend": {
+    "cr": 19.0,
+    "ecr": 13.0
+  },
+  "Relentless Impaler": {
+    "cr": 15.0,
+    "ecr": 13.0
+  },
+  "Spiderdragon": {
+    "cr": 11.0,
+    "ecr": 9.0
+  },
+  "Star Angler": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Strahd, Master of Death House": {
+    "cr": 15.0,
+    "ecr": 10.0
+  },
+  "Tasha the Witch": {
+    "cr": 19.0,
+    "ecr": 14.0
+  },
+  "Vlazok": {
+    "cr": 11.0,
+    "ecr": 8.0
+  },
+  "Warforged Warrior": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Whirling Chandelier": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Windfall": {
+    "cr": 23.0,
+    "ecr": 20.0
+  },
+  "Abjurer": {
+    "cr": 9.0,
+    "ecr": 10.0
+  },
+  "Black Guard Drake": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Blue Guard Drake": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Conjurer": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Cow": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Diviner": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Enchanter": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Evoker": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Green Guard Drake": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Illithilich": {
+    "cr": 22.0,
+    "ecr": 13.0
+  },
+  "Illusionist": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Mind Flayer Psion": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Necromancer": {
+    "cr": 9.0,
+    "ecr": 6.0
+  },
+  "Orc Blade of Ilneval": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Orc Claw of Luthic": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Orc Hand of Yurtrus": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Orc Nurtured One of Yurtrus": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Orc Red Fang of Shargaas": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Red Guard Drake": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Thorny": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Transmuter": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "White Guard Drake": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Xvart Speaker": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Yuan-ti Malison (Type 4)": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Yuan-ti Malison (Type 5)": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Bodytaker Plant": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Boneless": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Carrion Stalker": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Carrionette": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Death's Head": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Dullahan": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Elise": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Gallows Speaker": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Greater Star Spawn Emissary": {
+    "cr": 21.0,
+    "ecr": 19.0
+  },
+  "Gremishka": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Inquisitor of the Mind Fire": {
+    "cr": 8.0,
+    "ecr": 4.0
+  },
+  "Inquisitor of the Sword": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Inquisitor of the Tome": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Isolde": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Jiangshi": {
+    "cr": 9.0,
+    "ecr": 7.0
+  },
+  "Lesser Star Spawn Emissary": {
+    "cr": 19.0,
+    "ecr": 17.0
+  },
+  "Loup Garou": {
+    "cr": 13.0,
+    "ecr": 11.0
+  },
+  "Necrichor": {
+    "cr": 7.0,
+    "ecr": 3.0
+  },
+  "Nosferatu": {
+    "cr": 8.0,
+    "ecr": 5.0
+  },
+  "Podling": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Priest of Osybus": {
+    "cr": 6.0,
+    "ecr": 3.0
+  },
+  "Relentless Juggernaut": {
+    "cr": 12.0,
+    "ecr": 11.0
+  },
+  "Relentless Slasher": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Strigoi": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Swarm of Gremishkas": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Swarm of Maggots": {
+    "cr": 2.0,
+    "ecr": 0.5
+  },
+  "Swarm of Scarabs": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Swarm of Zombie Limbs": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Unspeakable Horror": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Vampiric Mind Flayer": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Wereraven": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Zombie Clot": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Zombie Plague Spreader": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Agdon Longscarf": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Alagarthas": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Amidor the Dandelion": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Bavlorna Blightstraw": {
+    "cr": 7.0,
+    "ecr": 7.0
+  },
+  "Brigganock": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Bullywug Knight": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Clapperclaw the Scarecrow": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Displacer Beast Kitten": {
+    "cr": 0.125,
+    "ecr": 0.0
+  },
+  "Elkhorn": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Endelyn Moongrave": {
+    "cr": 6.0,
+    "ecr": 5.0
+  },
+  "Envy": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Flying Rocking Horse": {
+    "cr": 0.125,
+    "ecr": 0.5
+  },
+  "Giant Dragonfly": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Giant Snail": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Giant Swan": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Glass Pegasus": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Glasswork Golem": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Harengon Brigand": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Harengon Sniper": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Iggwilv the Witch Queen": {
+    "cr": 20.0,
+    "ecr": 19.0
+  },
+  "Jabberwock": {
+    "cr": 13.0,
+    "ecr": 12.0
+  },
+  "Jingle Jangle": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Kelek": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Kettlesteam the Kenku": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Living Doll": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Mercion": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Mister Light": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Mister Witch": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Molliver": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Raezil": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Ringlerun": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Selenelion Twin": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Sir Talavar": {
+    "cr": 2.0,
+    "ecr": 0.5
+  },
+  "Skabatha Nightshade": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Skylla": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Squirt the Oilcan": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Strongheart": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Swarm of Campestris": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Tin Soldier": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Treant Sapling": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Warduke": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Witchlight Hand (Medium)": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Zarak": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Zargash": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Ahmaergo": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Ammalia Cassalanter": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Barnibus Blastwind": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Black Viper": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Davil Starsong": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Dining Table Mimic": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Drow Gunslinger": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Durnan": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Engineer": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Fala Lefaliir": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Flying Staff": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Griffon Cavalry Rider": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Grum'shar": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Hlam": {
+    "cr": 16.0,
+    "ecr": 15.0
+  },
+  "Hrabbaz": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Istrid Horn": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Jalester Silvermane": {
+    "cr": 4.0,
+    "ecr": 5.0
+  },
+  "Jandar Chergoba": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Jarlaxle Baenre": {
+    "cr": 15.0,
+    "ecr": 13.0
+  },
+  "Kaevja Cynavern": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Kalain": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Lady Gondafrey": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Laeral Silverhand": {
+    "cr": 17.0,
+    "ecr": 11.0
+  },
+  "Laiba \"Nana\" Rosse": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Losser Mirklav": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Manafret Cherryport": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Manshoon": {
+    "cr": 13.0,
+    "ecr": 11.0
+  },
+  "Manshoon Simulacrum": {
+    "cr": 8.0,
+    "ecr": 9.0
+  },
+  "Maxeene": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Melannor Fellbranch": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Meloon Wardragon": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Mirt": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Nimblewright": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Noska Ur'gray": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Obliteros": {
+    "cr": 5.0,
+    "ecr": 6.0
+  },
+  "Orond Gralhund": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Ott Steeltoes": {
+    "cr": 0.125,
+    "ecr": 0.0
+  },
+  "Panopticus Wizard": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Remallia Haventree": {
+    "cr": 9.0,
+    "ecr": 6.0
+  },
+  "Renaer Neverember": {
+    "cr": 3.0,
+    "ecr": 4.0
+  },
+  "Rishaal the Page-Turner": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Saeth Cromley": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Shard Shunner": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Skeemo Weirdbottle": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Soluun Xibrindas": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Swarm of Books": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Swarm of Mechanical Spiders": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Tashlyn Yafeera": {
+    "cr": 9.0,
+    "ecr": 9.0
+  },
+  "Thrakkus": {
+    "cr": 2.0,
+    "ecr": 4.0
+  },
+  "Tissina Khyret": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Urstul Floxin": {
+    "cr": 8.0,
+    "ecr": 5.0
+  },
+  "Vajra Safahr": {
+    "cr": 13.0,
+    "ecr": 11.0
+  },
+  "Valetta": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Victoro Cassalanter": {
+    "cr": 10.0,
+    "ecr": 6.0
+  },
+  "Walking Statue of Waterdeep": {
+    "cr": 18.0,
+    "ecr": 15.0
+  },
+  "Yagra Stonefist": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Yalah Gralhund": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Yorn": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Zhent Martial Arts Adept": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Ziraj the Hunter": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Animated Ballista": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Animated Stove": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Bore Worm": {
+    "cr": 16.0,
+    "ecr": 14.0
+  },
+  "Halaster Blackcloak": {
+    "cr": 23.0,
+    "ecr": 22.0
+  },
+  "Lava Child": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Muiral": {
+    "cr": 13.0,
+    "ecr": 12.0
+  },
+  "Scaladar": {
+    "cr": 8.0,
+    "ecr": 5.0
+  },
+  "Shadow Assassin": {
+    "cr": 9.0,
+    "ecr": 6.0
+  },
+  "Shockerstomper": {
+    "cr": 14.0,
+    "ecr": 11.0
+  },
+  "Werebat": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Zorak Lightdrinker": {
+    "cr": 14.0,
+    "ecr": 11.0
+  },
+  "Cultist of Demogorgon": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Dardew": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Demobat": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Demodog": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Demodragon": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Demogorgon Spawn": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Flizzlebin": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Giant Corrupted Rat": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Imp Trickster": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Korex": {
+    "cr": 2.0,
+    "ecr": 3.0
+  },
+  "Rilly June": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Swarm of Corrupted Rats": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Vine Blight Tangler": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Aarakocra Aeromancer": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Aarakocra Skirmisher": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Aberrant Cultist": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Animal Lord": {
+    "cr": 20.0,
+    "ecr": 19.0
+  },
+  "Animated Flying Sword": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Animated Rug of Smothering": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Arch-hag": {
+    "cr": 21.0,
+    "ecr": 20.0
+  },
+  "Archelon": {
+    "cr": 4.0,
+    "ecr": 5.0
+  },
+  "Archpriest": {
+    "cr": 12.0,
+    "ecr": 12.0
+  },
+  "Azer Pyromancer": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Azer Sentinel": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Bandit Crime Lord": {
+    "cr": 11.0,
+    "ecr": 8.0
+  },
+  "Bandit Deceiver": {
+    "cr": 7.0,
+    "ecr": 7.0
+  },
+  "Berserker Commander": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Blob of Annihilation": {
+    "cr": 23.0,
+    "ecr": 21.0
+  },
+  "Bone Naga": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Brazen Gorgon": {
+    "cr": 9.0,
+    "ecr": 8.0
+  },
+  "Bugbear Stalker": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Bugbear Warrior": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Bulette Pup": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Bullywug Bog Sage": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Bullywug Warrior": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Centaur Trooper": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Centaur Warden": {
+    "cr": 7.0,
+    "ecr": 5.0
+  },
+  "Cockatrice Regent": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Colossus": {
+    "cr": 25.0,
+    "ecr": 24.0
+  },
+  "Cultist Fanatic": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Cultist Hierophant": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Cyclops Oracle": {
+    "cr": 10.0,
+    "ecr": 11.0
+  },
+  "Cyclops Sentry": {
+    "cr": 6.0,
+    "ecr": 7.0
+  },
+  "Death Cultist": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Death Knight Aspirant": {
+    "cr": 11.0,
+    "ecr": 8.0
+  },
+  "Dire Worg": {
+    "cr": 10.0,
+    "ecr": 8.0
+  },
+  "Dracolich": {
+    "cr": 17.0,
+    "ecr": 15.0
+  },
+  "Elemental Cataclysm": {
+    "cr": 22.0,
+    "ecr": 19.0
+  },
+  "Elemental Cultist": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Empyrean Iota": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Faerie Dragon Adult": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Faerie Dragon Youth": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Fiend Cultist": {
+    "cr": 8.0,
+    "ecr": 8.0
+  },
+  "Gas Spore Fungus": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Ghast Gravecaller": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Giant Axe Beak": {
+    "cr": 5.0,
+    "ecr": 4.0
+  },
+  "Giant Seahorse": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Giant Squid": {
+    "cr": 6.0,
+    "ecr": 6.0
+  },
+  "Giant Venomous Snake": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Githyanki Dracomancer": {
+    "cr": 16.0,
+    "ecr": 14.0
+  },
+  "Githzerai Psion": {
+    "cr": 12.0,
+    "ecr": 9.0
+  },
+  "Gnoll Demoniac": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Gnoll Warrior": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Goblin Hexer": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Goblin Minion": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Goblin Warrior": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Graveyard Revenant": {
+    "cr": 7.0,
+    "ecr": 7.0
+  },
+  "Grick Ancient": {
+    "cr": 7.0,
+    "ecr": 8.0
+  },
+  "Guard Captain": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Gulthias Blight": {
+    "cr": 16.0,
+    "ecr": 14.0
+  },
+  "Half-Dragon": {
+    "cr": 5.0,
+    "ecr": 5.0
+  },
+  "Haunting Revenant": {
+    "cr": 10.0,
+    "ecr": 11.0
+  },
+  "Hippopotamus": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Hobgoblin Warrior": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Juvenile Shadow Dragon": {
+    "cr": 4.0,
+    "ecr": 3.0
+  },
+  "Kobold Warrior": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Lacedon Ghoul": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Lizardfolk Geomancer": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Lizardfolk Sovereign": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Mage Apprentice": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Manes Vaporspawn": {
+    "cr": 1.0,
+    "ecr": 0.25
+  },
+  "Merfolk Skirmisher": {
+    "cr": 0.125,
+    "ecr": 0.25
+  },
+  "Merfolk Wavebender": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Minotaur of Baphomet": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Modron Duodrone": {
+    "cr": 0.25,
+    "ecr": 0.25
+  },
+  "Modron Monodrone": {
+    "cr": 0.125,
+    "ecr": 0.5
+  },
+  "Modron Pentadrone": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Modron Quadrone": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Modron Tridrone": {
+    "cr": 0.5,
+    "ecr": 0.25
+  },
+  "Myconid Spore Servant": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Noble Prodigy": {
+    "cr": 10.0,
+    "ecr": 7.0
+  },
+  "Ogrillon Ogre": {
+    "cr": 1.0,
+    "ecr": 2.0
+  },
+  "Performer": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Performer Legend": {
+    "cr": 10.0,
+    "ecr": 10.0
+  },
+  "Performer Maestro": {
+    "cr": 6.0,
+    "ecr": 7.0
+  },
+  "Pirate": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Pirate Admiral": {
+    "cr": 12.0,
+    "ecr": 12.0
+  },
+  "Pixie Wonderbringer": {
+    "cr": 5.0,
+    "ecr": 3.0
+  },
+  "Priest Acolyte": {
+    "cr": 0.25,
+    "ecr": 0.5
+  },
+  "Primeval Owlbear": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Psychic Gray Ooze": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Questing Knight": {
+    "cr": 12.0,
+    "ecr": 10.0
+  },
+  "Sahuagin Priest": {
+    "cr": 2.0,
+    "ecr": 1.0
+  },
+  "Sahuagin Warrior": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Salamander Fire Snake": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Salamander Inferno Master": {
+    "cr": 15.0,
+    "ecr": 15.0
+  },
+  "Satyr Revelmaster": {
+    "cr": 6.0,
+    "ecr": 4.0
+  },
+  "Scout Captain": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Shadow Dragon": {
+    "cr": 13.0,
+    "ecr": 13.0
+  },
+  "Sphinx of Lore": {
+    "cr": 11.0,
+    "ecr": 12.0
+  },
+  "Sphinx of Secrets": {
+    "cr": 8.0,
+    "ecr": 6.0
+  },
+  "Sphinx of Valor": {
+    "cr": 17.0,
+    "ecr": 14.0
+  },
+  "Sphinx of Wonder": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Spy Master": {
+    "cr": 10.0,
+    "ecr": 8.0
+  },
+  "Swarm of Crawling Claws": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Swarm of Dretches": {
+    "cr": 4.0,
+    "ecr": 2.0
+  },
+  "Swarm of Larvae": {
+    "cr": 1.0,
+    "ecr": 0.5
+  },
+  "Swarm of Lemures": {
+    "cr": 3.0,
+    "ecr": 2.0
+  },
+  "Swarm of Piranhas": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Swarm of Stirges": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Swarm of Venomous Snakes": {
+    "cr": 2.0,
+    "ecr": 2.0
+  },
+  "Thri-kreen Marauder": {
+    "cr": 1.0,
+    "ecr": 1.0
+  },
+  "Thri-kreen Psion": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Tough": {
+    "cr": 0.5,
+    "ecr": 1.0
+  },
+  "Tough Boss": {
+    "cr": 4.0,
+    "ecr": 4.0
+  },
+  "Troll Limb": {
+    "cr": 0.5,
+    "ecr": 0.5
+  },
+  "Vampire Familiar": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Vampire Nightbringer": {
+    "cr": 8.0,
+    "ecr": 7.0
+  },
+  "Vampire Umbral Lord": {
+    "cr": 15.0,
+    "ecr": 11.0
+  },
+  "Venomous Snake": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Violet Fungus Necrohulk": {
+    "cr": 7.0,
+    "ecr": 6.0
+  },
+  "Warrior Commander": {
+    "cr": 10.0,
+    "ecr": 9.0
+  },
+  "Warrior Infantry": {
+    "cr": 0.125,
+    "ecr": 0.125
+  },
+  "Warrior Veteran": {
+    "cr": 3.0,
+    "ecr": 3.0
+  },
+  "Yuan-ti Infiltrator": {
+    "cr": 1.0,
+    "ecr": 2.0
+  }
+}

@@ -14,6 +14,8 @@ import crypto from 'crypto';
 import { CreatureCache } from './utils/loadCreatures.js';
 import { SpellCache } from './utils/loadSpells.js';
 import { logger } from './utils/logger.js';
+import { predictECR } from './utils/ecrCalculatorML.js';
+import QRCode from 'qrcode';
 
 dotenv.config();
 
@@ -128,6 +130,14 @@ const playerScreenLimiter = rateLimit({
 app.use(express.json({ limit: '3mb' }));
 app.use(cookieParser());
 
+// Serve static files from data directory
+app.use('/data', express.static(join(__dirname, '..', 'data'), {
+  setHeaders: (res, path) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Cache-Control', 'public, max-age=3600');
+  }
+}));
+
 // Special routes with custom rate limiters (defined before general limiter)
 // These will be handled separately and skip the general apiLimiter
 
@@ -150,6 +160,7 @@ const USER_SETTINGS_PATH = join(DATA_DIR, 'user-settings.json');
 const USER_MONSTER_OVERRIDES_PATH = join(DATA_DIR, 'user-monster-overrides.json');
 const CAMPAIGNS_PATH = join(DATA_DIR, 'campaigns.json');
 const FOLDERS_PATH = join(DATA_DIR, 'folders.json');
+const SHARE_CODES_PATH = join(DATA_DIR, 'share-codes.json');
 
 // Creature Cache initialisieren
 const creatureCache = new CreatureCache();
@@ -668,6 +679,7 @@ app.get('/api/monsters', dataLimiter, async (req, res) => {
     }
 
     // Lade 5e.tools Creatures (gecached)
+    // For now, load from compact format but we'll need to fix the data
     const fiveToolsCreatures = await creatureCache.load(CREATURES_PATH);
 
     // Lade homebrew/SRD monsters (base data, not user-specific)
@@ -893,6 +905,52 @@ app.post('/api/monsters/import/ddb', requireAuth, (req, res) => {
   res.json({ ok: true, created, total: Object.keys(userOverrides).length });
 });
 
+// -------------------- eCR PREDICTION --------------------
+app.post('/api/ecr/predict', dataLimiter, async (req, res) => {
+  try {
+    const monsterData = req.body;
+
+    if (!monsterData || !monsterData.name) {
+      return res.status(400).json({ error: 'Monster data with name required' });
+    }
+
+    const result = await predictECR(monsterData);
+    res.json(result);
+  } catch (error) {
+    logger.error('eCR prediction error:', error);
+    res.status(500).json({ error: 'Prediction failed', details: error.message });
+  }
+});
+
+// Calculate eCR for a monster (flexible endpoint for UI tooltips)
+app.post('/api/ecr/calculate', dataLimiter, async (req, res) => {
+  try {
+    const { monster, monsterId } = req.body;
+
+    let monsterData = monster;
+
+    // If monsterId is provided, fetch the monster from database
+    if (monsterId && !monsterData) {
+      const userOverrides = getUserMonsterOverrides(req.userEmail);
+      monsterData = userOverrides[monsterId];
+
+      if (!monsterData) {
+        return res.status(404).json({ error: 'Monster not found' });
+      }
+    }
+
+    if (!monsterData) {
+      return res.status(400).json({ error: 'Monster data or monsterId required' });
+    }
+
+    const result = await predictECR(monsterData);
+    res.json(result);
+  } catch (error) {
+    logger.error('eCR calculation error:', error);
+    res.status(500).json({ error: 'Calculation failed', details: error.message });
+  }
+});
+
 // -------------------- SPELLS --------------------
 app.get('/api/spells', dataLimiter, async (req, res) => {
   try {
@@ -961,6 +1019,18 @@ app.get('/api/spells/:name', dataLimiter, async (req, res) => {
   } catch (error) {
     logger.error('Error loading spell', { spell: req.params.name, error: error.message });
     res.status(500).json({ error: 'Failed to load spell' });
+  }
+});
+
+// -------------------- CONDITIONS --------------------
+app.get('/api/conditions', dataLimiter, async (req, res) => {
+  try {
+    const conditionsFile = join(DATA_DIR, 'sources', '5e.tools', 'conditionsdiseases.json');
+    const data = await readJSON(conditionsFile);
+    res.json(data);
+  } catch (error) {
+    logger.error('Error loading conditions', { error: error.message });
+    res.status(500).json({ error: 'Failed to load conditions' });
   }
 });
 
@@ -1618,6 +1688,70 @@ app.post('/api/encounters', requireAuth, async (req, res) => {
   res.status(201).json(enc);
 });
 
+// In-memory storage for player screen tokens (secure, time-limited)
+const playerScreenTokens = new Map();
+
+// Generate player screen token
+app.post('/api/player-screen/token', requireAuth, (req, res) => {
+  // Generate a secure random token
+  const token = crypto.randomBytes(32).toString('hex');
+
+  // Store token with user email and expiration (24 hours)
+  playerScreenTokens.set(token, {
+    userEmail: req.userEmail,
+    createdAt: Date.now(),
+    expiresAt: Date.now() + 24 * 60 * 60 * 1000
+  });
+
+  // Clean up expired tokens
+  for (const [key, value] of playerScreenTokens.entries()) {
+    if (value.expiresAt < Date.now()) {
+      playerScreenTokens.delete(key);
+    }
+  }
+
+  res.json({ token });
+});
+
+// GET current active encounter for user (for follow mode) - secured with token
+app.get('/api/encounters/current/active', playerScreenLimiter, (req, res) => {
+  const token = req.query.token;
+
+  if (!token) {
+    return res.status(400).json({ error: 'token parameter required' });
+  }
+
+  // Validate token
+  const tokenData = playerScreenTokens.get(token);
+  if (!tokenData) {
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+
+  // Check if token is expired
+  if (tokenData.expiresAt < Date.now()) {
+    playerScreenTokens.delete(token);
+    return res.status(401).json({ error: 'Token expired' });
+  }
+
+  const userEmail = tokenData.userEmail;
+  const db = readJSON(ENCOUNTERS_PATH, { encounters: [] });
+  const userEncounters = db.encounters.filter(e => e.createdBy === userEmail);
+
+  // Find the most recently updated encounter
+  const currentEncounter = userEncounters.reduce((latest, current) => {
+    if (!latest) return current;
+    const latestTime = new Date(latest.updatedAt || latest.createdAt).getTime();
+    const currentTime = new Date(current.updatedAt || current.createdAt).getTime();
+    return currentTime > latestTime ? current : latest;
+  }, null);
+
+  if (!currentEncounter) {
+    return res.status(404).json({ error: 'No encounters found' });
+  }
+
+  res.json(currentEncounter);
+});
+
 // GET encounter - uses player screen limiter for player screen access
 app.get('/api/encounters/:id', playerScreenLimiter, (req, res) => {
   const db = readJSON(ENCOUNTERS_PATH, { encounters: [] });
@@ -1655,6 +1789,208 @@ app.delete('/api/encounters/:id', requireAuth, async (req, res) => {
   const next = db.encounters.filter(e => e.id !== req.params.id);
   await writeJSON(ENCOUNTERS_PATH, { encounters: next });
   res.status(204).end();
+});
+
+// -------------------- SHARE CODES FOR MOBILE APP --------------------
+// Share codes allow players to connect to encounters via mobile app
+// Format: 4-digit alphanumeric code (e.g. AB12)
+
+/**
+ * Helper to generate a random 4-character share code
+ */
+function generateShareCode() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Exclude confusing chars (0,O,1,I)
+  let code = '';
+  for (let i = 0; i < 4; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code;
+}
+
+/**
+ * POST /api/encounters/:id/share-code
+ * Generate a share code for user's encounters (DM only)
+ * Share code is tied to the user, not a specific encounter
+ * This allows switching encounters without reconnecting
+ * Returns: { shareCode, qrCode (data URL), expiresAt }
+ */
+app.post('/api/encounters/:id/share-code', requireAuth, async (req, res) => {
+  try {
+    const forceNew = req.query.forceNew === 'true';
+
+    // Verify encounter exists and user owns it
+    const db = readJSON(ENCOUNTERS_PATH, { encounters: [] });
+    const encounter = db.encounters.find(e => e.id === req.params.id);
+
+    if (!encounter) {
+      return res.status(404).json({ error: 'Encounter not found' });
+    }
+
+    if (encounter.createdBy !== req.userEmail) {
+      return res.status(403).json({ error: 'Forbidden' });
+    }
+
+    // Load or create share codes database
+    const shareCodes = readJSON(SHARE_CODES_PATH, { codes: {} });
+
+    // Check if a valid code already exists for this USER (not encounter)
+    let existingCode = null;
+    if (!forceNew) {
+      for (const [code, data] of Object.entries(shareCodes.codes)) {
+        if (data.userEmail === req.userEmail && data.expiresAt > Date.now()) {
+          existingCode = code;
+          break;
+        }
+      }
+    }
+
+    let shareCode;
+    if (existingCode) {
+      shareCode = existingCode;
+    } else {
+      // If forcing new code, delete old codes for this user
+      if (forceNew) {
+        for (const [code, data] of Object.entries(shareCodes.codes)) {
+          if (data.userEmail === req.userEmail) {
+            delete shareCodes.codes[code];
+          }
+        }
+      }
+
+      // Generate new unique code
+      do {
+        shareCode = generateShareCode();
+      } while (shareCodes.codes[shareCode]);
+
+      // Store code tied to USER, not encounter (expires in 24 hours)
+      shareCodes.codes[shareCode] = {
+        userEmail: req.userEmail,
+        createdAt: Date.now(),
+        expiresAt: Date.now() + 24 * 60 * 60 * 1000 // 24 hours
+      };
+
+      await writeJSON(SHARE_CODES_PATH, shareCodes);
+    }
+
+    // Generate QR code with deep link format
+    const deepLink = `encounterpp://share/${shareCode}`;
+    const qrCodeDataUrl = await QRCode.toDataURL(deepLink, {
+      width: 300,
+      margin: 2,
+      color: {
+        dark: '#000000',
+        light: '#FFFFFF'
+      }
+    });
+
+    logger.info('Share code generated', {
+      shareCode,
+      user: req.userEmail,
+      isNew: !existingCode
+    });
+
+    res.json({
+      shareCode,
+      qrCode: qrCodeDataUrl,
+      expiresAt: shareCodes.codes[shareCode].expiresAt,
+      deepLink
+    });
+  } catch (error) {
+    logger.error('Error generating share code', {
+      error: error.message,
+      encounterId: req.params.id
+    });
+    res.status(500).json({ error: 'Failed to generate share code' });
+  }
+});
+
+/**
+ * GET /api/player-screen/:shareCode
+ * Get CURRENT encounter data for the user via share code
+ * Returns the user's currently active encounter (last opened/edited)
+ * This allows DMs to switch encounters and players see the new one automatically
+ */
+app.get('/api/player-screen/:shareCode', playerScreenLimiter, (req, res) => {
+  try {
+    const shareCode = req.params.shareCode.toUpperCase();
+
+    // Load share codes
+    const shareCodes = readJSON(SHARE_CODES_PATH, { codes: {} });
+    const codeData = shareCodes.codes[shareCode];
+
+    if (!codeData) {
+      return res.status(404).json({ error: 'Invalid share code' });
+    }
+
+    // Check expiration
+    if (codeData.expiresAt < Date.now()) {
+      return res.status(410).json({ error: 'Share code expired' });
+    }
+
+    // Load all encounters for this user
+    const db = readJSON(ENCOUNTERS_PATH, { encounters: [] });
+    const userEncounters = db.encounters.filter(e => e.createdBy === codeData.userEmail);
+
+    if (userEncounters.length === 0) {
+      return res.status(404).json({ error: 'No encounters found for this user' });
+    }
+
+    // Find the most recently updated encounter (user's current encounter)
+    const currentEncounter = userEncounters.reduce((latest, current) => {
+      const latestTime = new Date(latest.updatedAt || latest.createdAt).getTime();
+      const currentTime = new Date(current.updatedAt || current.createdAt).getTime();
+      return currentTime > latestTime ? current : latest;
+    });
+
+    logger.info('Player screen accessed via share code', {
+      shareCode,
+      userEmail: codeData.userEmail,
+      encounterId: currentEncounter.id,
+      encounterName: currentEncounter.name
+    });
+
+    res.json(currentEncounter);
+  } catch (error) {
+    logger.error('Error accessing player screen', {
+      error: error.message,
+      shareCode: req.params.shareCode
+    });
+    res.status(500).json({ error: 'Failed to load encounter' });
+  }
+});
+
+/**
+ * DELETE /api/encounters/:id/share-code
+ * Revoke/delete share code for the user (not encounter-specific)
+ */
+app.delete('/api/encounters/:id/share-code', requireAuth, async (req, res) => {
+  try {
+    const shareCodes = readJSON(SHARE_CODES_PATH, { codes: {} });
+
+    // Find and delete all codes for this user
+    let deleted = false;
+    for (const [code, data] of Object.entries(shareCodes.codes)) {
+      if (data.userEmail === req.userEmail) {
+        delete shareCodes.codes[code];
+        deleted = true;
+      }
+    }
+
+    if (deleted) {
+      await writeJSON(SHARE_CODES_PATH, shareCodes);
+      logger.info('Share code revoked', {
+        user: req.userEmail
+      });
+    }
+
+    res.json({ ok: true, deleted });
+  } catch (error) {
+    logger.error('Error revoking share code', {
+      error: error.message,
+      user: req.userEmail
+    });
+    res.status(500).json({ error: 'Failed to revoke share code' });
+  }
 });
 
 app.post('/api/import/encounter', requireAuth, async (req, res) => {
@@ -1772,6 +2108,8 @@ app.get('/api/token/:source/:name', async (req, res) => {
       res.setHeader('Content-Type', 'image/webp');
       res.setHeader('Cache-Control', 'public, max-age=86400');
       res.setHeader('X-Cache', 'HIT');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
       return res.send(cached);
     }
 
@@ -1800,6 +2138,8 @@ app.get('/api/token/:source/:name', async (req, res) => {
     res.setHeader('Content-Type', 'image/webp');
     res.setHeader('Cache-Control', 'public, max-age=86400');
     res.setHeader('X-Cache', 'MISS');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
     res.send(bufferData);
   } catch (error) {
     logger.error('Image proxy error:', { error: error.message, source, name });

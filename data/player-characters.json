@@ -284,5 +284,966 @@
     "notes": "",
     "createdBy": "jonas.e.albrecht@gmail.com",
     "createdAt": 1761220614492
+  },
+  {
+    "id": "qvkLcba2ImRmMfH145XTg",
+    "ddbId": 154563110,
+    "name": "Daisy Mae",
+    "class": "Fighter 8",
+    "level": 8,
+    "race": "Human",
+    "ac": 10,
+    "hp": 52,
+    "currentHp": 52,
+    "tempHp": 0,
+    "initiativeMod": 3,
+    "speed": "30 ft.",
+    "stats": {
+      "str": 18,
+      "dex": 17,
+      "con": 16,
+      "int": 8,
+      "wis": 6,
+      "cha": 12
+    },
+    "proficiencyBonus": 3,
+    "source": "ddb-import",
+    "tags": [
+      "ddb-import",
+      "Halloween 2025"
+    ],
+    "spellSlots": {
+      "level1": {
+        "max": 0,
+        "used": 0
+      },
+      "level2": {
+        "max": 0,
+        "used": 0
+      },
+      "level3": {
+        "max": 0,
+        "used": 0
+      },
+      "level4": {
+        "max": 0,
+        "used": 0
+      },
+      "level5": {
+        "max": 0,
+        "used": 0
+      },
+      "level6": {
+        "max": 0,
+        "used": 0
+      },
+      "level7": {
+        "max": 0,
+        "used": 0
+      },
+      "level8": {
+        "max": 0,
+        "used": 0
+      },
+      "level9": {
+        "max": 0,
+        "used": 0
+      },
+      "pact": {
+        "level": 5,
+        "max": 0,
+        "used": 0
+      }
+    },
+    "features": [
+      {
+        "name": "Resourceful",
+        "description": "<p>You gain Heroic Inspiration whenever you finish a Long Rest.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Skillful",
+        "description": "<p>You gain proficiency in one skill of your choice.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Versatile",
+        "description": "<p>You gain an Origin feat of your choice.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Creature Type",
+        "description": "<p>You are a Humanoid.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Size",
+        "description": "<p>Your Size is Medium (about 4&ndash;7 feet tall) or Small (about 2&ndash;4 feet tall), chosen when you select this species.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Speed",
+        "description": "<p>Your Speed is 30 feet.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Ability Score Increases",
+        "description": "<p>When determining your character’s ability scores, increase one score by 2 and a different one by 1, or increase three scores by 1. None of these increases can raise a score above 20.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Languages",
+        "description": "<p>Your character knows at least three languages: Common plus two languages you roll or choose from the Standard Languages table. Knowledge of a language means your character can communicate in it, read it, and write it. Your class and other features might also give you languages.</p>\r\n<p>The Standard Languages table lists languages that are widespread on D&amp;D worlds. Every player character knows Common, which originated in the planar metropolis of Sigil, the hub of the multiverse. The other standard languages originated with the first members of the most prominent species in the worlds of D&amp;D and have since spread widely.</p>\r\n<table class=\"table-compendium table--generic-dice\" style=\"--sb-table-row-bg-hover: #b3d3df; --sb-table-row-bg-dark: #d7e8ee; --sb-table-row-bg-light: #f1f7f9; --dark-sb-table-row-bg-light: #5e7982; --dark-sb-table-row-bg-dark: #5c7f8c; --dark-sb-table-row-bg-hover: #78a2b0;\"><caption><strong>Standard Languages</strong></caption>\r\n<thead>\r\n<tr>\r\n<th>1d12</th>\r\n<th>Language</th>\r\n<th>Origin</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>&mdash;</td>\r\n<td>Common</td>\r\n<td>Sigil</td>\r\n</tr>\r\n<tr>\r\n<td>1</td>\r\n<td>Common Sign Language</td>\r\n<td>Sigil</td>\r\n</tr>\r\n<tr>\r\n<td>2</td>\r\n<td>Draconic</td>\r\n<td>Dragons</td>\r\n</tr>\r\n<tr>\r\n<td>3-4</td>\r\n<td>Dwarvish</td>\r\n<td>Dwarves</td>\r\n</tr>\r\n<tr>\r\n<td>5-6</td>\r\n<td>Elvish</td>\r\n<td>Elves</td>\r\n</tr>\r\n<tr>\r\n<td>7</td>\r\n<td>Giant</td>\r\n<td>Giants</td>\r\n</tr>\r\n<tr>\r\n<td>8</td>\r\n<td>Gnomish</td>\r\n<td>Gnomish</td>\r\n</tr>\r\n<tr>\r\n<td>9</td>\r\n<td>Goblin</td>\r\n<td>Goblinoids</td>\r\n</tr>\r\n<tr>\r\n<td>10-11</td>\r\n<td>Halfling</td>\r\n<td>Halflings</td>\r\n</tr>\r\n<tr>\r\n<td>12</td>\r\n<td>Orc</td>\r\n<td>Orcs</td>\r\n</tr>\r\n</tbody>\r\n</table>",
+        "source": "racial"
+      },
+      {
+        "name": "Actor",
+        "description": "<p><em>General Feat (Prerequisite: Level 4+, Charisma 13+)</em></p>\r\n<p>You gain the following benefits.</p>\r\n<p><em><strong>Ability Score Increase.</strong></em> Increase your Charisma score by 1, to a maximum of 20.</p>\r\n<p><em><strong>Impersonation.</strong></em> While you’re disguised as a real or fictional person, you have Advantage on Charisma (Deception or Performance) checks to convince others that you are that person.</p>\r\n<p><em><strong>Mimicry.</strong></em> You can mimic the sounds of other creatures, including speech. A creature that hears the mimicry must succeed on a Wisdom (Insight) check to determine the effect is faked (DC 8 plus your Charisma modifier and Proficiency Bonus).</p>",
+        "source": "feat"
+      },
+      {
+        "name": "Alert",
+        "description": "<p><em>Origin Feat</em></p>\r\n<p>You gain the following benefits.</p>\r\n<p><em><strong>Initiative Proficiency.</strong></em> When you roll Initiative, you can add your Proficiency Bonus to the roll.</p>\r\n<p><em><strong>Initiative Swap.</strong></em> Immediately after you roll Initiative, you can swap your Initiative with the Initiative of one willing ally in the same combat. You can’t make this swap if you or the ally has the Incapacitated condition.</p>",
+        "source": "feat"
+      },
+      {
+        "name": "Weapon Mastery",
+        "description": "<p>Your training with weapons allows you to use the mastery properties of three kinds of Simple or Martial weapons of your choice. Whenever you finish a Long Rest, you can practice weapon drills and change one of those weapon choices.</p>\r\n<p>When you reach certain Fighter levels, you gain the ability to use the mastery properties of more kinds of weapons, as shown in the Weapon Mastery column of the Fighter Features table.</p>",
+        "source": "feat"
+      },
+      {
+        "name": "4: Weapon Mastery",
+        "description": "<p>Your training with weapons allows you to use the mastery properties of another Simple or Martial weapons of your choice. Whenever you finish a Long Rest, you can practice weapon drills and change one of your weapon choices.</p>\r\n<p>When you reach certain Fighter levels, you gain the ability to use the mastery properties of more kinds of weapons, as shown in the Weapon Mastery column of the Fighter Features table.</p>",
+        "source": "feat"
+      },
+      {
+        "name": "Great Weapon Fighting",
+        "description": "<p><em>Fighting Style Feat (Prerequisite: Fighting Style Feature)</em></p>\r\n<p>When you roll damage for an attack you make with a Melee weapon that you are holding with two hands, you can treat any 1 or 2 on a damage die as a 3. The weapon must have the Two-Handed or Versatile property to gain this benefit.</p>",
+        "source": "feat"
+      },
+      {
+        "name": "Thrown Weapon Fighting",
+        "description": "<p><em>Fighting Style Feat (Prerequisite: Fighting Style Feature)</em></p>\r\n<p>When you hit with a ranged attack roll using a weapon that has the Thrown property, you gain a +2 bonus to the damage roll.</p>",
+        "source": "feat"
+      },
+      {
+        "name": "Tough",
+        "description": "<p><em>Origin Feat</em></p>\r\n<p>Your Hit Point maximum increases by an amount equal to twice your character level when you gain this feat. Whenever you gain a character level thereafter, your Hit Point maximum increases by an additional 2 Hit Points.</p>",
+        "source": "feat"
+      },
+      {
+        "name": "Unarmed Fighting",
+        "description": "<p><em>Fighting Style Feat (Prerequisite: Fighting Style Feature)</em></p>\r\n<p>When you hit with your Unarmed Strike and deal damage, you can deal Bludgeoning damage equal to 1d6 plus your Strength modifier instead of the normal damage of an Unarmed Strike. If you aren’t holding any weapons or a Shield when you make the attack roll, the d6 becomes a d8.</p>\r\n<p>At the start of each of your turns, you can deal 1d4 Bludgeoning damage to one creature Grappled by you.</p>",
+        "source": "feat"
+      },
+      {
+        "name": "Dark Bargain",
+        "description": "<p>At your GM's discretion, you can take a Dark Bargain.</p>",
+        "source": "feat"
+      }
+    ],
+    "actions": [
+      {
+        "name": "Second Wind",
+        "description": "You can draw upon a limited well of physical and mental stamina and regain <strong>1d10</strong>{{classlevel#signed}} HP.\r\n\r\nYou can use this {{limiteduse}} times per Long Rest, and can regain one expended use when you finish a Short Rest.",
+        "actionType": 3
+      },
+      {
+        "name": "Action Surge",
+        "description": "On your turn you can take one additional action, except the Magic action.\r\n\r\nYou can use this feature {{limiteduse}} time(s) until you finish a Short or Long Rest.",
+        "actionType": 8
+      },
+      {
+        "name": "Tactical Mind",
+        "description": "When you fail an ability check, you can expend a use of Second Wind, and instead of regaining HP, you roll <strong>1d10</strong> and add the result to the ability check. If the check still fails, this use of Second Wind isn’t expended.",
+        "actionType": 8
+      },
+      {
+        "name": "Second Wind: Tactical Shift",
+        "description": "Whenever you activate your Second Wind with a Bonus Action, you can move up to half your Speed without provoking Opportunity Attacks.",
+        "actionType": 3
+      },
+      {
+        "name": "Improved Critical",
+        "description": "Your attack rolls with weapons and Unarmed Strikes can score a Critical Hit on a d20 roll of 19 or 20.",
+        "actionType": 8
+      }
+    ],
+    "campaignName": "Halloween 2025",
+    "notes": "",
+    "createdBy": "jonas.e.albrecht@gmail.com",
+    "createdAt": 1761927368750
+  },
+  {
+    "id": "L3ME7W13q-hb0-QJ0YQZG",
+    "ddbId": 154749606,
+    "name": "Elkar",
+    "class": "Druid 8",
+    "level": 8,
+    "race": "Wood Elf",
+    "ac": 10,
+    "hp": 43,
+    "currentHp": 43,
+    "tempHp": 0,
+    "initiativeMod": 1,
+    "speed": "30 ft.",
+    "stats": {
+      "str": 8,
+      "dex": 13,
+      "con": 14,
+      "int": 12,
+      "wis": 15,
+      "cha": 10
+    },
+    "proficiencyBonus": 3,
+    "source": "ddb-import",
+    "avatarUrl": "https://www.dndbeyond.com/avatars/12746/297/637357516225821157.jpeg?width=150&height=150&fit=crop&quality=95&auto=webp",
+    "tags": [
+      "ddb-import",
+      "Halloween 2025"
+    ],
+    "spellSlots": {
+      "level1": {
+        "max": 0,
+        "used": 0
+      },
+      "level2": {
+        "max": 0,
+        "used": 0
+      },
+      "level3": {
+        "max": 0,
+        "used": 0
+      },
+      "level4": {
+        "max": 0,
+        "used": 0
+      },
+      "level5": {
+        "max": 0,
+        "used": 0
+      },
+      "level6": {
+        "max": 0,
+        "used": 0
+      },
+      "level7": {
+        "max": 0,
+        "used": 0
+      },
+      "level8": {
+        "max": 0,
+        "used": 0
+      },
+      "level9": {
+        "max": 0,
+        "used": 0
+      },
+      "pact": {
+        "level": 5,
+        "max": 0,
+        "used": 0
+      }
+    },
+    "features": [
+      {
+        "name": "Darkvision",
+        "description": "<p>Accustomed to twilit forests and the night sky, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Keen Senses",
+        "description": "<p>You have proficiency in the Perception skill.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Fey Ancestry",
+        "description": "<p>You have advantage on saving throws against being charmed, and magic can’t put you to sleep.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Trance",
+        "description": "<p>Elves don’t need to sleep. Instead, they meditate deeply, remaining semiconscious, for 4 hours a day. (The Common word for such meditation is &ldquo;trance.&rdquo;) While meditating, you can dream after a fashion; such dreams are actually mental exercises that have become reflexive through years of practice. After resting in this way, you gain the same benefit that a human does from 8 hours of sleep.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Ability Score Increase",
+        "description": "<p>Your Dexterity score increases by 2.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Languages",
+        "description": "<p>You can speak, read, and write Common and Elvish. Elvish is fluid, with subtle intonations and intricate grammar. Elven literature is rich and varied, and their songs and poems are famous among other races. Many bards learn their language so they can add Elvish ballads to their repertoires.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Age",
+        "description": "<p>Although elves reach physical maturity at about the same age as humans, the elven understanding of adulthood goes beyond physical growth to encompass worldly experience. An elf typically claims adulthood and an adult name around the age of 100 and can live to be 750 years old.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Size",
+        "description": "<p>Elves range from under 5 to over 6 feet tall and have slender builds. Your size is Medium.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Speed",
+        "description": "<p>Your base walking speed is 30 feet.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Elf Weapon Training",
+        "description": "<p>You have proficiency with the longsword, shortsword, shortbow, and longbow.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Fleet of Foot",
+        "description": "<p>Your base walking speed increases to 35 feet.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Mask of the Wild",
+        "description": "<p>You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Ability Score Increase",
+        "description": "<p>Your Wisdom score increases by 1.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Hero's Journey Boon",
+        "description": "<p>At your GM's discretion you can be granted a Hero's Journey Boon.</p>",
+        "source": "feat"
+      },
+      {
+        "name": "Dark Bargain",
+        "description": "<p>At your GM's discretion, you can take a Dark Bargain.</p>",
+        "source": "feat"
+      }
+    ],
+    "actions": [
+      {
+        "name": "Wild Shape",
+        "description": "As an action, you can magically assume the shape of a beast that you have seen before twice per short rest. [2nd] Max CR 1/4 (no flying or swimming speed) [4th] Max CR 1/2 (no flying speed) [8th] Max CR 1\r\n\r\nYou can stay in beast shape for {{(classlevel/2)@rounddown}} hours before reverting back to your normal form (or as a bonus action earlier or if you fall unconscious, drop to 0 hit points, or die).",
+        "actionType": 1
+      },
+      {
+        "name": "Combat Wild Shape",
+        "description": "You can use Wild Shape as a bonus action and you can use a bonus action to expend one spell slot to regain 1d8 HP per level of the spell slot expended.",
+        "actionType": 3
+      },
+      {
+        "name": "Wild Companion",
+        "description": "As an action, you can expend a use of your <em>Wild Shape</em> feature to cast the find familiar spell, without material components.\r\nWhen you cast the spell in this way, the familiar is a fey instead of a beast, and the familiar disappears after {{(classlevel/2)@rounddown#unsigned}} hours.",
+        "actionType": 1
+      },
+      {
+        "name": "Mask of the Wild",
+        "description": "You can attempt to hide even when you are only lightly obscured.",
+        "actionType": 8,
+        "source": "racial"
+      }
+    ],
+    "campaignName": "Halloween 2025",
+    "notes": "",
+    "createdBy": "jonas.e.albrecht@gmail.com",
+    "createdAt": 1761927381406
+  },
+  {
+    "id": "lbD5dl-zCYHa0Ss-XYrzR",
+    "ddbId": 154850437,
+    "name": "Korlan",
+    "class": "Barbarian 8",
+    "level": 8,
+    "race": "Variant Human",
+    "ac": 10,
+    "hp": 61,
+    "currentHp": 61,
+    "tempHp": 0,
+    "initiativeMod": 1,
+    "speed": "30 ft.",
+    "stats": {
+      "str": 15,
+      "dex": 13,
+      "con": 14,
+      "int": 8,
+      "wis": 10,
+      "cha": 12
+    },
+    "proficiencyBonus": 3,
+    "source": "ddb-import",
+    "tags": [
+      "ddb-import",
+      "Halloween 2025"
+    ],
+    "spellSlots": {
+      "level1": {
+        "max": 0,
+        "used": 0
+      },
+      "level2": {
+        "max": 0,
+        "used": 0
+      },
+      "level3": {
+        "max": 0,
+        "used": 0
+      },
+      "level4": {
+        "max": 0,
+        "used": 0
+      },
+      "level5": {
+        "max": 0,
+        "used": 0
+      },
+      "level6": {
+        "max": 0,
+        "used": 0
+      },
+      "level7": {
+        "max": 0,
+        "used": 0
+      },
+      "level8": {
+        "max": 0,
+        "used": 0
+      },
+      "level9": {
+        "max": 0,
+        "used": 0
+      },
+      "pact": {
+        "level": 5,
+        "max": 0,
+        "used": 0
+      }
+    },
+    "features": [
+      {
+        "name": "Languages",
+        "description": "<p>You can speak, read, and write Common and one extra language of your choice. Humans typically learn the languages of other peoples they deal with, including obscure dialects. They are fond of sprinkling their speech with words borrowed from other tongues: Orc curses, Elvish musical expressions, Dwarvish military phrases, and so on.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Age",
+        "description": "<p>Humans reach adulthood in their late teens and live less than a century.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Size",
+        "description": "<p>Humans vary widely in height and build, from barely 5 feet to well over 6 feet tall. Regardless of your position in that range, your size is Medium.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Speed",
+        "description": "<p>Your base walking speed is 30 feet.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Skills",
+        "description": "<p>You gain proficiency in one skill of your choice.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Ability Score Increase",
+        "description": "<p>Two different ability scores of your choice increase by 1.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Feat",
+        "description": "<p>You gain one feat of your choice.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Great Weapon Master",
+        "description": "<p>You've learned to put the weight of a weapon to your advantage, letting its momentum empower your strikes. You gain the following benefits:</p>\r\n<ul>\r\n<li>On your turn, when you score a critical hit with a melee weapon or reduce a creature to 0 hit points with one, you can make one melee weapon attack as a bonus action.</li>\r\n<li>Before you make a melee attack with a heavy weapon that you are proficient with, you can choose to take a -5 penalty to the attack roll. If the attack hits, you add +10 to the attack's damage.</li>\r\n</ul>",
+        "source": "feat"
+      },
+      {
+        "name": "Sentinel",
+        "description": "<p>You have mastered techniques to take advantage of every drop in any enemy's guard, gaining the following benefits:</p>\r\n<ul>\r\n<li>When you hit a creature with an opportunity attack, the creature's speed becomes 0 for the rest of the turn.</li>\r\n<li>Creatures provoke opportunity attacks from you even if they take the Disengage action before leaving your reach.</li>\r\n<li>When a creature within 5 feet of you makes an attack against a target other than you (and that target doesn't have this feat), you can use your reaction to make a melee weapon attack against the attacking creature.</li>\r\n</ul>",
+        "source": "feat"
+      },
+      {
+        "name": "Tough",
+        "description": "<p>Your hit point maximum increases by an amount equal to twice your level when you gain this feat. Whenever you gain a level thereafter, your hit point maximum increases by an additional 2 hit points.</p>",
+        "source": "feat"
+      },
+      {
+        "name": "Hero's Journey Boon",
+        "description": "<p>At your GM's discretion you can be granted a Hero's Journey Boon.</p>",
+        "source": "feat"
+      },
+      {
+        "name": "Dark Bargain",
+        "description": "<p>At your GM's discretion, you can take a Dark Bargain.</p>",
+        "source": "feat"
+      }
+    ],
+    "actions": [
+      {
+        "name": "Rage",
+        "description": "As a bonus action enter a rage for up to 1 minute (10 rounds). \r\n\r\nYou gain advantage on STR checks and saving throws (not attacks), {{scalevalue#signed}} melee damage with STR weapons, resistance to bludgeoning, piercing, slashing damage. You can't cast or concentrate on spells while raging.\r\n\r\nYour rage ends early if you are knocked unconscious or if your turn ends and you haven’t attacked a hostile creature since your last turn or taken damage since then. You can also end your rage as a bonus action.",
+        "actionType": 3
+      },
+      {
+        "name": "Frenzy Attack",
+        "description": "While in a frenzy, you can make a single melee weapon attack as a bonus action on each of your turns after this one.",
+        "actionType": 3
+      },
+      {
+        "name": "Instinctive Pounce",
+        "description": "As part of the bonus action you take to enter your rage, you can move up to half your speed.",
+        "actionType": 8
+      }
+    ],
+    "campaignName": "Halloween 2025",
+    "notes": "",
+    "createdBy": "jonas.e.albrecht@gmail.com",
+    "createdAt": 1761927401245
+  },
+  {
+    "id": "dCKa0QZss0oguPsa9FJZK",
+    "ddbId": 154747163,
+    "name": "Samira",
+    "class": "Warlock 8",
+    "level": 8,
+    "race": "Human",
+    "ac": 10,
+    "hp": 43,
+    "currentHp": 43,
+    "tempHp": 0,
+    "initiativeMod": 0,
+    "speed": "30 ft.",
+    "stats": {
+      "str": 8,
+      "dex": 10,
+      "con": 16,
+      "int": 12,
+      "wis": 11,
+      "cha": 16
+    },
+    "proficiencyBonus": 3,
+    "source": "ddb-import",
+    "avatarUrl": "https://www.dndbeyond.com/avatars/12746/384/637357523066079195.jpeg?width=150&height=150&fit=crop&quality=95&auto=webp",
+    "tags": [
+      "ddb-import",
+      "Halloween 2025"
+    ],
+    "spells": [
+      {
+        "name": "Burning Hands",
+        "level": 1,
+        "school": "Evocation",
+        "castingTime": "1 1",
+        "range": "Self",
+        "duration": "Instantaneous",
+        "description": "<p>A thin sheet of flames shoots forth from you. Each creature in a 15-foot Cone makes a Dexterity saving throw, taking 3d6 Fire damage on a failed save or half as much damage on a successful one.</p>\r\n<p>Flammable objects in the Cone that aren’t being worn or carried start burning.</p>\r\n<p><strong><em>Using a Higher-Level Spell Slot.</em></strong> The damage increases by 1d6 for each spell slot level above 1.</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": ""
+        },
+        "concentration": false,
+        "ritual": false,
+        "prepared": false
+      },
+      {
+        "name": "Command",
+        "level": 1,
+        "school": "Enchantment",
+        "castingTime": "1 1",
+        "range": "Ranged",
+        "duration": "Instantaneous",
+        "description": "<p>You speak a one-word command to a creature you can see within range. The target must succeed on a Wisdom saving throw or follow the command on its next turn. Choose the command from these options:</p>\r\n<p><strong>Approach.</strong> The target moves toward you by the shortest and most direct route, ending its turn if it moves within 5 feet of you.</p>\r\n<p><strong>Drop.</strong> The target drops whatever it is holding and then ends its turn.</p>\r\n<p><strong>Flee.</strong> The target spends its turn moving away from you by the fastest available means.</p>\r\n<p><strong>Grovel.</strong> The target has the Prone condition and then ends its turn.</p>\r\n<p><strong>Halt.</strong> On its turn, the target doesn’t move and takes no action or Bonus Action.</p>\r\n<p><strong><em>Using a Higher-Level Spell Slot.</em></strong> You can affect one additional creature for each spell slot level above 1.</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": ""
+        },
+        "concentration": false,
+        "ritual": false,
+        "prepared": false
+      },
+      {
+        "name": "Scorching Ray",
+        "level": 2,
+        "school": "Evocation",
+        "castingTime": "1 1",
+        "range": "Ranged",
+        "duration": "Instantaneous",
+        "description": "<p>You hurl three fiery rays. You can hurl them at one target within range or at several. Make a ranged spell attack for each ray. On a hit, the target takes 2d6 Fire damage.</p>\r\n<p><strong><em>Using a Higher-Level Spell Slot.</em></strong> You create one additional ray for each spell slot level above 2.</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": ""
+        },
+        "concentration": false,
+        "ritual": false,
+        "prepared": false
+      },
+      {
+        "name": "Suggestion",
+        "level": 2,
+        "school": "Enchantment",
+        "castingTime": "1 1",
+        "range": "Ranged",
+        "duration": "Concentration",
+        "description": "<p>You suggest a course of activity&mdash;described in no more than 25 words&mdash;to one creature you can see within range that can hear and understand you. The suggestion must sound achievable and not involve anything that would obviously deal damage to the target or its allies. For example, you could say, &ldquo;Fetch the key to the cult’s treasure vault, and give the key to me.&rdquo; Or you could say, &ldquo;Stop fighting, leave this library peacefully, and don’t return.&rdquo;</p>\r\n<p>The target must succeed on a Wisdom saving throw or have the Charmed condition for the duration or until you or your allies deal damage to the target. The Charmed target pursues the suggestion to the best of its ability. The suggested activity can continue for the entire duration, but if the suggested activity can be completed in a shorter time, the spell ends for the target upon completing it.</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": "a drop of honey"
+        },
+        "concentration": true,
+        "ritual": false,
+        "prepared": false
+      },
+      {
+        "name": "Fireball",
+        "level": 3,
+        "school": "Evocation",
+        "castingTime": "1 1",
+        "range": "Ranged",
+        "duration": "Instantaneous",
+        "description": "<p>A bright streak flashes from you to a point you choose within range and then blossoms with a low roar into a fiery explosion. Each creature in a 20-foot-radius Sphere centered on that point makes a Dexterity saving throw, taking 8d6 Fire damage on a failed save or half as much damage on a successful one.</p>\r\n<p>Flammable objects in the area that aren’t being worn or carried start burning.</p>\r\n<p><strong><em>Using a Higher-Level Spell Slot.</em></strong> The damage increases by 1d6 for each spell slot level above 3.</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": "a ball of bat guano and sulfur"
+        },
+        "concentration": false,
+        "ritual": false,
+        "prepared": false
+      },
+      {
+        "name": "Stinking Cloud",
+        "level": 3,
+        "school": "Conjuration",
+        "castingTime": "1 1",
+        "range": "Ranged",
+        "duration": "Concentration",
+        "description": "<p>You create a 20-foot-radius Sphere of yellow, nauseating gas centered on a point within range. The cloud is Heavily Obscured. The cloud lingers in the air for the duration or until a strong wind (such as the one created by Gust of Wind) disperses it.</p>\r\n<p>Each creature that starts its turn in the Sphere must succeed on a Constitution saving throw or have the Poisoned condition until the end of the current turn. While Poisoned in this way, the creature can’t take an action or a Bonus Action.</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": "a rotten egg"
+        },
+        "concentration": true,
+        "ritual": false,
+        "prepared": false
+      },
+      {
+        "name": "Fire Shield",
+        "level": 4,
+        "school": "Evocation",
+        "castingTime": "1 1",
+        "range": "Self",
+        "duration": "Time",
+        "description": "<p>Wispy flames wreathe your body for the duration, shedding Bright Light in a 10-foot radius and Dim Light for an additional 10 feet.</p>\r\n<p>The flames provide you with a warm shield or a chill shield, as you choose. The warm shield grants you Resistance to Cold damage, and the chill shield grants you Resistance to Fire damage.</p>\r\n<p>In addition, whenever a creature within 5 feet of you hits you with a melee attack roll, the shield erupts with flame. The attacker takes 2d8 Fire damage from a warm shield or 2d8 Cold damage from a chill shield.</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": "a bit of phosphorus or a firefly"
+        },
+        "concentration": false,
+        "ritual": false,
+        "prepared": false
+      },
+      {
+        "name": "Wall of Fire",
+        "level": 4,
+        "school": "Evocation",
+        "castingTime": "1 1",
+        "range": "Ranged",
+        "duration": "Concentration",
+        "description": "<p>You create a wall of fire on a solid surface within range. You can make the wall up to 60 feet long, 20 feet high, and 1 foot thick, or a ringed wall up to 20 feet in diameter, 20 feet high, and 1 foot thick. The wall is opaque and lasts for the duration.</p>\r\n<p>When the wall appears, each creature in its area makes a Dexterity saving throw, taking 5d8 Fire damage on a failed save or half as much damage on a successful one.</p>\r\n<p>One side of the wall, selected by you when you cast this spell, deals 5d8 Fire damage to each creature that ends its turn within 10 feet of that side or inside the wall. A creature takes the same damage when it enters the wall for the first time on a turn or ends its turn there. The other side of the wall deals no damage.</p>\r\n<p><strong><em>Using a Higher-Level Spell Slot.</em></strong> The damage increases by 1d8 for each spell slot level above 4.</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": "a piece of charcoal"
+        },
+        "concentration": true,
+        "ritual": false,
+        "prepared": false
+      },
+      {
+        "name": "Mage Hand",
+        "level": 0,
+        "school": "Conjuration",
+        "castingTime": "1 1",
+        "range": "Ranged",
+        "duration": "Time",
+        "description": "<p>A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration. The hand vanishes if it is ever more than 30 feet away from you or if you cast this spell again.</p>\r\n<p>When you cast the spell, you can use the hand to manipulate an object, open an unlocked door or container, stow or retrieve an item from an open container, or pour the contents out of a vial.</p>\r\n<p>As a Magic action on your later turns, you can control the hand thus again. As part of that action, you can move the hand up to 30 feet.</p>\r\n<p>The hand can’t attack, activate magic items, or carry more than 10 pounds.</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": ""
+        },
+        "concentration": false,
+        "ritual": false,
+        "prepared": false
+      },
+      {
+        "name": "Elementalism",
+        "level": 0,
+        "school": "Transmutation",
+        "castingTime": "1 1",
+        "range": "Ranged",
+        "duration": "Instantaneous",
+        "description": "<p>You exert control over the elements, creating one of the following effects within range.</p>\r\n<p><em><strong>Beckon Air.</strong></em> You create a breeze strong enough to ripple cloth, stir dust, rustle leaves, and close open doors and shutters, all in a 5-foot Cube. Doors and shutters being held open by someone or something aren’t affected.</p>\r\n<p><em><strong>Beckon Earth.</strong></em> You create a thin shroud of dust or sand that covers surfaces in a 5-foot-square area, or you cause a single word to appear in your handwriting in a patch of dirt or sand.</p>\r\n<p><em><strong>Beckon Fire.</strong></em> You create a thin cloud of harmless embers and colored, scented smoke in a 5-foot Cube. You choose the color and scent, and the embers can light candles, torches, or lamps in that area. The smoke’s scent lingers for 1 minute.</p>\r\n<p><em><strong>Beckon Water.</strong></em> You create a spray of cool mist that lightly dampens creatures and objects in a 5-foot Cube. Alternatively, you create 1 cup of clean water either in an open container or on a surface, and the water evaporates in 1 minute.</p>\r\n<p><em><strong>Sculpt Element.</strong></em> You cause dirt, sand, fire, smoke, mist, or water that can fit in a 1-foot Cube to assume a crude shape (such as that of a creature) for 1 hour.</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": ""
+        },
+        "concentration": false,
+        "ritual": false,
+        "prepared": false
+      },
+      {
+        "name": "Dancing Lights",
+        "level": 0,
+        "school": "Illusion",
+        "castingTime": "1 1",
+        "range": "Ranged",
+        "duration": "Concentration",
+        "description": "<p>You create up to four torch-size lights within range, making them appear as torches, lanterns, or glowing orbs that hover for the duration. Alternatively, you combine the four lights into one glowing Medium form that is vaguely humanlike. Whichever form you choose, each light sheds Dim Light in a 10-foot radius.</p>\r\n<p>As a Bonus Action, you can move the lights up to 60 feet to a space within range. A light must be within 20 feet of another light created by this spell, and a light vanishes if it exceeds the spell’s range.</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": "a bit of phosphorus"
+        },
+        "concentration": true,
+        "ritual": false,
+        "prepared": false
+      },
+      {
+        "name": "Detect Magic",
+        "level": 1,
+        "school": "Divination",
+        "castingTime": "1 1",
+        "range": "Self",
+        "duration": "Concentration",
+        "description": "<p>For the duration, you sense the presence of magic within 30 feet of you. If you sense magic in this way, you can use your action to see a faint aura around any visible creature or object in the area that bears magic, and you learn its school of magic, if any.</p>\r\n<p>The spell can penetrate most barriers, but it is blocked by 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt.</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": ""
+        },
+        "concentration": true,
+        "ritual": true,
+        "prepared": false
+      },
+      {
+        "name": "Identify",
+        "level": 1,
+        "school": "Divination",
+        "castingTime": "1 6",
+        "range": "Touch",
+        "duration": "Instantaneous",
+        "description": "<p>You touch an object throughout the spell’s casting. If the object is a magic item or some other magical object, you learn its properties and how to use them, whether it requires Attunement, and how many charges it has, if any. You learn whether any ongoing spells are affecting the item and what they are. If the item was created by a spell, you learn that spell’s name.</p>\r\n<p>If you instead touch a creature throughout the casting, you learn which ongoing spells, if any, are currently affecting it.</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": "a pearl worth 100+ GP"
+        },
+        "concentration": false,
+        "ritual": true,
+        "prepared": false
+      },
+      {
+        "name": "Find Familiar",
+        "level": 1,
+        "school": "Conjuration",
+        "castingTime": "1 7",
+        "range": "Ranged",
+        "duration": "Instantaneous",
+        "description": "<p>You gain the service of a familiar, a spirit that takes an animal form you choose: Bat, Cat, Frog, Hawk, Lizard, Octopus, Owl, Rat, Raven, Spider, Weasel, or <a href=\"https://www.dndbeyond.com/monsters?filter-type=0&amp;filter-type=2&amp;filter-search=&amp;filter-cr-min=1&amp;filter-cr-max=1\">another Beast that has a Challenge Rating of 0</a>. Appearing in an unoccupied space within range, the familiar has the statistics of the chosen form, though it is a Celestial, Fey, or Fiend (your choice) instead of a Beast. Your familiar acts independently of you, but it obeys your commands.</p>\r\n<p><strong><em>Telepathic Connection.</em></strong> While your familiar is within 100 feet of you, you can communicate with it telepathically. Additionally, as a Bonus Action, you can see through the familiar’s eyes and hear what it hears until the start of your next turn, gaining the benefits of any special senses it has.</p>\r\n<p>Finally, when you cast a spell with a range of touch, your familiar can deliver the touch. Your familiar must be within 100 feet of you, and it must take a Reaction to deliver the touch when you cast the spell.</p>\r\n<p><strong><em>Combat.</em></strong> The familiar is an ally to you and your allies. It rolls its own Initiative and acts on its own turn. A familiar can’t attack, but it can take other actions as normal.</p>\r\n<p><strong><em>Disappearance of the Familiar.</em></strong> When the familiar drops to 0 Hit Points, it disappears. It reappears after you cast this spell again. As a Magic action, you can temporarily dismiss the familiar to a pocket dimension. Alternatively, you can dismiss it forever. As a Magic action while it is temporarily dismissed, you can cause it to reappear in an unoccupied space within 30 feet of you. Whenever the familiar drops to 0 Hit Points or disappears into the pocket dimension, it leaves behind in its space anything it was wearing or carrying.</p>\r\n<p><strong><em>One Familiar Only.</em></strong> You can’t have more than one familiar at a time. If you cast this spell while you have a familiar, you instead cause it to adopt a new eligible form.</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": "burning incense worth 10+ GP, which the spell consumes"
+        },
+        "concentration": false,
+        "ritual": true,
+        "prepared": false
+      },
+      {
+        "name": "Mage Armor",
+        "level": 1,
+        "school": "Abjuration",
+        "castingTime": "1 1",
+        "range": "Touch",
+        "duration": "Time",
+        "description": "<p>You touch a willing creature who isn’t wearing armor. Until the spell ends, the target’s base AC becomes 13 plus its Dexterity modifier. The spell ends early if the target dons armor.</p>",
+        "components": {
+          "verbal": false,
+          "somatic": false,
+          "material": false,
+          "materialComponents": "a piece of cured leather"
+        },
+        "concentration": false,
+        "ritual": false,
+        "prepared": false
+      }
+    ],
+    "spellSlots": {
+      "level1": {
+        "max": 0,
+        "used": 0
+      },
+      "level2": {
+        "max": 0,
+        "used": 0
+      },
+      "level3": {
+        "max": 0,
+        "used": 0
+      },
+      "level4": {
+        "max": 0,
+        "used": 0
+      },
+      "level5": {
+        "max": 0,
+        "used": 0
+      },
+      "level6": {
+        "max": 0,
+        "used": 0
+      },
+      "level7": {
+        "max": 0,
+        "used": 0
+      },
+      "level8": {
+        "max": 0,
+        "used": 0
+      },
+      "level9": {
+        "max": 0,
+        "used": 0
+      },
+      "pact": {
+        "level": 5,
+        "max": 0,
+        "used": 0
+      }
+    },
+    "features": [
+      {
+        "name": "Resourceful",
+        "description": "<p>You gain Heroic Inspiration whenever you finish a Long Rest.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Skillful",
+        "description": "<p>You gain proficiency in one skill of your choice.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Versatile",
+        "description": "<p>You gain an Origin feat of your choice.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Creature Type",
+        "description": "<p>You are a Humanoid.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Size",
+        "description": "<p>Your Size is Medium (about 4&ndash;7 feet tall) or Small (about 2&ndash;4 feet tall), chosen when you select this species.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Speed",
+        "description": "<p>Your Speed is 30 feet.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Ability Score Increases",
+        "description": "<p>When determining your character’s ability scores, increase one score by 2 and a different one by 1, or increase three scores by 1. None of these increases can raise a score above 20.</p>",
+        "source": "racial"
+      },
+      {
+        "name": "Languages",
+        "description": "<p>Your character knows at least three languages: Common plus two languages you roll or choose from the Standard Languages table. Knowledge of a language means your character can communicate in it, read it, and write it. Your class and other features might also give you languages.</p>\r\n<p>The Standard Languages table lists languages that are widespread on D&amp;D worlds. Every player character knows Common, which originated in the planar metropolis of Sigil, the hub of the multiverse. The other standard languages originated with the first members of the most prominent species in the worlds of D&amp;D and have since spread widely.</p>\r\n<table class=\"table-compendium table--generic-dice\" style=\"--sb-table-row-bg-hover: #b3d3df; --sb-table-row-bg-dark: #d7e8ee; --sb-table-row-bg-light: #f1f7f9; --dark-sb-table-row-bg-light: #5e7982; --dark-sb-table-row-bg-dark: #5c7f8c; --dark-sb-table-row-bg-hover: #78a2b0;\"><caption><strong>Standard Languages</strong></caption>\r\n<thead>\r\n<tr>\r\n<th>1d12</th>\r\n<th>Language</th>\r\n<th>Origin</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>&mdash;</td>\r\n<td>Common</td>\r\n<td>Sigil</td>\r\n</tr>\r\n<tr>\r\n<td>1</td>\r\n<td>Common Sign Language</td>\r\n<td>Sigil</td>\r\n</tr>\r\n<tr>\r\n<td>2</td>\r\n<td>Draconic</td>\r\n<td>Dragons</td>\r\n</tr>\r\n<tr>\r\n<td>3-4</td>\r\n<td>Dwarvish</td>\r\n<td>Dwarves</td>\r\n</tr>\r\n<tr>\r\n<td>5-6</td>\r\n<td>Elvish</td>\r\n<td>Elves</td>\r\n</tr>\r\n<tr>\r\n<td>7</td>\r\n<td>Giant</td>\r\n<td>Giants</td>\r\n</tr>\r\n<tr>\r\n<td>8</td>\r\n<td>Gnomish</td>\r\n<td>Gnomish</td>\r\n</tr>\r\n<tr>\r\n<td>9</td>\r\n<td>Goblin</td>\r\n<td>Goblinoids</td>\r\n</tr>\r\n<tr>\r\n<td>10-11</td>\r\n<td>Halfling</td>\r\n<td>Halflings</td>\r\n</tr>\r\n<tr>\r\n<td>12</td>\r\n<td>Orc</td>\r\n<td>Orcs</td>\r\n</tr>\r\n</tbody>\r\n</table>",
+        "source": "racial"
+      },
+      {
+        "name": "Lucky",
+        "description": "<p>You have inexplicable luck that seems to kick in at just the right moment.</p>\r\n<ul>\r\n<li>You have 3 luck points. Whenever you make an attack roll, an ability check, or a saving throw, you can spend one luck point to roll an additional d20. You can choose to spend one of your luck points after you roll the die, but before the outcome is determined. You choose which of the d20s is used for the attack roll, ability check, or saving throw.</li>\r\n<li>You can also spend one luck point when an attack roll is made against you. Roll a d20, and then choose whether the attack uses the attacker's roll or yours. If more than one creature spends a luck point to influence the outcome of a roll, the points cancel each other out; no additional dice are rolled.</li>\r\n<li>You regain your expended luck points when you finish a long rest.</li>\r\n</ul>",
+        "source": "feat"
+      },
+      {
+        "name": "Lucky",
+        "description": "<p><em>Origin Feat</em></p>\r\n<p>You gain the following benefits.</p>\r\n<p><em><strong>Luck Points.</strong></em> You have a number of Luck Points equal to your Proficiency Bonus and can spend the points on the benefits below. You regain your expended Luck Points when you finish a Long Rest.</p>\r\n<p><em><strong>Advantage.</strong></em> When you roll a d20 for a D20 Test, you can spend 1 Luck Point to give yourself Advantage on the roll.</p>\r\n<p><em><strong>Disadvantage.</strong></em> When a creature rolls a d20 for an attack roll against you, you can spend 1 Luck Point to impose Disadvantage on that roll.</p>",
+        "source": "feat"
+      },
+      {
+        "name": "Skilled",
+        "description": "<p><em>Origin Feat</em></p>\r\n<p>You gain proficiency in any combination of three skills or tools of your choice.</p>\r\n<p><em><strong>Repeatable.</strong></em> You can take this feat more than once.</p>",
+        "source": "feat"
+      },
+      {
+        "name": "Skill Expert",
+        "description": "<p><em>General Feat (Prerequisite: Level 4+)</em></p>\r\n<p>You gain the following benefits.</p>\r\n<p><em><strong>Ability Score Increase.</strong></em> Increase one ability score of your choice by 1, to a maximum of 20.</p>\r\n<p><em><strong>Skill Proficiency.</strong></em> You gain proficiency in one skill of your choice.</p>\r\n<p><em><strong>Expertise.</strong></em> Choose one skill in which you have proficiency but lack Expertise. You gain Expertise with that skill.</p>",
+        "source": "feat"
+      },
+      {
+        "name": "Dark Bargain",
+        "description": "<p>At your GM's discretion, you can take a Dark Bargain.</p>",
+        "source": "feat"
+      },
+      {
+        "name": "Circle Magic (Charisma)",
+        "description": "<h3 id=\"InitiatingACircleSpell\" class=\"compendium-hr\">Initiating a Circle Spell</h3>\r\n<p>You take a Magic action to initiate casting a Circle spell. When you do so, choose which Circle casting option you’re using for this casting; you must also meet any of the other requirements described in that option’s text. Until the Circle spell’s casting is complete, you must maintain Concentration on the spell.</p>\r\n<p>If a Reaction would trigger when a creature casts a spell&mdash;such as the Reaction taken to cast Counterspell&mdash; it also triggers when you take this action to initiate a Circle spell.</p>\r\n<h3 id=\"CircleCastingOptions\" class=\"compendium-hr\">Circle Casting Options</h3>\r\n<p>The following options provide ways to enhance a spell when casting it as a Circle spell. You can use only one Circle casting option on a spell at a time.</p>\r\n<p>Some spells have a &ldquo;Casting as a Circle Spell&rdquo; section in their description. Instead of using one of the following options, you can create the effect described in that section when casting the spell as a Circle spell. Such effects are often uniquely powerful and specific to their respective spells.</p>\r\n<h4 class=\"compendium-hr\">Augment</h4>\r\n<p>When you cast a spell with a range of at least 5 feet, you can increase the range of the spell by 1,000 feet per secondary caster contributing to the spell, up to a maximum of a 1-mile increase.</p>\r\n<h4 class=\"compendium-hr\">Distribute</h4>\r\n<p>When you cast a spell that requires Concentration, you can distribute the mental load of the spell among you and the secondary casters. Once the casting is complete, you and all secondary casters can maintain Concentration on this spell. As long as at least one caster who contributed to the spell maintains this Concentration, the spell’s effects remain active.</p>\r\n<h4 class=\"compendium-hr\">Expand</h4>\r\n<p>When you cast a spell that creates an area of effect, you can increase one dimension of the spell’s area of effect for this casting by 10 feet per secondary caster contributing to the spell. For example, if a spell creates a 20-foot-radius Sphere, casting it as a Circle spell with two secondary casters would increase the radius to 40 feet. A spell that creates a Line that is 5 feet wide and 300 feet long, cast as a Circle spell with two secondary casters, could make a Line that is either 25 feet wide or 320 feet long.</p>\r\n<p>Each secondary caster contributing to the spell must expend a spell slot (no action required). If the spell fails, these spell slots aren’t expended.</p>\r\n<h4 class=\"compendium-hr\">Prolong</h4>\r\n<p>When you cast a spell that has a duration of 1 minute or longer, you can increase the duration of the spell depending on the number of secondary casters contributing to the spell, as detailed in the table below.</p>\r\n<p>Each secondary caster contributing to the spell must expend a spell slot (no action required). If the spell fails, these spell slots aren’t expended.</p>\r\n<table class=\"table-compendium table--sub-features\"><caption>\r\n<h5 id=\"ProlongSpellDuration\" class=\"compendium-hr quick-menu-exclude\">Spell Duration</h5>\r\n</caption>\r\n<thead>\r\n<tr>\r\n<th>Secondary Casters</th>\r\n<th>The Spell Increases Duration by</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>1&ndash;3</td>\r\n<td>1 hour</td>\r\n</tr>\r\n<tr>\r\n<td>4&ndash;6</td>\r\n<td>8 hours</td>\r\n</tr>\r\n<tr>\r\n<td>7+</td>\r\n<td>24 hours</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<h4 class=\"compendium-hr\">Safeguard</h4>\r\n<p>When you cast a spell that creates an area of effect, you can carve out a safe zone within that area of effect that is unaffected by the spell for its duration. This safe zone consists of a number of 5-foot Cubes equal to your spellcasting ability modifier plus the number of secondary casters contributing to the spell (minimum of one Cube). You can arrange the Cubes as you like, but each Cube must be contiguous with at least one other Cube.</p>\r\n<p>If the spell’s area of effect can be moved, the safe zone moves with it.</p>\r\n<h4 class=\"compendium-hr\">Supplant</h4>\r\n<p>When you cast a spell that requires at least one Material component with a specified cost that is consumed by the spell, you can reduce the minimum cost of one such Material component by 50 GP per each secondary caster contributing to the spell. For example, casting Revivify as a Circle spell with two secondary casters would reduce the Material component’s minimum cost to 200 GP.</p>\r\n<p>Each secondary caster contributing to the spell must expend a spell slot of a level greater than or equal to the spell’s level (no action required). If the spell fails, these spell slots aren’t expended.</p>",
+        "source": "feat"
+      }
+    ],
+    "actions": [
+      {
+        "name": "Magical Cunning",
+        "description": "Once per Long Rest, you can perform an esoteric rite for 1 minute, regaining up to {{(scalevalue/2)@roundup}} expended Pact Magic spell slots.",
+        "actionType": 6
+      },
+      {
+        "name": "Dark One’s Blessing",
+        "description": "When you reduce an enemy to 0 HP, you gain {{classlevel+modifier:cha@min:1#unsigned}} Temp HP. You also gain this benefit if someone else reduces an enemy within 10 ft. of you to 0 HP.",
+        "actionType": 8
+      },
+      {
+        "name": "Dark One’s Own Luck",
+        "description": "When you make an ability check or saving throw, you can add 1d10 to your roll. You can do this after seeing the roll but before any of the roll’s effects occur.\r\n\r\nYou can use this feature {{modifier:cha@min:1#unsigned}} times per Long Rest, but no more than once per roll. ",
+        "actionType": 8
+      },
+      {
+        "name": "Pact of the Chain: Attack",
+        "description": "When you take the Attack action, you can forgo one of your own attacks to allow your familiar to make one attack of its own with its Reaction.",
+        "actionType": 1
+      }
+    ],
+    "campaignName": "Halloween 2025",
+    "notes": "",
+    "createdBy": "jonas.e.albrecht@gmail.com",
+    "createdAt": 1761927414432
   }
 ]

@@ -639,843 +639,103 @@
     {
       "id": "ujVhjV1SA-7BwtpHMOXpz",
       "name": "Image Test",
-      "round": 4,
-      "turnIndex": 2,
-      "initiativeOrder": [
-        "5ff3c507-f5dd-4ca0-86bd-0cf3676ef25c",
-        "49ebcee2-c8dd-4b2b-9f14-b9d44e02aeb2",
-        "d9ad1e0f-41fe-4dbe-867e-e3390fb4fdb0",
-        "1714bcb6-f83d-434e-98ed-84caaac51fb6",
-        "6328dacf-46dc-4d4a-876c-3e133c304012",
-        "7aeb94cd-f7c6-42e6-b1bd-f2e8438fe2b5"
-      ],
+      "round": 1,
+      "turnIndex": 0,
+      "initiativeOrder": [],
       "combatants": {
-        "d9ad1e0f-41fe-4dbe-867e-e3390fb4fdb0": {
-          "id": "d9ad1e0f-41fe-4dbe-867e-e3390fb4fdb0",
+        "c2d5d833-f09a-4ed7-a602-ad934d897f87": {
+          "id": "c2d5d833-f09a-4ed7-a602-ad934d897f87",
           "initiativeTieBreaker": 0,
-          "hp": 725,
-          "baseHP": 725,
-          "hpFormula": "50d10 + 450",
+          "hp": 7,
+          "baseHP": 7,
+          "hpFormula": "2d6",
           "tempHP": 0,
           "player": false,
           "notes": "",
           "concentration": false,
           "concentrationMod": 0,
           "spellSlots": {},
+          "dailySpellUses": {},
+          "rechargeAbilities": {},
           "deathSaves": {
             "successes": 0,
             "failures": 0
           },
           "sidekickOf": null,
-          "legendaryPoints": 3,
-          "legendaryPointsMax": 3,
+          "legendaryPoints": 0,
+          "legendaryPointsMax": 0,
           "reactionUsed": false,
-          "name": "Asmodeus",
-          "ac": 22,
+          "name": "Goblin",
+          "ac": 15,
           "acFrom": [
-            "natural armor"
+            "leather armor, shield"
           ],
-          "initiativeMod": 5,
-          "size": "Large",
+          "initiativeMod": 2,
+          "size": "Small",
           "type": {
-            "type": "fiend",
+            "type": "humanoid",
             "tags": [
-              "devil"
+              "goblinoid"
             ]
           },
-          "alignment": "lawful",
-          "cr": 30,
-          "source": "CoA",
+          "alignment": "neutral",
+          "cr": 0.25,
+          "source": "MM",
           "meta": {
-            "source": "CoA",
-            "imageUrl": "https://5e.tools/img/bestiary/COA/Asmodeus.webp",
-            "tokenUrl": "https://5e.tools/img/bestiary/tokens/COA/Asmodeus.webp",
+            "source": "MM",
+            "imageUrl": "https://5e.tools/img/bestiary/MM/Goblin.webp",
+            "tokenUrl": "https://5e.tools/img/bestiary/tokens/MM/Goblin.webp",
             "tags": [
-              "coa",
-              "legendary",
-              "spellcaster"
+              "mm"
             ]
           },
-          "str": 30,
-          "dex": 21,
-          "con": 28,
-          "int": 25,
-          "wis": 30,
-          "cha": 30,
+          "str": 8,
+          "dex": 14,
+          "con": 10,
+          "int": 10,
+          "wis": 8,
+          "cha": 8,
           "skill": {
-            "arcana": 16,
-            "deception": 28,
-            "insight": 28,
-            "intimidation": 19,
-            "perception": 19,
-            "persuasion": 19,
-            "religion": 16
+            "stealth": 6
           },
-          "save": {
-            "str": 19,
-            "con": 18,
-            "int": 16,
-            "cha": 19
-          },
-          "senses": "darkvision: 120, truesight: 60, passivePerception: 29",
+          "save": {},
+          "senses": "darkvision: 60, passivePerception: 9",
           "languages": [
-            "all",
-            "telepathy 120 ft."
+            "Common",
+            "Goblin"
           ],
           "speed": 30,
-          "fly": 120,
+          "fly": null,
           "swim": null,
           "climb": null,
           "burrow": null,
-          "resistances": [
-            "Cold"
-          ],
-          "immunities": [
-            "Fire",
-            "Poison",
-            "Bludgeoning, Piercing, Slashing From Non-magical Weapons"
-          ],
-          "conditionImmunities": [
-            "Blinded",
-            "Charmed",
-            "Frightened",
-            "Paralyzed",
-            "Poisoned",
-            "Stunned"
-          ],
           "damageVulnerabilities": [],
-          "damageResistances": [
-            "cold"
-          ],
-          "damageImmunities": [
-            "fire",
-            "poison",
-            "['bludgeoning', 'piercing', 'slashing']"
-          ],
+          "damageResistances": [],
+          "damageImmunities": [],
           "traits": [
             {
-              "name": "Antimagic Aura",
-              "desc": "Asmodeus has advantage on saving throws against spells and other magical effects. Spells of level 4 or lower can't damage Asmodeus."
-            },
-            {
-              "name": "Fiendish Regeneration",
-              "desc": "Asmodeus regains 40 hit points at the start of his turn. If he takes radiant damage, this trait doesn't function at the start of his next turn. Asmodeus dies only if he starts his turn with 0 hit points and doesn't regenerate. If Asmodeus dies, his body regenerates, returning to life 13 (2d12) days later."
-            },
-            {
-              "name": "Legendary Resistance (3/Day)",
-              "desc": "If Asmodeus fails a saving throw, he can choose to succeed instead."
-            },
-            {
-              "name": "Submission Aura",
-              "desc": "When a creature moves to be within 120 feet of Asmodeus, they must succeed on a 24 Wisdom saving throw or have the frightened condition until they leave the aura. While frightened, creatures kneel before Asmodeus, taking no actions unless he commands otherwise. If Asmodeus deals damage to a kneeling creature, the creature's frightened condition ends. A creature that succeeds the saving throw is immune to this effect for 1 hour."
+              "name": "Nimble Escape",
+              "desc": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns."
             }
           ],
           "actions": [
             {
-              "name": "Multiattack",
-              "desc": "Asmodeus makes four attacks using Ruby Rod, Chilling Gaze, or a combination of the two. He can replace one of the attacks with Hellish Smite."
+              "name": "Scimitar",
+              "desc": "mw 4 to hit, reach 5 ft., one target. {@h}5 (1d6 + 2) slashing damage."
             },
             {
-              "name": "Ruby Rod",
-              "desc": "mw 21 to hit, reach 5 ft., one target. {@h}21 (2d8 + 12) necrotic damage, which also reduces the target's hit point maximum by the damage taken. This damage can't reduce a target's hit point maximum below 1. Any effect that removes a disease allows a creature's hit point maximum to return to normal."
-            },
-            {
-              "name": "Chilling Gaze",
-              "desc": "rs 16 to hit, range 60 ft., one target. {@h}18 (2d10 + 7) cold damage, and the target has a-1 penalty to all attack rolls they make until the end of their next turn. This penalty can stack."
-            },
-            {
-              "name": "Hellish Smite",
-              "desc": "Asmodeus targets a creature he can see within 300 feet of him, calling down a bolt of hellish lightning. The target must make a 24 Dexterity saving throw, taking 14 (4d6) lightning damage plus 14 (4d6) fire damage on a failed save, or half as much damage on a successful one."
-            },
-            {
-              "name": "Infernal Word: Stun {@recharge 4}",
-              "desc": "Asmodeus targets a creature he can see within 120 feet of him. The target must make a 24 Intelligence saving throw, taking 45 (10d8) force damage on a failed save, or half as much damage on a successful one. A creature that failed the save is stunned for up to 1 minute. The stunned creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success, but taking the damage again on a failed save."
-            },
-            {
-              "name": "Hell-Lord's Suggestion {@recharge 5}",
-              "desc": "Asmodeus targets a creature he can see within 120 feet of him. The target must make a 24 Charisma saving throw, taking 44 (8d10) psychic damage on a failed save, or half as much damage on a successful one. A creature that failed the save has the charmed condition for up to 1 minute. While charmed, a creature is controlled by Asmodeus, performing only actions that he suggests. A charmed creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success, but taking the damage again on a failed save."
-            },
-            {
-              "name": "Fires of the Nine Hells {@recharge 5}",
-              "desc": "Asmodeus chooses a point he can see within 500 feet of him, which explodes into a roaring inferno. All creatures within a 60-foot-radius sphere centered on that point must make a 24 Dexterity saving throw, taking 70 (20d6) fire damage on a failed save, or half as much damage on a successful one."
+              "name": "Shortbow",
+              "desc": "rw 4 to hit, range 80/320 ft., one target. {@h}5 (1d6 + 2) piercing damage."
             }
           ],
-          "legendary": {
-            "points": 3,
-            "actions": [
-              {
-                "name": "Channel Ruby Rod",
-                "desc": "The Ruby Rod has 66 charges. Asmodeus may spend its charges to cast one of the following spells from it, with a spell save DC of 20: Lesser Restoration (3 charges), Wall of Force (7 charges), Greater Restoration (12 charges), Chain Lightning (15 charges), Prismatic Spray (23 charges), Globe of Invulnerability (33 charges)"
-              },
-              {
-                "name": "Strike (Costs 2 Actions)",
-                "desc": "Asmodeus makes a Ruby Rod attack."
-              },
-              {
-                "name": "Call Underling (Costs 3 Actions)",
-                "desc": "Asmodeus summons an allied pit fiend in an unoccupied space that he can see."
-              }
-            ]
-          },
-          "legendaryGroup": {
-            "name": "Asmodeus",
-            "source": "CoA"
-          },
-          "spellcasting": [
-            {
-              "name": "Spellcasting",
-              "casterType": "innate",
-              "notes": "Asmodeus casts one of the following spells, requiring no material components and using Wisdom as the spellcasting ability (spell save 27):",
-              "ability": "wis",
-              "will": [
-                "bane",
-                "bestow curse",
-                "command",
-                "cure wounds",
-                "darkness",
-                "lesser restoration",
-                "remove curse"
-              ],
-              "daily": {
-                "1e": [
-                  "antimagic field",
-                  "earthquake",
-                  "flame strike",
-                  "gate",
-                  "heal",
-                  "mass heal",
-                  "wish"
-                ]
-              }
-            }
-          ],
-          "tokenUrl": "https://5e.tools/img/bestiary/tokens/COA/Asmodeus.webp",
-          "imageUrl": "https://5e.tools/img/bestiary/COA/Asmodeus.webp",
-          "initiativeRoll": 6,
-          "legendaryActionsRemaining": 3,
-          "dailySpellUses": {
-            "daily_1e_antimagic_field": 0,
-            "daily_1e_earthquake": 0,
-            "daily_1e_heal": 0,
-            "daily_1e_gate": 1
-          },
-          "rechargeAbilities": {
-            "recharge_action_5": true,
-            "recharge_action_6": true,
-            "recharge_action_4": true
-          },
-          "currentHp": 725,
+          "legendary": null,
+          "spellcasting": [],
+          "tokenUrl": "http://localhost:4000/api/token/MM/Goblin",
+          "imageUrl": "http://localhost:4000/api/token/MM/Goblin",
+          "initiativeRoll": 20,
+          "currentHp": 7,
           "tempHp": 0,
-          "conditions": [],
-          "initiative": 11
-        },
-        "1714bcb6-f83d-434e-98ed-84caaac51fb6": {
-          "id": "1714bcb6-f83d-434e-98ed-84caaac51fb6",
-          "initiativeTieBreaker": 0,
-          "hp": 99,
-          "baseHP": 99,
-          "hpFormula": "18d8 + 18",
-          "tempHP": 0,
-          "player": false,
-          "notes": "",
-          "concentration": false,
-          "concentrationMod": 0,
-          "spellSlots": {
-            "1": {
-              "max": 4,
-              "current": 4
-            },
-            "2": {
-              "max": 3,
-              "current": 3
-            },
-            "3": {
-              "max": 3,
-              "current": 3
-            },
-            "4": {
-              "max": 3,
-              "current": 3
-            },
-            "5": {
-              "max": 3,
-              "current": 1
-            },
-            "6": {
-              "max": 1,
-              "current": 1
-            },
-            "7": {
-              "max": 1,
-              "current": 1
-            },
-            "8": {
-              "max": 1,
-              "current": 1
-            },
-            "9": {
-              "max": 1,
-              "current": 1
-            }
-          },
-          "deathSaves": {
-            "successes": 0,
-            "failures": 0
-          },
-          "sidekickOf": null,
-          "legendaryPoints": 0,
-          "legendaryPointsMax": 0,
-          "reactionUsed": false,
-          "name": "Archmage",
-          "ac": 12,
-          "acFrom": null,
-          "initiativeMod": 2,
-          "size": "Medium",
-          "type": {
-            "type": "humanoid",
-            "tags": [
-              "any race"
-            ]
-          },
-          "alignment": "any alignment",
-          "cr": 12,
-          "source": "MM",
-          "meta": {
-            "source": "MM",
-            "imageUrl": "https://5e.tools/img/bestiary/MM/Archmage.webp",
-            "tokenUrl": "https://5e.tools/img/bestiary/tokens/MM/Archmage.webp",
-            "tags": [
-              "mm",
-              "spellcaster"
-            ]
-          },
-          "str": 10,
-          "dex": 14,
-          "con": 12,
-          "int": 20,
-          "wis": 15,
-          "cha": 16,
-          "skill": {
-            "arcana": 13,
-            "history": 13
-          },
-          "save": {
-            "int": 9,
-            "wis": 6
-          },
-          "senses": "passivePerception: 12",
-          "languages": [
-            "any six languages"
-          ],
-          "speed": 30,
-          "fly": null,
-          "swim": null,
-          "climb": null,
-          "burrow": null,
-          "resistances": [
-            "Bludgeoning, Piercing, Slashing From Non-magical Weapons"
-          ],
-          "damageVulnerabilities": [],
-          "damageResistances": [
-            "['bludgeoning', 'piercing', 'slashing']"
-          ],
-          "damageImmunities": [],
-          "traits": [
-            {
-              "name": "Magic Resistance",
-              "desc": "The archmage has advantage on saving throws against spells and other magical effects."
-            }
-          ],
-          "actions": [
-            {
-              "name": "Dagger",
-              "desc": "mw,rw 6 to hit, reach 5 ft. or range 20/60 ft., one target. {@h}4 (1d4 + 2) piercing damage."
-            }
-          ],
-          "legendary": null,
-          "spellcasting": [
-            {
-              "name": "Spellcasting",
-              "casterType": "prepared",
-              "notes": "The archmage is an 18th-level spellcaster. Its spellcasting ability is Intelligence (spell save 17, 9 to hit with spell attacks). The archmage can cast disguise self and invisibility at will and has the following wizard spells prepared:",
-              "ability": "int",
-              "will": [
-                "disguise self",
-                "invisibility"
-              ],
-              "spellsByLevel": [
-                {
-                  "level": 0,
-                  "spells": [
-                    "fire bolt",
-                    "light",
-                    "mage hand",
-                    "prestidigitation",
-                    "shocking grasp"
-                  ],
-                  "prepared": true
-                },
-                {
-                  "level": 1,
-                  "spells": [
-                    "detect magic",
-                    "identify",
-                    "mage armor",
-                    "magic missile"
-                  ],
-                  "prepared": true,
-                  "slots": 4
-                },
-                {
-                  "level": 2,
-                  "spells": [
-                    "detect thoughts",
-                    "mirror image",
-                    "misty step"
-                  ],
-                  "prepared": true,
-                  "slots": 3
-                },
-                {
-                  "level": 3,
-                  "spells": [
-                    "counterspell",
-                    "fly",
-                    "lightning bolt"
-                  ],
-                  "prepared": true,
-                  "slots": 3
-                },
-                {
-                  "level": 4,
-                  "spells": [
-                    "banishment",
-                    "fire shield",
-                    "stoneskin"
-                  ],
-                  "prepared": true,
-                  "slots": 3
-                },
-                {
-                  "level": 5,
-                  "spells": [
-                    "cone of cold",
-                    "scrying",
-                    "wall of force"
-                  ],
-                  "prepared": true,
-                  "slots": 3
-                },
-                {
-                  "level": 6,
-                  "spells": [
-                    "globe of invulnerability"
-                  ],
-                  "prepared": true,
-                  "slots": 1
-                },
-                {
-                  "level": 7,
-                  "spells": [
-                    "teleport"
-                  ],
-                  "prepared": true,
-                  "slots": 1
-                },
-                {
-                  "level": 8,
-                  "spells": [
-                    "mind blank"
-                  ],
-                  "prepared": true,
-                  "slots": 1
-                },
-                {
-                  "level": 9,
-                  "spells": [
-                    "time stop"
-                  ],
-                  "prepared": true,
-                  "slots": 1
-                }
-              ]
-            }
-          ],
-          "tokenUrl": "https://5e.tools/img/bestiary/tokens/MM/Archmage.webp",
-          "imageUrl": "https://5e.tools/img/bestiary/MM/Archmage.webp",
-          "initiativeRoll": 4,
-          "currentHp": 99,
-          "tempHp": 0,
-          "conditions": [],
-          "initiative": 6
-        },
-        "5ff3c507-f5dd-4ca0-86bd-0cf3676ef25c": {
-          "id": "5ff3c507-f5dd-4ca0-86bd-0cf3676ef25c",
-          "initiative": 16,
-          "initiativeTieBreaker": 0,
-          "hp": 3,
-          "baseHP": 7,
-          "hpFormula": "2d6",
-          "tempHP": 0,
-          "player": false,
-          "notes": "",
-          "concentration": false,
-          "concentrationMod": 0,
-          "spellSlots": {},
-          "dailySpellUses": {},
-          "rechargeAbilities": {},
-          "deathSaves": {
-            "successes": 0,
-            "failures": 0
-          },
-          "sidekickOf": null,
-          "legendaryPoints": 0,
-          "legendaryPointsMax": 0,
-          "reactionUsed": false,
-          "name": "Toxic Goblin",
-          "ac": 15,
-          "acFrom": [
-            "leather armor, shield"
-          ],
-          "initiativeMod": 2,
-          "size": "Small",
-          "type": {
-            "type": "humanoid",
-            "tags": [
-              "goblinoid"
-            ]
-          },
-          "alignment": "neutral",
-          "cr": 0.25,
-          "source": "MM",
-          "meta": {
-            "source": "MM",
-            "imageUrl": "https://5e.tools/img/bestiary/MM/Goblin.webp",
-            "tokenUrl": "https://5e.tools/img/bestiary/tokens/MM/Goblin.webp",
-            "tags": [
-              "mm"
-            ]
-          },
-          "str": 8,
-          "dex": 14,
-          "con": 10,
-          "int": 10,
-          "wis": 8,
-          "cha": 8,
-          "skill": {
-            "stealth": 6
-          },
-          "save": {},
-          "senses": "darkvision: 60, passivePerception: 9",
-          "languages": [
-            "Common",
-            "Goblin"
-          ],
-          "speed": 30,
-          "fly": null,
-          "swim": null,
-          "climb": null,
-          "burrow": null,
-          "damageVulnerabilities": [],
-          "damageResistances": [],
-          "damageImmunities": [],
-          "traits": [
-            {
-              "name": "Nimble Escape",
-              "desc": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns."
-            }
-          ],
-          "actions": [
-            {
-              "name": "Scimitar",
-              "desc": "mw 4 to hit, reach 5 ft., one target. {@h}5 (1d6 + 2) slashing damage."
-            },
-            {
-              "name": "Shortbow",
-              "desc": "rw 4 to hit, range 80/320 ft., one target. {@h}5 (1d6 + 2) piercing damage."
-            }
-          ],
-          "legendary": null,
-          "spellcasting": [],
-          "tokenUrl": null,
-          "imageUrl": null,
-          "initiativeRoll": 14
-        },
-        "49ebcee2-c8dd-4b2b-9f14-b9d44e02aeb2": {
-          "id": "49ebcee2-c8dd-4b2b-9f14-b9d44e02aeb2",
-          "initiative": 15,
-          "initiativeTieBreaker": 0,
-          "hp": 7,
-          "baseHP": 7,
-          "hpFormula": "2d6",
-          "tempHP": 0,
-          "player": false,
-          "notes": "",
-          "concentration": false,
-          "concentrationMod": 0,
-          "spellSlots": {},
-          "dailySpellUses": {},
-          "rechargeAbilities": {},
-          "deathSaves": {
-            "successes": 0,
-            "failures": 0
-          },
-          "sidekickOf": null,
-          "legendaryPoints": 0,
-          "legendaryPointsMax": 0,
-          "reactionUsed": false,
-          "name": "Clever Goblin",
-          "ac": 15,
-          "acFrom": [
-            "leather armor, shield"
-          ],
-          "initiativeMod": 2,
-          "size": "Small",
-          "type": {
-            "type": "humanoid",
-            "tags": [
-              "goblinoid"
-            ]
-          },
-          "alignment": "neutral",
-          "cr": 0.25,
-          "source": "MM",
-          "meta": {
-            "source": "MM",
-            "imageUrl": "https://5e.tools/img/bestiary/MM/Goblin.webp",
-            "tokenUrl": "https://5e.tools/img/bestiary/tokens/MM/Goblin.webp",
-            "tags": [
-              "mm"
-            ]
-          },
-          "str": 8,
-          "dex": 14,
-          "con": 10,
-          "int": 10,
-          "wis": 8,
-          "cha": 8,
-          "skill": {
-            "stealth": 6
-          },
-          "save": {},
-          "senses": "darkvision: 60, passivePerception: 9",
-          "languages": [
-            "Common",
-            "Goblin"
-          ],
-          "speed": 30,
-          "fly": null,
-          "swim": null,
-          "climb": null,
-          "burrow": null,
-          "damageVulnerabilities": [],
-          "damageResistances": [],
-          "damageImmunities": [],
-          "traits": [
-            {
-              "name": "Nimble Escape",
-              "desc": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns."
-            }
-          ],
-          "actions": [
-            {
-              "name": "Scimitar",
-              "desc": "mw 4 to hit, reach 5 ft., one target. {@h}5 (1d6 + 2) slashing damage."
-            },
-            {
-              "name": "Shortbow",
-              "desc": "rw 4 to hit, range 80/320 ft., one target. {@h}5 (1d6 + 2) piercing damage."
-            }
-          ],
-          "legendary": null,
-          "spellcasting": [],
-          "tokenUrl": null,
-          "imageUrl": null,
-          "initiativeRoll": 13
-        },
-        "6328dacf-46dc-4d4a-876c-3e133c304012": {
-          "id": "6328dacf-46dc-4d4a-876c-3e133c304012",
-          "initiative": 6,
-          "initiativeTieBreaker": 0,
-          "hp": 7,
-          "baseHP": 7,
-          "hpFormula": "2d6",
-          "tempHP": 0,
-          "player": false,
-          "notes": "",
-          "concentration": false,
-          "concentrationMod": 0,
-          "spellSlots": {},
-          "dailySpellUses": {},
-          "rechargeAbilities": {},
-          "deathSaves": {
-            "successes": 0,
-            "failures": 0
-          },
-          "sidekickOf": null,
-          "legendaryPoints": 0,
-          "legendaryPointsMax": 0,
-          "reactionUsed": false,
-          "name": "Old Goblin",
-          "ac": 15,
-          "acFrom": [
-            "leather armor, shield"
-          ],
-          "initiativeMod": 2,
-          "size": "Small",
-          "type": {
-            "type": "humanoid",
-            "tags": [
-              "goblinoid"
-            ]
-          },
-          "alignment": "neutral",
-          "cr": 0.25,
-          "source": "MM",
-          "meta": {
-            "source": "MM",
-            "imageUrl": "https://5e.tools/img/bestiary/MM/Goblin.webp",
-            "tokenUrl": "https://5e.tools/img/bestiary/tokens/MM/Goblin.webp",
-            "tags": [
-              "mm"
-            ]
-          },
-          "str": 8,
-          "dex": 14,
-          "con": 10,
-          "int": 10,
-          "wis": 8,
-          "cha": 8,
-          "skill": {
-            "stealth": 6
-          },
-          "save": {},
-          "senses": "darkvision: 60, passivePerception: 9",
-          "languages": [
-            "Common",
-            "Goblin"
-          ],
-          "speed": 30,
-          "fly": null,
-          "swim": null,
-          "climb": null,
-          "burrow": null,
-          "damageVulnerabilities": [],
-          "damageResistances": [],
-          "damageImmunities": [],
-          "traits": [
-            {
-              "name": "Nimble Escape",
-              "desc": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns."
-            }
-          ],
-          "actions": [
-            {
-              "name": "Scimitar",
-              "desc": "mw 4 to hit, reach 5 ft., one target. {@h}5 (1d6 + 2) slashing damage."
-            },
-            {
-              "name": "Shortbow",
-              "desc": "rw 4 to hit, range 80/320 ft., one target. {@h}5 (1d6 + 2) piercing damage."
-            }
-          ],
-          "legendary": null,
-          "spellcasting": [],
-          "tokenUrl": null,
-          "imageUrl": null,
-          "initiativeRoll": 4
-        },
-        "7aeb94cd-f7c6-42e6-b1bd-f2e8438fe2b5": {
-          "id": "7aeb94cd-f7c6-42e6-b1bd-f2e8438fe2b5",
-          "initiative": 4,
-          "initiativeTieBreaker": 0,
-          "hp": 7,
-          "baseHP": 7,
-          "hpFormula": "2d6",
-          "tempHP": 0,
-          "player": false,
-          "notes": "",
-          "concentration": false,
-          "concentrationMod": 0,
-          "spellSlots": {},
-          "dailySpellUses": {},
-          "rechargeAbilities": {},
-          "deathSaves": {
-            "successes": 0,
-            "failures": 0
-          },
-          "sidekickOf": null,
-          "legendaryPoints": 0,
-          "legendaryPointsMax": 0,
-          "reactionUsed": false,
-          "name": "Eager Goblin",
-          "ac": 15,
-          "acFrom": [
-            "leather armor, shield"
-          ],
-          "initiativeMod": 2,
-          "size": "Small",
-          "type": {
-            "type": "humanoid",
-            "tags": [
-              "goblinoid"
-            ]
-          },
-          "alignment": "neutral",
-          "cr": 0.25,
-          "source": "MM",
-          "meta": {
-            "source": "MM",
-            "imageUrl": "https://5e.tools/img/bestiary/MM/Goblin.webp",
-            "tokenUrl": "https://5e.tools/img/bestiary/tokens/MM/Goblin.webp",
-            "tags": [
-              "mm"
-            ]
-          },
-          "str": 8,
-          "dex": 14,
-          "con": 10,
-          "int": 10,
-          "wis": 8,
-          "cha": 8,
-          "skill": {
-            "stealth": 6
-          },
-          "save": {},
-          "senses": "darkvision: 60, passivePerception: 9",
-          "languages": [
-            "Common",
-            "Goblin"
-          ],
-          "speed": 30,
-          "fly": null,
-          "swim": null,
-          "climb": null,
-          "burrow": null,
-          "damageVulnerabilities": [],
-          "damageResistances": [],
-          "damageImmunities": [],
-          "traits": [
-            {
-              "name": "Nimble Escape",
-              "desc": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns."
-            }
-          ],
-          "actions": [
-            {
-              "name": "Scimitar",
-              "desc": "mw 4 to hit, reach 5 ft., one target. {@h}5 (1d6 + 2) slashing damage."
-            },
-            {
-              "name": "Shortbow",
-              "desc": "rw 4 to hit, range 80/320 ft., one target. {@h}5 (1d6 + 2) piercing damage."
-            }
-          ],
-          "legendary": null,
-          "spellcasting": [],
-          "tokenUrl": null,
-          "imageUrl": null,
-          "initiativeRoll": 2
+          "conditions": []
         }
       },
       "campaignId": null,
@@ -1483,24 +743,52 @@
       "tags": [],
       "createdBy": "jonas.e.albrecht@gmail.com",
       "createdAt": "2025-10-23T23:09:25.970Z",
-      "updatedAt": "2025-10-24T01:52:57.095Z"
+      "updatedAt": "2025-11-03T22:56:34.461Z",
+      "playerScreenSettings": {
+        "blackMode": false,
+        "showTurnButton": false,
+        "hideScrollbars": true,
+        "rotation": 0,
+        "showInitiativeImages": true,
+        "zoom": 85,
+        "blankScreen": true
+      }
     },
     {
-      "id": "Wy6SUdvf6IoCgNZKfbf0m",
-      "name": "Tokentester",
+      "id": "iNfbP9PVjIsOSJPunq4TJ",
+      "name": "Sparkrender",
+      "round": 5,
+      "turnIndex": 0,
+      "initiativeOrder": [],
+      "combatants": {},
+      "campaignId": null,
+      "folder": "SPG-2502 - DoSI/Chapter 4",
+      "tags": [],
+      "createdBy": "jonas.e.albrecht@gmail.com",
+      "createdAt": "2025-10-28T17:59:28.784Z",
+      "updatedAt": "2025-10-28T20:23:32.589Z"
+    },
+    {
+      "id": "3_gigW3yY_YdoLNT2saJz",
+      "name": "Goblin Camp",
       "round": 1,
-      "turnIndex": 4,
+      "turnIndex": 0,
       "initiativeOrder": [
-        "01ffdf3f-2b7d-4a8b-b873-89ef641ffe61",
-        "fd83378e-fb37-4b38-b765-ee29c267a860",
-        "2f6a0c37-8513-46ef-97ce-744bd5b1ada2",
-        "696d64ff-09ac-4b27-84db-0239dda497e4",
-        "c074936c-5260-48f1-a1d7-558d9b810809"
+        "545c0120-0d39-4ea5-b1d1-b5066c9e4b10",
+        "40a7e315-75b1-4aed-a08a-aacbf8612a85",
+        "23f0820f-a575-4d00-9f78-4a56492c21e8",
+        "f447b1bc-74c9-49e1-874a-f5a89932cb40",
+        "f3313ce4-909c-44dd-87fd-f27a2d680034",
+        "c97af307-4866-4378-9772-8ce242abefe6",
+        "8b16866a-edfb-4e8e-923e-0cbaad905788",
+        "f21694e8-bde2-4f6e-8ce8-fafa5ad82d34",
+        "df2d8187-8709-4c6f-8f16-68bfa93a8601",
+        "b77b2fc9-1236-4ca6-8f71-589085da923a",
+        "26902b9c-d0c3-424c-95bb-3d90d75ec11a"
       ],
       "combatants": {
-        "fd83378e-fb37-4b38-b765-ee29c267a860": {
-          "id": "fd83378e-fb37-4b38-b765-ee29c267a860",
-          "initiative": 17,
+        "f447b1bc-74c9-49e1-874a-f5a89932cb40": {
+          "id": "f447b1bc-74c9-49e1-874a-f5a89932cb40",
           "initiativeTieBreaker": 0,
           "hp": 7,
           "baseHP": 7,
@@ -1521,7 +809,7 @@
           "legendaryPoints": 0,
           "legendaryPointsMax": 0,
           "reactionUsed": false,
-          "name": "Bold Goblin",
+          "name": "Cunning Goblin",
           "ac": 15,
           "acFrom": [
             "leather armor, shield"
@@ -1586,13 +874,16 @@
           ],
           "legendary": null,
           "spellcasting": [],
-          "tokenUrl": null,
-          "imageUrl": null,
-          "initiativeRoll": 15
+          "tokenUrl": "http://localhost:4000/api/token/MM/Goblin",
+          "imageUrl": "http://localhost:4000/api/token/MM/Goblin",
+          "conditions": [],
+          "initiativeRoll": 12,
+          "currentHp": 7,
+          "tempHp": 0,
+          "initiative": 14
         },
-        "2f6a0c37-8513-46ef-97ce-744bd5b1ada2": {
-          "id": "2f6a0c37-8513-46ef-97ce-744bd5b1ada2",
-          "initiative": 16,
+        "f21694e8-bde2-4f6e-8ce8-fafa5ad82d34": {
+          "id": "f21694e8-bde2-4f6e-8ce8-fafa5ad82d34",
           "initiativeTieBreaker": 0,
           "hp": 7,
           "baseHP": 7,
@@ -1613,7 +904,7 @@
           "legendaryPoints": 0,
           "legendaryPointsMax": 0,
           "reactionUsed": false,
-          "name": "Iron Goblin",
+          "name": "Fierce Goblin",
           "ac": 15,
           "acFrom": [
             "leather armor, shield"
@@ -1678,17 +969,20 @@
           ],
           "legendary": null,
           "spellcasting": [],
-          "tokenUrl": null,
-          "imageUrl": null,
-          "initiativeRoll": 14
+          "tokenUrl": "http://localhost:4000/api/token/MM/Goblin",
+          "imageUrl": "http://localhost:4000/api/token/MM/Goblin",
+          "initiativeRoll": 2,
+          "currentHp": 7,
+          "tempHp": 0,
+          "conditions": [],
+          "initiative": 4
         },
-        "696d64ff-09ac-4b27-84db-0239dda497e4": {
-          "id": "696d64ff-09ac-4b27-84db-0239dda497e4",
-          "initiative": 11,
+        "f3313ce4-909c-44dd-87fd-f27a2d680034": {
+          "id": "f3313ce4-909c-44dd-87fd-f27a2d680034",
           "initiativeTieBreaker": 0,
-          "hp": 39,
-          "baseHP": 39,
-          "hpFormula": "6d8 + 12",
+          "hp": 7,
+          "baseHP": 7,
+          "hpFormula": "2d6",
           "tempHP": 0,
           "player": false,
           "notes": "",
@@ -1705,39 +999,231 @@
           "legendaryPoints": 0,
           "legendaryPointsMax": 0,
           "reactionUsed": false,
-          "name": "Hobgoblin Captain",
+          "name": "Brave Goblin",
+          "ac": 15,
+          "acFrom": [
+            "leather armor, shield"
+          ],
+          "initiativeMod": 2,
+          "size": "Small",
+          "type": {
+            "type": "humanoid",
+            "tags": [
+              "goblinoid"
+            ]
+          },
+          "alignment": "neutral",
+          "cr": 0.25,
+          "source": "MM",
+          "meta": {
+            "source": "MM",
+            "imageUrl": "https://5e.tools/img/bestiary/MM/Goblin.webp",
+            "tokenUrl": "https://5e.tools/img/bestiary/tokens/MM/Goblin.webp",
+            "tags": [
+              "mm"
+            ]
+          },
+          "str": 8,
+          "dex": 14,
+          "con": 10,
+          "int": 10,
+          "wis": 8,
+          "cha": 8,
+          "skill": {
+            "stealth": 6
+          },
+          "save": {},
+          "senses": "darkvision: 60, passivePerception: 9",
+          "languages": [
+            "Common",
+            "Goblin"
+          ],
+          "speed": 30,
+          "fly": null,
+          "swim": null,
+          "climb": null,
+          "burrow": null,
+          "damageVulnerabilities": [],
+          "damageResistances": [],
+          "damageImmunities": [],
+          "traits": [
+            {
+              "name": "Nimble Escape",
+              "desc": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns."
+            }
+          ],
+          "actions": [
+            {
+              "name": "Scimitar",
+              "desc": "mw 4 to hit, reach 5 ft., one target. {@h}5 (1d6 + 2) slashing damage."
+            },
+            {
+              "name": "Shortbow",
+              "desc": "rw 4 to hit, range 80/320 ft., one target. {@h}5 (1d6 + 2) piercing damage."
+            }
+          ],
+          "legendary": null,
+          "spellcasting": [],
+          "tokenUrl": "http://localhost:4000/api/token/MM/Goblin",
+          "imageUrl": "http://localhost:4000/api/token/MM/Goblin",
+          "initiativeRoll": 11,
+          "currentHp": 7,
+          "tempHp": 0,
+          "conditions": [],
+          "initiative": 13
+        },
+        "545c0120-0d39-4ea5-b1d1-b5066c9e4b10": {
+          "id": "545c0120-0d39-4ea5-b1d1-b5066c9e4b10",
+          "initiativeTieBreaker": 0,
+          "hp": 7,
+          "baseHP": 7,
+          "hpFormula": "2d6",
+          "tempHP": 0,
+          "player": false,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "rechargeAbilities": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "sidekickOf": null,
+          "legendaryPoints": 0,
+          "legendaryPointsMax": 0,
+          "reactionUsed": false,
+          "name": "Cunning Goblin",
+          "ac": 15,
+          "acFrom": [
+            "leather armor, shield"
+          ],
+          "initiativeMod": 2,
+          "size": "Small",
+          "type": {
+            "type": "humanoid",
+            "tags": [
+              "goblinoid"
+            ]
+          },
+          "alignment": "neutral",
+          "cr": 0.25,
+          "source": "MM",
+          "meta": {
+            "source": "MM",
+            "imageUrl": "https://5e.tools/img/bestiary/MM/Goblin.webp",
+            "tokenUrl": "https://5e.tools/img/bestiary/tokens/MM/Goblin.webp",
+            "tags": [
+              "mm"
+            ]
+          },
+          "str": 8,
+          "dex": 14,
+          "con": 10,
+          "int": 10,
+          "wis": 8,
+          "cha": 8,
+          "skill": {
+            "stealth": 6
+          },
+          "save": {},
+          "senses": "darkvision: 60, passivePerception: 9",
+          "languages": [
+            "Common",
+            "Goblin"
+          ],
+          "speed": 30,
+          "fly": null,
+          "swim": null,
+          "climb": null,
+          "burrow": null,
+          "damageVulnerabilities": [],
+          "damageResistances": [],
+          "damageImmunities": [],
+          "traits": [
+            {
+              "name": "Nimble Escape",
+              "desc": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns."
+            }
+          ],
+          "actions": [
+            {
+              "name": "Scimitar",
+              "desc": "mw 4 to hit, reach 5 ft., one target. {@h}5 (1d6 + 2) slashing damage."
+            },
+            {
+              "name": "Shortbow",
+              "desc": "rw 4 to hit, range 80/320 ft., one target. {@h}5 (1d6 + 2) piercing damage."
+            }
+          ],
+          "legendary": null,
+          "spellcasting": [],
+          "tokenUrl": "http://localhost:4000/api/token/MM/Goblin",
+          "imageUrl": "http://localhost:4000/api/token/MM/Goblin",
+          "initiativeRoll": 18,
+          "currentHp": 7,
+          "tempHp": 0,
+          "conditions": [],
+          "initiative": 20
+        },
+        "8b16866a-edfb-4e8e-923e-0cbaad905788": {
+          "id": "8b16866a-edfb-4e8e-923e-0cbaad905788",
+          "initiativeTieBreaker": 0,
+          "hp": 21,
+          "baseHP": 21,
+          "hpFormula": "6d6",
+          "tempHP": 0,
+          "player": false,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "rechargeAbilities": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "sidekickOf": null,
+          "legendaryPoints": 0,
+          "legendaryPointsMax": 0,
+          "reactionUsed": false,
+          "name": "Goblin Boss",
           "ac": 17,
           "acFrom": [
-            "half plate armor"
+            "chain shirt, shield"
           ],
           "initiativeMod": 2,
-          "size": "Medium",
+          "size": "Small",
           "type": {
             "type": "humanoid",
             "tags": [
               "goblinoid"
             ]
           },
-          "alignment": "lawful",
-          "cr": 3,
+          "alignment": "neutral",
+          "cr": 1,
           "source": "MM",
           "meta": {
             "source": "MM",
-            "imageUrl": "https://5e.tools/img/bestiary/MM/Hobgoblin%20Captain.webp",
-            "tokenUrl": "https://5e.tools/img/bestiary/tokens/MM/Hobgoblin%20Captain.webp",
+            "imageUrl": "https://5e.tools/img/bestiary/MM/Goblin%20Boss.webp",
+            "tokenUrl": "https://5e.tools/img/bestiary/tokens/MM/Goblin%20Boss.webp",
             "tags": [
               "mm"
             ]
           },
-          "str": 15,
+          "str": 10,
           "dex": 14,
-          "con": 14,
-          "int": 12,
-          "wis": 10,
-          "cha": 13,
-          "skill": {},
+          "con": 10,
+          "int": 10,
+          "wis": 8,
+          "cha": 10,
+          "skill": {
+            "stealth": 6
+          },
           "save": {},
-          "senses": "darkvision: 60, passivePerception: 10",
+          "senses": "darkvision: 60, passivePerception: 9",
           "languages": [
             "Common",
             "Goblin"
@@ -1752,41 +1238,268 @@
           "damageImmunities": [],
           "traits": [
             {
-              "name": "Martial Advantage",
-              "desc": "Once per turn, the hobgoblin can deal an extra 10 (3d6) damage to a creature it hits with a weapon attack if that creature is within 5 feet of an ally of the hobgoblin that isn't incapacitated."
+              "name": "Nimble Escape",
+              "desc": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns."
             }
           ],
           "actions": [
             {
               "name": "Multiattack",
-              "desc": "The hobgoblin makes two greatsword attacks."
+              "desc": "The goblin makes two attacks with its scimitar. The second attack has disadvantage."
             },
             {
-              "name": "Greatsword",
-              "desc": "mw 4 to hit, reach 5 ft., one target. {@h}9 (2d6 + 2) slashing damage."
+              "name": "Scimitar",
+              "desc": "mw 4 to hit, reach 5 ft., one target. {@h}5 (1d6 + 2) slashing damage."
             },
             {
               "name": "Javelin",
-              "desc": "mw,rw 4 to hit, reach 5 ft. or range 30/120 ft., one target. {@h}5 (1d6 + 2) piercing damage."
-            },
-            {
-              "name": "Leadership (Recharges after a Short or Long Rest)",
-              "desc": "For 1 minute, the hobgoblin can utter a special command or warning whenever a nonhostile creature that it can see within 30 feet of it makes an attack roll or a saving throw. The creature can add a d4 to its roll provided it can hear and understand the hobgoblin. A creature can benefit from only one Leadership die at a time. This effect ends if the hobgoblin is incapacitated."
+              "desc": "mw,rw 2 to hit, reach 5 ft. or range 30/120 ft., one target. {@h}3 (1d6) piercing damage."
             }
           ],
           "legendary": null,
           "spellcasting": [],
-          "tokenUrl": null,
-          "imageUrl": null,
-          "initiativeRoll": 9
+          "tokenUrl": "http://localhost:4000/api/token/MM/Goblin%20Boss",
+          "imageUrl": "http://localhost:4000/api/token/MM/Goblin%20Boss",
+          "initiativeRoll": 6,
+          "maxHPModifier": 0,
+          "currentHp": 11,
+          "tempHp": 0,
+          "conditions": [],
+          "initiative": 8
         },
-        "c074936c-5260-48f1-a1d7-558d9b810809": {
-          "id": "c074936c-5260-48f1-a1d7-558d9b810809",
-          "initiative": 10,
+        "26902b9c-d0c3-424c-95bb-3d90d75ec11a": {
+          "id": "26902b9c-d0c3-424c-95bb-3d90d75ec11a",
           "initiativeTieBreaker": 0,
-          "hp": 11,
-          "baseHP": 11,
-          "hpFormula": "2d8 + 2",
+          "hp": 150,
+          "baseHP": 150,
+          "hpFormula": "12d12 + 72",
+          "tempHP": 0,
+          "player": false,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "rechargeAbilities": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "sidekickOf": null,
+          "legendaryPoints": 3,
+          "legendaryPointsMax": 3,
+          "legendaryActionsRemaining": 3,
+          "legendaryResistanceRemaining": 3,
+          "legendaryResistanceMax": 3,
+          "reactionUsed": false,
+          "name": "Sibriex",
+          "ac": 19,
+          "acFrom": [
+            "natural armor"
+          ],
+          "initiativeMod": -4,
+          "size": "Huge",
+          "type": {
+            "type": "fiend",
+            "tags": [
+              "demon"
+            ]
+          },
+          "alignment": "chaotic",
+          "cr": 18,
+          "source": "MPMM",
+          "meta": {
+            "source": "MPMM",
+            "imageUrl": "https://5e.tools/img/bestiary/MPMM/Sibriex.webp",
+            "tokenUrl": "https://5e.tools/img/bestiary/tokens/MPMM/Sibriex.webp",
+            "tags": [
+              "mpmm",
+              "legendary",
+              "spellcaster"
+            ]
+          },
+          "str": 10,
+          "dex": 3,
+          "con": 23,
+          "int": 25,
+          "wis": 24,
+          "cha": 25,
+          "skill": {
+            "arcana": 13,
+            "history": 13,
+            "perception": 13
+          },
+          "save": {
+            "int": 13,
+            "cha": 13
+          },
+          "senses": "truesight: 120, passivePerception: 23",
+          "languages": [
+            "all",
+            "telepathy 120 ft."
+          ],
+          "speed": 30,
+          "fly": 20,
+          "swim": null,
+          "climb": null,
+          "burrow": null,
+          "resistances": [
+            "Cold",
+            "Fire",
+            "Lightning",
+            "Bludgeoning, Piercing, Slashing From Non-magical Weapons"
+          ],
+          "immunities": [
+            "Poison"
+          ],
+          "conditionImmunities": [
+            "Poisoned"
+          ],
+          "damageVulnerabilities": [],
+          "damageResistances": [
+            "cold",
+            "fire",
+            "lightning",
+            "['bludgeoning', 'piercing', 'slashing']"
+          ],
+          "damageImmunities": [
+            "poison"
+          ],
+          "traits": [
+            {
+              "name": "Contamination",
+              "desc": "The sibriex emits an aura of corruption 30 feet in every direction. Vegetation withers in the aura, and the ground in the aura is difficult terrain||3 for other creatures. Any creature that starts its turn in the aura must succeed on a 20 Constitution saving throw or take 14 (4d6) poison damage. A creature that succeeds on the save is immune to this sibriex's Contamination for 24 hours."
+            },
+            {
+              "name": "Legendary Resistance (3/Day)",
+              "desc": "If the sibriex fails a saving throw, it can choose to succeed instead."
+            },
+            {
+              "name": "Magic Resistance",
+              "desc": "The sibriex has advantage on saving throws against spells and other magical effects."
+            }
+          ],
+          "actions": [
+            {
+              "name": "Multiattack",
+              "desc": "The sibriex makes three Chain attacks, and it uses Squirt Bile."
+            },
+            {
+              "name": "Chain",
+              "desc": "mw 13 to hit, reach 15 ft., one target. {@h}20 (2d12 + 7) force damage."
+            },
+            {
+              "name": "Squirt Bile",
+              "desc": "The sibriex targets one creature it can see within 120 feet of it. The target must succeed on a 20 Dexterity saving throw or take 31 (9d6) acid damage."
+            },
+            {
+              "name": "Warp Creature",
+              "desc": "The sibriex targets up to three creatures it can see within 120 feet of it. Each target must make a 20 Constitution saving throw. On a successful save, a creature becomes immune to this sibriex's Warp Creature. On a failed save, the target is poisoned, which causes it to also gain 1 level of exhaustion. While poisoned in this way, the target must repeat the saving throw at the start of each of its turns. Three successful saves against the poison end it, and ending the poison removes any levels of exhaustion caused by it. Each failed save causes the target to gain another level of exhaustion. Once the target reaches 6 levels of exhaustion, it dies and instantly transforms into a living manes under the sibriex's control. The transformation of the body can be undone only by a wish spell."
+            }
+          ],
+          "legendary": {
+            "points": 3,
+            "actions": [
+              {
+                "name": "Cast a Spell",
+                "desc": "The sibriex uses Spellcasting."
+              },
+              {
+                "name": "Spray Bile",
+                "desc": "The sibriex uses Squirt Bile."
+              },
+              {
+                "name": "Warp (Costs 2 Actions)",
+                "desc": "The sibriex uses Warp Creature."
+              }
+            ]
+          },
+          "spellcasting": [
+            {
+              "name": "Spellcasting",
+              "casterType": "innate",
+              "notes": "The sibriex casts one of the following spells, requiring no material components and using Charisma as the spellcasting ability (spell save 21):",
+              "ability": "cha",
+              "will": [
+                "command",
+                "dispel magic",
+                "hold monster"
+              ],
+              "daily": {
+                "1": [
+                  "feeblemind"
+                ]
+              }
+            }
+          ],
+          "tokenUrl": "http://localhost:4000/api/token/MPMM/Sibriex",
+          "imageUrl": "http://localhost:4000/api/token/MPMM/Sibriex",
+          "initiativeRoll": 3,
+          "conditions": [],
+          "currentHp": 150,
+          "tempHp": 0,
+          "initiative": -1
+        },
+        "40a7e315-75b1-4aed-a08a-aacbf8612a85": {
+          "id": "40a7e315-75b1-4aed-a08a-aacbf8612a85",
+          "name": "Kenji Orasta",
+          "ac": 10,
+          "baseHP": 52,
+          "hp": 52,
+          "tempHP": 0,
+          "initiativeMod": 3,
+          "initiativeTieBreaker": 0,
+          "player": true,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "reactionUsed": false,
+          "sidekickOf": null,
+          "maxHPModifier": 0,
+          "currentHp": 22,
+          "tempHp": 0,
+          "conditions": [],
+          "initiative": 20
+        },
+        "23f0820f-a575-4d00-9f78-4a56492c21e8": {
+          "id": "23f0820f-a575-4d00-9f78-4a56492c21e8",
+          "name": "Klimweeli Klimper Tana Nimtim Donella Fulbil Tebbno",
+          "ac": 10,
+          "baseHP": 43,
+          "hp": 33,
+          "tempHP": 0,
+          "initiativeMod": 1,
+          "initiativeTieBreaker": 0,
+          "player": true,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "reactionUsed": false,
+          "sidekickOf": null,
+          "maxHPModifier": 0,
+          "currentHp": 33,
+          "tempHp": 0,
+          "conditions": [],
+          "initiative": 18
+        },
+        "c97af307-4866-4378-9772-8ce242abefe6": {
+          "id": "c97af307-4866-4378-9772-8ce242abefe6",
+          "initiativeTieBreaker": 0,
+          "hp": 78,
+          "baseHP": 78,
+          "hpFormula": "12d10 + 12",
           "tempHP": 0,
           "player": false,
           "notes": "",
@@ -1803,80 +1516,107 @@
           "legendaryPoints": 0,
           "legendaryPointsMax": 0,
           "reactionUsed": false,
-          "name": "Silent Hobgoblin",
-          "ac": 18,
-          "acFrom": [
-            "chain mail, shield"
-          ],
-          "initiativeMod": 1,
-          "size": "Medium",
+          "name": "Chasme",
+          "ac": 15,
+          "acFrom": null,
+          "initiativeMod": 2,
+          "size": "Large",
           "type": {
-            "type": "humanoid",
+            "type": "fiend",
             "tags": [
-              "goblinoid"
+              "demon"
             ]
           },
-          "alignment": "lawful",
-          "cr": 0.5,
-          "source": "MM",
+          "alignment": "chaotic",
+          "cr": 6,
+          "source": "XMM",
           "meta": {
-            "source": "MM",
-            "imageUrl": "https://5e.tools/img/bestiary/MM/Hobgoblin.webp",
-            "tokenUrl": "https://5e.tools/img/bestiary/tokens/MM/Hobgoblin.webp",
+            "source": "XMM",
+            "imageUrl": "https://5e.tools/img/bestiary/XMM/Chasme.webp",
+            "tokenUrl": "https://5e.tools/img/bestiary/tokens/XMM/Chasme.webp",
             "tags": [
-              "mm"
+              "xmm"
             ]
           },
-          "str": 13,
-          "dex": 12,
+          "str": 15,
+          "dex": 15,
           "con": 12,
-          "int": 10,
-          "wis": 10,
-          "cha": 9,
-          "skill": {},
-          "save": {},
-          "senses": "darkvision: 60, passivePerception: 10",
+          "int": 11,
+          "wis": 14,
+          "cha": 10,
+          "skill": {
+            "perception": 5
+          },
+          "save": {
+            "dex": 5,
+            "wis": 5
+          },
+          "senses": "darkvision: 120, blindsight: 10, passivePerception: 15",
           "languages": [
-            "Common",
-            "Goblin"
+            "Abyssal; telepathy 120 ft."
           ],
-          "speed": 30,
-          "fly": null,
+          "speed": 20,
+          "fly": 60,
           "swim": null,
           "climb": null,
           "burrow": null,
+          "resistances": [
+            "Cold",
+            "Fire",
+            "Lightning"
+          ],
+          "immunities": [
+            "Poison"
+          ],
+          "conditionImmunities": [
+            "Poisoned"
+          ],
           "damageVulnerabilities": [],
-          "damageResistances": [],
-          "damageImmunities": [],
+          "damageResistances": [
+            "cold",
+            "fire",
+            "lightning"
+          ],
+          "damageImmunities": [
+            "poison"
+          ],
           "traits": [
             {
-              "name": "Martial Advantage",
-              "desc": "Once per turn, the hobgoblin can deal an extra 7 (2d6) damage to a creature it hits with a weapon attack if that creature is within 5 feet of an ally of the hobgoblin that isn't incapacitated."
+              "name": "Demonic Restoration",
+              "desc": "If the chasme dies outside the Abyss, its body dissolves into ichor, and it gains a new body instantly, reviving with all its Hit Points|XPHB somewhere in the Abyss."
+            },
+            {
+              "name": "Magic Resistance",
+              "desc": "The chasme has Advantage|XPHB on saving throws against spells and other magical effects."
+            },
+            {
+              "name": "Spider Climb",
+              "desc": "The chasme can climb difficult surfaces, including along ceilings, without needing to make an ability check."
             }
           ],
           "actions": [
             {
-              "name": "Longsword",
-              "desc": "mw 3 to hit, reach 5 ft., one target. {@h}5 (1d8 + 1) slashing damage, or 6 (1d10 + 1) slashing damage if used with two hands."
-            },
-            {
-              "name": "Longbow",
-              "desc": "rw 3 to hit, range 150/600 ft., one target. {@h}5 (1d8 + 1) piercing damage."
+              "name": "Proboscis",
+              "desc": "m 5, reach 5 ft. {@h}16 (4d6 + 2) Piercing damage plus 21 (6d6) Necrotic damage. If the target is a creature, its Hit Points|XPHB|Hit Point maximum decreases by an amount equal to the Necrotic damage taken."
             }
           ],
           "legendary": null,
           "spellcasting": [],
-          "tokenUrl": null,
-          "imageUrl": null,
-          "initiativeRoll": 9
+          "tokenUrl": "http://localhost:4000/api/token/XMM/Chasme",
+          "imageUrl": "http://localhost:4000/api/token/XMM/Chasme",
+          "currentHp": 78,
+          "tempHp": 0,
+          "conditions": [],
+          "initiative": 12,
+          "initiativeRoll": 10
         },
-        "01ffdf3f-2b7d-4a8b-b873-89ef641ffe61": {
-          "id": "01ffdf3f-2b7d-4a8b-b873-89ef641ffe61",
-          "initiative": 20,
+        "df2d8187-8709-4c6f-8f16-68bfa93a8601": {
+          "id": "df2d8187-8709-4c6f-8f16-68bfa93a8601",
+          "initiative": 0,
           "initiativeTieBreaker": 0,
-          "hp": 11,
-          "baseHP": 11,
-          "hpFormula": "2d8 + 2",
+          "hp": 10,
+          "baseHP": 10,
+          "hpFormula": "2d8",
           "tempHP": 0,
           "player": false,
           "notes": "",
@@ -1893,46 +1633,127 @@
           "legendaryPoints": 0,
           "legendaryPointsMax": 0,
           "reactionUsed": false,
-          "name": "Brutal Hobgoblin",
-          "ac": 18,
-          "acFrom": [
-            "chain mail, shield"
+          "name": "Birdsquirrel",
+          "ac": 13,
+          "acFrom": null,
+          "initiativeMod": 2,
+          "size": "Tiny",
+          "type": {
+            "type": "beast"
+          },
+          "alignment": "unaligned",
+          "cr": 0.25,
+          "source": "AWM",
+          "meta": {
+            "source": "AWM",
+            "imageUrl": "https://5e.tools/img/bestiary/AWM/Birdsquirrel.webp",
+            "tokenUrl": "https://5e.tools/img/bestiary/tokens/AWM/Birdsquirrel.webp",
+            "tags": [
+              "awm"
+            ]
+          },
+          "str": 6,
+          "dex": 14,
+          "con": 13,
+          "int": 4,
+          "wis": 12,
+          "cha": 6,
+          "skill": {},
+          "save": {},
+          "senses": "",
+          "languages": [],
+          "speed": 20,
+          "fly": 30,
+          "swim": null,
+          "climb": 20,
+          "burrow": null,
+          "damageVulnerabilities": [],
+          "damageResistances": [],
+          "damageImmunities": [],
+          "traits": [
+            {
+              "name": "Pack Tactics",
+              "desc": "Birdsquirrel has advantage on an attack roll against a creature if at least one of the Birdsquirrel's allies is within 5 feet of the creature and the ally isn't incapacitated."
+            }
           ],
+          "actions": [
+            {
+              "name": "Multiattack",
+              "desc": "Birdsquirrel makes two attacks: one with its bite and one with its claws."
+            },
+            {
+              "name": "Bite",
+              "desc": "mw 4 to hit, reach 5 ft., one target. {@h}5 (1d6+2) piercing damage."
+            },
+            {
+              "name": "Claws",
+              "desc": "mw 4 to hit, reach 5 ft., one target. {@h}4 (1d4+2) slashing damage."
+            }
+          ],
+          "bonusActions": [],
+          "legendary": null,
+          "spellcasting": [],
+          "tokenUrl": "http://localhost:4000/api/token/AWM/Birdsquirrel",
+          "imageUrl": "http://localhost:4000/api/token/AWM/Birdsquirrel"
+        },
+        "b77b2fc9-1236-4ca6-8f71-589085da923a": {
+          "id": "b77b2fc9-1236-4ca6-8f71-589085da923a",
+          "initiative": 0,
+          "initiativeTieBreaker": 0,
+          "hp": 11,
+          "baseHP": 11,
+          "hpFormula": "2d8",
+          "tempHP": 0,
+          "player": false,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "rechargeAbilities": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "sidekickOf": null,
+          "legendaryPoints": 0,
+          "legendaryPointsMax": 0,
+          "reactionUsed": false,
+          "name": "Crystal Cave Merfolk",
+          "ac": 11,
+          "acFrom": null,
           "initiativeMod": 1,
           "size": "Medium",
           "type": {
             "type": "humanoid",
             "tags": [
-              "goblinoid"
+              "merfolk"
             ]
           },
-          "alignment": "lawful",
-          "cr": 0.5,
-          "source": "MM",
+          "alignment": "neutral",
+          "cr": 0.125,
+          "source": "AWM",
           "meta": {
-            "source": "MM",
-            "imageUrl": "https://5e.tools/img/bestiary/MM/Hobgoblin.webp",
-            "tokenUrl": "https://5e.tools/img/bestiary/tokens/MM/Hobgoblin.webp",
+            "source": "AWM",
+            "imageUrl": null,
+            "tokenUrl": "https://5e.tools/img/bestiary/tokens/AWM/Crystal%20Cave%20Merfolk.webp",
             "tags": [
-              "mm"
+              "awm"
             ]
           },
-          "str": 13,
-          "dex": 12,
+          "str": 10,
+          "dex": 13,
           "con": 12,
-          "int": 10,
-          "wis": 10,
-          "cha": 9,
+          "int": 11,
+          "wis": 11,
+          "cha": 12,
           "skill": {},
           "save": {},
-          "senses": "darkvision: 60, passivePerception: 10",
-          "languages": [
-            "Common",
-            "Goblin"
-          ],
-          "speed": 30,
+          "senses": "",
+          "languages": [],
+          "speed": 10,
           "fly": null,
-          "swim": null,
+          "swim": 40,
           "climb": null,
           "burrow": null,
           "damageVulnerabilities": [],
@@ -1940,33 +1761,840 @@
           "damageImmunities": [],
           "traits": [
             {
-              "name": "Martial Advantage",
-              "desc": "Once per turn, the hobgoblin can deal an extra 7 (2d6) damage to a creature it hits with a weapon attack if that creature is within 5 feet of an ally of the hobgoblin that isn't incapacitated."
+              "name": "Amphibious",
+              "desc": "The merfolk can breathe air and water."
+            },
+            {
+              "name": "Siren Song",
+              "desc": "Lovely singing voices charm every humanoid or giant within 300 feet. The targets must succeed on a 11 Wisdom saving throw or be charmed until the song ends."
             }
           ],
           "actions": [
             {
-              "name": "Longsword",
-              "desc": "mw 3 to hit, reach 5 ft., one target. {@h}5 (1d8 + 1) slashing damage, or 6 (1d10 + 1) slashing damage if used with two hands."
-            },
-            {
-              "name": "Longbow",
-              "desc": "rw 3 to hit, range 150/600 ft., one target. {@h}5 (1d8 + 1) piercing damage."
+              "name": "Bite",
+              "desc": "mw 2 to hit, one target. {@h}3 (1d6) piercing damage."
             }
           ],
+          "bonusActions": [],
           "legendary": null,
           "spellcasting": [],
-          "tokenUrl": null,
-          "imageUrl": null,
-          "initiativeRoll": 19
+          "tokenUrl": "http://localhost:4000/api/token/AWM/Crystal%20Cave%20Merfolk",
+          "imageUrl": "http://localhost:4000/api/token/AWM/Crystal%20Cave%20Merfolk"
         }
       },
       "campaignId": null,
       "folder": null,
       "tags": [],
       "createdBy": "jonas.e.albrecht@gmail.com",
-      "createdAt": "2025-10-24T01:47:10.553Z",
-      "updatedAt": "2025-10-24T01:54:54.243Z"
+      "createdAt": "2025-10-30T00:35:23.104Z",
+      "updatedAt": "2025-11-04T16:28:17.947Z",
+      "playerScreenSettings": {
+        "blankScreen": false,
+        "blackMode": false,
+        "showInitiativeImages": false,
+        "showTurnButton": false
+      },
+      "combatStatus": "completed",
+      "completedAt": "2025-11-03T22:41:47.875Z"
+    },
+    {
+      "id": "A34b1MSr1BafLXPiUOyA_",
+      "name": "Halloween 2025",
+      "round": 1,
+      "turnIndex": 0,
+      "initiativeOrder": [],
+      "combatants": {
+        "edd8986b-6487-4b18-b9e3-556c8c2a4ad8": {
+          "id": "edd8986b-6487-4b18-b9e3-556c8c2a4ad8",
+          "name": "Elkar",
+          "ac": 10,
+          "baseHP": 43,
+          "hp": 43,
+          "tempHP": 0,
+          "initiativeMod": 1,
+          "initiativeTieBreaker": -2,
+          "player": true,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "reactionUsed": false,
+          "sidekickOf": null,
+          "currentHp": 43,
+          "tempHp": 0,
+          "conditions": []
+        },
+        "6a96e061-d66c-4de8-8fda-5e7c173daeb9": {
+          "id": "6a96e061-d66c-4de8-8fda-5e7c173daeb9",
+          "name": "Samira",
+          "ac": 10,
+          "baseHP": 43,
+          "hp": 43,
+          "tempHP": 0,
+          "initiativeMod": 0,
+          "initiativeTieBreaker": 0,
+          "player": true,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "reactionUsed": false,
+          "sidekickOf": null,
+          "currentHp": 43,
+          "tempHp": 0,
+          "conditions": []
+        },
+        "8dd6c5cd-abf3-40f2-9dce-302cc66a588e": {
+          "id": "8dd6c5cd-abf3-40f2-9dce-302cc66a588e",
+          "name": "Paul, das Teufelchen",
+          "ac": 10,
+          "baseHP": 10,
+          "hp": 4,
+          "tempHP": 0,
+          "initiativeMod": 0,
+          "initiativeTieBreaker": -0.5,
+          "player": true,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "rechargeAbilities": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "legendaryPoints": 0,
+          "legendaryPointsMax": 0,
+          "reactionUsed": false,
+          "currentHp": 4,
+          "tempHp": 0,
+          "conditions": [],
+          "sidekickOf": "6a96e061-d66c-4de8-8fda-5e7c173daeb9",
+          "maxHPModifier": 0
+        },
+        "d9af4e96-bdcf-4670-8975-48397cc29ca1": {
+          "id": "d9af4e96-bdcf-4670-8975-48397cc29ca1",
+          "name": "Anna, der Quasit",
+          "ac": 10,
+          "baseHP": 10,
+          "hp": 10,
+          "tempHP": 0,
+          "initiativeMod": 0,
+          "initiativeTieBreaker": -0.5,
+          "player": true,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "rechargeAbilities": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "legendaryPoints": 0,
+          "legendaryPointsMax": 0,
+          "reactionUsed": false,
+          "currentHp": 10,
+          "tempHp": 0,
+          "conditions": [],
+          "sidekickOf": "6a96e061-d66c-4de8-8fda-5e7c173daeb9"
+        },
+        "3c1aebbd-a707-4004-b169-851679995fcd": {
+          "id": "3c1aebbd-a707-4004-b169-851679995fcd",
+          "initiativeTieBreaker": 0,
+          "hp": 59,
+          "baseHP": 67,
+          "hpFormula": "9d8 + 27",
+          "tempHP": 0,
+          "player": false,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "rechargeAbilities": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "sidekickOf": null,
+          "legendaryPoints": 0,
+          "legendaryPointsMax": 0,
+          "reactionUsed": false,
+          "name": "Fierce Wraith",
+          "ac": 13,
+          "acFrom": null,
+          "initiativeMod": 3,
+          "size": "Small",
+          "type": {
+            "type": "undead"
+          },
+          "alignment": "neutral",
+          "cr": 5,
+          "source": "XMM",
+          "meta": {
+            "source": "XMM",
+            "imageUrl": "https://5e.tools/img/bestiary/XMM/Wraith.webp",
+            "tokenUrl": "https://5e.tools/img/bestiary/tokens/XMM/Wraith.webp",
+            "tags": [
+              "xmm"
+            ]
+          },
+          "str": 6,
+          "dex": 16,
+          "con": 16,
+          "int": 12,
+          "wis": 14,
+          "cha": 15,
+          "skill": {},
+          "save": {},
+          "senses": "darkvision: 60, passivePerception: 12",
+          "languages": [
+            "Common plus two other languages"
+          ],
+          "speed": 5,
+          "fly": 60,
+          "swim": null,
+          "climb": null,
+          "burrow": null,
+          "resistances": [
+            "Acid",
+            "Bludgeoning",
+            "Cold",
+            "Fire",
+            "Piercing",
+            "Slashing"
+          ],
+          "immunities": [
+            "Necrotic",
+            "Poison"
+          ],
+          "conditionImmunities": [
+            "Charmed",
+            "Exhaustion",
+            "Grappled",
+            "Paralyzed",
+            "Petrified",
+            "Poisoned",
+            "Prone",
+            "Restrained",
+            "Unconscious"
+          ],
+          "damageVulnerabilities": [],
+          "damageResistances": [
+            "acid",
+            "bludgeoning",
+            "cold",
+            "fire",
+            "piercing",
+            "slashing"
+          ],
+          "damageImmunities": [
+            "necrotic",
+            "poison"
+          ],
+          "traits": [
+            {
+              "name": "Incorporeal Movement",
+              "desc": "The wraith can move through other creatures and objects as if they were Difficult Terrain|XPHB. It takes 5 (1d10) Force damage if it ends its turn inside an object."
+            },
+            {
+              "name": "Sunlight Sensitivity",
+              "desc": "While in sunlight, the wraith has Disadvantage|XPHB on ability checks and attack rolls."
+            }
+          ],
+          "actions": [
+            {
+              "name": "Life Drain",
+              "desc": "m 6, reach 5 ft. {@h}21 (4d8 + 3) Necrotic damage. If the target is a creature, its Hit Points|XPHB|Hit Point maximum decreases by an amount equal to the damage taken."
+            },
+            {
+              "name": "Create Specter",
+              "desc": "The wraith targets a Humanoid corpse within 10 feet of itself that has been dead for no longer than 1 minute. The target's spirit rises as a Specter|XMM in the space of its corpse or in the nearest unoccupied space. The specter is under the wraith's control. The wraith can have no more than seven specters under its control at a time."
+            }
+          ],
+          "legendary": null,
+          "spellcasting": [],
+          "tokenUrl": "http://localhost:4000/api/token/XMM/Wraith",
+          "imageUrl": "http://localhost:4000/api/token/XMM/Wraith",
+          "currentHp": 59,
+          "tempHp": 0,
+          "conditions": [],
+          "initiativeRoll": 5
+        },
+        "2a5509fd-c411-4df8-8b38-6c0ecf54c9dd": {
+          "id": "2a5509fd-c411-4df8-8b38-6c0ecf54c9dd",
+          "initiativeTieBreaker": 0,
+          "hp": 33,
+          "baseHP": 67,
+          "hpFormula": "9d8 + 27",
+          "tempHP": 0,
+          "player": false,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "rechargeAbilities": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "sidekickOf": null,
+          "legendaryPoints": 0,
+          "legendaryPointsMax": 0,
+          "reactionUsed": false,
+          "name": "Swift Wraith",
+          "ac": 13,
+          "acFrom": null,
+          "initiativeMod": 3,
+          "size": "Small",
+          "type": {
+            "type": "undead"
+          },
+          "alignment": "neutral",
+          "cr": 5,
+          "source": "XMM",
+          "meta": {
+            "source": "XMM",
+            "imageUrl": "https://5e.tools/img/bestiary/XMM/Wraith.webp",
+            "tokenUrl": "https://5e.tools/img/bestiary/tokens/XMM/Wraith.webp",
+            "tags": [
+              "xmm"
+            ]
+          },
+          "str": 6,
+          "dex": 16,
+          "con": 16,
+          "int": 12,
+          "wis": 14,
+          "cha": 15,
+          "skill": {},
+          "save": {},
+          "senses": "darkvision: 60, passivePerception: 12",
+          "languages": [
+            "Common plus two other languages"
+          ],
+          "speed": 5,
+          "fly": 60,
+          "swim": null,
+          "climb": null,
+          "burrow": null,
+          "resistances": [
+            "Acid",
+            "Bludgeoning",
+            "Cold",
+            "Fire",
+            "Piercing",
+            "Slashing"
+          ],
+          "immunities": [
+            "Necrotic",
+            "Poison"
+          ],
+          "conditionImmunities": [
+            "Charmed",
+            "Exhaustion",
+            "Grappled",
+            "Paralyzed",
+            "Petrified",
+            "Poisoned",
+            "Prone",
+            "Restrained",
+            "Unconscious"
+          ],
+          "damageVulnerabilities": [],
+          "damageResistances": [
+            "acid",
+            "bludgeoning",
+            "cold",
+            "fire",
+            "piercing",
+            "slashing"
+          ],
+          "damageImmunities": [
+            "necrotic",
+            "poison"
+          ],
+          "traits": [
+            {
+              "name": "Incorporeal Movement",
+              "desc": "The wraith can move through other creatures and objects as if they were Difficult Terrain|XPHB. It takes 5 (1d10) Force damage if it ends its turn inside an object."
+            },
+            {
+              "name": "Sunlight Sensitivity",
+              "desc": "While in sunlight, the wraith has Disadvantage|XPHB on ability checks and attack rolls."
+            }
+          ],
+          "actions": [
+            {
+              "name": "Life Drain",
+              "desc": "m 6, reach 5 ft. {@h}21 (4d8 + 3) Necrotic damage. If the target is a creature, its Hit Points|XPHB|Hit Point maximum decreases by an amount equal to the damage taken."
+            },
+            {
+              "name": "Create Specter",
+              "desc": "The wraith targets a Humanoid corpse within 10 feet of itself that has been dead for no longer than 1 minute. The target's spirit rises as a Specter|XMM in the space of its corpse or in the nearest unoccupied space. The specter is under the wraith's control. The wraith can have no more than seven specters under its control at a time."
+            }
+          ],
+          "legendary": null,
+          "spellcasting": [],
+          "tokenUrl": "http://localhost:4000/api/token/XMM/Wraith",
+          "imageUrl": "http://localhost:4000/api/token/XMM/Wraith",
+          "currentHp": 33,
+          "tempHp": 0,
+          "conditions": [],
+          "initiativeRoll": 1,
+          "maxHPModifier": 0
+        },
+        "293a06f2-2b86-4242-9c3b-c0d695827b56": {
+          "id": "293a06f2-2b86-4242-9c3b-c0d695827b56",
+          "initiativeTieBreaker": 0,
+          "hp": 78,
+          "baseHP": 78,
+          "hpFormula": "12d10 + 12",
+          "tempHP": 0,
+          "player": false,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "rechargeAbilities": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "sidekickOf": null,
+          "legendaryPoints": 0,
+          "legendaryPointsMax": 0,
+          "reactionUsed": false,
+          "name": "Chasme",
+          "ac": 15,
+          "acFrom": null,
+          "initiativeMod": 2,
+          "size": "Large",
+          "type": {
+            "type": "fiend",
+            "tags": [
+              "demon"
+            ]
+          },
+          "alignment": "chaotic",
+          "cr": 6,
+          "source": "XMM",
+          "meta": {
+            "source": "XMM",
+            "imageUrl": "https://5e.tools/img/bestiary/XMM/Chasme.webp",
+            "tokenUrl": "https://5e.tools/img/bestiary/tokens/XMM/Chasme.webp",
+            "tags": [
+              "xmm"
+            ]
+          },
+          "str": 15,
+          "dex": 15,
+          "con": 12,
+          "int": 11,
+          "wis": 14,
+          "cha": 10,
+          "skill": {
+            "perception": 5
+          },
+          "save": {
+            "dex": 5,
+            "wis": 5
+          },
+          "senses": "darkvision: 120, blindsight: 10, passivePerception: 15",
+          "languages": [
+            "Abyssal; telepathy 120 ft."
+          ],
+          "speed": 20,
+          "fly": 60,
+          "swim": null,
+          "climb": null,
+          "burrow": null,
+          "resistances": [
+            "Cold",
+            "Fire",
+            "Lightning"
+          ],
+          "immunities": [
+            "Poison"
+          ],
+          "conditionImmunities": [
+            "Poisoned"
+          ],
+          "damageVulnerabilities": [],
+          "damageResistances": [
+            "cold",
+            "fire",
+            "lightning"
+          ],
+          "damageImmunities": [
+            "poison"
+          ],
+          "traits": [
+            {
+              "name": "Demonic Restoration",
+              "desc": "If the chasme dies outside the Abyss, its body dissolves into ichor, and it gains a new body instantly, reviving with all its Hit Points|XPHB somewhere in the Abyss."
+            },
+            {
+              "name": "Magic Resistance",
+              "desc": "The chasme has Advantage|XPHB on saving throws against spells and other magical effects."
+            },
+            {
+              "name": "Spider Climb",
+              "desc": "The chasme can climb difficult surfaces, including along ceilings, without needing to make an ability check."
+            }
+          ],
+          "actions": [
+            {
+              "name": "Proboscis",
+              "desc": "m 5, reach 5 ft. {@h}16 (4d6 + 2) Piercing damage plus 21 (6d6) Necrotic damage. If the target is a creature, its Hit Points|XPHB|Hit Point maximum decreases by an amount equal to the Necrotic damage taken."
+            }
+          ],
+          "legendary": null,
+          "spellcasting": [],
+          "tokenUrl": "http://localhost:4000/api/token/XMM/Chasme",
+          "imageUrl": "http://localhost:4000/api/token/XMM/Chasme",
+          "initiativeRoll": 20,
+          "currentHp": 78,
+          "tempHp": 0,
+          "conditions": []
+        }
+      },
+      "campaignId": null,
+      "folder": "Halloween 2025",
+      "tags": [],
+      "createdBy": "jonas.e.albrecht@gmail.com",
+      "createdAt": "2025-10-31T16:14:57.336Z",
+      "updatedAt": "2025-11-03T22:38:36.557Z",
+      "playerScreenSettings": {
+        "blackMode": true,
+        "showTurnButton": false,
+        "showInitiativeImages": false,
+        "hideScrollbars": true,
+        "showBloodiedInPlayerView": true,
+        "rotation": 0,
+        "zoom": 90
+      }
+    },
+    {
+      "id": "-Ufpywz2lczVPK-rTTUyp",
+      "name": "Testencounter",
+      "round": 1,
+      "turnIndex": 0,
+      "initiativeOrder": [],
+      "combatants": {
+        "b4e01002-46f3-48de-957e-3116dedac651": {
+          "id": "b4e01002-46f3-48de-957e-3116dedac651",
+          "initiativeTieBreaker": 0,
+          "hp": 78,
+          "baseHP": 78,
+          "hpFormula": "12d10 + 12",
+          "tempHP": 0,
+          "player": false,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "rechargeAbilities": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "sidekickOf": null,
+          "legendaryPoints": 0,
+          "legendaryPointsMax": 0,
+          "reactionUsed": false,
+          "name": "Chasme",
+          "ac": 15,
+          "acFrom": null,
+          "initiativeMod": 2,
+          "size": "Large",
+          "type": {
+            "type": "fiend",
+            "tags": [
+              "demon"
+            ]
+          },
+          "alignment": "chaotic",
+          "cr": 6,
+          "source": "XMM",
+          "meta": {
+            "source": "XMM",
+            "imageUrl": "https://5e.tools/img/bestiary/XMM/Chasme.webp",
+            "tokenUrl": "https://5e.tools/img/bestiary/tokens/XMM/Chasme.webp",
+            "tags": [
+              "xmm"
+            ]
+          },
+          "str": 15,
+          "dex": 15,
+          "con": 12,
+          "int": 11,
+          "wis": 14,
+          "cha": 10,
+          "skill": {
+            "perception": 5
+          },
+          "save": {
+            "dex": 5,
+            "wis": 5
+          },
+          "senses": "darkvision: 120, blindsight: 10, passivePerception: 15",
+          "languages": [
+            "Abyssal; telepathy 120 ft."
+          ],
+          "speed": 20,
+          "fly": 60,
+          "swim": null,
+          "climb": null,
+          "burrow": null,
+          "resistances": [
+            "Cold",
+            "Fire",
+            "Lightning"
+          ],
+          "immunities": [
+            "Poison"
+          ],
+          "conditionImmunities": [
+            "Poisoned"
+          ],
+          "damageVulnerabilities": [],
+          "damageResistances": [
+            "cold",
+            "fire",
+            "lightning"
+          ],
+          "damageImmunities": [
+            "poison"
+          ],
+          "traits": [
+            {
+              "name": "Demonic Restoration",
+              "desc": "If the chasme dies outside the Abyss, its body dissolves into ichor, and it gains a new body instantly, reviving with all its Hit Points|XPHB somewhere in the Abyss."
+            },
+            {
+              "name": "Magic Resistance",
+              "desc": "The chasme has Advantage|XPHB on saving throws against spells and other magical effects."
+            },
+            {
+              "name": "Spider Climb",
+              "desc": "The chasme can climb difficult surfaces, including along ceilings, without needing to make an ability check."
+            }
+          ],
+          "actions": [
+            {
+              "name": "Proboscis",
+              "desc": "m 5, reach 5 ft. {@h}16 (4d6 + 2) Piercing damage plus 21 (6d6) Necrotic damage. If the target is a creature, its Hit Points|XPHB|Hit Point maximum decreases by an amount equal to the Necrotic damage taken."
+            }
+          ],
+          "bonusActions": [
+            {
+              "name": "Drone",
+              "desc": "con 12, each creature in a 30-foot Emanation [Area of Effect]|XPHB|Emanation originating from the chasme (demons automatically succeed on this save). {@actSaveFail} The target has the Unconscious|XPHB condition and repeats the save at the end of each of its turns. The target succeeds automatically after 10 minutes or if it takes damage or a creature within 5 feet of it takes an action to empty a flask of Holy Water on it. {@actSaveSuccess} The target is immune to this chasme's Drone for 24 hours."
+            }
+          ],
+          "legendary": null,
+          "spellcasting": [],
+          "tokenUrl": "http://localhost:4000/api/token/XMM/Chasme",
+          "imageUrl": "http://localhost:4000/api/token/XMM/Chasme",
+          "currentHp": 78,
+          "tempHp": 0,
+          "conditions": [],
+          "initiativeRoll": 4
+        },
+        "a77b260d-8312-4088-8e39-3a6e84a23ad5": {
+          "id": "a77b260d-8312-4088-8e39-3a6e84a23ad5",
+          "initiativeTieBreaker": 0,
+          "hp": 75,
+          "baseHP": 75,
+          "hpFormula": "10d10 + 20",
+          "tempHP": 0,
+          "player": false,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "rechargeAbilities": {
+            "recharge_bonus_0": false
+          },
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "sidekickOf": null,
+          "legendaryPoints": 0,
+          "legendaryPointsMax": 0,
+          "reactionUsed": false,
+          "name": "Aartuk Elder",
+          "ac": 16,
+          "acFrom": [
+            "natural armor"
+          ],
+          "initiativeMod": 0,
+          "size": "Large",
+          "type": {
+            "type": "plant"
+          },
+          "alignment": "lawful",
+          "cr": 3,
+          "source": "BAM",
+          "meta": {
+            "source": "BAM",
+            "imageUrl": "https://5e.tools/img/bestiary/BAM/Aartuk%20Elder.webp",
+            "tokenUrl": "https://5e.tools/img/bestiary/tokens/BAM/Aartuk%20Elder.webp",
+            "tags": [
+              "bam",
+              "spellcaster"
+            ]
+          },
+          "str": 18,
+          "dex": 10,
+          "con": 15,
+          "int": 12,
+          "wis": 14,
+          "cha": 12,
+          "skill": {},
+          "save": {},
+          "senses": "darkvision: 60, passivePerception: 12",
+          "languages": [
+            "Aartuk"
+          ],
+          "speed": 20,
+          "fly": null,
+          "swim": null,
+          "climb": 20,
+          "burrow": null,
+          "damageVulnerabilities": [],
+          "damageResistances": [],
+          "damageImmunities": [],
+          "traits": [
+            {
+              "name": "Spider Climb",
+              "desc": "The aartuk can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check."
+            }
+          ],
+          "actions": [
+            {
+              "name": "Multiattack",
+              "desc": "The aartuk makes two Branch attacks, two Radiant Pellet attacks, or one of each."
+            },
+            {
+              "name": "Branch",
+              "desc": "mw 6 to hit, reach 10 ft., one target. {@h}11 (2d6 + 4) bludgeoning damage."
+            },
+            {
+              "name": "Radiant Pellet",
+              "desc": "rs 4 to hit, range 60 ft., one target. {@h}10 (4d4) radiant damage."
+            }
+          ],
+          "bonusActions": [
+            {
+              "name": "Tongue {@recharge}",
+              "desc": "The aartuk tries to use its gooey tongue to snare one Large or smaller creature it can see within 30 feet of itself. The target must make a 12 Dexterity saving throw. On a failed save, the target is grappled by the tongue (escape 14) and pulled up to 25 feet toward the aartuk. The tongue can grapple one creature at a time."
+            }
+          ],
+          "legendary": null,
+          "spellcasting": [
+            {
+              "name": "Spellcasting (Psionics)",
+              "casterType": "innate",
+              "notes": "The aartuk casts one of the following spells, requiring no spell components and using Wisdom as the spellcasting ability (spell save 12):",
+              "ability": "wis",
+              "daily": {
+                "1e": [
+                  "calm emotions",
+                  "detect magic",
+                  "sending"
+                ]
+              }
+            }
+          ],
+          "tokenUrl": "http://localhost:4000/api/token/BAM/Aartuk%20Elder",
+          "imageUrl": "http://localhost:4000/api/token/BAM/Aartuk%20Elder",
+          "currentHp": 75,
+          "tempHp": 0,
+          "conditions": [],
+          "initiativeRoll": 4
+        },
+        "6fb91eeb-0ad0-4071-b3b4-1896b22875ed": {
+          "id": "6fb91eeb-0ad0-4071-b3b4-1896b22875ed",
+          "name": "Kenji Orasta",
+          "ac": 10,
+          "baseHP": 52,
+          "hp": 52,
+          "tempHP": 0,
+          "initiativeMod": 3,
+          "initiativeTieBreaker": 0,
+          "player": true,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "reactionUsed": false,
+          "sidekickOf": null,
+          "currentHp": 52,
+          "tempHp": 0,
+          "conditions": []
+        },
+        "ab546423-20e9-487a-ac20-274835a32f3f": {
+          "id": "ab546423-20e9-487a-ac20-274835a32f3f",
+          "name": "Klimweeli Klimper Tana Nimtim Donella Fulbil Tebbno",
+          "ac": 10,
+          "baseHP": 43,
+          "hp": 43,
+          "tempHP": 0,
+          "initiativeMod": 1,
+          "initiativeTieBreaker": 0,
+          "player": true,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "reactionUsed": false,
+          "sidekickOf": null,
+          "currentHp": 43,
+          "tempHp": 0,
+          "conditions": []
+        }
+      },
+      "campaignId": null,
+      "folder": null,
+      "tags": [],
+      "createdBy": "jonas.e.albrecht@gmail.com",
+      "createdAt": "2025-11-03T18:57:17.718Z",
+      "updatedAt": "2025-11-03T23:38:56.423Z",
+      "playerScreenSettings": {
+        "blackMode": true,
+        "blankScreen": false,
+        "showTurnButton": false
+      }
     }
   ]
 }

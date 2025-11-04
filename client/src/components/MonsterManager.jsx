@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { apiGet, apiPost } from '../utils/api.js';
 import { useModal } from './Modal';
+import { CRWithTooltip } from './CRWithTooltip';
 function numberOr(v, d=0){ const n = Number(v); return Number.isFinite(n) ? n : d; }
 
 export default function MonsterManager(){
@@ -119,7 +120,14 @@ export default function MonsterManager(){
           <li key={m.id} className="py-2 flex items-center justify-between gap-2">
             <div>
               <div className="font-medium">{m.name}</div>
-              <div className="text-sm text-slate-600">CR {m.cr ?? '—'} · AC {m.ac ?? '—'} · HP {m.hp ?? '—'} · {m.type||''}</div>
+              <div className="text-sm text-slate-600">
+                {m.cr !== undefined && m.cr !== null ? (
+                  <CRWithTooltip monster={m} displayCR={m.cr} className="inline-block" />
+                ) : (
+                  <span>CR —</span>
+                )}
+                {' · AC '}{m.ac ?? '—'}{' · HP '}{m.hp ?? '—'}{' · '}{m.type||''}
+              </div>
             </div>
             <button className="btn" onClick={async()=>{ await fetch(API(`/api/monsters/${encodeURIComponent(m.id)}`), { method:'DELETE' }); setQ(q); }}>Löschen</button>
           </li>

@@ -142,7 +142,7 @@ export function PromptModal({ message, defaultValue = '', onSubmit, onCancel }) 
 }
 
 // Initiative Modal - für manuelle Initiative-Eingabe
-export function InitiativeModal({ combatants, onSubmit, onCancel }) {
+export function InitiativeModal({ combatants, onSubmit, onCancel, rollDice, setDiceContextMenu }) {
   const [initiatives, setInitiatives] = React.useState(() => {
     const init = {};
     combatants.forEach(c => {
@@ -150,6 +150,7 @@ export function InitiativeModal({ combatants, onSubmit, onCancel }) {
     });
     return init;
   });
+  const [pendingInitiativeRoll, setPendingInitiativeRoll] = React.useState(null);
   const firstInputRef = useRef(null);
 
   useEffect(() => {
@@ -164,6 +165,30 @@ export function InitiativeModal({ combatants, onSubmit, onCancel }) {
       results[id] = Number(value) || 0;
     });
     onSubmit(results);
+  };
+
+  const rollInitiativeForCombatant = async (combatant, rollMode = 'normal') => {
+    const modifier = combatant.initiativeMod || 0;
+    const notation = modifier >= 0 ? `1d20+${modifier}` : `1d20${modifier}`;
+
+    if (rollDice) {
+      // Use the proper dice rolling system with animation
+      const result = await rollDice({
+        notation,
+        rollMode,
+        label: 'Initiative',
+        character: combatant.name
+      });
+
+      if (result && result.total !== undefined) {
+        setInitiatives(prev => ({ ...prev, [combatant.id]: result.total }));
+      }
+    } else {
+      // Fallback if rollDice not available
+      const roll = Math.floor(Math.random() * 20) + 1;
+      const total = roll + modifier;
+      setInitiatives(prev => ({ ...prev, [combatant.id]: total }));
+    }
   };
 
   const handleKeyDown = (e, index) => {
@@ -217,6 +242,41 @@ export function InitiativeModal({ combatants, onSubmit, onCancel }) {
                     onKeyDown={(e) => handleKeyDown(e, index)}
                     placeholder="0"
                   />
+                  <button
+                    type="button"
+                    onClick={() => rollInitiativeForCombatant(c, 'normal')}
+                    onContextMenu={(e) => {
+                      e.preventDefault();
+                      const modifier = c.initiativeMod || 0;
+                      const notation = modifier >= 0 ? `1d20+${modifier}` : `1d20${modifier}`;
+                      if (setDiceContextMenu) {
+                        // Store combatant for capturing result after context menu roll
+                        setPendingInitiativeRoll(c);
+                        setDiceContextMenu({
+                          show: true,
+                          x: e.clientX,
+                          y: e.clientY,
+                          notation,
+                          type: 'd20',
+                          label: 'Initiative',
+                          character: c.name,
+                          onRoll: (result) => {
+                            // Capture the result from context menu roll
+                            if (result && result.total !== undefined) {
+                              setInitiatives(prev => ({ ...prev, [c.id]: result.total }));
+                            }
+                            setPendingInitiativeRoll(null);
+                          }
+                        });
+                      }
+                    }}
+                    className="btn w-10 h-10 p-0 flex items-center justify-center bg-red-600 hover:bg-red-700 text-white border-red-600 transition-all hover:scale-110"
+                    title={`Links: Normal würfeln | Rechts: Vor-/Nachteil`}
+                  >
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                  </button>
                 </div>
               </div>
             ))}
@@ -244,8 +304,259 @@ export function InitiativeModal({ combatants, onSubmit, onCancel }) {
   );
 }
 
+// HP Management Modal - für umfassende HP-Verwaltung
+export function HPManagementModal({ combatant, onChange, onClose }) {
+  const [currentHP, setCurrentHP] = React.useState(combatant.hp ?? 0);
+  const [maxHP, setMaxHP] = React.useState(combatant.baseHP ?? 0);
+  const [tempHP, setTempHP] = React.useState(combatant.tempHP ?? 0);
+  const [maxHPModifier, setMaxHPModifier] = React.useState(combatant.maxHPModifier ?? 0);
+  const currentInputRef = useRef(null);
+
+  useEffect(() => {
+    currentInputRef.current?.focus();
+    currentInputRef.current?.select();
+  }, []);
+
+  const handleSave = () => {
+    onChange({
+      hp: Math.max(0, currentHP),
+      baseHP: Math.max(1, maxHP),
+      tempHP: Math.max(0, tempHP),
+      maxHPModifier: maxHPModifier
+    });
+    onClose();
+  };
+
+  const adjustCurrentHP = (amount) => {
+    setCurrentHP(prev => Math.max(0, Math.min(maxHP + maxHPModifier, prev + amount)));
+  };
+
+  const effectiveMaxHP = maxHP + maxHPModifier;
+  const totalHP = currentHP + tempHP;
+  const hpPercent = effectiveMaxHP > 0 ? Math.max(0, Math.min(100, (currentHP / effectiveMaxHP) * 100)) : 100;
+  const hpColor = hpPercent > 60 ? 'bg-green-500' : hpPercent > 30 ? 'bg-yellow-500' : 'bg-red-500';
+
+  return (
+    <div className="fixed inset-0 bg-black/50 z-[100] flex items-center justify-center p-4 animate-[fadeIn_0.15s_ease-out]">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-lg w-full animate-[slideUp_0.2s_ease-out]">
+        <div className="p-6 border-b border-slate-200 dark:border-slate-700">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center flex-shrink-0">
+              <span className="text-2xl">❤️</span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">HP Management</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">{combatant.name}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-6 space-y-6">
+          {/* HP Overview */}
+          <div className="text-center space-y-2">
+            <div className="text-5xl font-bold text-slate-900 dark:text-slate-100">
+              {totalHP}
+              <span className="text-3xl text-slate-400 dark:text-slate-500">/{effectiveMaxHP}</span>
+            </div>
+            {tempHP > 0 && (
+              <div className="text-sm text-blue-600 dark:text-blue-400 font-medium">
+                ({currentHP} HP + {tempHP} Temp HP)
+              </div>
+            )}
+            <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+              <div
+                className={`h-full ${hpColor} transition-all duration-300`}
+                style={{ width: `${hpPercent}%` }}
+              ></div>
+            </div>
+          </div>
+
+          {/* Current HP */}
+          <div>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+              Current HP
+            </label>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => adjustCurrentHP(-10)}
+                className="btn bg-red-600 hover:bg-red-700 text-white border-red-600 px-3 py-2"
+              >
+                -10
+              </button>
+              <button
+                onClick={() => adjustCurrentHP(-1)}
+                className="btn bg-red-500 hover:bg-red-600 text-white border-red-500 px-3 py-2"
+              >
+                -1
+              </button>
+              <input
+                ref={currentInputRef}
+                type="text"
+                className="input flex-1 text-center text-lg font-bold"
+                value={currentHP}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  // Allow direct number input
+                  if (!value.startsWith('+') && !value.startsWith('-')) {
+                    const num = Number(value);
+                    if (!isNaN(num) || value === '') {
+                      setCurrentHP(Math.max(0, Math.min(effectiveMaxHP, num || 0)));
+                    }
+                  }
+                }}
+                onBlur={(e) => {
+                  const value = e.target.value.trim();
+                  // Handle +/- shortcuts on blur
+                  if (value.startsWith('+') || value.startsWith('-')) {
+                    const change = parseInt(value) || 0;
+                    setCurrentHP(prev => Math.max(0, Math.min(effectiveMaxHP, prev + change)));
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    const value = e.target.value.trim();
+                    // Handle +/- shortcuts on Enter
+                    if (value.startsWith('+') || value.startsWith('-')) {
+                      const change = parseInt(value) || 0;
+                      setCurrentHP(prev => Math.max(0, Math.min(effectiveMaxHP, prev + change)));
+                      e.preventDefault();
+                    } else {
+                      handleSave();
+                    }
+                  }
+                  if (e.key === 'Escape') onClose();
+                }}
+                placeholder="HP or +10/-5"
+              />
+              <button
+                onClick={() => adjustCurrentHP(1)}
+                className="btn bg-green-500 hover:bg-green-600 text-white border-green-500 px-3 py-2"
+              >
+                +1
+              </button>
+              <button
+                onClick={() => adjustCurrentHP(10)}
+                className="btn bg-green-600 hover:bg-green-700 text-white border-green-600 px-3 py-2"
+              >
+                +10
+              </button>
+            </div>
+          </div>
+
+          {/* Temp HP */}
+          <div>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+              Temporary HP
+            </label>
+            <div className="flex items-center gap-2">
+              <input
+                type="number"
+                className="input flex-1 text-center"
+                value={tempHP}
+                onChange={(e) => setTempHP(Math.max(0, Number(e.target.value) || 0))}
+                placeholder="0"
+              />
+              <button
+                onClick={() => setTempHP(0)}
+                className="btn bg-slate-500 hover:bg-slate-600 text-white border-slate-500 px-4 py-2"
+              >
+                Clear
+              </button>
+            </div>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              Temp HP absorbiert Schaden zuerst und stapelt sich nicht
+            </p>
+          </div>
+
+          {/* Max HP */}
+          <div>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+              Max HP (Base)
+            </label>
+            <input
+              type="number"
+              className="input w-full text-center"
+              value={maxHP}
+              onChange={(e) => setMaxHP(Math.max(1, Number(e.target.value) || 1))}
+              placeholder="1"
+            />
+          </div>
+
+          {/* Max HP Modifier */}
+          <div>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+              Max HP Modifier
+            </label>
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                inputMode="numeric"
+                className="input flex-1 text-center"
+                value={maxHPModifier}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  // Allow empty, minus sign, or valid numbers (positive or negative)
+                  if (value === '' || value === '-') {
+                    setMaxHPModifier(0);
+                  } else if (/^-?\d+$/.test(value)) {
+                    setMaxHPModifier(Number(value));
+                  }
+                }}
+                onBlur={(e) => {
+                  // Clean up on blur if just a minus sign
+                  if (e.target.value === '-' || e.target.value === '') {
+                    setMaxHPModifier(0);
+                  }
+                }}
+                placeholder="0 (can be negative)"
+              />
+              <div className="text-sm text-slate-600 dark:text-slate-400">
+                Effective Max: <span className="font-bold">{effectiveMaxHP}</span>
+              </div>
+            </div>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              Für temporäre Effekte wie Aid Spell (+5 max HP)
+            </p>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="flex gap-2 pt-4 border-t border-slate-200 dark:border-slate-700">
+            <button
+              onClick={() => setCurrentHP(effectiveMaxHP)}
+              className="btn flex-1 bg-green-600 hover:bg-green-700 text-white border-green-600"
+            >
+              Full Heal
+            </button>
+            <button
+              onClick={() => setCurrentHP(0)}
+              className="btn flex-1 bg-red-600 hover:bg-red-700 text-white border-red-600"
+            >
+              Set to 0
+            </button>
+          </div>
+        </div>
+
+        <div className="border-t border-slate-200 dark:border-slate-700 p-4 flex justify-end gap-3">
+          <button
+            className="btn hover:bg-slate-100 dark:hover:bg-slate-700 px-6"
+            onClick={onClose}
+          >
+            Abbrechen
+          </button>
+          <button
+            className="btn bg-red-600 text-white hover:bg-red-700 border-red-600 px-6"
+            onClick={handleSave}
+          >
+            Speichern
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Modal Container Hook - für einfache Verwendung
-export function useModal() {
+export function useModal(rollDice = null, setDiceContextMenu = null) {
   const [modal, setModal] = React.useState(null);
 
   const alert = (message) => {
@@ -304,6 +615,8 @@ export function useModal() {
       setModal(
         <InitiativeModal
           combatants={combatants}
+          rollDice={rollDice}
+          setDiceContextMenu={setDiceContextMenu}
           onSubmit={(initiatives) => {
             setModal(null);
             resolve(initiatives);
@@ -317,5 +630,20 @@ export function useModal() {
     });
   };
 
-  return { alert, confirm, prompt, initiativePrompt, modal };
+  const hpManagement = (combatant, onChange) => {
+    return new Promise((resolve) => {
+      setModal(
+        <HPManagementModal
+          combatant={combatant}
+          onChange={onChange}
+          onClose={() => {
+            setModal(null);
+            resolve();
+          }}
+        />
+      );
+    });
+  };
+
+  return { alert, confirm, prompt, initiativePrompt, hpManagement, modal };
 }

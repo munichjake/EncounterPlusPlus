@@ -1,0 +1,251 @@
+{
+  "jonas.e.albrecht@gmail.com": {
+    "elaris-veyra-burning-spirit-ritual-aspect-": {
+      "id": "elaris-veyra-burning-spirit-ritual-aspect-",
+      "source": "homebrew",
+      "createdBy": "jonas.e.albrecht@gmail.com",
+      "name": "Elaris Veyra, Burning Spirit",
+      "size": "Medium",
+      "type": "undead (spirit, boss, ritual)",
+      "alignment": "chaotic neutral",
+      "ac": 13,
+      "hp": 90,
+      "speed": {
+        "fly": 40,
+        "hover": true,
+        "notes": "Floats above the ground amid fog and fire."
+      },
+      "abilities": {
+        "str": 10,
+        "dex": 14,
+        "con": 16,
+        "int": 12,
+        "wis": 15,
+        "cha": 18
+      },
+      "savingThrows": {
+        "wis": 5,
+        "cha": 6
+      },
+      "damageResistances": [
+        "fire",
+        "cold",
+        "lightning",
+        "necrotic",
+        "bludgeoning",
+        "piercing",
+        "slashing from nonmagical attacks"
+      ],
+      "damageImmunities": [
+        "poison"
+      ],
+      "conditionImmunities": [
+        "poisoned",
+        "charmed",
+        "frightened",
+        "paralyzed",
+        "exhaustion"
+      ],
+      "senses": {
+        "darkvision": 60,
+        "passivePerception": 12
+      },
+      "languages": "Common, Celestial",
+      "cr": 0,
+      "traits": "**Ritual-Bound**: Elaris cannot be reduced to 0 hit points or killed in this form. She is redeemed or transformed only through ritual progress.\n\n**Flame Aura**: Creatures that start their turn within 5 ft. of Elaris take 1d6 fire damage.\n\n**Escalation Thresholds**: At ritual progress 4+, she gains Flaming Memory. At 8+, she uses Desperate Claws each round. At 12+, she is redeemed and vanishes.\n\n**Legendary Resistance (1/Day)**: If Elaris would be stunned (e.g., by the Bell), she can choose to succeed instead.",
+      "actions": "**Flaming Memory**: 60-ft range; spectral fire lashes out. Available once ritual progress reaches 4+.\n\n**Desperate Claws**: Available once ritual progress reaches 8+.",
+      "meta": {
+        "source": "Die flüsternden Gräber – Final Ritual section",
+        "notes": "Ritual flow, aura, thresholds, and bell interaction per adventure."
+      },
+      "isCustom": true,
+      "hasOriginal": false,
+      "originalMonsterName": null,
+      "originalMonsterSource": null,
+      "fly": "40 ft. (hover)",
+      "str": 10,
+      "dex": 14,
+      "con": 16,
+      "int": 12,
+      "wis": 15,
+      "cha": 18,
+      "initiativeMod": 2,
+      "tags": [],
+      "campaignIds": []
+    },
+    "wraith-tannenruh-variant-": {
+      "id": "wraith-tannenruh-variant-",
+      "source": "homebrew",
+      "createdBy": "jonas.e.albrecht@gmail.com",
+      "name": "Wraith (Tannenruh Variant)",
+      "size": "Medium",
+      "type": {
+        "type": "undead",
+        "tags": [
+          "variant"
+        ]
+      },
+      "alignment": "chaotic evil",
+      "ac": [
+        {
+          "value": 13
+        }
+      ],
+      "hp": {
+        "average": 67,
+        "formula": "9d8+27"
+      },
+      "speed": {
+        "fly": 60,
+        "hover": true
+      },
+      "abilities": {
+        "str": 16,
+        "dex": 16,
+        "con": 16,
+        "int": 12,
+        "wis": 14,
+        "cha": 15
+      },
+      "damageResistances": [
+        "acid",
+        "cold",
+        "fire",
+        "lightning",
+        "thunder",
+        "bludgeoning",
+        "piercing",
+        "slashing from nonmagical attacks"
+      ],
+      "damageImmunities": [
+        "necrotic",
+        "poison"
+      ],
+      "conditionImmunities": [
+        "charmed",
+        "exhaustion",
+        "grappled",
+        "paralyzed",
+        "petrified",
+        "poisoned",
+        "prone",
+        "restrained"
+      ],
+      "senses": {
+        "darkvision": 60,
+        "passivePerception": 12
+      },
+      "languages": [
+        "the languages it knew in life"
+      ],
+      "cr": 5,
+      "actions": [
+        {
+          "name": "Life Drain",
+          "type": "meleeWeaponAttack",
+          "attackBonus": 6,
+          "reach": 5,
+          "target": "one creature",
+          "onHit": [
+            {
+              "damage": "4d8+3",
+              "type": "necrotic"
+            }
+          ],
+          "extra": "On a failed CON save (DC 14 suggested), the target’s hit point maximum is reduced by the damage taken until a long rest."
+        }
+      ],
+      "meta": {
+        "source": "Die flüsternden Gräber – Monster Quick-Stats",
+        "notes": "HP 67, AC 13; max HP reduction is emphasized in the adventure."
+      }
+    },
+    "elaris-veyra": {
+      "id": "elaris-veyra",
+      "source": "homebrew",
+      "createdBy": "jonas.e.albrecht@gmail.com",
+      "schema": "encounterpp-creature",
+      "schemaVersion": 1,
+      "name": "Elaris Veyra",
+      "size": "Medium",
+      "type": "undead",
+      "alignment": "chaotic",
+      "ac": 12,
+      "hp": 54,
+      "speed": "5 ft.",
+      "abilities": {
+        "str": 1,
+        "dex": 14,
+        "con": 10,
+        "int": 12,
+        "wis": 11,
+        "cha": 17
+      },
+      "savingThrows": {
+        "wis": 2
+      },
+      "skills": {},
+      "senses": {
+        "darkvision": 60,
+        "passivePerception": 10
+      },
+      "languages": "Common, Elvish",
+      "cr": 4,
+      "xp": 1100,
+      "proficiencies": {
+        "armor": [],
+        "weapons": [],
+        "tools": []
+      },
+      "damageVulnerabilities": [],
+      "damageResistances": [
+        "acid",
+        "bludgeoning",
+        "fire",
+        "lightning",
+        "piercing",
+        "slashing",
+        "thunder"
+      ],
+      "damageImmunities": [
+        "cold",
+        "necrotic",
+        "poison"
+      ],
+      "conditionImmunities": [
+        "charmed",
+        "exhaustion",
+        "frightened",
+        "grappled",
+        "paralyzed",
+        "petrified",
+        "poisoned",
+        "prone",
+        "restrained"
+      ],
+      "traits": "**Detect Life**: The banshee magically senses the direction of creatures up to 1 mile away that aren't Constructs or Undead.\n\n**Incorporeal Movement**: The banshee can move through other creatures and objects as if they were Difficult Terrain|XPHB. It takes 5 (1d10) Force damage if it ends its turn inside an object.",
+      "actions": "**Multiattack**: The banshee makes two Corrupting Touch attacks and uses Horrify.\n\n**Corrupting Touch**: m 5, reach 5 ft. {@h}7 (1d8 + 3) Necrotic damage.\n\n**Horrify**: wis 13, one creature the banshee can see within 60 feet that can see the banshee. {@actSaveFail} The target has the Frightened|XPHB condition until the start of the banshee's next turn. {@actSaveSuccess} The target is immune to this banshee's Horrify for 24 hours.\n\n**Deathly Wail (1/Day)**: The banshee releases a mournful wail if it isn't in sunlight. con 13, each creature within 30 feet that can hear the wail and isn't a Construct or an Undead. {@actSaveFail} If the target has 25 Hit Points|XPHB or fewer, it drops to 0 Hit Points|XPHB. Otherwise, the target takes 10 (3d6) Psychic damage.",
+      "bonusActions": "",
+      "reactions": "",
+      "legendary": null,
+      "lairActions": [],
+      "spellcasting": [],
+      "meta": {
+        "source": "XMM",
+        "imageUrl": "https://5e.tools/img/bestiary/XMM/Banshee.webp",
+        "tokenUrl": "https://5e.tools/img/bestiary/tokens/XMM/Banshee.webp",
+        "tags": [
+          "xmm"
+        ]
+      },
+      "str": 1,
+      "dex": 14,
+      "con": 10,
+      "int": 12,
+      "wis": 11,
+      "cha": 17,
+      "initiativeMod": 2,
+      "tags": []
+    }
+  }
+}

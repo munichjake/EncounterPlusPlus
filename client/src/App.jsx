@@ -681,27 +681,36 @@ export default function App() {
     } else if (trimmed.startsWith('-')) {
       // Damage - ALWAYS applies to temp HP first
       const damage = parseInt(trimmed.substring(1)) || 0;
+      const updates = {};
 
       if (currentTempHP > 0) {
         if (damage <= currentTempHP) {
           // All damage absorbed by temp HP
-          return {
-            tempHP: currentTempHP - damage
-          };
+          updates.tempHP = currentTempHP - damage;
         } else {
           // Temp HP absorbed, rest goes to normal HP
           const remaining = damage - currentTempHP;
-          return {
-            tempHP: 0,
-            hp: Math.max(0, currentHP - remaining)
-          };
+          const newHP = Math.max(0, currentHP - remaining);
+          updates.tempHP = 0;
+          updates.hp = newHP;
+
+          // Auto-kill non-PCs if setting is enabled and HP reaches 0
+          if (newHP === 0 && settings.deathSavesForPCsOnly && !combatant.isPC) {
+            updates.isDead = true;
+          }
         }
       } else {
         // No temp HP, damage goes straight to normal HP
-        return {
-          hp: Math.max(0, currentHP - damage)
-        };
+        const newHP = Math.max(0, currentHP - damage);
+        updates.hp = newHP;
+
+        // Auto-kill non-PCs if setting is enabled and HP reaches 0
+        if (newHP === 0 && settings.deathSavesForPCsOnly && !combatant.isPC) {
+          updates.isDead = true;
+        }
       }
+
+      return updates;
     } else {
       // Absolute value - set HP directly (doesn't touch temp HP)
       const amount = parseInt(trimmed) || 0;
@@ -1668,13 +1677,29 @@ export default function App() {
       if (remainingDamage <= 0) {
         updateCombatant(id, { tempHP: tempHP - damage });
       } else {
-        updateCombatant(id, {
+        const newHP = Math.max(0, c.hp - remainingDamage);
+        const updates = {
           tempHP: 0,
-          hp: Math.max(0, c.hp - remainingDamage),
-        });
+          hp: newHP,
+        };
+
+        // Auto-kill non-PCs if setting is enabled and HP reaches 0
+        if (newHP === 0 && settings.deathSavesForPCsOnly && !c.isPC) {
+          updates.isDead = true;
+        }
+
+        updateCombatant(id, updates);
       }
     } else {
-      updateCombatant(id, { hp: Math.max(0, c.hp - damage) });
+      const newHP = Math.max(0, c.hp - damage);
+      const updates = { hp: newHP };
+
+      // Auto-kill non-PCs if setting is enabled and HP reaches 0
+      if (newHP === 0 && settings.deathSavesForPCsOnly && !c.isPC) {
+        updates.isDead = true;
+      }
+
+      updateCombatant(id, updates);
     }
   }
 
@@ -2402,7 +2427,7 @@ export default function App() {
 
     if (roll === 20) {
       // Nat 20: regain 1 HP
-      updateCombatant(id, { hp: 1, deathSaves: { successes: 0, failures: 0 } });
+      updateCombatant(id, { hp: 1, deathSaves: { successes: 0, failures: 0 }, isStable: false });
       setDiceRollResult({
         type: "deathSave",
         name: c.name,
@@ -2414,7 +2439,14 @@ export default function App() {
     } else if (roll === 1) {
       // Nat 1: two failures
       deathSaves.failures = Math.min(3, deathSaves.failures + 2);
-      updateCombatant(id, { deathSaves });
+      const updates = { deathSaves };
+
+      // Set dead status if 3 failures
+      if (deathSaves.failures >= 3) {
+        updates.isDead = true;
+      }
+
+      updateCombatant(id, updates);
       setDiceRollResult({
         type: "deathSave",
         name: c.name,
@@ -2426,12 +2458,15 @@ export default function App() {
     } else if (roll >= 10) {
       // Success
       deathSaves.successes++;
+      const updates = { deathSaves };
+
       if (deathSaves.successes >= 3) {
         // Stabilized
         deathSaves.successes = 0;
         deathSaves.failures = 0;
+        updates.isStable = true;
       }
-      updateCombatant(id, { deathSaves });
+      updateCombatant(id, updates);
       setDiceRollResult({
         type: "deathSave",
         name: c.name,
@@ -2442,7 +2477,14 @@ export default function App() {
     } else {
       // Failure
       deathSaves.failures++;
-      updateCombatant(id, { deathSaves });
+      const updates = { deathSaves };
+
+      // Set dead status if 3 failures
+      if (deathSaves.failures >= 3) {
+        updates.isDead = true;
+      }
+
+      updateCombatant(id, updates);
       setDiceRollResult({
         type: "deathSave",
         name: c.name,
@@ -2457,9 +2499,24 @@ export default function App() {
     const count = Object.keys(enc?.combatants || {}).length;
     if (!count || !enc) return;
     let { round, turnIndex } = enc;
-    turnIndex = (turnIndex + 1) % count;
+
+    // Skip dead creatures
+    let attempts = 0;
+    do {
+      turnIndex = (turnIndex + 1) % count;
+      attempts++;
+
+      // Check if we've completed a round
+      if (turnIndex === 0) round += 1;
+
+      const nextCombatantId = enc.initiativeOrder[turnIndex];
+      const nextCombatant = enc.combatants[nextCombatantId];
+
+      // Break if we find a living combatant or if all are dead
+      if (!nextCombatant?.isDead || attempts >= count) break;
+    } while (attempts < count);
+
     const isNewRound = turnIndex === 0;
-    if (isNewRound) round += 1;
 
     // Reset legendary actions at the top of each round (initiative count 20)
     let updatedCombatants = { ...enc.combatants };
@@ -4229,54 +4286,57 @@ export default function App() {
                   {/* Round Counter - Only in Combat Mode */}
                   {combatMode && (
                     <div className="sticky top-[4.5rem] z-[5] card bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-900/90 dark:to-amber-900/90 border-orange-200 dark:border-orange-700 shadow-lg">
-                      <div className="flex items-center gap-6 justify-center">
-                        <button
-                          disabled={isCompleted}
-                          className={`w-10 h-10 flex items-center justify-center rounded-full bg-orange-200 dark:bg-orange-800 hover:bg-orange-300 dark:hover:bg-orange-700 transition-colors text-orange-700 dark:text-orange-300 font-bold ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
-                          onClick={prevTurn}
-                        >
-                          ◀
-                        </button>
-                        <div className="flex items-center gap-4">
-                          <div className="text-center">
-                            <div className="text-xs text-orange-600 dark:text-orange-400 font-bold uppercase tracking-wide">
-                              Round
+                      <div className="flex items-center justify-between gap-4">
+                        <div className="flex-1"></div>
+                        <div className="flex items-center gap-6">
+                          <button
+                            disabled={isCompleted}
+                            className={`w-10 h-10 flex items-center justify-center rounded-full bg-orange-200 dark:bg-orange-800 hover:bg-orange-300 dark:hover:bg-orange-700 transition-colors text-orange-700 dark:text-orange-300 font-bold ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            onClick={prevTurn}
+                          >
+                            ◀
+                          </button>
+                          <div className="flex items-center gap-4">
+                            <div className="text-center">
+                              <div className="text-xs text-orange-600 dark:text-orange-400 font-bold uppercase tracking-wide">
+                                Round
+                              </div>
+                              <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+                                {enc.round}
+                              </div>
                             </div>
-                            <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
-                              {enc.round}
+                            <div className="w-px h-10 bg-orange-300 dark:bg-orange-700"></div>
+                            <div className="text-center">
+                              <div className="text-xs text-orange-600 dark:text-orange-400 font-bold uppercase tracking-wide">
+                                Turn
+                              </div>
+                              <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+                                {enc.turnIndex + 1}/{order.length}
+                              </div>
                             </div>
                           </div>
-                          <div className="w-px h-10 bg-orange-300 dark:bg-orange-700"></div>
-                          <div className="text-center">
-                            <div className="text-xs text-orange-600 dark:text-orange-400 font-bold uppercase tracking-wide">
-                              Turn
-                            </div>
-                            <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
-                              {enc.turnIndex + 1}/{order.length}
-                            </div>
-                          </div>
+                          <button
+                            disabled={isCompleted}
+                            className={`w-10 h-10 flex items-center justify-center rounded-full bg-orange-200 dark:bg-orange-800 hover:bg-orange-300 dark:hover:bg-orange-700 transition-colors text-orange-700 dark:text-orange-300 font-bold ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            onClick={nextTurn}
+                          >
+                            ▶
+                          </button>
                         </div>
-                        <button
-                          disabled={isCompleted}
-                          className={`w-10 h-10 flex items-center justify-center rounded-full bg-orange-200 dark:bg-orange-800 hover:bg-orange-300 dark:hover:bg-orange-700 transition-colors text-orange-700 dark:text-orange-300 font-bold ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
-                          onClick={nextTurn}
-                        >
-                          ▶
-                        </button>
-                        <div className="w-px h-10 bg-orange-300 dark:bg-orange-700"></div>
-                        <button
-                          className="px-4 py-2 rounded-lg bg-orange-200 dark:bg-orange-800 hover:bg-orange-300 dark:hover:bg-orange-700 transition-colors text-orange-700 dark:text-orange-300 text-sm font-medium flex items-center gap-2"
-                          onClick={() => {
-                            const currentCombatantElement = document.querySelector('[data-current-combatant="true"]');
-                            if (currentCombatantElement) {
-                              currentCombatantElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            }
-                          }}
-                          title="Zum aktuellen Kämpfer scrollen"
-                        >
-                          <span>↓</span>
-                          <span className="hidden sm:inline">Zum aktuellen</span>
-                        </button>
+                        <div className="flex-1 flex justify-end">
+                          <button
+                            className="p-2 rounded-lg bg-orange-200 dark:bg-orange-800 hover:bg-orange-300 dark:hover:bg-orange-700 transition-colors text-orange-700 dark:text-orange-300 text-xl"
+                            onClick={() => {
+                              const currentCombatantElement = document.querySelector('[data-current-combatant="true"]');
+                              if (currentCombatantElement) {
+                                currentCombatantElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                              }
+                            }}
+                            title="Scroll to current combatant"
+                          >
+                            ↓
+                          </button>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -6031,7 +6091,7 @@ export default function App() {
       {/* Damage Modifier Tooltip */}
       {damageModifier.show && (
         <div
-          className="fixed z-[60] bg-slate-800 dark:bg-slate-900 border-2 border-red-500 rounded-lg shadow-2xl p-2"
+          className="fixed z-[60] bg-white dark:bg-slate-900 border-2 border-red-500 rounded-lg shadow-2xl p-2"
           style={{
             left: `${damageModifier.x}px`,
             top: `${damageModifier.y}px`,
@@ -7180,7 +7240,6 @@ export default function App() {
                 >
                   <div className="flex items-center justify-between mb-0.5">
                     <div className="lbl text-xs">HP</div>
-                    <div className="text-[10px] text-slate-400">💡 Click for modal</div>
                   </div>
                   <div className="flex items-center gap-1 mb-1">
                     <input
@@ -7198,7 +7257,16 @@ export default function App() {
                           // Direct number input
                           const num = parseInt(value);
                           if (!isNaN(num) || value === '') {
-                            updateCombatant(selectedCombatant.id, { hp: num || 0 });
+                            const updates = { hp: num || 0 };
+                            // Remove stable status if HP > 0
+                            if (num > 0 && selectedCombatant.isStable) {
+                              updates.isStable = false;
+                            }
+                            // Auto-kill non-PCs if setting is enabled and HP set to 0
+                            if (num === 0 && settings.deathSavesForPCsOnly && !selectedCombatant.isPC) {
+                              updates.isDead = true;
+                            }
+                            updateCombatant(selectedCombatant.id, updates);
                           }
                         }
                       }}
@@ -7212,7 +7280,16 @@ export default function App() {
                             // Direct number input
                             const num = parseInt(value);
                             if (!isNaN(num) || value === '') {
-                              updateCombatant(selectedCombatant.id, { hp: num || 0 });
+                              const updates = { hp: num || 0 };
+                              // Remove stable status if HP > 0
+                              if (num > 0 && selectedCombatant.isStable) {
+                                updates.isStable = false;
+                              }
+                              // Auto-kill non-PCs if setting is enabled and HP set to 0
+                              if (num === 0 && settings.deathSavesForPCsOnly && !selectedCombatant.isPC) {
+                                updates.isDead = true;
+                              }
+                              updateCombatant(selectedCombatant.id, updates);
                             }
                           }
                           // Always blur on Enter
@@ -7381,8 +7458,15 @@ export default function App() {
               {/* Death Saves (if HP is 0) */}
               {selectedCombatant.hp === 0 && (
                 <div className="card space-y-2">
-                  <div className="lbl">Death Saves</div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center">
+                    <div className="lbl">Death Saves</div>
+                    {selectedCombatant.isStable && (
+                      <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-semibold border border-blue-300 dark:border-blue-700">
+                        STABLE
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex justify-between items-center">
                     <div>
                       <div className="text-xs text-green-600 dark:text-green-400">Successes</div>
                       <div className="flex gap-1">
@@ -7396,18 +7480,38 @@ export default function App() {
                             }`}
                             onClick={() => {
                               const current = selectedCombatant.deathSaves?.successes || 0;
-                              updateCombatant(selectedCombatant.id, {
+                              const newSuccesses = current >= i ? i - 1 : i;
+                              const updates = {
                                 deathSaves: {
                                   ...selectedCombatant.deathSaves,
-                                  successes: current >= i ? i - 1 : i
+                                  successes: newSuccesses
                                 }
-                              });
+                              };
+
+                              // Set stable status if 3 successes
+                              if (newSuccesses >= 3) {
+                                updates.isStable = true;
+                                updates.deathSaves.successes = 0;
+                                updates.deathSaves.failures = 0;
+                              }
+
+                              updateCombatant(selectedCombatant.id, updates);
                             }}
                             title="Click to toggle success"
                           />
                         ))}
                       </div>
                     </div>
+
+                    {/* Roll Death Save Button */}
+                    <button
+                      className="w-10 h-10 flex items-center justify-center text-2xl bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded-lg transition-colors"
+                      onClick={() => rollDeathSave(selectedCombatant.id, selectedCombatant)}
+                      title="Roll Death Save"
+                    >
+                      🎲
+                    </button>
+
                     <div>
                       <div className="text-xs text-red-600 dark:text-red-400">Failures</div>
                       <div className="flex gap-1">
@@ -7421,12 +7525,20 @@ export default function App() {
                             }`}
                             onClick={() => {
                               const current = selectedCombatant.deathSaves?.failures || 0;
-                              updateCombatant(selectedCombatant.id, {
+                              const newFailures = current >= i ? i - 1 : i;
+                              const updates = {
                                 deathSaves: {
                                   ...selectedCombatant.deathSaves,
-                                  failures: current >= i ? i - 1 : i
+                                  failures: newFailures
                                 }
-                              });
+                              };
+
+                              // Set dead status if 3 failures
+                              if (newFailures >= 3) {
+                                updates.isDead = true;
+                              }
+
+                              updateCombatant(selectedCombatant.id, updates);
                             }}
                             title="Click to toggle failure"
                           />
@@ -10317,12 +10429,28 @@ function CombatantRow({
         />
       )}
 
-      {c.concentration && (
-        <div className="absolute top-2 right-2 px-2 py-1 bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 text-xs font-semibold rounded-full flex items-center gap-1 pointer-events-none z-5">
-          <span className="w-2 h-2 bg-purple-500 dark:bg-purple-400 rounded-full animate-pulse"></span>
-          Concentrating
-        </div>
-      )}
+      {/* Status Badges */}
+      <div className="absolute top-2 right-2 flex flex-col gap-1 items-end pointer-events-none z-5">
+        {c.concentration && (
+          <div className="px-2 py-1 bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 text-xs font-semibold rounded-full flex items-center gap-1">
+            <span className="w-2 h-2 bg-purple-500 dark:bg-purple-400 rounded-full animate-pulse"></span>
+            Concentrating
+          </div>
+        )}
+
+        {c.isDead && (
+          <div className="px-2 py-1 bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300 text-xs font-semibold rounded-full flex items-center gap-1">
+            💀 Dead
+          </div>
+        )}
+
+        {c.isStable && (
+          <div className="px-2 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded-full flex items-center gap-1">
+            <span className="w-2 h-2 bg-blue-500 dark:bg-blue-400 rounded-full"></span>
+            Stable
+          </div>
+        )}
+      </div>
 
       <div className="space-y-2">
         {/* First Row: Index, Name, Stats */}
@@ -10427,6 +10555,22 @@ function CombatantRow({
             title={c.visibleToPlayers !== false ? "Visible to players" : "Hidden from players"}
           >
             {c.visibleToPlayers !== false ? "👁️" : "👁️‍🗨️"}
+          </button>
+
+          <button
+            disabled={isCompleted}
+            className={`p-2 rounded-lg text-lg transition-all ${
+              c.isDead
+                ? "bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400"
+                : "bg-slate-100 dark:bg-slate-700 text-slate-400 dark:text-slate-500"
+            } ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              onChange({ isDead: !c.isDead });
+            }}
+            title={c.isDead ? "Dead" : "Alive"}
+          >
+            💀
           </button>
 
           <button

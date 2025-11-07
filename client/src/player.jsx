@@ -635,11 +635,20 @@ function PlayerScreen() {
                       <div
                         className={`flex items-center gap-4 md:gap-6 p-4 md:p-6 rounded-2xl ${
                           combatant.isRoundMarker ? 'bg-transparent'
+                          : combatant.isDead ? 'bg-slate-800/50'
                           : 'bg-slate-700'
                         } ${
                           isCurrent ? 'shadow-2xl' : isNext ? 'shadow-xl' : ''
-                        } relative overflow-hidden`}
+                        } relative overflow-hidden ${
+                          combatant.isDead ? 'opacity-50' : ''
+                        }`}
                       >
+                        {/* Dead Overlay with Skull */}
+                        {combatant.isDead && (
+                          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                            <div className="text-9xl opacity-40 filter drop-shadow-lg">💀</div>
+                          </div>
+                        )}
                   {/* Round Marker Content */}
                   {combatant.isRoundMarker ? (
                     <div className="w-full relative py-2">
@@ -722,20 +731,33 @@ function PlayerScreen() {
                     </div>
                   </div>
 
-                  {/* Conditions (visible to players) */}
-                  {combatant.conditions && combatant.conditions.length > 0 && (
-                    <div className="flex flex-wrap gap-2">
-                      {combatant.conditions.map(cond => (
-                        <span
-                          key={cond}
-                          style={{ fontSize: 'clamp(0.75rem, 1.2vw, 1.2rem)' }}
-                          className="px-3 py-1 bg-amber-500/30 text-amber-300 rounded-full font-medium border-2 border-amber-500/50"
-                        >
-                          {cond}
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                  {/* Conditions and Status Badges (visible to players) */}
+                  <div className="flex flex-wrap gap-2">
+                    {/* Conditions */}
+                    {combatant.conditions && combatant.conditions.length > 0 && (
+                      <>
+                        {combatant.conditions.map(cond => (
+                          <span
+                            key={cond}
+                            style={{ fontSize: 'clamp(0.75rem, 1.2vw, 1.2rem)' }}
+                            className="px-3 py-1 bg-amber-500/30 text-amber-300 rounded-full font-medium border-2 border-amber-500/50"
+                          >
+                            {cond}
+                          </span>
+                        ))}
+                      </>
+                    )}
+
+                    {/* Stable Badge */}
+                    {combatant.isStable && (
+                      <span
+                        style={{ fontSize: 'clamp(0.75rem, 1.2vw, 1.2rem)' }}
+                        className="px-3 py-1 bg-blue-500/30 text-blue-300 rounded-full font-medium border-2 border-blue-500/50"
+                      >
+                        STABLE
+                      </span>
+                    )}
+                  </div>
 
                   {/* Initiative Value with Concentration Badge */}
                   <div className="flex items-center gap-3">

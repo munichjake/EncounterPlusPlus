@@ -1967,8 +1967,8 @@
     {
       "id": "A34b1MSr1BafLXPiUOyA_",
       "name": "Halloween 2025",
-      "round": 6,
-      "turnIndex": 6,
+      "round": 7,
+      "turnIndex": 2,
       "initiativeOrder": [
         "3c1aebbd-a707-4004-b169-851679995fcd",
         "293a06f2-2b86-4242-9c3b-c0d695827b56",
@@ -2096,7 +2096,7 @@
         "3c1aebbd-a707-4004-b169-851679995fcd": {
           "id": "3c1aebbd-a707-4004-b169-851679995fcd",
           "initiativeTieBreaker": 0,
-          "hp": 59,
+          "hp": 0,
           "baseHP": 67,
           "hpFormula": "9d8 + 27",
           "tempHP": 0,
@@ -2215,7 +2215,9 @@
           "tempHp": 0,
           "conditions": [],
           "initiativeRoll": 18,
-          "initiative": 21
+          "initiative": 21,
+          "isDead": false,
+          "isStable": true
         },
         "2a5509fd-c411-4df8-8b38-6c0ecf54c9dd": {
           "id": "2a5509fd-c411-4df8-8b38-6c0ecf54c9dd",
@@ -2340,12 +2342,14 @@
           "conditions": [],
           "initiativeRoll": 13,
           "maxHPModifier": 0,
-          "initiative": 16
+          "initiative": 16,
+          "isDead": true,
+          "visibleToPlayers": true
         },
         "293a06f2-2b86-4242-9c3b-c0d695827b56": {
           "id": "293a06f2-2b86-4242-9c3b-c0d695827b56",
           "initiativeTieBreaker": 0,
-          "hp": 78,
+          "hp": 0,
           "baseHP": 78,
           "hpFormula": "12d10 + 12",
           "tempHP": 0,
@@ -2456,7 +2460,10 @@
           "currentHp": 78,
           "tempHp": 0,
           "conditions": [],
-          "initiative": 18
+          "initiative": 18,
+          "maxHPModifier": 0,
+          "isDead": false,
+          "isStable": true
         },
         "a53ca2d3-5b6d-4366-84bf-b143783b9bc5": {
           "id": "a53ca2d3-5b6d-4366-84bf-b143783b9bc5",
@@ -2490,7 +2497,7 @@
       "tags": [],
       "createdBy": "jonas.e.albrecht@gmail.com",
       "createdAt": "2025-10-31T16:14:57.336Z",
-      "updatedAt": "2025-11-07T10:57:26.048Z",
+      "updatedAt": "2025-11-07T12:25:19.669Z",
       "playerScreenSettings": {
         "blackMode": false,
         "showTurnButton": false,

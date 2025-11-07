@@ -6,6 +6,7 @@ export function Settings({ isOpen, onClose }) {
   const [concentrationCheckReminder, setConcentrationCheckReminder] = useState(true);
   const [autoRollConcentrationNPCs, setAutoRollConcentrationNPCs] = useState(true);
   const [conditionImmunityReminder, setConditionImmunityReminder] = useState(true);
+  const [deathSavesForPCsOnly, setDeathSavesForPCsOnly] = useState(false);
 
   // Load settings from localStorage on mount
   useEffect(() => {
@@ -28,6 +29,9 @@ export function Settings({ isOpen, onClose }) {
         if (settings.conditionImmunityReminder !== undefined) {
           setConditionImmunityReminder(settings.conditionImmunityReminder);
         }
+        if (settings.deathSavesForPCsOnly !== undefined) {
+          setDeathSavesForPCsOnly(settings.deathSavesForPCsOnly);
+        }
       } catch (e) {
         console.error('Failed to load settings:', e);
       }
@@ -41,7 +45,8 @@ export function Settings({ isOpen, onClose }) {
       creatureNamingMode,
       concentrationCheckReminder,
       autoRollConcentrationNPCs,
-      conditionImmunityReminder
+      conditionImmunityReminder,
+      deathSavesForPCsOnly
     };
     localStorage.setItem('app-settings', JSON.stringify(settings));
 
@@ -342,6 +347,32 @@ export function Settings({ isOpen, onClose }) {
                 </label>
               </div>
             </div>
+
+            {/* Death Saves Setting */}
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
+                Death Saves
+              </label>
+              <div className="space-y-3">
+                {/* Death Saves for PCs Only Toggle */}
+                <label className="flex items-center justify-between p-3 rounded-lg border-2 border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                  <div className="flex-1">
+                    <div className="font-medium text-slate-900 dark:text-slate-100">
+                      Death Saves nur für Player Characters
+                    </div>
+                    <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                      NPCs/Monsters sterben sofort bei 0 HP, nur PCs machen Death Saves
+                    </div>
+                  </div>
+                  <input
+                    type="checkbox"
+                    checked={deathSavesForPCsOnly}
+                    onChange={(e) => setDeathSavesForPCsOnly(e.target.checked)}
+                    className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+                  />
+                </label>
+              </div>
+            </div>
           </div>
 
           {/* Footer Buttons */}
@@ -372,7 +403,8 @@ export function useSettings() {
     creatureNamingMode: 'adjective',
     concentrationCheckReminder: true,
     autoRollConcentrationNPCs: true,
-    conditionImmunityReminder: true
+    conditionImmunityReminder: true,
+    deathSavesForPCsOnly: false
   });
 
   useEffect(() => {

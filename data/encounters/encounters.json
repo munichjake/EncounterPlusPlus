@@ -641,7 +641,9 @@
       "name": "Image Test",
       "round": 1,
       "turnIndex": 0,
-      "initiativeOrder": [],
+      "initiativeOrder": [
+        "c2d5d833-f09a-4ed7-a602-ad934d897f87"
+      ],
       "combatants": {
         "c2d5d833-f09a-4ed7-a602-ad934d897f87": {
           "id": "c2d5d833-f09a-4ed7-a602-ad934d897f87",
@@ -732,10 +734,11 @@
           "spellcasting": [],
           "tokenUrl": "http://localhost:4000/api/token/MM/Goblin",
           "imageUrl": "http://localhost:4000/api/token/MM/Goblin",
-          "initiativeRoll": 20,
+          "initiativeRoll": 10,
           "currentHp": 7,
           "tempHp": 0,
-          "conditions": []
+          "conditions": [],
+          "initiative": 12
         }
       },
       "campaignId": null,
@@ -743,7 +746,7 @@
       "tags": [],
       "createdBy": "jonas.e.albrecht@gmail.com",
       "createdAt": "2025-10-23T23:09:25.970Z",
-      "updatedAt": "2025-11-03T22:56:34.461Z",
+      "updatedAt": "2025-11-04T18:16:41.649Z",
       "playerScreenSettings": {
         "blackMode": false,
         "showTurnButton": false,
@@ -771,20 +774,26 @@
     {
       "id": "3_gigW3yY_YdoLNT2saJz",
       "name": "Goblin Camp",
-      "round": 1,
+      "round": 2,
       "turnIndex": 0,
       "initiativeOrder": [
-        "545c0120-0d39-4ea5-b1d1-b5066c9e4b10",
-        "40a7e315-75b1-4aed-a08a-aacbf8612a85",
-        "23f0820f-a575-4d00-9f78-4a56492c21e8",
         "f447b1bc-74c9-49e1-874a-f5a89932cb40",
-        "f3313ce4-909c-44dd-87fd-f27a2d680034",
+        "40a7e315-75b1-4aed-a08a-aacbf8612a85",
         "c97af307-4866-4378-9772-8ce242abefe6",
-        "8b16866a-edfb-4e8e-923e-0cbaad905788",
-        "f21694e8-bde2-4f6e-8ce8-fafa5ad82d34",
-        "df2d8187-8709-4c6f-8f16-68bfa93a8601",
+        {
+          "type": "lair",
+          "initiative": 20,
+          "id": "lair_20"
+        },
+        "23f0820f-a575-4d00-9f78-4a56492c21e8",
+        "26902b9c-d0c3-424c-95bb-3d90d75ec11a",
         "b77b2fc9-1236-4ca6-8f71-589085da923a",
-        "26902b9c-d0c3-424c-95bb-3d90d75ec11a"
+        "f21694e8-bde2-4f6e-8ce8-fafa5ad82d34",
+        "545c0120-0d39-4ea5-b1d1-b5066c9e4b10",
+        "f3313ce4-909c-44dd-87fd-f27a2d680034",
+        "df2d8187-8709-4c6f-8f16-68bfa93a8601",
+        "8b16866a-edfb-4e8e-923e-0cbaad905788",
+        "79f50956-5ebb-480e-a6a8-9fcb42099a4f"
       ],
       "combatants": {
         "f447b1bc-74c9-49e1-874a-f5a89932cb40": {
@@ -877,10 +886,10 @@
           "tokenUrl": "http://localhost:4000/api/token/MM/Goblin",
           "imageUrl": "http://localhost:4000/api/token/MM/Goblin",
           "conditions": [],
-          "initiativeRoll": 12,
+          "initiativeRoll": 19,
           "currentHp": 7,
           "tempHp": 0,
-          "initiative": 14
+          "initiative": 21
         },
         "f21694e8-bde2-4f6e-8ce8-fafa5ad82d34": {
           "id": "f21694e8-bde2-4f6e-8ce8-fafa5ad82d34",
@@ -971,11 +980,11 @@
           "spellcasting": [],
           "tokenUrl": "http://localhost:4000/api/token/MM/Goblin",
           "imageUrl": "http://localhost:4000/api/token/MM/Goblin",
-          "initiativeRoll": 2,
+          "initiativeRoll": 11,
           "currentHp": 7,
           "tempHp": 0,
           "conditions": [],
-          "initiative": 4
+          "initiative": 13
         },
         "f3313ce4-909c-44dd-87fd-f27a2d680034": {
           "id": "f3313ce4-909c-44dd-87fd-f27a2d680034",
@@ -1066,11 +1075,11 @@
           "spellcasting": [],
           "tokenUrl": "http://localhost:4000/api/token/MM/Goblin",
           "imageUrl": "http://localhost:4000/api/token/MM/Goblin",
-          "initiativeRoll": 11,
+          "initiativeRoll": 9,
           "currentHp": 7,
           "tempHp": 0,
           "conditions": [],
-          "initiative": 13
+          "initiative": 11
         },
         "545c0120-0d39-4ea5-b1d1-b5066c9e4b10": {
           "id": "545c0120-0d39-4ea5-b1d1-b5066c9e4b10",
@@ -1161,11 +1170,11 @@
           "spellcasting": [],
           "tokenUrl": "http://localhost:4000/api/token/MM/Goblin",
           "imageUrl": "http://localhost:4000/api/token/MM/Goblin",
-          "initiativeRoll": 18,
+          "initiativeRoll": 10,
           "currentHp": 7,
           "tempHp": 0,
           "conditions": [],
-          "initiative": 20
+          "initiative": 12
         },
         "8b16866a-edfb-4e8e-923e-0cbaad905788": {
           "id": "8b16866a-edfb-4e8e-923e-0cbaad905788",
@@ -1260,12 +1269,12 @@
           "spellcasting": [],
           "tokenUrl": "http://localhost:4000/api/token/MM/Goblin%20Boss",
           "imageUrl": "http://localhost:4000/api/token/MM/Goblin%20Boss",
-          "initiativeRoll": 6,
+          "initiativeRoll": 5,
           "maxHPModifier": 0,
-          "currentHp": 11,
+          "currentHp": 21,
           "tempHp": 0,
           "conditions": [],
-          "initiative": 8
+          "initiative": 7
         },
         "26902b9c-d0c3-424c-95bb-3d90d75ec11a": {
           "id": "26902b9c-d0c3-424c-95bb-3d90d75ec11a",
@@ -1434,11 +1443,11 @@
           ],
           "tokenUrl": "http://localhost:4000/api/token/MPMM/Sibriex",
           "imageUrl": "http://localhost:4000/api/token/MPMM/Sibriex",
-          "initiativeRoll": 3,
+          "initiativeRoll": 20,
           "conditions": [],
           "currentHp": 150,
           "tempHp": 0,
-          "initiative": -1
+          "initiative": 16
         },
         "40a7e315-75b1-4aed-a08a-aacbf8612a85": {
           "id": "40a7e315-75b1-4aed-a08a-aacbf8612a85",
@@ -1462,10 +1471,11 @@
           "reactionUsed": false,
           "sidekickOf": null,
           "maxHPModifier": 0,
-          "currentHp": 22,
+          "currentHp": 52,
           "tempHp": 0,
           "conditions": [],
-          "initiative": 20
+          "initiative": 21,
+          "initiativeRoll": 20
         },
         "23f0820f-a575-4d00-9f78-4a56492c21e8": {
           "id": "23f0820f-a575-4d00-9f78-4a56492c21e8",
@@ -1492,7 +1502,7 @@
           "currentHp": 33,
           "tempHp": 0,
           "conditions": [],
-          "initiative": 18
+          "initiative": 19
         },
         "c97af307-4866-4378-9772-8ce242abefe6": {
           "id": "c97af307-4866-4378-9772-8ce242abefe6",
@@ -1607,12 +1617,11 @@
           "currentHp": 78,
           "tempHp": 0,
           "conditions": [],
-          "initiative": 12,
-          "initiativeRoll": 10
+          "initiativeRoll": 19,
+          "initiative": 21
         },
         "df2d8187-8709-4c6f-8f16-68bfa93a8601": {
           "id": "df2d8187-8709-4c6f-8f16-68bfa93a8601",
-          "initiative": 0,
           "initiativeTieBreaker": 0,
           "hp": 10,
           "baseHP": 10,
@@ -1694,11 +1703,15 @@
           "legendary": null,
           "spellcasting": [],
           "tokenUrl": "http://localhost:4000/api/token/AWM/Birdsquirrel",
-          "imageUrl": "http://localhost:4000/api/token/AWM/Birdsquirrel"
+          "imageUrl": "http://localhost:4000/api/token/AWM/Birdsquirrel",
+          "currentHp": 10,
+          "tempHp": 0,
+          "conditions": [],
+          "initiative": 8,
+          "initiativeRoll": 6
         },
         "b77b2fc9-1236-4ca6-8f71-589085da923a": {
           "id": "b77b2fc9-1236-4ca6-8f71-589085da923a",
-          "initiative": 0,
           "initiativeTieBreaker": 0,
           "hp": 11,
           "baseHP": 11,
@@ -1779,7 +1792,162 @@
           "legendary": null,
           "spellcasting": [],
           "tokenUrl": "http://localhost:4000/api/token/AWM/Crystal%20Cave%20Merfolk",
-          "imageUrl": "http://localhost:4000/api/token/AWM/Crystal%20Cave%20Merfolk"
+          "imageUrl": "http://localhost:4000/api/token/AWM/Crystal%20Cave%20Merfolk",
+          "currentHp": 11,
+          "tempHp": 0,
+          "conditions": [],
+          "initiative": 16,
+          "initiativeRoll": 15
+        },
+        "79f50956-5ebb-480e-a6a8-9fcb42099a4f": {
+          "id": "79f50956-5ebb-480e-a6a8-9fcb42099a4f",
+          "initiativeTieBreaker": 0,
+          "hp": 507,
+          "baseHP": 507,
+          "hpFormula": "26d20 + 234",
+          "tempHP": 0,
+          "player": false,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {
+            "daily_1e_fireball": 1
+          },
+          "rechargeAbilities": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "sidekickOf": null,
+          "legendaryPoints": 3,
+          "legendaryPointsMax": 3,
+          "legendaryActionsRemaining": 3,
+          "reactionUsed": false,
+          "name": "Ancient Red Dragon",
+          "ac": 22,
+          "acFrom": null,
+          "initiativeMod": 0,
+          "size": "Gargantuan",
+          "type": {
+            "type": "dragon",
+            "tags": [
+              "chromatic"
+            ]
+          },
+          "alignment": "chaotic",
+          "cr": 24,
+          "source": "XMM",
+          "meta": {
+            "source": "XMM",
+            "imageUrl": "https://5e.tools/img/bestiary/XMM/Ancient%20Red%20Dragon.webp",
+            "tokenUrl": "https://5e.tools/img/bestiary/tokens/XMM/Ancient%20Red%20Dragon.webp",
+            "tags": [
+              "xmm",
+              "legendary",
+              "spellcaster"
+            ]
+          },
+          "str": 30,
+          "dex": 10,
+          "con": 29,
+          "int": 18,
+          "wis": 15,
+          "cha": 27,
+          "skill": {
+            "perception": 16,
+            "stealth": 7
+          },
+          "save": {
+            "dex": 7,
+            "wis": 9
+          },
+          "senses": "darkvision: 120, blindsight: 60, passivePerception: 26",
+          "languages": [
+            "Common",
+            "Draconic"
+          ],
+          "speed": 40,
+          "fly": 80,
+          "swim": null,
+          "climb": 40,
+          "burrow": null,
+          "immunities": [
+            "Fire"
+          ],
+          "damageVulnerabilities": [],
+          "damageResistances": [],
+          "damageImmunities": [
+            "fire"
+          ],
+          "traits": [
+            {
+              "name": "Legendary Resistance (4/Day, or 5/Day in Lair)",
+              "desc": "If the dragon fails a saving throw, it can choose to succeed instead."
+            }
+          ],
+          "actions": [
+            {
+              "name": "Multiattack",
+              "desc": "The dragon makes three Rend attacks. It can replace one attack with a use of Spellcasting to cast Scorching Ray|XPHB (level 3 version)."
+            },
+            {
+              "name": "Rend",
+              "desc": "m 17, reach 15 ft. {@h}19 (2d8 + 10) Slashing damage plus 10 (3d6) Fire damage."
+            },
+            {
+              "name": "Fire Breath {@recharge 5}",
+              "desc": "dex 24, each creature in a 90-foot Cone [Area of Effect]|XPHB|Cone. {@actSaveFail} 91 (26d6) Fire damage. {@actSaveSuccess} Half damage."
+            }
+          ],
+          "bonusActions": [],
+          "legendary": {
+            "points": 3,
+            "actions": [
+              {
+                "name": "Commanding Presence",
+                "desc": "The dragon uses Spellcasting to cast Command|XPHB (level 2 version). The dragon can't take this action again until the start of its next turn."
+              },
+              {
+                "name": "Fiery Rays",
+                "desc": "The dragon uses Spellcasting to cast Scorching Ray|XPHB (level 3 version). The dragon can't take this action again until the start of its next turn."
+              },
+              {
+                "name": "Pounce",
+                "desc": "The dragon moves up to half its Speed|XPHB, and it makes one Rend attack."
+              }
+            ]
+          },
+          "legendaryGroup": {
+            "name": "Red Dragon",
+            "source": "XMM"
+          },
+          "spellcasting": [
+            {
+              "name": "Spellcasting",
+              "casterType": "innate",
+              "notes": "The dragon casts one of the following spells, requiring no Material components and using Charisma as the spellcasting ability (spell save 23, 15 to hit with spell attacks):",
+              "ability": "cha",
+              "will": [
+                "command",
+                "detect magic",
+                "scorching ray"
+              ],
+              "daily": {
+                "1e": [
+                  "fireball",
+                  "scrying"
+                ]
+              }
+            }
+          ],
+          "tokenUrl": "http://localhost:4000/api/token/XMM/Ancient%20Red%20Dragon",
+          "imageUrl": "http://localhost:4000/api/token/XMM/Ancient%20Red%20Dragon",
+          "currentHp": 507,
+          "tempHp": 0,
+          "conditions": [],
+          "initiative": 4,
+          "initiativeRoll": 4
         }
       },
       "campaignId": null,
@@ -1787,29 +1955,37 @@
       "tags": [],
       "createdBy": "jonas.e.albrecht@gmail.com",
       "createdAt": "2025-10-30T00:35:23.104Z",
-      "updatedAt": "2025-11-04T16:28:17.947Z",
+      "updatedAt": "2025-11-04T19:57:03.882Z",
       "playerScreenSettings": {
         "blankScreen": false,
         "blackMode": false,
         "showInitiativeImages": false,
-        "showTurnButton": false
-      },
-      "combatStatus": "completed",
-      "completedAt": "2025-11-03T22:41:47.875Z"
+        "showTurnButton": false,
+        "showCurrentTurnImage": true
+      }
     },
     {
       "id": "A34b1MSr1BafLXPiUOyA_",
       "name": "Halloween 2025",
-      "round": 1,
-      "turnIndex": 0,
-      "initiativeOrder": [],
+      "round": 6,
+      "turnIndex": 6,
+      "initiativeOrder": [
+        "3c1aebbd-a707-4004-b169-851679995fcd",
+        "293a06f2-2b86-4242-9c3b-c0d695827b56",
+        "2a5509fd-c411-4df8-8b38-6c0ecf54c9dd",
+        "6a96e061-d66c-4de8-8fda-5e7c173daeb9",
+        "8dd6c5cd-abf3-40f2-9dce-302cc66a588e",
+        "d9af4e96-bdcf-4670-8975-48397cc29ca1",
+        "edd8986b-6487-4b18-b9e3-556c8c2a4ad8",
+        "a53ca2d3-5b6d-4366-84bf-b143783b9bc5"
+      ],
       "combatants": {
         "edd8986b-6487-4b18-b9e3-556c8c2a4ad8": {
           "id": "edd8986b-6487-4b18-b9e3-556c8c2a4ad8",
           "name": "Elkar",
           "ac": 10,
           "baseHP": 43,
-          "hp": 43,
+          "hp": 0,
           "tempHP": 0,
           "initiativeMod": 1,
           "initiativeTieBreaker": -2,
@@ -1820,14 +1996,16 @@
           "spellSlots": {},
           "dailySpellUses": {},
           "deathSaves": {
-            "successes": 0,
-            "failures": 0
+            "successes": 1,
+            "failures": 1
           },
           "reactionUsed": false,
           "sidekickOf": null,
           "currentHp": 43,
           "tempHp": 0,
-          "conditions": []
+          "conditions": [],
+          "initiative": 7,
+          "maxHPModifier": 0
         },
         "6a96e061-d66c-4de8-8fda-5e7c173daeb9": {
           "id": "6a96e061-d66c-4de8-8fda-5e7c173daeb9",
@@ -1840,7 +2018,7 @@
           "initiativeTieBreaker": 0,
           "player": true,
           "notes": "",
-          "concentration": false,
+          "concentration": true,
           "concentrationMod": 0,
           "spellSlots": {},
           "dailySpellUses": {},
@@ -1852,7 +2030,8 @@
           "sidekickOf": null,
           "currentHp": 43,
           "tempHp": 0,
-          "conditions": []
+          "conditions": [],
+          "initiative": 13
         },
         "8dd6c5cd-abf3-40f2-9dce-302cc66a588e": {
           "id": "8dd6c5cd-abf3-40f2-9dce-302cc66a588e",
@@ -1865,7 +2044,7 @@
           "initiativeTieBreaker": -0.5,
           "player": true,
           "notes": "",
-          "concentration": false,
+          "concentration": true,
           "concentrationMod": 0,
           "spellSlots": {},
           "dailySpellUses": {},
@@ -1881,7 +2060,8 @@
           "tempHp": 0,
           "conditions": [],
           "sidekickOf": "6a96e061-d66c-4de8-8fda-5e7c173daeb9",
-          "maxHPModifier": 0
+          "maxHPModifier": 0,
+          "initiative": 13
         },
         "d9af4e96-bdcf-4670-8975-48397cc29ca1": {
           "id": "d9af4e96-bdcf-4670-8975-48397cc29ca1",
@@ -1909,7 +2089,9 @@
           "currentHp": 10,
           "tempHp": 0,
           "conditions": [],
-          "sidekickOf": "6a96e061-d66c-4de8-8fda-5e7c173daeb9"
+          "sidekickOf": "6a96e061-d66c-4de8-8fda-5e7c173daeb9",
+          "initiative": 13,
+          "maxHPModifier": 0
         },
         "3c1aebbd-a707-4004-b169-851679995fcd": {
           "id": "3c1aebbd-a707-4004-b169-851679995fcd",
@@ -2032,12 +2214,13 @@
           "currentHp": 59,
           "tempHp": 0,
           "conditions": [],
-          "initiativeRoll": 5
+          "initiativeRoll": 18,
+          "initiative": 21
         },
         "2a5509fd-c411-4df8-8b38-6c0ecf54c9dd": {
           "id": "2a5509fd-c411-4df8-8b38-6c0ecf54c9dd",
           "initiativeTieBreaker": 0,
-          "hp": 33,
+          "hp": 0,
           "baseHP": 67,
           "hpFormula": "9d8 + 27",
           "tempHP": 0,
@@ -2155,8 +2338,9 @@
           "currentHp": 33,
           "tempHp": 0,
           "conditions": [],
-          "initiativeRoll": 1,
-          "maxHPModifier": 0
+          "initiativeRoll": 13,
+          "maxHPModifier": 0,
+          "initiative": 16
         },
         "293a06f2-2b86-4242-9c3b-c0d695827b56": {
           "id": "293a06f2-2b86-4242-9c3b-c0d695827b56",
@@ -2268,10 +2452,37 @@
           "spellcasting": [],
           "tokenUrl": "http://localhost:4000/api/token/XMM/Chasme",
           "imageUrl": "http://localhost:4000/api/token/XMM/Chasme",
-          "initiativeRoll": 20,
+          "initiativeRoll": 16,
           "currentHp": 78,
           "tempHp": 0,
-          "conditions": []
+          "conditions": [],
+          "initiative": 18
+        },
+        "a53ca2d3-5b6d-4366-84bf-b143783b9bc5": {
+          "id": "a53ca2d3-5b6d-4366-84bf-b143783b9bc5",
+          "name": "Unsichtbar",
+          "ac": 10,
+          "baseHP": 10,
+          "hp": 10,
+          "tempHP": 0,
+          "initiativeMod": 0,
+          "initiative": 2,
+          "initiativeTieBreaker": 0,
+          "player": true,
+          "notes": "",
+          "concentration": false,
+          "concentrationMod": 0,
+          "spellSlots": {},
+          "dailySpellUses": {},
+          "rechargeAbilities": {},
+          "deathSaves": {
+            "successes": 0,
+            "failures": 0
+          },
+          "legendaryPoints": 0,
+          "legendaryPointsMax": 0,
+          "reactionUsed": false,
+          "visibleToPlayers": false
         }
       },
       "campaignId": null,
@@ -2279,15 +2490,17 @@
       "tags": [],
       "createdBy": "jonas.e.albrecht@gmail.com",
       "createdAt": "2025-10-31T16:14:57.336Z",
-      "updatedAt": "2025-11-03T22:38:36.557Z",
+      "updatedAt": "2025-11-07T10:57:26.048Z",
       "playerScreenSettings": {
-        "blackMode": true,
+        "blackMode": false,
         "showTurnButton": false,
         "showInitiativeImages": false,
         "hideScrollbars": true,
         "showBloodiedInPlayerView": true,
         "rotation": 0,
-        "zoom": 90
+        "zoom": 90,
+        "blankScreen": false,
+        "showCurrentTurnImage": true
       }
     },
     {
@@ -2595,6 +2808,20 @@
         "blankScreen": false,
         "showTurnButton": false
       }
+    },
+    {
+      "id": "ViW6tAVEzU_rLLNlDx5j5",
+      "name": "Hells Kitchen (Kopie)",
+      "round": 1,
+      "turnIndex": 0,
+      "initiativeOrder": [],
+      "combatants": {},
+      "campaignId": null,
+      "folder": "d/Subfolder",
+      "tags": [],
+      "createdBy": "jonas.e.albrecht@gmail.com",
+      "createdAt": "2025-11-04T19:15:03.386Z",
+      "updatedAt": "2025-11-04T19:15:03.386Z"
     }
   ]
 }

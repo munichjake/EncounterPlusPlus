@@ -103,7 +103,7 @@ const dataLimiter = rateLimit({
 // Moderate rate limiting for general API endpoints
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 500, // max 500 requests per IP per window
+  max: 2000, // max 2000 requests per IP per window (increased for development)
   message: { error: 'Zu viele Anfragen. Bitte versuche es später erneut.' },
   standardHeaders: true,
   legacyHeaders: false,

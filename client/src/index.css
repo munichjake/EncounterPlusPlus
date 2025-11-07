@@ -293,8 +293,15 @@ select:focus::placeholder {
 }
 
 /* ========================================
-   Select2 Dark Mode Styling
+   Select2 Light & Dark Mode Styling
    ======================================== */
+
+/* Light mode for Select2 container */
+.select2-container--default .select2-selection--multiple {
+  background-color: rgb(255 255 255) !important; /* white */
+  border-color: rgb(203 213 225) !important; /* slate-300 */
+  color: rgb(15 23 42) !important; /* slate-900 */
+}
 
 /* Dark mode for Select2 container */
 .dark .select2-container--default .select2-selection--multiple {
@@ -303,11 +310,28 @@ select:focus::placeholder {
   color: rgb(226 232 240) !important; /* slate-200 */
 }
 
+/* Light mode for selected items (pills) */
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: rgb(59 130 246) !important; /* blue-500 */
+  border-color: rgb(37 99 235) !important; /* blue-600 */
+  color: white !important;
+}
+
 /* Dark mode for selected items (pills) */
 .dark .select2-container--default .select2-selection--multiple .select2-selection__choice {
   background-color: rgb(59 130 246) !important; /* blue-500 */
   border-color: rgb(37 99 235) !important; /* blue-600 */
   color: white !important;
+}
+
+/* Light mode for remove button in pills */
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+  color: white !important;
+  border-right-color: rgb(37 99 235) !important; /* blue-600 */
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+  color: rgb(239 68 68) !important; /* red-500 */
 }
 
 /* Dark mode for remove button in pills */
@@ -320,6 +344,15 @@ select:focus::placeholder {
   color: rgb(239 68 68) !important; /* red-500 */
 }
 
+/* Light mode for search input */
+.select2-container--default .select2-search--inline .select2-search__field {
+  color: rgb(15 23 42) !important; /* slate-900 */
+}
+
+.select2-container--default .select2-search--inline .select2-search__field::placeholder {
+  color: rgb(100 116 139) !important; /* slate-500 */
+}
+
 /* Dark mode for search input */
 .dark .select2-container--default .select2-search--inline .select2-search__field {
   color: rgb(226 232 240) !important; /* slate-200 */
@@ -327,6 +360,23 @@ select:focus::placeholder {
 
 .dark .select2-container--default .select2-search--inline .select2-search__field::placeholder {
   color: rgb(100 116 139) !important; /* slate-500 */
+}
+
+/* Light mode for dropdown */
+.select2-container--default .select2-results__option {
+  background-color: rgb(255 255 255) !important; /* white */
+  color: rgb(15 23 42) !important; /* slate-900 */
+}
+
+/* Light mode for highlighted option */
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: rgb(59 130 246) !important; /* blue-500 */
+  color: white !important;
+}
+
+/* Light mode for selected option */
+.select2-container--default .select2-results__option[aria-selected=true] {
+  background-color: rgb(226 232 240) !important; /* slate-200 */
 }
 
 /* Dark mode for dropdown */
@@ -344,6 +394,29 @@ select:focus::placeholder {
 /* Dark mode for selected option */
 .dark .select2-container--default .select2-results__option[aria-selected=true] {
   background-color: rgb(51 65 85) !important; /* slate-700 */
+}
+
+/* Light mode for dropdown container */
+.select2-dropdown {
+  background-color: rgb(255 255 255) !important; /* white */
+  border-color: rgb(203 213 225) !important; /* slate-300 */
+}
+
+/* Light mode for search in dropdown */
+.select2-search--dropdown .select2-search__field {
+  background-color: rgb(248 250 252) !important; /* slate-50 */
+  border-color: rgb(203 213 225) !important; /* slate-300 */
+  color: rgb(15 23 42) !important; /* slate-900 */
+}
+
+.select2-search--dropdown .select2-search__field::placeholder {
+  color: rgb(100 116 139) !important; /* slate-500 */
+}
+
+/* Light mode for focus states */
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+  border-color: rgb(59 130 246) !important; /* blue-500 */
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3) !important;
 }
 
 /* Dark mode for dropdown container */
@@ -409,6 +482,118 @@ select:focus::placeholder {
   }
 }
 
+/* Combined bloodied + concentration animation */
+@keyframes bloodied-concentration-spin {
+  to {
+    --border-angle: 1turn;
+  }
+}
+
+@keyframes bloodied-concentration-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.5), 0 0 0 0 rgba(168, 85, 247, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(239, 68, 68, 0.7), 0 0 0 4px rgba(168, 85, 247, 0.6);
+  }
+}
+
+.bloodied-concentration-border {
+  --border-angle: 0turn;
+  border: solid 4px transparent !important;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-image:
+    /* Main card background - solid white for light mode */
+    linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255)),
+    /* Rotating gradient border with both red (bloodied) and purple (concentration) */
+    conic-gradient(
+      from var(--border-angle),
+      transparent 10%,
+      #a855f7 20%,
+      #ef4444 35%,
+      #dc2626 50%,
+      #ef4444 65%,
+      #a855f7 80%,
+      transparent 90%
+    );
+  animation: bloodied-concentration-spin 3s linear infinite, bloodied-concentration-pulse 2s ease-in-out infinite;
+}
+
+/* Dark mode bloodied + concentration border */
+.dark .bloodied-concentration-border {
+  background-image:
+    /* Main card background in dark mode */
+    linear-gradient(rgb(30 41 59), rgb(30 41 59)),
+    /* Rotating gradient border with both colors */
+    conic-gradient(
+      from var(--border-angle),
+      transparent 10%,
+      #a855f7 20%,
+      #ef4444 35%,
+      #dc2626 50%,
+      #ef4444 65%,
+      #a855f7 80%,
+      transparent 90%
+    );
+}
+
+
+/* Player Screen specific bloodied borders - animation wrapper only */
+.player-bloodied-border-current,
+.player-bloodied-border-next,
+.player-bloodied-border-other {
+  --border-angle: 0turn;
+  border: solid 4px transparent !important;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-image:
+    linear-gradient(transparent, transparent),
+    conic-gradient(
+      from var(--border-angle),
+      transparent 20%,
+      #ef4444 40%,
+      #dc2626 50%,
+      #991b1b 60%,
+      transparent 80%
+    );
+  animation: bloodied-spin 3s linear infinite;
+}
+
+.player-bloodied-border-current {
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.25), 0 10px 25px rgba(0, 0, 0, 0.15), 0 0 20px rgba(239, 68, 68, 0.5) !important;
+}
+
+.player-bloodied-border-next {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25), 0 8px 20px rgba(0, 0, 0, 0.15), 0 0 20px rgba(239, 68, 68, 0.5) !important;
+}
+
+.player-bloodied-border-other {
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.5) !important;
+}
+
+.player-bloodied-concentration-border-current,
+.player-bloodied-concentration-border-next,
+.player-bloodied-concentration-border-other {
+  --border-angle: 0turn;
+  border: solid 4px transparent !important;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-image:
+    linear-gradient(transparent, transparent),
+    conic-gradient(
+      from var(--border-angle),
+      transparent 10%,
+      #a855f7 20%,
+      #ef4444 35%,
+      #dc2626 50%,
+      #ef4444 65%,
+      #a855f7 80%,
+      transparent 90%
+    );
+  animation: bloodied-concentration-spin 3s linear infinite, bloodied-concentration-pulse 2s ease-in-out infinite;
+}
+
 /* Slide in from right animation for toasts */
 @keyframes slideInRight {
   0% {
@@ -435,8 +620,8 @@ select:focus::placeholder {
   background-origin: border-box;
   background-clip: padding-box, border-box;
   background-image:
-    /* Main card background - default to slate for player view */
-    linear-gradient(rgba(51, 65, 85, 0.5), rgba(51, 65, 85, 0.5)),
+    /* Main card background - solid white for light mode */
+    linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255)),
     /* Rotating gradient border */
     conic-gradient(
       from var(--border-angle),
@@ -466,57 +651,3 @@ select:focus::placeholder {
     );
 }
 
-/* Player view specific bloodied border (handles different background colors) */
-/* Current turn - yellow/orange gradient */
-.bg-gradient-to-r.from-yellow-500\/20.to-orange-500\/20.bloodied-border {
-  background-image:
-    /* Solid opaque background layer that covers everything */
-    linear-gradient(to right, rgb(78, 62, 25), rgb(82, 51, 25)),
-    /* Rotating gradient border */
-    conic-gradient(
-      from var(--border-angle),
-      transparent 25%,
-      #ef4444 45%,
-      #dc2626 50%,
-      #991b1b 55%,
-      transparent 75%
-    ) !important;
-  background-origin: padding-box, border-box !important;
-  background-clip: padding-box, border-box !important;
-}
-
-/* Next turn - darker slate */
-.bg-slate-700\/70.bloodied-border {
-  background-image:
-    /* Solid opaque background layer */
-    linear-gradient(rgb(51, 65, 85), rgb(51, 65, 85)),
-    /* Rotating gradient border */
-    conic-gradient(
-      from var(--border-angle),
-      transparent 25%,
-      #ef4444 45%,
-      #dc2626 50%,
-      #991b1b 55%,
-      transparent 75%
-    ) !important;
-  background-origin: padding-box, border-box !important;
-  background-clip: padding-box, border-box !important;
-}
-
-/* Other turns - lighter slate */
-.bg-slate-700\/50.bloodied-border {
-  background-image:
-    /* Solid opaque background layer */
-    linear-gradient(rgb(51, 65, 85), rgb(51, 65, 85)),
-    /* Rotating gradient border */
-    conic-gradient(
-      from var(--border-angle),
-      transparent 25%,
-      #ef4444 45%,
-      #dc2626 50%,
-      #991b1b 55%,
-      transparent 75%
-    ) !important;
-  background-origin: padding-box, border-box !important;
-  background-clip: padding-box, border-box !important;
-}

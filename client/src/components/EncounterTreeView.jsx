@@ -309,8 +309,8 @@ export default function EncounterTreeView({
           </div>
         )}
         <div
-          className={`group flex items-center gap-1 px-1 py-0.5 rounded hover:bg-gray-700 cursor-pointer ${
-            isDragOver ? 'bg-blue-900/20' : ''
+          className={`group flex items-center gap-1 px-1 py-0.5 rounded hover:bg-slate-200 dark:hover:bg-gray-700 cursor-pointer ${
+            isDragOver ? 'bg-blue-200/50 dark:bg-blue-900/20' : ''
           }`}
           style={{ paddingLeft: `${depth * 1 + 0.25}rem` }}
           onClick={(e) => {
@@ -331,7 +331,7 @@ export default function EncounterTreeView({
           }}
           onDrop={(e) => handleDrop(e, node.id)}
         >
-          <div className="text-gray-400 w-3 h-3 flex items-center justify-center pointer-events-none flex-shrink-0">
+          <div className="text-slate-400 dark:text-gray-400 w-3 h-3 flex items-center justify-center pointer-events-none flex-shrink-0">
             <svg
               className={`w-2 h-2 transition-transform duration-150 ${isExpanded ? 'rotate-90' : ''}`}
               fill="currentColor"
@@ -351,20 +351,20 @@ export default function EncounterTreeView({
                 if (e.key === 'Escape') setEditingFolderId(null);
               }}
               onBlur={() => renameFolder(node.id)}
-              className="flex-1 bg-gray-800 border border-gray-600 rounded px-1.5 py-0.5 text-xs"
+              className="flex-1 bg-white dark:bg-gray-800 border border-slate-300 dark:border-gray-600 rounded px-1.5 py-0.5 text-xs text-slate-900 dark:text-white"
               autoFocus
             />
           ) : (
             <>
               <span className="text-yellow-500 text-xs flex-shrink-0">📁</span>
-              <span className="flex-1 text-xs truncate">{node.name}</span>
+              <span className="flex-1 text-xs truncate text-slate-900 dark:text-white">{node.name}</span>
               <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     startCreatingFolder(node.id);
                   }}
-                  className="w-5 h-5 flex items-center justify-center text-green-400 hover:bg-green-900/30 rounded"
+                  className="w-5 h-5 flex items-center justify-center text-green-600 dark:text-green-400 hover:bg-green-200 dark:hover:bg-green-900/30 rounded"
                   title="Unterordner erstellen"
                 >
                   <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -376,7 +376,7 @@ export default function EncounterTreeView({
                     e.stopPropagation();
                     startEditingFolder(node);
                   }}
-                  className="w-5 h-5 flex items-center justify-center text-blue-400 hover:bg-blue-900/30 rounded"
+                  className="w-5 h-5 flex items-center justify-center text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/30 rounded"
                   title="Umbenennen"
                 >
                   <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -388,7 +388,7 @@ export default function EncounterTreeView({
                     e.stopPropagation();
                     deleteFolder(node.id);
                   }}
-                  className="w-5 h-5 flex items-center justify-center text-red-400 hover:bg-red-900/30 rounded"
+                  className="w-5 h-5 flex items-center justify-center text-red-600 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/30 rounded"
                   title="Löschen"
                 >
                   <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -414,7 +414,7 @@ export default function EncounterTreeView({
                     if (e.key === 'Escape') setCreatingFolderParentId(null);
                   }}
                   placeholder="Name..."
-                  className="flex-1 bg-gray-800 border border-gray-600 rounded px-1.5 py-0.5 text-xs"
+                  className="flex-1 bg-white dark:bg-gray-800 border border-slate-300 dark:border-gray-600 rounded px-1.5 py-0.5 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-500"
                   autoFocus
                 />
                 <button
@@ -474,20 +474,20 @@ export default function EncounterTreeView({
           }}
           onDragLeave={() => setDropIndicator(null)}
           className={`group flex items-center gap-1 px-1 py-0.5 rounded cursor-pointer ${
-            isSelected ? 'bg-blue-900 border border-blue-500' : 'hover:bg-gray-700'
+            isSelected ? 'bg-blue-200 dark:bg-blue-900 border border-blue-500' : 'hover:bg-slate-200 dark:hover:bg-gray-700'
           }`}
           style={{ paddingLeft: `${depth * 1 + 0.75}rem` }}
           onClick={() => onSelectEncounter(encounter.id)}
         >
-        <span className="text-gray-400 text-xs flex-shrink-0">📄</span>
-        <span className="flex-1 text-xs truncate">{encounter.name}</span>
+        <span className="text-slate-400 dark:text-gray-400 text-xs flex-shrink-0">📄</span>
+        <span className="flex-1 text-xs truncate text-slate-900 dark:text-white">{encounter.name}</span>
         {isCompleted && (
           <span className="text-green-500 text-xs flex-shrink-0" title="Combat abgeschlossen">
             ✅
           </span>
         )}
         {campaign && (
-          <span className="text-[10px] text-purple-400 px-1 py-0 bg-purple-900/30 rounded flex-shrink-0">
+          <span className="text-[10px] text-purple-700 dark:text-purple-400 px-1 py-0 bg-purple-200/50 dark:bg-purple-900/30 rounded flex-shrink-0">
             {campaign.name}
           </span>
         )}
@@ -496,7 +496,7 @@ export default function EncounterTreeView({
             e.stopPropagation();
             if (onDuplicateEncounter) onDuplicateEncounter(encounter.id);
           }}
-          className="w-5 h-5 flex items-center justify-center text-blue-400 hover:bg-blue-900/30 rounded opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
+          className="w-5 h-5 flex items-center justify-center text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/30 rounded opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
           title="Duplizieren"
         >
           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -508,7 +508,7 @@ export default function EncounterTreeView({
             e.stopPropagation();
             onDeleteEncounter(encounter.id);
           }}
-          className="w-5 h-5 flex items-center justify-center text-red-400 hover:bg-red-900/30 rounded opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
+          className="w-5 h-5 flex items-center justify-center text-red-600 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/30 rounded opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
           title="Löschen"
         >
           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -527,14 +527,14 @@ export default function EncounterTreeView({
       {modal}
       <div className="flex flex-col h-full">
       {/* Toolbar - Kompakt */}
-      <div className="p-1.5 bg-gray-800 border-b border-gray-700 space-y-1">
+      <div className="p-1.5 bg-slate-100 dark:bg-gray-800 border-b border-slate-300 dark:border-gray-700 space-y-1">
         <div className="flex gap-1">
           <input
             type="text"
             placeholder="Suchen..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="flex-1 bg-gray-900 border border-gray-700 rounded px-2 py-0.5 text-xs"
+            className="flex-1 bg-white dark:bg-gray-900 border border-slate-300 dark:border-gray-700 rounded px-2 py-0.5 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-500"
           />
           <button
             onClick={onCreateEncounter}
@@ -548,7 +548,7 @@ export default function EncounterTreeView({
           <select
             value={selectedCampaignFilter}
             onChange={(e) => setSelectedCampaignFilter(e.target.value)}
-            className="flex-1 bg-gray-900 border border-gray-700 rounded px-2 py-0.5 text-xs"
+            className="flex-1 bg-white dark:bg-gray-900 border border-slate-300 dark:border-gray-700 rounded px-2 py-0.5 text-xs text-slate-900 dark:text-white"
           >
             <option value="all">Alle Kampagnen</option>
             <option value="">Keine Kampagne</option>
@@ -580,7 +580,7 @@ export default function EncounterTreeView({
           <div className="flex items-center justify-center py-12">
             <div className="text-center">
               <div className="inline-block animate-spin text-4xl mb-2">⏳</div>
-              <p className="text-gray-400 text-sm">Lade Encounters...</p>
+              <p className="text-slate-500 dark:text-gray-400 text-sm">Lade Encounters...</p>
             </div>
           </div>
         ) : (
@@ -606,7 +606,7 @@ export default function EncounterTreeView({
                 if (e.key === 'Escape') setCreatingFolderParentId(null);
               }}
               placeholder="Name..."
-              className="flex-1 bg-gray-800 border border-gray-600 rounded px-1.5 py-0.5 text-xs"
+              className="flex-1 bg-white dark:bg-gray-800 border border-slate-300 dark:border-gray-600 rounded px-1.5 py-0.5 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-500"
               autoFocus
             />
             <button
@@ -639,7 +639,7 @@ export default function EncounterTreeView({
         )}
 
         {tree.length === 0 && rootEncounters.length === 0 && (
-          <div className="text-center text-gray-500 py-8">
+          <div className="text-center text-slate-500 dark:text-gray-500 py-8">
             {searchTerm || selectedCampaignFilter !== 'all'
               ? 'Keine Encounters gefunden'
               : 'Noch keine Encounters erstellt'}

@@ -379,13 +379,13 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
     <>
       {/* Dice Tray - Left Panel - Slides up from button */}
       {showPanel && (
-      <div className="dice-roller-container fixed left-6 z-[110] bg-slate-800/98 backdrop-blur-lg border-2 border-slate-700 rounded-2xl shadow-2xl overflow-hidden transition-opacity duration-200" style={{ width: '140px', bottom: '96px', opacity: showPanel ? 1 : 0 }}>
+      <div className="dice-roller-container fixed left-6 z-[110] bg-white/98 dark:bg-slate-800/98 backdrop-blur-lg border-2 border-slate-300 dark:border-slate-700 rounded-2xl shadow-2xl overflow-hidden transition-opacity duration-200" style={{ width: '140px', bottom: '96px', opacity: showPanel ? 1 : 0 }}>
         {/* Dice Buttons - Vertical Stack */}
         <div className="p-2 space-y-1.5">
           {diceButtons.map(({ sides, label }, index) => (
             <button
               key={sides}
-              className="relative w-full h-9 bg-slate-700/80 hover:bg-slate-600 rounded-lg font-bold text-white text-sm shadow-lg transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center"
+              className="relative w-full h-9 bg-slate-200 dark:bg-slate-700/80 hover:bg-slate-300 dark:hover:bg-slate-600 rounded-lg font-bold text-slate-900 dark:text-white text-sm shadow-lg transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center"
               onClick={() => addDie(sides)}
               onContextMenu={(e) => {
                 e.preventDefault();
@@ -410,7 +410,7 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
 
         {/* Close Button */}
         <button
-          className="w-full py-1.5 bg-slate-700/50 hover:bg-slate-600/50 text-slate-400 hover:text-white text-xs font-semibold uppercase tracking-wide transition-colors border-t border-slate-700"
+          className="w-full py-1.5 bg-slate-200/50 dark:bg-slate-700/50 hover:bg-slate-300/50 dark:hover:bg-slate-600/50 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-xs font-semibold uppercase tracking-wide transition-colors border-t border-slate-300 dark:border-slate-700"
           onClick={onClose}
         >
           Close
@@ -420,13 +420,13 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
 
       {/* Roll Display Panel - Right of Dice Tray */}
       {showPanel && dicePool.length > 0 && (
-        <div className="dice-roller-container fixed left-[162px] z-[110] bg-slate-800/98 backdrop-blur-lg border-2 border-slate-700 rounded-2xl shadow-2xl p-3 animate-[slideInLeft_0.3s_ease-out]" style={{ width: '240px', bottom: '96px' }}>
-          <div className="text-xs text-slate-400 mb-2 uppercase tracking-wide text-center">Roll Formula</div>
+        <div className="dice-roller-container fixed left-[162px] z-[110] bg-white/98 dark:bg-slate-800/98 backdrop-blur-lg border-2 border-slate-300 dark:border-slate-700 rounded-2xl shadow-2xl p-3 animate-[slideInLeft_0.3s_ease-out]" style={{ width: '240px', bottom: '96px' }}>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mb-2 uppercase tracking-wide text-center">Roll Formula</div>
 
           {/* Editable Notation Input */}
           <input
             type="text"
-            className="w-full bg-slate-900/80 rounded-lg p-2 mb-3 font-mono text-base font-bold text-white text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full bg-slate-100 dark:bg-slate-900/80 rounded-lg p-2 mb-3 font-mono text-base font-bold text-slate-900 dark:text-white text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={notationInput || buildNotation()}
             onChange={(e) => setNotationInput(e.target.value)}
             onBlur={() => {
@@ -453,7 +453,7 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
               className={`flex-1 py-2 rounded-lg font-bold text-xs uppercase transition-all ${
                 rollMode === 'advantage'
                   ? 'bg-green-600 text-white'
-                  : 'bg-slate-700 text-slate-400 hover:bg-slate-600 hover:text-white'
+                  : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-600 hover:text-slate-900 dark:hover:text-white'
               }`}
               onClick={() => setRollMode(rollMode === 'advantage' ? 'normal' : 'advantage')}
             >
@@ -463,7 +463,7 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
               className={`flex-1 py-2 rounded-lg font-bold text-xs uppercase transition-all ${
                 rollMode === 'disadvantage'
                   ? 'bg-red-600 text-white'
-                  : 'bg-slate-700 text-slate-400 hover:bg-slate-600 hover:text-white'
+                  : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-600 hover:text-slate-900 dark:hover:text-white'
               }`}
               onClick={() => setRollMode(rollMode === 'disadvantage' ? 'normal' : 'disadvantage')}
             >
@@ -482,11 +482,11 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
               {isRolling ? '...' : 'Roll'}
             </button>
             <button
-              className="w-10 h-10 bg-slate-700 hover:bg-slate-600 rounded-lg flex items-center justify-center transition-colors"
+              className="w-10 h-10 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded-lg flex items-center justify-center transition-colors"
               onClick={clearPool}
               title="Clear All"
             >
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-slate-900 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
@@ -495,20 +495,20 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
           {/* Modifier Controls - Larger buttons, smaller center field */}
           <div className="flex items-center justify-center gap-2">
             <button
-              className="w-12 h-12 bg-slate-700 hover:bg-slate-600 rounded-lg text-white font-bold text-xl transition-all hover:scale-105 active:scale-95"
+              className="w-12 h-12 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded-lg text-slate-900 dark:text-white font-bold text-xl transition-all hover:scale-105 active:scale-95"
               onClick={() => setModifier(Math.max(-99, modifier - 1))}
             >
               −
             </button>
             <input
               type="number"
-              className="w-14 h-10 bg-slate-700 text-white rounded-lg px-1 text-center text-sm font-bold focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-14 h-10 bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg px-1 text-center text-sm font-bold focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={modifier}
               onChange={(e) => setModifier(parseInt(e.target.value) || 0)}
               placeholder="±0"
             />
             <button
-              className="w-12 h-12 bg-slate-700 hover:bg-slate-600 rounded-lg text-white font-bold text-xl transition-all hover:scale-105 active:scale-95"
+              className="w-12 h-12 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded-lg text-slate-900 dark:text-white font-bold text-xl transition-all hover:scale-105 active:scale-95"
               onClick={() => setModifier(Math.min(99, modifier + 1))}
             >
               +
@@ -520,15 +520,15 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
       {/* 2D Dice Animation Display - Shows during rolling */}
       {rollingDice.length > 0 && (
         <>
-          {/* Dark Overlay */}
-          <div className="fixed inset-0 bg-black/60 z-[105] animate-[fadeIn_0.2s_ease-out]" />
+          {/* Overlay - semi-transparent backdrop */}
+          <div className="fixed inset-0 bg-slate-900/70 dark:bg-black/60 z-[105] animate-[fadeIn_0.2s_ease-out]" />
 
           {/* Dice Display */}
           <div className="fixed inset-0 pointer-events-none z-[120] flex items-center justify-center">
             <div className="flex flex-col items-center gap-6">
               {/* Bonus Display - Only shown if modifier exists, displayed above dice while rolling */}
               {modifier !== 0 && rollingDice[0]?.rolling && (
-                <div className="text-6xl font-bold text-blue-300 animate-pulse">
+                <div className="text-6xl font-bold text-blue-600 dark:text-blue-300 animate-pulse">
                   {modifier > 0 ? `+${modifier}` : modifier}
                 </div>
               )}
@@ -582,7 +582,7 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
               {!rollingDice[0]?.rolling && modifier !== 0 && (
                 <div className="flex items-center gap-4 animate-[slideUp_0.7s_ease-out]">
                   {/* Dice Sum */}
-                  <div className="text-5xl font-bold text-white">
+                  <div className="text-5xl font-bold text-slate-900 dark:text-white">
                     {rollingDice.reduce((sum, die) => {
                       if (die.isSelected !== null) {
                         return die.isSelected ? die.value : sum;
@@ -592,20 +592,20 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
                   </div>
 
                   {/* Plus Sign and Modifier (animates in) */}
-                  <div className="text-4xl font-bold text-green-300 animate-[fadeIn_0.5s_ease-out_0.3s_both]">
+                  <div className="text-4xl font-bold text-green-600 dark:text-green-300 animate-[fadeIn_0.5s_ease-out_0.3s_both]">
                     {modifier > 0 ? '+' : ''}
                   </div>
-                  <div className="text-5xl font-bold text-green-300 animate-[fadeIn_0.5s_ease-out_0.3s_both]">
+                  <div className="text-5xl font-bold text-green-600 dark:text-green-300 animate-[fadeIn_0.5s_ease-out_0.3s_both]">
                     {modifier}
                   </div>
 
                   {/* Equals Sign */}
-                  <div className="text-4xl font-bold text-blue-300 animate-[fadeIn_0.5s_ease-out_0.5s_both]">
+                  <div className="text-4xl font-bold text-blue-600 dark:text-blue-300 animate-[fadeIn_0.5s_ease-out_0.5s_both]">
                     =
                   </div>
 
                   {/* Final Total (larger, emphasized) */}
-                  <div className="text-7xl font-bold text-yellow-300 animate-[scaleIn_0.5s_ease-out_0.7s_both] drop-shadow-[0_0_20px_rgba(253,224,71,0.5)]">
+                  <div className="text-7xl font-bold text-yellow-600 dark:text-yellow-300 animate-[scaleIn_0.5s_ease-out_0.7s_both] drop-shadow-[0_0_20px_rgba(234,179,8,0.5)]">
                     {rollingDice.reduce((sum, die) => {
                       if (die.isSelected !== null) {
                         return die.isSelected ? die.value + modifier : sum;

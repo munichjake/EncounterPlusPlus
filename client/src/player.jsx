@@ -309,25 +309,44 @@ function PlayerScreen() {
     const total = initiativeOrder.length;
     const reordered = [];
 
-    // Start from current and go forward, wrapping around
-    for (let i = 0; i < total; i++) {
-      const idx = (currentTurnIndex + i) % total;
+    // Check if current combatant is a sidekick - if so, show owner instead
+    const currentCombatant = initiativeOrder[currentTurnIndex];
+    let effectiveCurrentIndex = currentTurnIndex;
 
-      // The round marker should appear BEFORE the first combatant (idx 0)
-      // which means AFTER the last combatant (idx total-1)
-      // In our rotated view, this is when the ORIGINAL index is total-1
-      const isLastInInitiativeOrder = idx === total - 1;
+    if (currentCombatant?.sidekickOf) {
+      // Find the owner/main character
+      const ownerIndex = initiativeOrder.findIndex(c => c.id === currentCombatant.sidekickOf);
+      if (ownerIndex !== -1) {
+        effectiveCurrentIndex = ownerIndex;
+      }
+    }
+
+    // Start from effective current and go forward, wrapping around
+    for (let i = 0; i < total; i++) {
+      const idx = (effectiveCurrentIndex + i) % total;
 
       reordered.push({
         ...initiativeOrder[idx],
         originalIndex: idx,
-        displayIndex: i,
-        showRoundMarker: isLastInInitiativeOrder
+        displayIndex: i
       });
+
+      // Insert round marker AFTER the last combatant in original order
+      // Check if next combatant would be the first one (index 0)
+      const nextIdx = (effectiveCurrentIndex + i + 1) % total;
+      if (nextIdx === 0) {
+        // Insert a special "round marker" entry
+        reordered.push({
+          id: `round-marker-${i}`,
+          isRoundMarker: true,
+          displayIndex: i + 0.5, // Between this and next
+          name: 'Round Marker'
+        });
+      }
     }
 
     setDisplayOrder(reordered);
-  }, [initiativeOrder, currentTurnIndex]);
+  }, [initiativeOrder, currentTurnIndex, round]);
 
   // Get settings from encounter data (synced from DM screen) - BEFORE any returns
   const blackMode = enc?.playerScreenSettings?.blackMode || false;
@@ -370,20 +389,41 @@ function PlayerScreen() {
 
   const currentCombatant = initiativeOrder[currentTurnIndex];
 
+  // Helper function to determine if a combatant is a player character
+  const isPlayerCharacter = (combatant) => {
+    if (!combatant) return false;
+    return combatant.player || combatant.isPC || combatant.source === "ddb-import" || combatant.source === "player-character";
+  };
+
   // Check if current combatant has any sidekicks
   const getSidekicksForCombatant = (combatantId) => {
     return initiativeOrder.filter(c => c.sidekickOf === combatantId);
   };
 
+  // Get the effective combatant to display (if current is sidekick, return owner)
+  const getEffectiveCurrentCombatant = () => {
+    if (!currentCombatant) return null;
+
+    // If current combatant is a sidekick, find and return the owner
+    if (currentCombatant.sidekickOf) {
+      const owner = initiativeOrder.find(c => c.id === currentCombatant.sidekickOf);
+      return owner || currentCombatant;
+    }
+
+    return currentCombatant;
+  };
+
   // Build display name for current turn (include sidekicks)
   const getCurrentTurnDisplayName = () => {
-    if (!currentCombatant) return '';
-    const sidekicks = getSidekicksForCombatant(currentCombatant.id);
+    const effectiveCombatant = getEffectiveCurrentCombatant();
+    if (!effectiveCombatant) return '';
+
+    const sidekicks = getSidekicksForCombatant(effectiveCombatant.id);
     if (sidekicks.length > 0) {
       const sidekickNames = sidekicks.map(s => s.name).join(' & ');
-      return `${currentCombatant.name} & ${sidekickNames}`;
+      return `${effectiveCombatant.name} & ${sidekickNames}`;
     }
-    return currentCombatant.name;
+    return effectiveCombatant.name;
   };
 
   // If initiative hasn't been rolled yet, show "ROLL INITIATIVE!" message
@@ -471,33 +511,44 @@ function PlayerScreen() {
           </div>
 
           {/* Current Turn Display - responsive width */}
-          {currentCombatant && (
-            <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border-4 border-yellow-500 px-6 py-3 md:px-8 md:py-4 rounded-2xl shadow-2xl w-full max-w-4xl transition-all duration-300">
-              <div className="flex items-center gap-4">
-                {/* Image with fade - prefer _full, fallback to _token */}
-                {showCurrentTurnImage && (() => {
-                  const imageUrl = getBestImageForCurrentTurn(currentCombatant);
+          {currentCombatant && (() => {
+            const effectiveCombatant = getEffectiveCurrentCombatant();
+            const isPC = isPlayerCharacter(effectiveCombatant);
+            const sideBarColor = isPC ? 'bg-green-500' : 'bg-red-500';
+            const textColor = isPC ? 'text-green-300' : 'text-red-300';
+            const imageBorderColor = isPC ? 'border-green-500' : 'border-red-500';
 
-                  // Only show if validated
-                  return imageUrl ? (
-                    <div className={`flex-shrink-0 transition-opacity duration-300 ${isFadingCurrentTurn ? 'opacity-0' : 'opacity-100'}`}>
-                      <img
-                        src={imageUrl}
-                        alt={currentCombatant.name}
-                        style={{ width: 'clamp(4rem, 8vw, 8rem)', height: 'clamp(4rem, 8vw, 8rem)' }}
-                        className="rounded-full border-4 border-yellow-500 object-cover shadow-2xl"
-                        crossOrigin="anonymous"
-                      />
-                    </div>
-                  ) : null;
-                })()}
-                <div className={`text-center flex-1 transition-opacity duration-300 ${isFadingCurrentTurn ? 'opacity-0' : 'opacity-100'}`}>
-                  <div style={{ fontSize: 'clamp(0.75rem, 1.5vw, 1.5rem)' }} className="text-yellow-300 font-medium uppercase tracking-wide">Current Turn</div>
-                  <div style={{ fontSize: 'clamp(1.5rem, 4vw, 4rem)' }} className="font-bold text-yellow-300 break-words leading-tight">{getCurrentTurnDisplayName()}</div>
+            return (
+              <div className="bg-slate-700/50 px-6 py-3 md:px-8 md:py-4 rounded-2xl shadow-2xl w-full max-w-4xl transition-all duration-300 relative overflow-hidden">
+                {/* Left side colored bar */}
+                <div className={`absolute left-0 top-0 bottom-0 w-2 ${sideBarColor}`}></div>
+
+                <div className="flex items-center gap-4">
+                  {/* Image with fade - prefer _full, fallback to _token */}
+                  {showCurrentTurnImage && (() => {
+                    const imageUrl = getBestImageForCurrentTurn(effectiveCombatant);
+
+                    // Only show if validated
+                    return imageUrl ? (
+                      <div className={`flex-shrink-0 transition-opacity duration-300 ${isFadingCurrentTurn ? 'opacity-0' : 'opacity-100'}`}>
+                        <img
+                          src={imageUrl}
+                          alt={effectiveCombatant.name}
+                          style={{ width: 'clamp(4rem, 8vw, 8rem)', height: 'clamp(4rem, 8vw, 8rem)' }}
+                          className={`rounded-full border-4 ${imageBorderColor} object-cover shadow-2xl`}
+                          crossOrigin="anonymous"
+                        />
+                      </div>
+                    ) : null;
+                  })()}
+                  <div className={`text-center flex-1 transition-opacity duration-300 ${isFadingCurrentTurn ? 'opacity-0' : 'opacity-100'}`}>
+                    <div style={{ fontSize: 'clamp(0.75rem, 1.5vw, 1.5rem)' }} className={`${textColor} font-medium uppercase tracking-wide`}>Current Turn</div>
+                    <div style={{ fontSize: 'clamp(1.5rem, 4vw, 4rem)' }} className={`font-bold ${textColor} break-words leading-tight`}>{getCurrentTurnDisplayName()}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
         </div>
       </div>
 
@@ -508,60 +559,119 @@ function PlayerScreen() {
             const isCurrent = displayIdx === 0;
             const isNext = displayIdx === 1;
 
-            // Calculate position - use viewport-based heights to match scaled elements
-            const baseItemHeight = window.innerWidth < 768 ? 120 : window.innerWidth < 1280 ? 160 : 200;
-            const itemHeight = baseItemHeight + (combatant.conditions?.length > 0 ? 20 : 0);
-            const markerHeight = 100; // Height of the round marker
+            // Calculate position - reduced spacing for compact layout
+            const baseItemHeight = 130;
+            const itemHeight = baseItemHeight + (combatant.conditions?.length > 0 ? 8 : 0);
 
-            // Find where the round marker is in the display order
-            const markerIndex = displayOrder.findIndex(c => c.showRoundMarker);
-
-            // Add extra space for items that come after the marker
-            let extraSpace = 0;
-            if (markerIndex !== -1 && displayIdx > markerIndex) {
-              extraSpace = markerHeight;
-            }
-
-            const basePosition = displayIdx * itemHeight + extraSpace;
-            const targetExtraSpace = isTransitioning && markerIndex !== -1 && (displayIdx - 1) > markerIndex ? markerHeight :
-                                    isTransitioning && markerIndex !== -1 && displayIdx > markerIndex ? markerHeight : extraSpace;
-            const targetPosition = isTransitioning ? (displayIdx - 1) * itemHeight + targetExtraSpace : basePosition;
+            const basePosition = displayIdx * itemHeight;
+            const targetPosition = isTransitioning ? (displayIdx - 1) * itemHeight : basePosition;
 
             // Calculate if combatant is bloodied
             const effectiveMaxHP = (combatant.baseHP || 0) + (combatant.maxHPModifier || 0);
             const hpPercent = effectiveMaxHP > 0 ? ((combatant.hp || 0) / effectiveMaxHP) * 100 : 100;
             const isBloodied = showBloodiedInPlayerView && hpPercent > 0 && hpPercent < 50;
 
+            // Determine if this combatant is a player character
+            const isPC = isPlayerCharacter(combatant);
+
+            // Color scheme based on type and position
+            let sideBarColor, sideBarWidth;
+            if (isCurrent) {
+              sideBarColor = isPC ? 'bg-green-500' : 'bg-red-500';
+              sideBarWidth = 'w-2';
+            } else if (isNext) {
+              sideBarColor = isPC ? 'bg-green-600' : 'bg-red-600';
+              sideBarWidth = 'w-1.5';
+            } else {
+              sideBarColor = isPC ? 'bg-green-800' : 'bg-red-800';
+              sideBarWidth = 'w-1';
+            }
+
+            const indentAmount = combatant.sidekickOf ? 'clamp(3rem, 8vw, 6rem)' : '0';
+
             return (
               <React.Fragment key={`${combatant.id}-${combatant.originalIndex}`}>
                 <div
-                  className={`absolute top-0 right-0 flex items-center gap-4 md:gap-6 p-4 md:p-6 rounded-2xl transition-all duration-500 ease-out ${
-                    isTransitioning && displayIdx === 0 ? 'opacity-0 scale-95' : 'opacity-100'
-                  } ${
-                    isCurrent
-                      ? 'bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border-4 border-yellow-500 shadow-2xl shadow-yellow-500/30'
-                      : isNext
-                      ? 'bg-slate-700/70 border-4 border-slate-500 shadow-xl'
-                      : 'bg-slate-700/50 border-2 border-slate-600'
-                  } ${isBloodied ? 'bloodied-border' : ''}`}
+                  className="absolute top-0 w-full transition-all duration-500 ease-out"
                   style={{
-                    left: combatant.sidekickOf ? 'clamp(3rem, 8vw, 6rem)' : '0',
-                    transform: `translateY(${targetPosition}px) ${!isCurrent ? 'scale(0.95)' : ''}`,
-                    ...(combatant.concentration && !isBloodied && { animation: 'concentration-pulse 2s ease-in-out infinite' })
+                    transform: `translateY(${targetPosition}px)`,
                   }}
                 >
-                  {/* Sidekick Arrow Indicator */}
-                  {combatant.sidekickOf && (
-                    <div className="absolute top-1/2 -translate-y-1/2" style={{ left: 'clamp(-2.5rem, -5vw, -4rem)', fontSize: 'clamp(1rem, 2vw, 2rem)' }}>
-                      <span className="text-slate-400">└─&gt;</span>
-                    </div>
-                  )}
+                  {/* Sidekick layout: arrow + card side by side */}
+                  <div className="flex items-start w-full" style={{ paddingRight: combatant.sidekickOf ? '1px' : '0' }}>
+                    {/* Sidekick Arrow Indicator */}
+                    {combatant.sidekickOf && (
+                      <div
+                        className="text-slate-400 pointer-events-none flex-shrink-0 flex items-start"
+                        style={{
+                          fontSize: 'clamp(0.875rem, 1.5vw, 1.25rem)',
+                          width: indentAmount,
+                          paddingLeft: '1.5rem',
+                          paddingTop: 'clamp(3rem, 4vw, 4rem)',
+                        }}
+                      >
+                        <span style={{ lineHeight: '1' }}>└───&gt;</span>
+                      </div>
+                    )}
 
-                  {/* Position or Token Image */}
+                    {/* Card - Outer wrapper for animation */}
+                    <div
+                      className={`rounded-2xl transition-all duration-500 ease-out ${
+                        isTransitioning && displayIdx === 0 ? 'opacity-0 scale-95' : 'opacity-100'
+                      } ${
+                        isBloodied && combatant.concentration
+                          ? (isCurrent ? 'player-bloodied-concentration-border-current' : isNext ? 'player-bloodied-concentration-border-next' : 'player-bloodied-concentration-border-other')
+                        : isBloodied
+                          ? (isCurrent ? 'player-bloodied-border-current' : isNext ? 'player-bloodied-border-next' : 'player-bloodied-border-other')
+                        : ''
+                      } relative`}
+                      style={{
+                        flex: 1,
+                        transform: !isCurrent ? 'scale(0.95)' : '',
+                        ...(combatant.concentration && !isBloodied && !combatant.isRoundMarker && { animation: 'concentration-pulse 2s ease-in-out infinite' })
+                      }}
+                    >
+                      {/* Inner content div with solid background */}
+                      <div
+                        className={`flex items-center gap-4 md:gap-6 p-4 md:p-6 rounded-2xl ${
+                          combatant.isRoundMarker ? 'bg-transparent'
+                          : 'bg-slate-700'
+                        } ${
+                          isCurrent ? 'shadow-2xl' : isNext ? 'shadow-xl' : ''
+                        } relative overflow-hidden`}
+                      >
+                  {/* Round Marker Content */}
+                  {combatant.isRoundMarker ? (
+                    <div className="w-full relative py-2">
+                      <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t-4 border-dashed border-purple-500/50"></div>
+                      </div>
+                      <div className="relative flex justify-center">
+                        <div className="bg-gradient-to-r from-purple-600/30 to-blue-600/30 backdrop-blur-sm px-4 py-1 md:px-6 md:py-2 rounded-full border-4 border-purple-500/50">
+                          <div className="font-bold text-purple-300 flex items-center gap-2 md:gap-3" style={{ fontSize: 'clamp(1rem, 2vw, 2.5rem)' }}>
+                            <span style={{ fontSize: 'clamp(1.5rem, 3vw, 3.5rem)' }}>↻</span>
+                            <span>ROUND {round + 1}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      {/* Left side colored bar */}
+                      <div className={`absolute left-0 top-0 bottom-0 ${sideBarWidth} ${sideBarColor} transition-all duration-300`}></div>
+
+                      {/* Position or Token Image */}
                   {showInitiativeImages ? (() => {
                     // Show token image instead of position number
                     const tokenUrlRaw = combatant.tokenUrl || combatant.meta?.tokenUrl || combatant.imageUrl || combatant.meta?.imageUrl;
                     const tokenUrl = fixTokenUrl(tokenUrlRaw);
+
+                    // Border color based on type and current/next status
+                    const tokenBorderColor = isCurrent
+                      ? (isPC ? 'border-green-500' : 'border-red-500')
+                      : isNext
+                      ? (isPC ? 'border-green-600' : 'border-red-600')
+                      : (isPC ? 'border-green-800' : 'border-red-800');
 
                     // Only show if validated
                     return tokenUrl && validImages.has(tokenUrl) ? (
@@ -570,13 +680,7 @@ function PlayerScreen() {
                           src={tokenUrl}
                           alt={combatant.name}
                           style={{ width: 'clamp(3rem, 5vw, 5rem)', height: 'clamp(3rem, 5vw, 5rem)' }}
-                          className={`rounded-full object-cover shadow-xl transition-all ${
-                            isCurrent
-                              ? 'border-4 border-yellow-500'
-                              : isNext
-                              ? 'border-4 border-blue-500'
-                              : 'border-2 border-slate-500'
-                          }`}
+                          className={`rounded-full object-cover shadow-xl transition-all border-4 ${tokenBorderColor}`}
                           crossOrigin="anonymous"
                         />
                       </div>
@@ -584,9 +688,9 @@ function PlayerScreen() {
                       // Fallback to position number if no token
                       <div style={{ width: 'clamp(3rem, 5vw, 5rem)', height: 'clamp(3rem, 5vw, 5rem)', fontSize: 'clamp(1.25rem, 2.5vw, 2.5rem)' }} className={`rounded-full flex items-center justify-center font-bold transition-all ${
                         isCurrent
-                          ? 'bg-yellow-500 text-slate-900'
+                          ? (isPC ? 'bg-green-500 text-slate-900' : 'bg-red-500 text-white')
                           : isNext
-                          ? 'bg-blue-500 text-white'
+                          ? (isPC ? 'bg-green-600 text-white' : 'bg-red-600 text-white')
                           : 'bg-slate-600 text-slate-300'
                       }`}>
                         {isCurrent ? '▶' : isNext ? '⧁' : displayIdx + 1}
@@ -596,9 +700,9 @@ function PlayerScreen() {
                     // Show position number when checkbox is inactive
                     <div style={{ width: 'clamp(3rem, 5vw, 5rem)', height: 'clamp(3rem, 5vw, 5rem)', fontSize: 'clamp(1.25rem, 2.5vw, 2.5rem)' }} className={`rounded-full flex items-center justify-center font-bold transition-all ${
                       isCurrent
-                        ? 'bg-yellow-500 text-slate-900'
+                        ? (isPC ? 'bg-green-500 text-slate-900' : 'bg-red-500 text-white')
                         : isNext
-                        ? 'bg-blue-500 text-white'
+                        ? (isPC ? 'bg-green-600 text-white' : 'bg-red-600 text-white')
                         : 'bg-slate-600 text-slate-300'
                     }`}>
                       {isCurrent ? '▶' : isNext ? '⧁' : displayIdx + 1}
@@ -609,9 +713,9 @@ function PlayerScreen() {
                   <div className="flex-1 min-w-0">
                     <div style={{ fontSize: 'clamp(1.25rem, 2.5vw, 3rem)' }} className={`font-semibold transition-colors truncate leading-tight ${
                       isCurrent
-                        ? 'text-yellow-300'
+                        ? (isPC ? 'text-green-300' : 'text-red-300')
                         : isNext
-                        ? 'text-blue-300'
+                        ? (isPC ? 'text-green-400' : 'text-orange-400')
                         : 'text-white'
                     }`}>
                       {combatant.name}
@@ -633,53 +737,38 @@ function PlayerScreen() {
                     </div>
                   )}
 
-                  {/* Concentration indicator (visible to players) */}
-                  {combatant.concentration && (
-                    <div className="hidden lg:flex items-center gap-2 px-4 py-2 bg-purple-500/30 text-purple-300 rounded-full font-medium border-2 border-purple-500/50" style={{ fontSize: 'clamp(0.875rem, 1.5vw, 1.5rem)' }}>
-                      <span className="w-3 h-3 bg-purple-400 rounded-full animate-pulse"></span>
-                      Concentrating
-                    </div>
-                  )}
+                  {/* Initiative Value with Concentration Badge */}
+                  <div className="flex items-center gap-3">
+                    {/* Concentration indicator (visible to players) */}
+                    {combatant.concentration && (
+                      <div className="flex items-center gap-2 px-3 py-1.5 bg-purple-500/30 text-purple-300 rounded-full font-medium border-2 border-purple-500/50" style={{ fontSize: 'clamp(0.75rem, 1.2vw, 1.2rem)' }}>
+                        <span className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></span>
+                        <span className="hidden sm:inline">Concentrating</span>
+                        <span className="sm:hidden">⚡</span>
+                      </div>
+                    )}
 
-                  {/* Initiative Value */}
-                  <div className="text-center">
-                    <div style={{ fontSize: 'clamp(0.75rem, 1.2vw, 1.2rem)' }} className="text-slate-400">Initiative</div>
-                    <div style={{ fontSize: 'clamp(1.5rem, 3vw, 3.5rem)' }} className={`font-bold transition-colors ${
-                      isCurrent
-                        ? 'text-yellow-400'
-                        : isNext
-                        ? 'text-blue-300'
-                        : 'text-blue-400'
-                    }`}>
-                      {combatant.initiative ?? 0}
+                    <div className="text-center">
+                      <div style={{ fontSize: 'clamp(0.75rem, 1.2vw, 1.2rem)' }} className="text-slate-400">Initiative</div>
+                      <div style={{ fontSize: 'clamp(1.5rem, 3vw, 3.5rem)' }} className={`font-bold transition-colors ${
+                        isCurrent
+                          ? 'text-yellow-400'
+                          : isNext
+                          ? 'text-blue-300'
+                          : 'text-blue-400'
+                      }`}>
+                        {combatant.initiative ?? 0}
+                      </div>
                     </div>
+                  </div>
+                    </>
+                  )}
+                      </div>
+                      {/* End inner content div */}
+                    </div>
+                    {/* End outer animation wrapper div */}
                   </div>
                 </div>
-
-                {/* Round Separator - shown AFTER the last combatant in initiative order */}
-                {combatant.showRoundMarker && (
-                  <div
-                    className="absolute top-0 left-0 right-0 transition-all duration-600 ease-in-out z-10"
-                    style={{
-                      transform: `translateY(${targetPosition + itemHeight + 12}px)`,
-                      opacity: isTransitioning && combatant.originalIndex === initiativeOrder.length - 1 && displayIdx === 0 ? 0 : 1
-                    }}
-                  >
-                    <div className="relative py-6 md:py-8">
-                      <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t-4 border-dashed border-purple-500/50"></div>
-                      </div>
-                      <div className="relative flex justify-center">
-                        <div className="bg-gradient-to-r from-purple-600/30 to-blue-600/30 backdrop-blur-sm px-8 py-3 md:px-12 md:py-4 rounded-full border-4 border-purple-500/50 shadow-2xl">
-                          <div className="font-bold text-purple-300 flex items-center gap-3 md:gap-4" style={{ fontSize: 'clamp(1rem, 2vw, 2.5rem)' }}>
-                            <span style={{ fontSize: 'clamp(1.5rem, 3vw, 3.5rem)' }}>↻</span>
-                            <span>ROUND {round + 1}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
               </React.Fragment>
             );
           })}

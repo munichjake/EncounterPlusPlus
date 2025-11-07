@@ -3187,6 +3187,513 @@ export default function App() {
   // Check if combat is completed (for disabling controls)
   const isCompleted = enc?.combatStatus === 'completed';
 
+  // Panel rendering helper functions
+  // These functions render panel content that can be used in both sidebar and floating modes
+  const renderQuickActionsPanel = () => {
+    const inSidebar = sidebarVisible;
+    const isFloating = !sidebarVisible && activeSidebarPanel === 'quickActions';
+
+    return (
+      <div className={
+        inSidebar
+          ? `card bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 flex flex-col transition-all duration-300 ease-in-out overflow-hidden ${quickActionsCollapsed ? 'h-14 justify-center' : 'h-[240px]'}`
+          : 'fixed left-20 top-24 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 z-40 p-4 transition-all duration-300 ease-out'
+      }>
+        <div
+          className={`flex items-center justify-between flex-shrink-0 ${quickActionsCollapsed ? 'mb-0 w-full' : 'mb-2'} ${inSidebar ? 'cursor-pointer' : ''}`}
+          onClick={() => inSidebar ? setQuickActionsCollapsed(!quickActionsCollapsed) : setActiveSidebarPanel(null)}
+          title={inSidebar ? (quickActionsCollapsed ? "Ausklappen" : "Einklappen") : "Close"}
+        >
+          <h2 className={inSidebar ? "text-sm font-bold text-red-900 dark:text-red-300" : "text-lg font-bold text-red-900 dark:text-red-300"}>
+            ⚔️ Quick Actions
+            {enc.combatStatus === 'completed' && <span className="ml-2 text-xs text-green-600">(Completed)</span>}
+          </h2>
+          <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
+            {inSidebar ? (quickActionsCollapsed ? '▼' : '▲') : '✕'}
+          </div>
+        </div>
+        {!quickActionsCollapsed && (
+        <div className="flex-1 overflow-hidden">
+        {(() => {
+          const isCompleted = enc.combatStatus === 'completed';
+          return (
+            <div className="space-y-2">
+              <button
+                disabled={isCompleted}
+                className={`btn w-full bg-red-600 text-white hover:bg-red-700 border-red-600 ${inSidebar ? 'text-sm py-1' : ''} ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
+                onClick={() => {
+                  rollInitiativeForAll();
+                  if (isFloating) setActiveSidebarPanel(null);
+                }}
+              >
+                🎲 Roll Initiative
+              </button>
+              <button
+                className={`btn w-full bg-yellow-600 text-white hover:bg-yellow-700 border-yellow-600 ${inSidebar ? 'text-sm py-1' : ''}`}
+                onClick={() => {
+                  resetCombat();
+                  if (isFloating) setActiveSidebarPanel(null);
+                }}
+              >
+                🔄 Reset Combat
+              </button>
+              <button
+                disabled={isCompleted}
+                className={`btn w-full bg-green-600 text-white hover:bg-green-700 border-green-600 ${inSidebar ? 'text-sm py-1' : ''} ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
+                onClick={async () => {
+                  if (!enc) return;
+                  try {
+                    const updated = {
+                      ...enc,
+                      combatStatus: 'completed',
+                      completedAt: new Date().toISOString()
+                    };
+                    setEnc(updated);
+                    await apiPut(`/api/encounters/${enc.id}`, updated);
+                    const encountersResponse = await apiGet('/api/encounters');
+                    const encountersData = await encountersResponse.json();
+                    setEncounters(encountersData);
+                  } catch (error) {
+                    console.error('Failed to finish combat:', error);
+                  }
+                }}
+              >
+                ✅ Finish Combat
+              </button>
+              <button
+                disabled={isCompleted}
+                className={`btn w-full bg-orange-500 text-white hover:bg-orange-600 border-orange-500 ${inSidebar ? 'text-sm py-1' : ''} ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
+                onClick={() => {
+                  addCustom();
+                  if (isFloating) setActiveSidebarPanel(null);
+                }}
+              >
+                ➕ Add Custom
+              </button>
+            </div>
+          );
+        })()}
+        </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderPlayerScreenControlsPanel = () => {
+    const inSidebar = sidebarVisible;
+    const isFloating = !sidebarVisible && activeSidebarPanel === 'playerScreen';
+
+    return (
+      <div className={
+        inSidebar
+          ? `card bg-cyan-50 dark:bg-cyan-900/20 border-cyan-200 dark:border-cyan-800 flex flex-col transition-all duration-300 ease-in-out overflow-hidden ${playerScreenControlsCollapsed ? 'h-14 justify-center' : 'h-[600px]'}`
+          : `fixed top-24 w-80 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 z-40 p-4 transition-all duration-300 ${sidebarVisible ? 'left-[340px]' : 'left-20'}`
+      }>
+        <div
+          className={`flex items-center justify-between flex-shrink-0 ${playerScreenControlsCollapsed ? 'mb-0 w-full' : 'mb-2'} ${inSidebar ? 'cursor-pointer' : ''}`}
+          onClick={() => inSidebar ? setPlayerScreenControlsCollapsed(!playerScreenControlsCollapsed) : setActiveSidebarPanel(null)}
+          title={inSidebar ? (playerScreenControlsCollapsed ? "Ausklappen" : "Einklappen") : "Close"}
+        >
+          <h2 className={inSidebar ? "text-sm font-bold text-cyan-900 dark:text-cyan-300" : "text-lg font-bold text-cyan-900 dark:text-cyan-300"}>
+            🖥️ Player Screen Controls
+            {enc.combatStatus === 'completed' && <span className="ml-2 text-xs text-green-600">(Combat Completed)</span>}
+          </h2>
+          <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
+            {inSidebar ? (playerScreenControlsCollapsed ? '▼' : '▲') : '✕'}
+          </div>
+        </div>
+
+        {!playerScreenControlsCollapsed && (
+        <div className="flex-1 overflow-hidden">
+        {(() => {
+          const isCompleted = enc.combatStatus === 'completed';
+          return (
+            <div className="space-y-5">
+              <button
+                disabled={isCompleted}
+                className={`w-full btn bg-gradient-to-r from-indigo-500 to-blue-600 text-white hover:from-indigo-600 hover:to-blue-700 border-none shadow-lg ${inSidebar ? 'text-sm' : ''} ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
+                onClick={async () => {
+                  try {
+                    const response = await apiPost('/api/player-screen/token');
+                    const data = await response.json();
+                    const token = data.token;
+                    const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
+                    const url = `${baseUrl}player.html?follow=true&token=${encodeURIComponent(token)}`;
+                    window.open(url, 'playerScreen', 'width=800,height=600,menubar=no,toolbar=no,location=no');
+                  } catch (error) {
+                    console.error('Failed to generate player screen token:', error);
+                    alert('Failed to open player screen');
+                  }
+                }}
+              >
+                📺 Open Player Screen (Auto-Follow)
+              </button>
+
+              <button
+                disabled={isCompleted}
+                className={`w-full btn bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 border-none shadow-lg ${inSidebar ? 'text-sm' : ''} ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
+                onClick={() => setShowShareCodeModal(true)}
+              >
+                📱 Share to Mobile
+              </button>
+
+              <hr className="border-cyan-200 dark:border-cyan-700 border-slate-200 dark:border-slate-700" />
+
+              <div>
+                <label className="flex items-center justify-between cursor-pointer">
+                  <span className="text-sm text-slate-700 dark:text-slate-300">Blank Screen</span>
+                  <label className="toggle-switch">
+                    <input
+                      type="checkbox"
+                      checked={enc.playerScreenSettings?.blankScreen || false}
+                      onChange={(e) => {
+                        const updated = {
+                          ...enc,
+                          playerScreenSettings: {
+                            ...enc.playerScreenSettings,
+                            blankScreen: e.target.checked
+                          }
+                        };
+                        setEnc(updated);
+                        apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                      }}
+                    />
+                    <span className="toggle-slider"></span>
+                  </label>
+                </label>
+              </div>
+
+              <div>
+                <label className={`flex items-center justify-between ${isCompleted ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}>
+                  <span className="text-sm text-slate-700 dark:text-slate-300">Black Background</span>
+                  <label className="toggle-switch">
+                    <input
+                      type="checkbox"
+                      disabled={isCompleted}
+                      checked={enc.playerScreenSettings?.blackMode || false}
+                      onChange={(e) => {
+                        const updated = {
+                          ...enc,
+                          playerScreenSettings: {
+                            ...enc.playerScreenSettings,
+                            blackMode: e.target.checked
+                          }
+                        };
+                        setEnc(updated);
+                        apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                      }}
+                    />
+                    <span className="toggle-slider"></span>
+                  </label>
+                </label>
+              </div>
+
+              <div className={isCompleted ? 'opacity-50' : ''}>
+                <label className="text-sm text-slate-700 dark:text-slate-300 block mb-2">
+                  Rotation: {enc.playerScreenSettings?.rotation || 0}°
+                </label>
+                <div className="flex gap-2">
+                  <button
+                    disabled={isCompleted}
+                    onClick={() => {
+                      const current = enc.playerScreenSettings?.rotation || 0;
+                      const newRotation = (current - 90 + 360) % 360;
+                      const updated = {
+                        ...enc,
+                        playerScreenSettings: {
+                          ...enc.playerScreenSettings,
+                          rotation: newRotation
+                        }
+                      };
+                      setEnc(updated);
+                      apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                    }}
+                    className="btn flex-1 bg-slate-600 text-white hover:bg-slate-700 text-xs py-2"
+                  >
+                    ↶ Left
+                  </button>
+                  <button
+                    disabled={isCompleted}
+                    onClick={() => {
+                      const current = enc.playerScreenSettings?.rotation || 0;
+                      const newRotation = (current + 90) % 360;
+                      const updated = {
+                        ...enc,
+                        playerScreenSettings: {
+                          ...enc.playerScreenSettings,
+                          rotation: newRotation
+                        }
+                      };
+                      setEnc(updated);
+                      apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                    }}
+                    className="btn flex-1 bg-slate-600 text-white hover:bg-slate-700 text-xs py-2"
+                  >
+                    Right ↷
+                  </button>
+                </div>
+              </div>
+
+              <div className={isCompleted ? 'opacity-50 pointer-events-none' : ''}>
+                <div style={{ margin: '1em 0' }}>
+                  <label className="flex items-center justify-between cursor-pointer">
+                    <span className="text-sm text-slate-700 dark:text-slate-300">Current Turn Image</span>
+                    <label className="toggle-switch">
+                      <input
+                        type="checkbox"
+                        disabled={isCompleted}
+                        checked={enc.playerScreenSettings?.showCurrentTurnImage !== false}
+                        onChange={(e) => {
+                          const updated = {
+                            ...enc,
+                            playerScreenSettings: {
+                              ...enc.playerScreenSettings,
+                              showCurrentTurnImage: e.target.checked
+                            }
+                          };
+                          setEnc(updated);
+                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                        }}
+                      />
+                      <span className="toggle-slider"></span>
+                    </label>
+                  </label>
+                </div>
+
+                <div style={{ margin: '1em 0' }}>
+                  <label className="flex items-center justify-between cursor-pointer">
+                    <span className="text-sm text-slate-700 dark:text-slate-300">Initiative Order Images</span>
+                    <label className="toggle-switch">
+                      <input
+                        type="checkbox"
+                        disabled={isCompleted}
+                        checked={enc.playerScreenSettings?.showInitiativeImages !== false}
+                        onChange={(e) => {
+                          const updated = {
+                            ...enc,
+                            playerScreenSettings: {
+                              ...enc.playerScreenSettings,
+                              showInitiativeImages: e.target.checked
+                            }
+                          };
+                          setEnc(updated);
+                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                        }}
+                      />
+                      <span className="toggle-slider"></span>
+                    </label>
+                  </label>
+                </div>
+
+                <div style={{ margin: '1em 0' }}>
+                  <label className="flex items-center justify-between cursor-pointer">
+                    <span className="text-sm text-slate-700 dark:text-slate-300">Show Turn Button</span>
+                    <label className="toggle-switch">
+                      <input
+                        type="checkbox"
+                        disabled={isCompleted}
+                        checked={enc.playerScreenSettings?.showTurnButton !== false}
+                        onChange={(e) => {
+                          const updated = {
+                            ...enc,
+                            playerScreenSettings: {
+                              ...enc.playerScreenSettings,
+                              showTurnButton: e.target.checked
+                            }
+                          };
+                          setEnc(updated);
+                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                        }}
+                      />
+                      <span className="toggle-slider"></span>
+                    </label>
+                  </label>
+                </div>
+
+                <div style={{ margin: '1em 0' }}>
+                  <label className="flex items-center justify-between cursor-pointer">
+                    <span className="text-sm text-slate-700 dark:text-slate-300">Hide Scrollbars</span>
+                    <label className="toggle-switch">
+                      <input
+                        type="checkbox"
+                        disabled={isCompleted}
+                        checked={enc.playerScreenSettings?.hideScrollbars || false}
+                        onChange={(e) => {
+                          const updated = {
+                            ...enc,
+                            playerScreenSettings: {
+                              ...enc.playerScreenSettings,
+                              hideScrollbars: e.target.checked
+                            }
+                          };
+                          setEnc(updated);
+                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                        }}
+                      />
+                      <span className="toggle-slider"></span>
+                    </label>
+                  </label>
+                </div>
+
+                <div>
+                  <label className="text-sm text-slate-700 dark:text-slate-300 block mb-1">
+                    Zoom: {Math.round((enc.playerScreenSettings?.zoom || 100))}%
+                  </label>
+                  <input
+                    type="range"
+                    min="50"
+                    max="150"
+                    step="5"
+                    disabled={isCompleted}
+                    value={enc.playerScreenSettings?.zoom || 100}
+                    onChange={(e) => {
+                      const updated = {
+                        ...enc,
+                        playerScreenSettings: {
+                          ...enc.playerScreenSettings,
+                          zoom: parseInt(e.target.value)
+                        }
+                      };
+                      setEnc(updated);
+                      apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                    }}
+                    className="w-full"
+                  />
+                </div>
+
+                <div>
+                  <label className="flex items-center justify-between cursor-pointer">
+                    <span className="text-sm text-slate-700 dark:text-slate-300">🩸 Bloodied Status</span>
+                    <label className="toggle-switch">
+                      <input
+                        type="checkbox"
+                        disabled={isCompleted}
+                        checked={enc.playerScreenSettings?.showBloodiedInPlayerView || false}
+                        onChange={(e) => {
+                          const updated = {
+                            ...enc,
+                            playerScreenSettings: {
+                              ...enc.playerScreenSettings,
+                              showBloodiedInPlayerView: e.target.checked
+                            }
+                          };
+                          setEnc(updated);
+                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
+                        }}
+                      />
+                      <span className="toggle-slider"></span>
+                    </label>
+                  </label>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+        </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderMonsterBrowserPanel = () => {
+    const inSidebar = sidebarVisible;
+    const isFloating = !sidebarVisible && activeSidebarPanel === 'monsters';
+
+    return (
+      <div className={
+        inSidebar
+          ? `card bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 flex flex-col transition-all duration-300 ease-in-out overflow-hidden ${monsterBrowserCollapsed ? 'h-14 justify-center' : 'h-[800px]'}`
+          : 'fixed left-20 top-24 w-96 max-h-[calc(100vh-120px)] bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 z-40 flex flex-col overflow-hidden transition-all duration-300 ease-out'
+      }>
+        <div
+          className={inSidebar ? `flex items-center justify-between flex-shrink-0 ${monsterBrowserCollapsed ? 'mb-0' : 'mb-2'} cursor-pointer` : "flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700"}
+          onClick={() => inSidebar ? setMonsterBrowserCollapsed(!monsterBrowserCollapsed) : setActiveSidebarPanel(null)}
+          title={inSidebar ? (monsterBrowserCollapsed ? "Ausklappen" : "Einklappen") : "Close"}
+        >
+          <h2 className={inSidebar ? "text-sm font-bold text-green-900 dark:text-green-300" : "text-lg font-bold text-green-900 dark:text-green-300"}>
+            🐉 Quick Add Monsters
+          </h2>
+          <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
+            {inSidebar ? (monsterBrowserCollapsed ? '▼' : '▲') : '✕'}
+          </div>
+        </div>
+        {!monsterBrowserCollapsed && (
+          <div className={inSidebar ? "flex-1 overflow-hidden flex flex-col" : "flex-1 overflow-hidden p-4"}>
+            <MonsterBrowser
+              onPick={(mon) => {
+                addMonster(mon);
+                if (isFloating) setActiveSidebarPanel(null);
+              }}
+              onEdit={(monster) => {
+                setEditingCreature(monster);
+                setShowCreatureManager(true);
+                if (isFloating) setActiveSidebarPanel(null);
+              }}
+              RollableText={RollableText}
+              combatMode={combatMode}
+              selectedCombatant={selectedCombatant}
+            />
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderPlayerCharactersPanel = () => {
+    const inSidebar = sidebarVisible;
+    const isFloating = !sidebarVisible && activeSidebarPanel === 'players';
+
+    return (
+      <div className={
+        inSidebar
+          ? `card bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800 flex flex-col overflow-hidden transition-all duration-300 max-h-[600px]`
+          : 'fixed left-20 top-24 w-96 max-h-[calc(100vh-120px)] bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 z-40 flex flex-col overflow-hidden transition-all duration-300 ease-out'
+      }>
+        <div className={inSidebar ? "flex items-center justify-between mb-2 flex-shrink-0" : "flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700"}>
+          <h2 className={inSidebar ? "text-sm font-bold text-purple-900 dark:text-purple-300" : "text-lg font-bold text-purple-900 dark:text-purple-300"}>
+            👥 Player Characters
+          </h2>
+          <button
+            onClick={() => setActiveSidebarPanel(null)}
+            className="w-8 h-8 flex items-center justify-center rounded hover:bg-purple-200 dark:hover:bg-purple-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            title="Close"
+          >
+            ✕
+          </button>
+        </div>
+        <div className={inSidebar ? "flex-1 overflow-y-auto" : "flex-1 overflow-y-auto p-4"}>
+          <PlayerCharacterTab
+            campaigns={campaigns}
+            onAddToEncounter={async (pc) => {
+              if (!enc) return;
+              const id = crypto.randomUUID();
+              const c = {
+                id,
+                name: pc.name,
+                initiative: 0,
+                initiativeTieBreaker: 0,
+                hp: pc.hp || 0,
+                baseHP: pc.hp || 0,
+                tempHP: 0,
+                ac: pc.ac || 10,
+                isPlayer: true,
+                level: pc.level,
+                class: pc.class,
+                race: pc.race,
+                ...pc
+              };
+              await save({
+                ...enc,
+                combatants: { ...enc.combatants, [id]: c }
+              });
+              setActiveSidebarPanel(null);
+            }}
+          />
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 text-slate-900 dark:text-slate-100 transition-colors">
       <header className="sticky top-0 z-40 border-b border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg shadow-sm">
@@ -3343,7 +3850,7 @@ export default function App() {
                 className="w-5 h-5 transition-opacity duration-700 filter brightness-0 invert"
               />
               {sidebarVisible && (
-                <span className="text-sm font-semibold tracking-wide transition-opacity duration-300 opacity-0 group-hover:opacity-100">
+                <span className="text-sm font-semibold tracking-wide">
                   Hide
                 </span>
               )}
@@ -3357,404 +3864,26 @@ export default function App() {
               : 'opacity-0 scale-75 pointer-events-none max-h-0 overflow-hidden'
           }`}>
               {/* Combat Mode Quick Actions - Top of Sidebar */}
-              {combatMode && enc && (
-                <div className={`card bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 transition-all duration-300 ${quickActionsCollapsed ? 'pb-0' : ''}`}>
-                  <div className="flex items-center justify-between mb-2">
-                    <h2 className="text-sm font-bold text-red-900 dark:text-red-300">
-                      ⚔️ Quick Actions
-                      {enc.combatStatus === 'completed' && <span className="ml-2 text-xs text-green-600">(Completed)</span>}
-                    </h2>
-                    <button
-                      onClick={() => setQuickActionsCollapsed(!quickActionsCollapsed)}
-                      className="w-8 h-8 flex items-center justify-center rounded hover:bg-red-200 dark:hover:bg-red-800 transition-colors"
-                      title={quickActionsCollapsed ? "Ausklappen" : "Einklappen"}
-                    >
-                      {quickActionsCollapsed ? '▼' : '▲'}
-                    </button>
-                  </div>
-                  {!quickActionsCollapsed && (() => {
-                    const isCompleted = enc.combatStatus === 'completed';
-                    return (
-                    <div className="space-y-2">
-                      <button
-                        disabled={isCompleted}
-                        className={`btn w-full bg-red-600 text-white hover:bg-red-700 border-red-600 text-sm py-1 ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
-                        onClick={rollInitiativeForAll}
-                      >
-                        🎲 Roll Initiative
-                      </button>
-                      <button
-                        className="btn w-full bg-yellow-600 text-white hover:bg-yellow-700 border-yellow-600 text-sm py-1"
-                        onClick={resetCombat}
-                      >
-                        🔄 Reset Combat
-                      </button>
-                      <button
-                        disabled={isCompleted}
-                        className={`btn w-full bg-green-600 text-white hover:bg-green-700 border-green-600 text-sm py-1 ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
-                        onClick={async () => {
-                          if (!enc) return;
-                          try {
-                            const updated = {
-                              ...enc,
-                              combatStatus: 'completed',
-                              completedAt: new Date().toISOString()
-                            };
-                            setEnc(updated);
-                            await apiPut(`/api/encounters/${enc.id}`, updated);
-                            // Refresh encounters list to show checkmark
-                            const encountersResponse = await apiGet('/api/encounters');
-                            const encountersData = await encountersResponse.json();
-                            setEncounters(encountersData);
-                          } catch (error) {
-                            console.error('Failed to finish combat:', error);
-                          }
-                        }}
-                      >
-                        ✅ Finish Combat
-                      </button>
-                      <button
-                        disabled={isCompleted}
-                        className={`btn w-full bg-orange-500 text-white hover:bg-orange-600 border-orange-500 text-sm py-1 ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
-                        onClick={addCustom}
-                      >
-                        ➕ Add Custom
-                      </button>
-                    </div>
-                    );
-                  })()}
-                </div>
-              )}
+              {combatMode && enc && renderQuickActionsPanel()}
 
               {/* Player Screen Controls - Second position when active */}
-              {combatMode && enc && (
-                <div className={`card bg-cyan-50 dark:bg-cyan-900/20 border-cyan-200 dark:border-cyan-800 transition-all duration-300 ${playerScreenControlsCollapsed ? 'h-12 pb-0' : ''}`}>
-                  <div className="flex items-center justify-between mb-2">
-                    <h2 className="text-sm font-bold text-cyan-900 dark:text-cyan-300">
-                      🖥️ Player Screen Controls
-                      {enc.combatStatus === 'completed' && <span className="ml-2 text-xs text-green-600">(Combat Completed)</span>}
-                    </h2>
-                    <button
-                      onClick={() => setPlayerScreenControlsCollapsed(!playerScreenControlsCollapsed)}
-                      className="w-8 h-8 flex items-center justify-center rounded hover:bg-cyan-200 dark:hover:bg-cyan-800 transition-colors"
-                      title={playerScreenControlsCollapsed ? "Ausklappen" : "Einklappen"}
-                    >
-                      {playerScreenControlsCollapsed ? '▼' : '▲'}
-                    </button>
-                  </div>
+              {combatMode && enc && renderPlayerScreenControlsPanel()}
 
-                  {!playerScreenControlsCollapsed && (() => {
-                    const isCompleted = enc.combatStatus === 'completed';
-                    return (
-                    <div className="space-y-3">
-                      {/* Open Player Screen Button */}
-                      <button
-                        disabled={isCompleted}
-                        className={`w-full btn bg-gradient-to-r from-indigo-500 to-blue-600 text-white hover:from-indigo-600 hover:to-blue-700 border-none shadow-lg text-sm ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
-                        onClick={async () => {
-                          try {
-                            // Generate a secure token
-                            const response = await apiPost('/api/player-screen/token');
-                            const data = await response.json();
-                            const token = data.token;
+              {/* Player Characters Panel - Third position when active */}
+              {combatMode && enc && activeSidebarPanel === 'players' && renderPlayerCharactersPanel()}
 
-                            // Open player screen with token
-                            const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
-                            const url = `${baseUrl}player.html?follow=true&token=${encodeURIComponent(token)}`;
-                            window.open(url, 'playerScreen', 'width=800,height=600,menubar=no,toolbar=no,location=no');
-                          } catch (error) {
-                            console.error('Failed to generate player screen token:', error);
-                            alert('Failed to open player screen');
-                          }
-                        }}
-                      >
-                        📺 Open Player Screen (Auto-Follow)
-                      </button>
+              {/* Old Player Screen Controls code removed - now using unified helper function above */}
 
-                      {/* Share to Mobile Button */}
-                      <button
-                        disabled={isCompleted}
-                        className={`w-full btn bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 border-none shadow-lg text-sm ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
-                        onClick={() => setShowShareCodeModal(true)}
-                      >
-                        📱 Share to Mobile
-                      </button>
-
-                      <hr className="border-cyan-200 dark:border-cyan-700" />
-
-                      {/* Blank Screen Toggle - Always enabled */}
-                      <div>
-                        <label className="flex items-center justify-between cursor-pointer">
-                          <span className="text-sm text-slate-700 dark:text-slate-300">Blank Screen</span>
-                          <label className="toggle-switch">
-                            <input
-                              type="checkbox"
-                              checked={enc.playerScreenSettings?.blankScreen || false}
-                              onChange={(e) => {
-                                const updated = {
-                                  ...enc,
-                                  playerScreenSettings: {
-                                    ...enc.playerScreenSettings,
-                                    blankScreen: e.target.checked
-                                  }
-                                };
-                                setEnc(updated);
-                                apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                              }}
-                            />
-                            <span className="toggle-slider"></span>
-                          </label>
-                        </label>
-                      </div>
-
-                      {/* Black Mode Toggle - Disabled when completed */}
-                      <div>
-                        <label className={`flex items-center justify-between ${isCompleted ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}>
-                          <span className="text-sm text-slate-700 dark:text-slate-300">Black Background</span>
-                          <label className="toggle-switch">
-                            <input
-                              type="checkbox"
-                              disabled={isCompleted}
-                              checked={enc.playerScreenSettings?.blackMode || false}
-                              onChange={(e) => {
-                                const updated = {
-                                  ...enc,
-                                  playerScreenSettings: {
-                                    ...enc.playerScreenSettings,
-                                    blackMode: e.target.checked
-                                  }
-                                };
-                                setEnc(updated);
-                                apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                              }}
-                            />
-                            <span className="toggle-slider"></span>
-                          </label>
-                        </label>
-                      </div>
-
-                      {/* Rotation Control - Disabled when completed */}
-                      <div className={isCompleted ? 'opacity-50' : ''}>
-                        <label className="text-sm text-slate-700 dark:text-slate-300 block mb-2">
-                          Rotation: {enc.playerScreenSettings?.rotation || 0}°
-                        </label>
-                        <div className="flex gap-2">
-                          <button
-                            disabled={isCompleted}
-                            onClick={() => {
-                              const current = enc.playerScreenSettings?.rotation || 0;
-                              const newRotation = (current - 90 + 360) % 360;
-                              const updated = {
-                                ...enc,
-                                playerScreenSettings: {
-                                  ...enc.playerScreenSettings,
-                                  rotation: newRotation
-                                }
-                              };
-                              setEnc(updated);
-                              apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                            }}
-                            className="btn flex-1 bg-slate-600 text-white hover:bg-slate-700 text-xs py-2"
-                          >
-                            ↶ Left
-                          </button>
-                          <button
-                            disabled={isCompleted}
-                            onClick={() => {
-                              const current = enc.playerScreenSettings?.rotation || 0;
-                              const newRotation = (current + 90) % 360;
-                              const updated = {
-                                ...enc,
-                                playerScreenSettings: {
-                                  ...enc.playerScreenSettings,
-                                  rotation: newRotation
-                                }
-                              };
-                              setEnc(updated);
-                              apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                            }}
-                            className="btn flex-1 bg-slate-600 text-white hover:bg-slate-700 text-xs py-2"
-                          >
-                            Right ↷
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* All other toggles - disabled when completed */}
-                      <div className={isCompleted ? 'opacity-50 pointer-events-none' : ''}>
-                      {/* Current Turn Image */}
-                      <div>
-                        <label className="flex items-center justify-between cursor-pointer">
-                          <span className="text-sm text-slate-700 dark:text-slate-300">Current Turn Image</span>
-                          <label className="toggle-switch">
-                            <input
-                              type="checkbox"
-                              disabled={isCompleted}
-                              checked={enc.playerScreenSettings?.showCurrentTurnImage !== false}
-                              onChange={(e) => {
-                                const updated = {
-                                  ...enc,
-                                  playerScreenSettings: {
-                                    ...enc.playerScreenSettings,
-                                    showCurrentTurnImage: e.target.checked
-                                  }
-                                };
-                                setEnc(updated);
-                                apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                              }}
-                            />
-                            <span className="toggle-slider"></span>
-                          </label>
-                        </label>
-                      </div>
-
-                      {/* Initiative Order Images */}
-                      <div>
-                        <label className="flex items-center justify-between cursor-pointer">
-                          <span className="text-sm text-slate-700 dark:text-slate-300">Initiative Order Images</span>
-                          <label className="toggle-switch">
-                            <input
-                              type="checkbox"
-                              disabled={isCompleted}
-                              checked={enc.playerScreenSettings?.showInitiativeImages !== false}
-                              onChange={(e) => {
-                                const updated = {
-                                  ...enc,
-                                  playerScreenSettings: {
-                                    ...enc.playerScreenSettings,
-                                    showInitiativeImages: e.target.checked
-                                  }
-                                };
-                                setEnc(updated);
-                                apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                              }}
-                            />
-                            <span className="toggle-slider"></span>
-                          </label>
-                        </label>
-                      </div>
-
-                      {/* Show Turn Button */}
-                      <div>
-                        <label className="flex items-center justify-between cursor-pointer">
-                          <span className="text-sm text-slate-700 dark:text-slate-300">Show Turn Button</span>
-                          <label className="toggle-switch">
-                            <input
-                              type="checkbox"
-                              disabled={isCompleted}
-                              checked={enc.playerScreenSettings?.showTurnButton !== false}
-                              onChange={(e) => {
-                                const updated = {
-                                  ...enc,
-                                  playerScreenSettings: {
-                                    ...enc.playerScreenSettings,
-                                    showTurnButton: e.target.checked
-                                  }
-                                };
-                                setEnc(updated);
-                                apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                              }}
-                            />
-                            <span className="toggle-slider"></span>
-                          </label>
-                        </label>
-                      </div>
-
-                      {/* Hide Scrollbars */}
-                      <div>
-                        <label className="flex items-center justify-between cursor-pointer">
-                          <span className="text-sm text-slate-700 dark:text-slate-300">Hide Scrollbars</span>
-                          <label className="toggle-switch">
-                            <input
-                              type="checkbox"
-                              disabled={isCompleted}
-                              checked={enc.playerScreenSettings?.hideScrollbars || false}
-                              onChange={(e) => {
-                                const updated = {
-                                  ...enc,
-                                playerScreenSettings: {
-                                  ...enc.playerScreenSettings,
-                                  hideScrollbars: e.target.checked
-                                }
-                              };
-                              setEnc(updated);
-                              apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                            }}
-                          />
-                          <span className="toggle-slider"></span>
-                        </label>
-                        </label>
-                      </div>
-
-                      {/* Zoom Level */}
-                      <div>
-                        <label className="text-sm text-slate-700 dark:text-slate-300 block mb-1">
-                          Zoom: {Math.round((enc.playerScreenSettings?.zoom || 100))}%
-                        </label>
-                        <input
-                          type="range"
-                          min="50"
-                          max="150"
-                          step="5"
-                          disabled={isCompleted}
-                          value={enc.playerScreenSettings?.zoom || 100}
-                          onChange={(e) => {
-                            const updated = {
-                              ...enc,
-                              playerScreenSettings: {
-                                ...enc.playerScreenSettings,
-                                zoom: parseInt(e.target.value)
-                              }
-                            };
-                            setEnc(updated);
-                            apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                          }}
-                          className="w-full"
-                        />
-                      </div>
-
-                      {/* Bloodied Status */}
-                      <div>
-                        <label className="flex items-center justify-between cursor-pointer">
-                          <span className="text-sm text-slate-700 dark:text-slate-300">🩸 Bloodied Status</span>
-                          <label className="toggle-switch">
-                            <input
-                              type="checkbox"
-                              disabled={isCompleted}
-                              checked={enc.playerScreenSettings?.showBloodiedInPlayerView || false}
-                              onChange={(e) => {
-                                const updated = {
-                                ...enc,
-                                playerScreenSettings: {
-                                  ...enc.playerScreenSettings,
-                                  showBloodiedInPlayerView: e.target.checked
-                                }
-                              };
-                              setEnc(updated);
-                              apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                            }}
-                          />
-                          <span className="toggle-slider"></span>
-                        </label>
-                        </label>
-                      </div>
-                      </div>
-                    </div>
-                    );
-                  })()}
-                </div>
-              )}
-
-              <section className={`card flex flex-col overflow-hidden transition-all duration-300 ${encounterTreeCollapsed ? 'h-12' : (combatMode ? 'h-[600px]' : 'h-[calc(100vh-180px)]')}`}>
-                <div className="flex items-center justify-between mb-2 flex-shrink-0">
-                  <h2 className="text-lg font-bold">📁 Encounters</h2>
-                  <button
-                    onClick={() => setEncounterTreeCollapsed(!encounterTreeCollapsed)}
-                    className="w-8 h-8 flex items-center justify-center rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                    title={encounterTreeCollapsed ? "Ausklappen" : "Einklappen"}
-                  >
+              <section className={`card flex flex-col transition-all duration-300 ease-in-out overflow-hidden ${encounterTreeCollapsed ? 'h-14 justify-center' : (combatMode ? 'h-[600px]' : 'h-[calc(100vh-180px)]')}`}>
+                <div
+                  className={`flex items-center justify-between flex-shrink-0 ${encounterTreeCollapsed ? 'mb-0' : 'mb-2'} cursor-pointer`}
+                  onClick={() => setEncounterTreeCollapsed(!encounterTreeCollapsed)}
+                  title={encounterTreeCollapsed ? "Ausklappen" : "Einklappen"}
+                >
+                  <h2 className="text-sm font-bold text-blue-900 dark:text-blue-300">📁 Encounters</h2>
+                  <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
                     {encounterTreeCollapsed ? '▼' : '▲'}
-                  </button>
+                  </div>
                 </div>
                 {!encounterTreeCollapsed && (
                   <div className="flex-1 overflow-hidden">
@@ -3789,36 +3918,7 @@ export default function App() {
               </section>
 
               {/* Combat Mode - Compact Monster Browser */}
-              {combatMode && (
-                <div className={`card bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 flex flex-col overflow-hidden transition-all duration-300 ${monsterBrowserCollapsed ? 'h-12' : 'max-h-[800px]'}`}>
-                  <div className="flex items-center justify-between mb-2 flex-shrink-0">
-                    <h2 className="text-sm font-bold text-red-900 dark:text-red-300">
-                      🐉 Quick Add Monsters
-                    </h2>
-                    <button
-                      onClick={() => setMonsterBrowserCollapsed(!monsterBrowserCollapsed)}
-                      className="w-8 h-8 flex items-center justify-center rounded hover:bg-red-200 dark:hover:bg-red-800 transition-colors"
-                      title={monsterBrowserCollapsed ? "Ausklappen" : "Einklappen"}
-                    >
-                      {monsterBrowserCollapsed ? '▼' : '▲'}
-                    </button>
-                  </div>
-                  {!monsterBrowserCollapsed && (
-                    <div className="flex-1 overflow-hidden flex flex-col">
-                      <MonsterBrowser
-                        onPick={addMonster}
-                        onEdit={(monster) => {
-                          setEditingCreature(monster);
-                          setShowCreatureManager(true);
-                        }}
-                        RollableText={RollableText}
-                        combatMode={combatMode}
-                        selectedCombatant={selectedCombatant}
-                      />
-                    </div>
-                  )}
-                </div>
-              )}
+              {combatMode && renderMonsterBrowserPanel()}
           </div>
 
           {/* Mini Icon Mode - fades in when sidebar collapsed */}
@@ -3849,7 +3949,14 @@ export default function App() {
                         ? 'bg-red-500 text-white shadow-lg'
                         : 'bg-white dark:bg-slate-800 hover:bg-red-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700'
                     }`}
-                    onClick={() => setActiveSidebarPanel(activeSidebarPanel === 'quickActions' ? null : 'quickActions')}
+                    onClick={() => {
+                      if (activeSidebarPanel === 'quickActions') {
+                        setActiveSidebarPanel(null);
+                      } else {
+                        setQuickActionsCollapsed(false);
+                        setActiveSidebarPanel('quickActions');
+                      }
+                    }}
                     title="Quick Actions"
                   >
                     ⚔️
@@ -3865,7 +3972,14 @@ export default function App() {
                         ? 'bg-green-500 text-white shadow-lg'
                         : 'bg-white dark:bg-slate-800 hover:bg-green-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700'
                     } ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    onClick={() => setActiveSidebarPanel(activeSidebarPanel === 'monsters' ? null : 'monsters')}
+                    onClick={() => {
+                      if (activeSidebarPanel === 'monsters') {
+                        setActiveSidebarPanel(null);
+                      } else {
+                        setMonsterBrowserCollapsed(false);
+                        setActiveSidebarPanel('monsters');
+                      }
+                    }}
                     title="Quick Add Monsters"
                   >
                     🐉
@@ -3896,7 +4010,14 @@ export default function App() {
                         ? 'bg-cyan-500 text-white shadow-lg'
                         : 'bg-white dark:bg-slate-800 hover:bg-cyan-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700'
                     }`}
-                    onClick={() => setActiveSidebarPanel(activeSidebarPanel === 'playerScreen' ? null : 'playerScreen')}
+                    onClick={() => {
+                      if (activeSidebarPanel === 'playerScreen') {
+                        setActiveSidebarPanel(null);
+                      } else {
+                        setPlayerScreenControlsCollapsed(false);
+                        setActiveSidebarPanel('playerScreen');
+                      }
+                    }}
                     title="Player Screen Controls"
                   >
                     🖥️
@@ -3907,13 +4028,20 @@ export default function App() {
         </aside>
 
         {/* Floating Sidebar Panels (Mini Mode Only) */}
+        {/* Combat panels now render using the same helper functions */}
+        {!sidebarVisible && activeSidebarPanel === 'quickActions' && combatMode && enc && renderQuickActionsPanel()}
+        {!sidebarVisible && activeSidebarPanel === 'monsters' && combatMode && renderMonsterBrowserPanel()}
+        {!sidebarVisible && activeSidebarPanel === 'players' && combatMode && enc && renderPlayerCharactersPanel()}
+        {activeSidebarPanel === 'playerScreen' && enc && renderPlayerScreenControlsPanel()}
+
+        {/* Encounters Panel - Floating mode */}
         {!sidebarVisible && activeSidebarPanel && (
           <>
             {/* Encounters Panel */}
             {activeSidebarPanel === 'encounters' && (
               <div className="fixed left-20 top-24 w-80 max-h-[calc(100vh-120px)] bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 z-40 flex flex-col overflow-hidden transition-all duration-300 ease-out">
                 <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
-                  <h2 className="text-lg font-bold">📁 Encounters</h2>
+                  <h2 className="text-lg font-bold text-blue-900 dark:text-blue-300">📁 Encounters</h2>
                   <button
                     onClick={() => setActiveSidebarPanel(null)}
                     className="w-8 h-8 flex items-center justify-center rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
@@ -3955,398 +4083,10 @@ export default function App() {
               </div>
             )}
 
-            {/* Quick Actions Panel */}
-            {activeSidebarPanel === 'quickActions' && (
-              <div className="fixed left-20 top-24 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 z-40 p-4 transition-all duration-300 ease-out">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-bold text-red-900 dark:text-red-300">⚔️ Quick Actions</h2>
-                  <button
-                    onClick={() => setActiveSidebarPanel(null)}
-                    className="w-8 h-8 flex items-center justify-center rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                  >
-                    ✕
-                  </button>
-                </div>
-                <div className="space-y-2">
-                  <button
-                    className="btn w-full bg-red-600 text-white hover:bg-red-700 border-red-600"
-                    onClick={() => {
-                      rollInitiativeForAll();
-                      setActiveSidebarPanel(null);
-                    }}
-                  >
-                    🎲 Roll Initiative
-                  </button>
-                  <button
-                    className="btn w-full bg-yellow-600 text-white hover:bg-yellow-700 border-yellow-600"
-                    onClick={() => {
-                      resetCombat();
-                      setActiveSidebarPanel(null);
-                    }}
-                  >
-                    🔄 Reset Combat
-                  </button>
-                  <button
-                    disabled={isCompleted}
-                    className={`btn w-full bg-orange-500 text-white hover:bg-orange-600 border-orange-500 ${isCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    onClick={() => {
-                      addCustom();
-                      setActiveSidebarPanel(null);
-                    }}
-                  >
-                    ➕ Add Custom
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Monster Browser Panel */}
-            {activeSidebarPanel === 'monsters' && (
-              <div className="fixed left-20 top-24 w-96 max-h-[calc(100vh-120px)] bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 z-40 flex flex-col overflow-hidden transition-all duration-300 ease-out">
-                <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
-                  <h2 className="text-lg font-bold text-green-900 dark:text-green-300">🐉 Quick Add Monsters</h2>
-                  <button
-                    onClick={() => setActiveSidebarPanel(null)}
-                    className="w-8 h-8 flex items-center justify-center rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                  >
-                    ✕
-                  </button>
-                </div>
-                <div className="flex-1 overflow-hidden p-4">
-                  <MonsterBrowser
-                    onPick={(mon) => {
-                      addMonster(mon);
-                      setActiveSidebarPanel(null);
-                    }}
-                    onEdit={(monster) => {
-                      setEditingCreature(monster);
-                      setShowCreatureManager(true);
-                      setActiveSidebarPanel(null);
-                    }}
-                    RollableText={RollableText}
-                    combatMode={combatMode}
-                    selectedCombatant={selectedCombatant}
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* Player Characters Panel */}
-            {activeSidebarPanel === 'players' && (
-              <div className="fixed left-20 top-24 w-96 max-h-[calc(100vh-120px)] bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 z-40 flex flex-col overflow-hidden transition-all duration-300 ease-out">
-                <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
-                  <h2 className="text-lg font-bold text-purple-900 dark:text-purple-300">👥 Player Characters</h2>
-                  <button
-                    onClick={() => setActiveSidebarPanel(null)}
-                    className="w-8 h-8 flex items-center justify-center rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                  >
-                    ✕
-                  </button>
-                </div>
-                <div className="flex-1 overflow-y-auto p-4">
-                  <PlayerCharacterTab
-                    campaigns={campaigns}
-                    onAddToEncounter={async (pc) => {
-                      if (!enc) return;
-                      const id = crypto.randomUUID();
-                      const c = {
-                        id,
-                        name: pc.name,
-                        initiative: 0,
-                        initiativeTieBreaker: 0,
-                        hp: pc.hp || 0,
-                        baseHP: pc.hp || 0,
-                        tempHP: 0,
-                        ac: pc.ac || 10,
-                        isPlayer: true,
-                        level: pc.level,
-                        class: pc.class,
-                        race: pc.race,
-                        ...pc
-                      };
-                      await save({
-                        ...enc,
-                        combatants: { ...enc.combatants, [id]: c }
-                      });
-                      setActiveSidebarPanel(null);
-                    }}
-                  />
-                </div>
-              </div>
-            )}
+            {/* Combat panels removed - now using unified helper functions above */}
           </>
         )}
 
-        {/* Player Screen Controls Panel - Visible regardless of sidebar state */}
-        {activeSidebarPanel === 'playerScreen' && enc && (
-              <div className={`fixed top-24 w-80 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 z-40 p-4 transition-all duration-300 ${
-                sidebarVisible ? 'left-[340px]' : 'left-20'
-              }`}>
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-bold text-cyan-900 dark:text-cyan-300">🖥️ Player Screen</h2>
-                  <button
-                    onClick={() => setActiveSidebarPanel(null)}
-                    className="w-8 h-8 flex items-center justify-center rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                  >
-                    ✕
-                  </button>
-                </div>
-
-                <div className="space-y-4">
-                  {/* Open Player Screen Button */}
-                  <button
-                    className="w-full btn bg-gradient-to-r from-indigo-500 to-blue-600 text-white hover:from-indigo-600 hover:to-blue-700 border-none shadow-lg"
-                    onClick={() => {
-                      const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
-                      const url = `${baseUrl}player.html?encounter=${encodeURIComponent(currentId)}`;
-                      window.open(url, 'playerScreen', 'width=800,height=600,menubar=no,toolbar=no,location=no');
-                    }}
-                  >
-                    📺 Open Player Screen
-                  </button>
-
-                  {/* Share to Mobile Button */}
-                  <button
-                    className="w-full btn bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 border-none shadow-lg"
-                    onClick={() => setShowShareCodeModal(true)}
-                  >
-                    📱 Share to Mobile
-                  </button>
-
-                  <hr className="border-slate-200 dark:border-slate-700" />
-
-                  {/* Black Mode Toggle */}
-                  <div>
-                    <label className="flex items-center justify-between cursor-pointer">
-                      <span className="text-sm text-slate-700 dark:text-slate-300">Black Mode (Extra Dark)</span>
-                      <input
-                        type="checkbox"
-                        checked={enc.playerScreenSettings?.blackMode || false}
-                        onChange={(e) => {
-                          const updated = {
-                            ...enc,
-                            playerScreenSettings: {
-                              ...enc.playerScreenSettings,
-                              blackMode: e.target.checked
-                            }
-                          };
-                          setEnc(updated);
-                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                        }}
-                        className="w-5 h-5 rounded border-slate-300 dark:border-slate-600"
-                      />
-                    </label>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                      Makes the player screen background completely black
-                    </p>
-                  </div>
-
-                  {/* Rotation Control */}
-                  <div>
-                    <label className="text-sm text-slate-700 dark:text-slate-300 block mb-2">
-                      Rotation: {enc.playerScreenSettings?.rotation || 0}°
-                    </label>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => {
-                          const current = enc.playerScreenSettings?.rotation || 0;
-                          const newRotation = (current - 90 + 360) % 360;
-                          const updated = {
-                            ...enc,
-                            playerScreenSettings: {
-                              ...enc.playerScreenSettings,
-                              rotation: newRotation
-                            }
-                          };
-                          setEnc(updated);
-                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                        }}
-                        className="btn flex-1 bg-slate-600 text-white hover:bg-slate-700 text-xs py-2"
-                      >
-                        ↶ Left
-                      </button>
-                      <button
-                        onClick={() => {
-                          const current = enc.playerScreenSettings?.rotation || 0;
-                          const newRotation = (current + 90) % 360;
-                          const updated = {
-                            ...enc,
-                            playerScreenSettings: {
-                              ...enc.playerScreenSettings,
-                              rotation: newRotation
-                            }
-                          };
-                          setEnc(updated);
-                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                        }}
-                        className="btn flex-1 bg-slate-600 text-white hover:bg-slate-700 text-xs py-2"
-                      >
-                        Right ↷
-                      </button>
-                    </div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                      Rotates the screen in 90° increments
-                    </p>
-                  </div>
-
-                  {/* Show Current Turn Image */}
-                  <div>
-                    <label className="flex items-center justify-between cursor-pointer">
-                      <span className="text-sm text-slate-700 dark:text-slate-300">Current Turn Image</span>
-                      <input
-                        type="checkbox"
-                        checked={enc.playerScreenSettings?.showCurrentTurnImage !== false}
-                        onChange={(e) => {
-                          const updated = {
-                            ...enc,
-                            playerScreenSettings: {
-                              ...enc.playerScreenSettings,
-                              showCurrentTurnImage: e.target.checked
-                            }
-                          };
-                          setEnc(updated);
-                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                        }}
-                        className="w-5 h-5 rounded border-slate-300 dark:border-slate-600"
-                      />
-                    </label>
-                  </div>
-
-                  {/* Show Initiative Order Images */}
-                  <div>
-                    <label className="flex items-center justify-between cursor-pointer">
-                      <span className="text-sm text-slate-700 dark:text-slate-300">Initiative Order Images</span>
-                      <input
-                        type="checkbox"
-                        checked={enc.playerScreenSettings?.showInitiativeImages !== false}
-                        onChange={(e) => {
-                          const updated = {
-                            ...enc,
-                            playerScreenSettings: {
-                              ...enc.playerScreenSettings,
-                              showInitiativeImages: e.target.checked
-                            }
-                          };
-                          setEnc(updated);
-                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                        }}
-                        className="w-5 h-5 rounded border-slate-300 dark:border-slate-600"
-                      />
-                    </label>
-                  </div>
-
-                  {/* Show Turn Button */}
-                  <div>
-                    <label className="flex items-center justify-between cursor-pointer">
-                      <span className="text-sm text-slate-700 dark:text-slate-300">Show Turn Button</span>
-                      <input
-                        type="checkbox"
-                        checked={enc.playerScreenSettings?.showTurnButton !== false}
-                        onChange={(e) => {
-                          const updated = {
-                            ...enc,
-                            playerScreenSettings: {
-                              ...enc.playerScreenSettings,
-                              showTurnButton: e.target.checked
-                            }
-                          };
-                          setEnc(updated);
-                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                        }}
-                        className="w-5 h-5 rounded border-slate-300 dark:border-slate-600"
-                      />
-                    </label>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                      Shows/hides the 180° rotation button on player screen
-                    </p>
-                  </div>
-
-                  {/* Hide Scrollbars */}
-                  <div>
-                    <label className="flex items-center justify-between cursor-pointer">
-                      <span className="text-sm text-slate-700 dark:text-slate-300">Hide Scrollbars</span>
-                      <input
-                        type="checkbox"
-                        checked={enc.playerScreenSettings?.hideScrollbars || false}
-                        onChange={(e) => {
-                          const updated = {
-                            ...enc,
-                            playerScreenSettings: {
-                              ...enc.playerScreenSettings,
-                              hideScrollbars: e.target.checked
-                            }
-                          };
-                          setEnc(updated);
-                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                        }}
-                        className="w-5 h-5 rounded border-slate-300 dark:border-slate-600"
-                      />
-                    </label>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                      Hides scrollbars for a cleaner display
-                    </p>
-                  </div>
-
-                  {/* Zoom Level Control */}
-                  <div>
-                    <label className="text-sm text-slate-700 dark:text-slate-300 block mb-2">
-                      Zoom Level: {Math.round((enc.playerScreenSettings?.zoom || 100))}%
-                    </label>
-                    <input
-                      type="range"
-                      min="50"
-                      max="200"
-                      step="10"
-                      value={enc.playerScreenSettings?.zoom || 100}
-                      onChange={(e) => {
-                        const updated = {
-                          ...enc,
-                          playerScreenSettings: {
-                            ...enc.playerScreenSettings,
-                            zoom: parseInt(e.target.value)
-                          }
-                        };
-                        setEnc(updated);
-                        apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                      }}
-                      className="w-full"
-                    />
-                    <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 mt-1">
-                      <span>50%</span>
-                      <span>200%</span>
-                    </div>
-                  </div>
-
-                  <hr className="border-slate-200 dark:border-slate-700" />
-
-                  {/* Bloodied Status Toggle */}
-                  <div>
-                    <label className="flex items-center justify-between cursor-pointer">
-                      <span className="text-sm text-slate-700 dark:text-slate-300">🩸 Bloodied Status anzeigen</span>
-                      <input
-                        type="checkbox"
-                        checked={enc.playerScreenSettings?.showBloodiedInPlayerView || false}
-                        onChange={(e) => {
-                          const updated = {
-                            ...enc,
-                            playerScreenSettings: {
-                              ...enc.playerScreenSettings,
-                              showBloodiedInPlayerView: e.target.checked
-                            }
-                          };
-                          setEnc(updated);
-                          apiPut(`/api/encounters/${enc.id}`, updated).catch(console.error);
-                        }}
-                        className="w-5 h-5"
-                      />
-                    </label>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                      Zeigt die rote Border-Animation bei Kreaturen unter 50% HP
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
 
         {/* Middle Column - Creature Database (Prep Mode only) */}
         {!combatMode && (
@@ -4523,6 +4263,20 @@ export default function App() {
                         >
                           ▶
                         </button>
+                        <div className="w-px h-10 bg-orange-300 dark:bg-orange-700"></div>
+                        <button
+                          className="px-4 py-2 rounded-lg bg-orange-200 dark:bg-orange-800 hover:bg-orange-300 dark:hover:bg-orange-700 transition-colors text-orange-700 dark:text-orange-300 text-sm font-medium flex items-center gap-2"
+                          onClick={() => {
+                            const currentCombatantElement = document.querySelector('[data-current-combatant="true"]');
+                            if (currentCombatantElement) {
+                              currentCombatantElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }
+                          }}
+                          title="Zum aktuellen Kämpfer scrollen"
+                        >
+                          <span>↓</span>
+                          <span className="hidden sm:inline">Zum aktuellen</span>
+                        </button>
                       </div>
                     </div>
                   )}
@@ -4531,15 +4285,14 @@ export default function App() {
                   {combatMode ? (
                     /* Combat Mode - Full detailed cards */
                     <div className="grid gap-4">
-                      {order.map((c, idx) => (
-                        <div key={c.id} className={c.sidekickOf ? 'ml-12' : ''}>
+                      {order.map((c, idx) => {
+                        const isActive = enc.initiativeOrder[idx] === enc.initiativeOrder[enc.turnIndex];
+                        return (
+                        <div key={c.id} className={c.sidekickOf ? 'ml-12' : ''} data-current-combatant={isActive ? 'true' : 'false'}>
                           <CombatantRow
                             c={c}
                             idx={idx}
-                            active={
-                              enc.initiativeOrder[idx] ===
-                              enc.initiativeOrder[enc.turnIndex]
-                            }
+                            active={isActive}
                             isSelected={selectedCombatantId === c.id}
                             onSelect={() =>
                               setSelectedCombatantId(
@@ -4560,7 +4313,8 @@ export default function App() {
                             isCompleted={isCompleted}
                           />
                         </div>
-                      ))}
+                      );
+                      })}
                     </div>
                   ) : (
                     /* Prep Mode - Compact list */
@@ -4671,10 +4425,10 @@ export default function App() {
             animation: "slideInFromBottom 0.25s ease-out, fadeOutScale 0.3s ease-in 2.7s forwards",
           }}
         >
-          <div className="relative bg-slate-800 dark:bg-slate-900 border-2 border-slate-700 dark:border-slate-600 rounded-2xl shadow-2xl p-4 w-96 overflow-hidden">
+          <div className="relative bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-600 rounded-2xl shadow-2xl p-4 w-96 overflow-hidden">
             {/* Close button */}
             <button
-              className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full hover:bg-slate-700 dark:hover:bg-slate-600 flex items-center justify-center text-slate-400 hover:text-white transition-colors text-xs"
+              className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full hover:bg-slate-200 dark:hover:bg-slate-600 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors text-xs"
               onClick={() => {
                 setDiceRollResult(null);
                 if (toastDismissTimer) clearTimeout(toastDismissTimer);
@@ -4688,12 +4442,12 @@ export default function App() {
               <div className="flex items-center gap-1.5">
                 <span className="text-lg">🎲</span>
                 {diceRollResult.label && (
-                  <span className="text-sm font-bold text-blue-300">{diceRollResult.label}</span>
+                  <span className="text-sm font-bold text-blue-600 dark:text-blue-300">{diceRollResult.label}</span>
                 )}
                 {diceRollResult.character && (
-                  <span className="text-xs text-slate-400">({diceRollResult.character})</span>
+                  <span className="text-xs text-slate-600 dark:text-slate-400">({diceRollResult.character})</span>
                 )}
-                <span className="font-mono text-xs text-blue-400 dark:text-blue-300 font-bold">
+                <span className="font-mono text-xs text-blue-600 dark:text-blue-300 font-bold">
                   {diceRollResult.notation}
                 </span>
               </div>
@@ -4725,7 +4479,7 @@ export default function App() {
 
                 return (
                   <div className="mb-2 text-center">
-                    <div className="text-sm text-slate-300 dark:text-slate-400 font-mono">
+                    <div className="text-sm text-slate-700 dark:text-slate-400 font-mono">
                       {diceRollResult.rolls.length > 1 ? (
                         <>
                           [{diceRollResult.rolls.join(" + ")}]
@@ -4754,7 +4508,7 @@ export default function App() {
 
             {/* Total */}
             <div className="text-center mb-1">
-              <div className="text-4xl font-bold text-white">
+              <div className="text-4xl font-bold text-slate-900 dark:text-white">
                 {diceRollResult.total}
               </div>
               {diceRollResult.rechargeResult && (
@@ -4771,7 +4525,7 @@ export default function App() {
             </div>
 
             {/* Progress bar */}
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-slate-700/50">
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-slate-200 dark:bg-slate-700/50">
               <div className="h-full bg-gradient-to-r from-blue-500 to-purple-500 animate-[shrinkWidth_3s_linear]"></div>
             </div>
           </div>
@@ -5158,7 +4912,7 @@ export default function App() {
         </button>
         {rollHistory.length > 0 && (
           <button
-            className="roll-history-button w-12 h-12 bg-slate-700 hover:bg-slate-600 dark:bg-slate-600 dark:hover:bg-slate-500 text-white rounded-full shadow-xl flex items-center justify-center text-lg transition-all hover:scale-110 active:scale-95 relative"
+            className="roll-history-button w-12 h-12 bg-slate-300 hover:bg-slate-400 dark:bg-slate-600 dark:hover:bg-slate-500 text-slate-900 dark:text-white rounded-full shadow-xl flex items-center justify-center text-lg transition-all hover:scale-110 active:scale-95 relative"
             onClick={() => setShowRollHistory(!showRollHistory)}
             title="Roll History"
           >
@@ -5172,9 +4926,9 @@ export default function App() {
 
       {/* Roll History Panel */}
       {showRollHistory && (
-        <div className="roll-history-container fixed bottom-24 left-6 z-40 bg-slate-800/98 dark:bg-slate-900/98 backdrop-blur-lg border-2 border-slate-700 dark:border-slate-600 rounded-2xl shadow-2xl p-4 w-80 max-h-96 overflow-y-auto animate-[slideInLeft_0.3s_ease-out]">
+        <div className="roll-history-container fixed bottom-24 left-6 z-40 bg-white/98 dark:bg-slate-900/98 backdrop-blur-lg border-2 border-slate-300 dark:border-slate-600 rounded-2xl shadow-2xl p-4 w-80 max-h-96 overflow-y-auto animate-[slideInLeft_0.3s_ease-out]">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-white font-bold text-lg">Roll History</h3>
+            <h3 className="text-slate-900 dark:text-white font-bold text-lg">Roll History</h3>
             <div className="flex items-center gap-2">
               <button
                 className="px-3 py-1 text-xs font-semibold bg-red-600 hover:bg-red-700 text-white rounded transition-colors"
@@ -5192,7 +4946,7 @@ export default function App() {
                 Clear
               </button>
               <button
-                className="w-6 h-6 rounded-full hover:bg-slate-700 dark:hover:bg-slate-600 flex items-center justify-center text-slate-400 hover:text-white transition-colors"
+                className="w-6 h-6 rounded-full hover:bg-slate-200 dark:hover:bg-slate-600 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                 onClick={() => setShowRollHistory(false)}
               >
                 ✕
@@ -5203,18 +4957,18 @@ export default function App() {
             {rollHistory.map((roll, index) => (
               <div
                 key={roll.timestamp}
-                className="bg-slate-700/50 dark:bg-slate-800/50 rounded-lg p-3 border border-slate-600 dark:border-slate-700"
+                className="bg-slate-100 dark:bg-slate-800/50 rounded-lg p-3 border border-slate-300 dark:border-slate-700"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       {roll.label && (
-                        <span className="text-sm font-bold text-blue-300">{roll.label}</span>
+                        <span className="text-sm font-bold text-blue-600 dark:text-blue-300">{roll.label}</span>
                       )}
                       {roll.character && (
-                        <span className="text-xs text-slate-400">({roll.character})</span>
+                        <span className="text-xs text-slate-600 dark:text-slate-400">({roll.character})</span>
                       )}
-                      <span className="font-mono text-xs text-blue-400 dark:text-blue-300 font-semibold">
+                      <span className="font-mono text-xs text-blue-600 dark:text-blue-300 font-semibold">
                         {roll.notation}
                       </span>
                       {roll.rollMode && roll.rollMode !== "normal" && (
@@ -5243,7 +4997,7 @@ export default function App() {
                         );
 
                         return (
-                          <div className="text-xs text-slate-300 dark:text-slate-400 font-mono">
+                          <div className="text-xs text-slate-700 dark:text-slate-400 font-mono">
                             {roll.rolls.length > 1 ? (
                               <>
                                 [{roll.rolls.join(" + ")}]
@@ -5269,7 +5023,7 @@ export default function App() {
                         );
                       })()}
                   </div>
-                  <div className="text-3xl font-bold text-white tabular-nums">
+                  <div className="text-3xl font-bold text-slate-900 dark:text-white tabular-nums">
                     {roll.total}
                   </div>
                 </div>
@@ -5857,7 +5611,7 @@ export default function App() {
       )}
 
       {/* HP Tooltip */}
-      {hpTooltip.show && (
+      {hpTooltip.show && hpTooltip.max > 0 && (
         <div
           className="fixed z-50 bg-gradient-to-br from-red-500 to-rose-600 dark:from-red-700 dark:to-rose-800 rounded-xl shadow-2xl border-2 border-red-300 dark:border-red-500 p-4 pointer-events-none animate-[fadeIn_0.15s_ease-out]"
           style={{
@@ -5920,7 +5674,7 @@ export default function App() {
               )}
 
               {/* Max HP Modifier */}
-              {hpTooltip.maxHPModifier && hpTooltip.maxHPModifier !== 0 && (
+              {hpTooltip.maxHPModifier !== 0 && (
                 <div className="flex items-center justify-between text-white">
                   <span className="text-sm font-medium opacity-90">
                     ✨ Max HP Mod:
@@ -5932,7 +5686,7 @@ export default function App() {
               )}
 
               {/* Effective Max HP */}
-              {hpTooltip.maxHPModifier && hpTooltip.maxHPModifier !== 0 && (
+              {hpTooltip.maxHPModifier !== 0 && (
                 <div className="flex items-center justify-between text-white border-t border-white/30 pt-2">
                   <span className="text-sm font-medium opacity-90">
                     💫 Effective Max:
@@ -7217,7 +6971,7 @@ export default function App() {
       {selectedCombatant && !selectedCombatant.isLair && (
         <div
           className="fixed top-16 right-0 h-[calc(100vh-4rem)] bg-white dark:bg-slate-800 shadow-2xl transform transition-transform duration-300 ease-in-out z-30 translate-x-0 overflow-y-auto"
-          style={{ width: '400px' }}
+          style={{ width: '430px' }}
         >
           <div className="h-full flex flex-col">
             {/* Header */}
@@ -7285,7 +7039,7 @@ export default function App() {
               {/* Compact Stats Grid with HP Management */}
               <div className="grid grid-cols-3 gap-2">
                 {/* Initiative */}
-                <div className="card p-2"
+                <div className="card p-2 overflow-hidden"
                   onMouseEnter={(e) => {
                     setInitiativeTooltip({
                       show: true,
@@ -7313,7 +7067,7 @@ export default function App() {
                     <span className="text-xs text-blue-600 dark:text-blue-400 w-8">d20:</span>
                     <input
                       type="number"
-                      className="flex-1 text-center text-base font-semibold text-blue-500 dark:text-blue-300 bg-transparent border-0 focus:ring-1 focus:ring-blue-400 rounded p-0"
+                      className="flex-1 min-w-0 text-center text-base font-semibold text-blue-500 dark:text-blue-300 bg-transparent border-0 focus:ring-1 focus:ring-blue-400 rounded p-0"
                       value={selectedCombatant.initiativeRoll || ''}
                       onChange={(e) => {
                         const roll = parseInt(e.target.value) || 0;
@@ -7330,7 +7084,7 @@ export default function App() {
                   {/* Bonus */}
                   <div className="flex items-center gap-1 mb-1">
                     <span className="text-xs text-blue-600 dark:text-blue-400 w-8">Mod:</span>
-                    <div className="flex-1 text-center text-base font-semibold text-blue-600 dark:text-blue-400">
+                    <div className="flex-1 min-w-0 text-center text-base font-semibold text-blue-600 dark:text-blue-400">
                       {selectedCombatant.initiativeMod >= 0 ? '+' : ''}{selectedCombatant.initiativeMod || 0}
                     </div>
                   </div>
@@ -7339,7 +7093,7 @@ export default function App() {
                     <span className="text-xs text-blue-600 dark:text-blue-400 w-8">Total:</span>
                     <input
                       type="number"
-                      className="flex-1 text-center text-lg font-bold text-blue-600 dark:text-blue-400 bg-transparent border-0 focus:ring-1 focus:ring-blue-400 rounded p-0"
+                      className="flex-1 min-w-0 text-center text-lg font-bold text-blue-600 dark:text-blue-400 bg-transparent border-0 focus:ring-1 focus:ring-blue-400 rounded p-0"
                       value={selectedCombatant.initiative || ''}
                       onChange={(e) => updateCombatant(selectedCombatant.id, { initiative: parseInt(e.target.value) || 0 })}
                       disabled={isCompleted}
@@ -7351,7 +7105,7 @@ export default function App() {
                     <input
                       type="number"
                       step="0.01"
-                      className="flex-1 text-center text-xs font-semibold text-blue-600 dark:text-blue-400 bg-transparent border-0 focus:ring-1 focus:ring-blue-400 rounded p-0"
+                      className="flex-1 min-w-0 text-center text-xs font-semibold text-blue-600 dark:text-blue-400 bg-transparent border-0 focus:ring-1 focus:ring-blue-400 rounded p-0"
                       value={selectedCombatant.initiativeTieBreaker || ''}
                       onChange={(e) => updateCombatant(selectedCombatant.id, { initiativeTieBreaker: parseFloat(e.target.value) || 0 })}
                       placeholder="0.00"
@@ -10273,7 +10027,7 @@ function InlineEdit({
     <input
       ref={inputRef}
       type={type}
-      className={`border-2 border-blue-400 dark:border-blue-500 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-700 dark:text-slate-100 ${className}`}
+      className={`border-2 border-blue-400 dark:border-blue-500 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-700 dark:text-slate-100 max-w-full ${className}`}
       value={tempValue}
       onChange={(e) => {
         // For text inputs, keep the value as string to preserve +/- prefixes
@@ -10492,7 +10246,7 @@ function CombatantRow({
     return (
       <div
         className={`card relative overflow-hidden cursor-pointer transition-all ${
-          active ? "ring-2 ring-red-500 shadow-lg bg-red-50 dark:bg-red-900/30" : "bg-red-50/50 dark:bg-red-900/10"
+          active ? "ring-2 ring-red-500 shadow-lg bg-red-50 dark:bg-red-900/30 border-r-8 !border-r-yellow-500" : "bg-red-50/50 dark:bg-red-900/10"
         } ${isSelected ? "ring-2 ring-purple-400" : ""}`}
         onClick={(e) => {
           if (!e.defaultPrevented) onSelect();
@@ -10531,12 +10285,13 @@ function CombatantRow({
   return (
     <div
       className={`card relative ${open ? 'overflow-visible' : 'overflow-hidden'} cursor-pointer transition-all ${
-        active ? "ring-2 ring-blue-500 shadow-lg" : ""
+        c.player ? "!bg-green-50 dark:!bg-green-950/20 border-l-8 !border-l-green-500" : ""
+      } ${active ? "ring-2 ring-blue-500 shadow-lg border-r-8 !border-r-yellow-500" : ""
       } ${isSelected ? "ring-2 ring-purple-400" : ""} ${
-        c.concentration ? "border-l-4 border-l-purple-500" : ""
-      } ${isBloodied ? "bloodied-border" : ""
+        c.concentration && !c.player ? "border-l-4 border-l-purple-500" : ""
+      } ${isBloodied && c.concentration ? "bloodied-concentration-border" : isBloodied ? "bloodied-border" : ""
       }`}
-      style={c.concentration ? { animation: 'concentration-pulse 2s ease-in-out infinite' } : {}}
+      style={c.concentration && !isBloodied ? { animation: 'concentration-pulse 2s ease-in-out infinite' } : {}}
       onClick={(e) => {
         if (!e.defaultPrevented) onSelect();
       }}
@@ -11239,7 +10994,7 @@ function MonsterBrowser({ onPick, onEdit, disabled, RollableText, combatMode, se
 
       {/* Results count */}
       {list.length > 0 && (
-        <div className="text-xs text-green-700 dark:text-green-300 mb-1 px-1">
+        <div className="text-xs text-green-800 dark:text-green-300 mb-1 px-1 font-semibold">
           {list.length} {list.length === 100 ? "+ " : ""}Ergebnis
           {list.length !== 1 ? "se" : ""}
         </div>
@@ -11269,7 +11024,7 @@ function MonsterBrowser({ onPick, onEdit, disabled, RollableText, combatMode, se
                 onClick={() => onEdit && onEdit(m)}
               >
                 <div className="min-w-0 flex-1">
-                  <div className="font-medium text-sm truncate dark:text-slate-200">
+                  <div className="font-medium text-sm truncate text-slate-900 dark:text-slate-200">
                     {m.name}
                   </div>
                   <div className="flex items-center justify-between gap-2">

@@ -14,32 +14,99 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
   const [showPanel, setShowPanel] = useState(!autoRoll); // Hide panel if auto-rolling
 
   // Preload audio files for reliable playback
-  const tickSoundRef = useRef(null);
+  const tickSoundPoolRef = useRef([]);
   const finishSoundRef = useRef(null);
   const audioUnlockedRef = useRef(false);
+  const [audioReady, setAudioReady] = useState(false);
+  const tickIndexRef = useRef(0);
 
   // Preload audio files on component mount
   useEffect(() => {
-    // Preload tick sound
-    tickSoundRef.current = new Audio('/assets/sounds/tick.mp3');
-    tickSoundRef.current.volume = 0.3;
-    tickSoundRef.current.load(); // Force preload
+    let loadedCount = 0;
+    const poolSize = 15; // Create 15 tick sounds - one per animation step
+    const totalToLoad = poolSize + 1; // pool + finish sound
+
+    const checkAllLoaded = async () => {
+      loadedCount++;
+      if (loadedCount >= totalToLoad) {
+        // All audio files loaded - now trigger decode by playing them briefly
+        console.log('Audio files loaded, priming audio context...');
+
+        // Prime all tick sounds
+        const primePromises = tickSoundPoolRef.current.map(async (tick) => {
+          try {
+            // Set to very start and play briefly to decode
+            tick.currentTime = 0;
+            await tick.play();
+            tick.pause();
+            tick.currentTime = 0;
+          } catch (e) {
+            // Expected - autoplay policy will block this, but it still primes the audio
+          }
+        });
+
+        // Prime finish sound
+        try {
+          finishSoundRef.current.currentTime = 0;
+          await finishSoundRef.current.play();
+          finishSoundRef.current.pause();
+          finishSoundRef.current.currentTime = 0;
+        } catch (e) {
+          // Expected
+        }
+
+        await Promise.all(primePromises);
+
+        setAudioReady(true);
+        console.log('Audio pool ready and primed:', poolSize, 'tick sounds');
+      }
+    };
+
+    // Create a pool of tick sounds for simultaneous playback
+    for (let i = 0; i < poolSize; i++) {
+      const tick = new Audio('/assets/sounds/tick.mp3');
+      tick.volume = 0.3;
+      tick.preload = 'auto';
+
+      tick.addEventListener('canplaythrough', () => {
+        checkAllLoaded();
+      }, { once: true });
+
+      tick.addEventListener('error', (e) => {
+        console.error('Failed to load tick sound:', e);
+        checkAllLoaded();
+      });
+
+      tick.load();
+      tickSoundPoolRef.current.push(tick);
+    }
 
     // Preload finish sound
     finishSoundRef.current = new Audio('/assets/sounds/finish.mp3');
-    finishSoundRef.current.volume = 0.2; // Leiser - war zu laut
-    finishSoundRef.current.load(); // Force preload
+    finishSoundRef.current.volume = 0.2;
+    finishSoundRef.current.preload = 'auto';
+
+    finishSoundRef.current.addEventListener('canplaythrough', () => {
+      checkAllLoaded();
+    }, { once: true });
+
+    finishSoundRef.current.addEventListener('error', (e) => {
+      console.error('Failed to load finish sound:', e);
+      checkAllLoaded();
+    });
+
+    finishSoundRef.current.load();
 
     // Unlock audio on first user interaction (browser autoplay policy)
     const unlockAudio = () => {
       if (!audioUnlockedRef.current) {
         // Play and immediately pause to unlock audio context
-        if (tickSoundRef.current) {
-          tickSoundRef.current.play().then(() => {
-            tickSoundRef.current.pause();
-            tickSoundRef.current.currentTime = 0;
+        tickSoundPoolRef.current.forEach(tick => {
+          tick.play().then(() => {
+            tick.pause();
+            tick.currentTime = 0;
           }).catch(() => {});
-        }
+        });
         if (finishSoundRef.current) {
           finishSoundRef.current.play().then(() => {
             finishSoundRef.current.pause();
@@ -56,10 +123,10 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
 
     return () => {
       // Cleanup on unmount
-      if (tickSoundRef.current) {
-        tickSoundRef.current.pause();
-        tickSoundRef.current = null;
-      }
+      tickSoundPoolRef.current.forEach(tick => {
+        tick.pause();
+      });
+      tickSoundPoolRef.current = [];
       if (finishSoundRef.current) {
         finishSoundRef.current.pause();
         finishSoundRef.current = null;
@@ -101,16 +168,16 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
     }
   }, [initialNotation, initialNotationLoaded]);
 
-  // Auto-roll if requested and dice are loaded
+  // Auto-roll if requested and dice are loaded AND audio is ready
   useEffect(() => {
-    if (autoRoll && initialNotationLoaded && !autoRolled && dicePool.length > 0) {
-      // Small delay to ensure DiceBox is ready
+    if (autoRoll && initialNotationLoaded && !autoRolled && dicePool.length > 0 && audioReady) {
+      // Small delay to ensure everything is ready
       setTimeout(() => {
         roll();
         setAutoRolled(true);
-      }, 300);
+      }, 100);
     }
-  }, [autoRoll, initialNotationLoaded, autoRolled, dicePool.length]);
+  }, [autoRoll, initialNotationLoaded, autoRolled, dicePool.length, audioReady]);
 
   // Set initial roll mode from prop
   useEffect(() => {
@@ -229,25 +296,24 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
       const stepDuration = animationDuration / animationSteps;
 
       for (let step = 0; step < animationSteps; step++) {
-        // Play tick sound at the START of the step, not after the delay
-        // Play every 2nd step to avoid overwhelming the audio system
-        if (step % 2 === 0 && tickSoundRef.current) {
-          try {
-            const tick = tickSoundRef.current.cloneNode();
-            tick.volume = 0.3;
-            tick.play().catch(() => {});
-          } catch (e) {
-            // Fallback if cloning fails
-            tickSoundRef.current.currentTime = 0;
-            tickSoundRef.current.play().catch(() => {});
-          }
-        }
-
-        await new Promise(resolve => setTimeout(resolve, stepDuration));
+        // Update visual first
         setRollingDice(prev => prev.map(d => ({
           ...d,
           value: Math.floor(Math.random() * d.sides) + 1
         })));
+
+        // Play tick sound at every step - rotate through pool for simultaneous playback
+        if (tickSoundPoolRef.current.length > 0) {
+          const tick = tickSoundPoolRef.current[tickIndexRef.current];
+          tickIndexRef.current = (tickIndexRef.current + 1) % tickSoundPoolRef.current.length;
+
+          // Reset and play immediately - synchronously, no await
+          tick.currentTime = 0;
+          tick.play().catch(() => {});
+        }
+
+        // Wait for next step
+        await new Promise(resolve => setTimeout(resolve, stepDuration));
       }
 
       // Final roll      // For advantage/disadvantage, actually roll the extra dice
@@ -280,7 +346,8 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
         isSelected: rollMode !== 'normal' && dicesToRoll[i].sides === 20 ? (i === selectedIndex) : null
       })));
 
-      // Wait a moment to show final result      await new Promise(resolve => setTimeout(resolve, 300));
+      // Wait a moment to show final result      
+      await new Promise(resolve => setTimeout(resolve, 300));
 
       // Finish sound disabled - was too loud/annoying
       // if (finishSoundRef.current) {
@@ -477,9 +544,10 @@ export default function FantasticDiceRoller({ onClose, onResult, initialNotation
               className="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed uppercase text-sm"
               onClick={() => {                roll();
               }}
-              disabled={dicePool.length === 0 || isRolling}
+              disabled={dicePool.length === 0 || isRolling || !audioReady}
+              title={!audioReady ? 'Loading audio...' : ''}
             >
-              {isRolling ? '...' : 'Roll'}
+              {!audioReady ? 'Loading...' : isRolling ? '...' : 'Roll'}
             </button>
             <button
               className="w-10 h-10 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded-lg flex items-center justify-center transition-colors"

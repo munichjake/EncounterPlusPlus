@@ -675,9 +675,19 @@ export default function App() {
     if (trimmed.startsWith('+')) {
       // Healing - only affects normal HP
       const amount = parseInt(trimmed.substring(1)) || 0;
-      return {
-        hp: Math.min(maxHP, currentHP + amount)
-      };
+      const newHP = Math.min(maxHP, currentHP + amount);
+      const updates = { hp: newHP };
+
+      // Remove dying, stable and dead status if HP > 0
+      if (newHP > 0) {
+        if (combatant.isDying) updates.isDying = false;
+        if (combatant.isStable) updates.isStable = false;
+        if (combatant.isDead) updates.isDead = false;
+        // Reset death saves when HP goes above 0
+        updates.deathSaves = { successes: 0, failures: 0 };
+      }
+
+      return updates;
     } else if (trimmed.startsWith('-')) {
       // Damage - ALWAYS applies to temp HP first
       const damage = parseInt(trimmed.substring(1)) || 0;
@@ -694,9 +704,19 @@ export default function App() {
           updates.tempHP = 0;
           updates.hp = newHP;
 
-          // Auto-kill non-PCs if setting is enabled and HP reaches 0
-          if (newHP === 0 && settings.deathSavesForPCsOnly && !combatant.isPC) {
-            updates.isDead = true;
+          // Handle HP = 0 case
+          if (newHP === 0) {
+            // Auto-kill non-PCs if setting is enabled
+            if (settings.deathSavesForPCsOnly && !combatant.isPC) {
+              updates.isDead = true;
+              updates.isDying = false;
+              updates.isStable = false;
+            } else {
+              // Set dying status if not already stable or dead
+              if (!combatant.isStable && !combatant.isDead) {
+                updates.isDying = true;
+              }
+            }
           }
         }
       } else {
@@ -704,9 +724,19 @@ export default function App() {
         const newHP = Math.max(0, currentHP - damage);
         updates.hp = newHP;
 
-        // Auto-kill non-PCs if setting is enabled and HP reaches 0
-        if (newHP === 0 && settings.deathSavesForPCsOnly && !combatant.isPC) {
-          updates.isDead = true;
+        // Handle HP = 0 case
+        if (newHP === 0) {
+          // Auto-kill non-PCs if setting is enabled
+          if (settings.deathSavesForPCsOnly && !combatant.isPC) {
+            updates.isDead = true;
+            updates.isDying = false;
+            updates.isStable = false;
+          } else {
+            // Set dying status if not already stable or dead
+            if (!combatant.isStable && !combatant.isDead) {
+              updates.isDying = true;
+            }
+          }
         }
       }
 
@@ -810,6 +840,9 @@ export default function App() {
   const [selectedCondition, setSelectedCondition] = useState(null);
   const [conditionName, setConditionName] = useState(null);
   const [showConditionModal, setShowConditionModal] = useState(false);
+  const [showResetModal, setShowResetModal] = useState(false);
+  const [initiativeTooltip, setInitiativeTooltip] = useState({ show: false, x: 0, y: 0, combatant: null });
+  const [showRollInitiativeModal, setShowRollInitiativeModal] = useState(false);
 
   // Helper function for condition tooltip handlers
   const getConditionTooltipHandlers = (conditionName) => ({
@@ -857,14 +890,6 @@ export default function App() {
   });
   const [combatantSpellCache, setCombatantSpellCache] = useState({}); // Cache spell data by combatant ID
   const [lairActionsCache, setLairActionsCache] = useState({}); // Cache lair actions by legendary group name
-  const [initiativeTooltip, setInitiativeTooltip] = useState({
-    show: false,
-    x: 0,
-    y: 0,
-    roll: 0,
-    bonus: 0,
-    total: 0,
-  }); // Custom tooltip for initiative
   const [acTooltip, setAcTooltip] = useState({
     show: false,
     x: 0,
@@ -1030,7 +1055,7 @@ export default function App() {
         const room = await api.room.create();
         const slug = room?.data?.slug || room?.data?.id;        const canvas = document.createElement("canvas");
         canvas.style.cssText =
-          "position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:45;pointer-events:none";
+          "position:fixed;top:0;left:0;width:100%;height:100%;z-index:45;pointer-events:none";
         document.body.appendChild(canvas);
         dddiceCanvasRef.current = canvas;
         const dddice = new ThreeDDice(canvas, apiKey);
@@ -1759,6 +1784,21 @@ export default function App() {
   }
 
   async function rollInitiativeForAll() {
+    // Check if any combatants already have initiative values
+    const combatants = Object.values(enc.combatants);
+    const hasExistingInitiatives = combatants.some(c => c.initiative !== undefined && c.initiative !== 0);
+
+    if (hasExistingInitiatives) {
+      // Show modal to ask user what to do
+      setShowRollInitiativeModal(true);
+      return;
+    }
+
+    // No existing initiatives, roll for all
+    rollInitiative(true);
+  }
+
+  async function rollInitiative(overwriteAll) {
     const updated = { ...enc };
     const combatants = Object.values(updated.combatants);
 
@@ -1772,13 +1812,25 @@ export default function App() {
 
     // Auto-roll initiative for monsters (excluding sidekicks - they'll be handled later)
     monsters.forEach((c) => {
+      // Skip if not overwriting all and this combatant already has initiative
+      if (!overwriteAll && c.initiative !== undefined && c.initiative !== 0) {
+        return;
+      }
+
       const roll = rollD20();
       const init = roll + (c.initiativeMod || 0);
       updated.combatants[c.id] = { ...c, initiative: init, initiativeRoll: roll };
     });
 
     // Show modal for player characters if there are any (sidekicks excluded)
-    if (playerCharacters.length > 0) {      const initiatives = await initiativePrompt(playerCharacters);
+    let pcsToPrompt = playerCharacters;
+    if (!overwriteAll) {
+      // Only prompt for PCs without initiative
+      pcsToPrompt = playerCharacters.filter(c => c.initiative === undefined || c.initiative === 0);
+    }
+
+    if (pcsToPrompt.length > 0) {
+      const initiatives = await initiativePrompt(pcsToPrompt);
       // If user cancelled, don't update anything
       if (!initiatives) return;
 
@@ -1889,36 +1941,64 @@ export default function App() {
   }
 
   async function resetCombat() {
-    if (
-      !(await confirm(
-        "Möchtest du den Combat zurücksetzen? Alle Initiative-Werte, HP-Änderungen und Conditions werden zurückgesetzt."
-      ))
-    )
-      return;
+    setShowResetModal(true);
+  }
 
+  function performReset(options) {
     const updated = { ...enc };
 
-    // Reset all combatants
+    // Reset all combatants based on selected options
     Object.values(updated.combatants).forEach((c) => {
-      updated.combatants[c.id] = {
-        ...c,
-        initiative: undefined,
-        currentHp: c.hp || c.maxHp,
-        tempHp: 0,
-        conditions: [],
-      };
+      const resetData = { ...c };
+
+      if (options.resetInitiative) {
+        resetData.initiative = undefined;
+      }
+
+      if (options.resetHP) {
+        resetData.hp = c.baseHP || c.maxHp;
+        resetData.tempHP = 0;
+      }
+
+      if (options.resetConditions) {
+        resetData.conditions = [];
+      }
+
+      if (options.resetSpellSlots) {
+        // Reset spell slots to max values
+        if (resetData.spellSlots) {
+          const resetSlots = {};
+          Object.keys(resetData.spellSlots).forEach(level => {
+            const slot = resetData.spellSlots[level];
+            resetSlots[level] = { ...slot, used: 0 };
+          });
+          resetData.spellSlots = resetSlots;
+        }
+      }
+
+      if (options.resetStatus) {
+        resetData.isDead = false;
+        resetData.isStable = false;
+        resetData.isDying = false;
+        resetData.deathSaves = { successes: 0, failures: 0 };
+      }
+
+      updated.combatants[c.id] = resetData;
     });
 
-    // Reset combat state
-    updated.round = 1;
-    updated.turnIndex = 0;
-    updated.initiativeOrder = [];
+    // Reset combat state if initiative is reset
+    if (options.resetInitiative) {
+      updated.round = 1;
+      updated.turnIndex = 0;
+      updated.initiativeOrder = [];
+    }
 
     // Remove completed status
     delete updated.combatStatus;
     delete updated.completedAt;
 
     save(updated);
+    setShowResetModal(false);
   }
 
   async function deleteEncounter(id) {
@@ -2426,8 +2506,14 @@ export default function App() {
     const deathSaves = { ...c.deathSaves };
 
     if (roll === 20) {
-      // Nat 20: regain 1 HP
-      updateCombatant(id, { hp: 1, deathSaves: { successes: 0, failures: 0 }, isStable: false });
+      // Nat 20: regain 1 HP - removes all death-related statuses
+      updateCombatant(id, {
+        hp: 1,
+        deathSaves: { successes: 0, failures: 0 },
+        isStable: false,
+        isDying: false,
+        isDead: false
+      });
       setDiceRollResult({
         type: "deathSave",
         name: c.name,
@@ -2444,6 +2530,11 @@ export default function App() {
       // Set dead status if 3 failures
       if (deathSaves.failures >= 3) {
         updates.isDead = true;
+        updates.isDying = false;
+        updates.isStable = false;
+      } else {
+        // Still dying if not dead yet
+        updates.isDying = true;
       }
 
       updateCombatant(id, updates);
@@ -2461,11 +2552,16 @@ export default function App() {
       const updates = { deathSaves };
 
       if (deathSaves.successes >= 3) {
-        // Stabilized
-        deathSaves.successes = 0;
-        deathSaves.failures = 0;
+        // Stabilized - reset death saves and set stable
+        updates.deathSaves = { successes: 0, failures: 0 };
         updates.isStable = true;
+        updates.isDying = false;
+        updates.isDead = false;
+      } else {
+        // Still dying until 3 successes
+        updates.isDying = true;
       }
+
       updateCombatant(id, updates);
       setDiceRollResult({
         type: "deathSave",
@@ -2482,6 +2578,11 @@ export default function App() {
       // Set dead status if 3 failures
       if (deathSaves.failures >= 3) {
         updates.isDead = true;
+        updates.isDying = false;
+        updates.isStable = false;
+      } else {
+        // Still dying if not dead yet
+        updates.isDying = true;
       }
 
       updateCombatant(id, updates);
@@ -4371,6 +4472,7 @@ export default function App() {
                             setShowConditionModal={setShowConditionModal}
                             settings={settings}
                             isCompleted={isCompleted}
+                            setInitiativeTooltip={setInitiativeTooltip}
                           />
                         </div>
                       );
@@ -6844,6 +6946,41 @@ export default function App() {
         </div>
       )}
 
+      {/* Reset Combat Modal */}
+      {showResetModal && <ResetCombatModal onReset={performReset} onClose={() => setShowResetModal(false)} />}
+
+      {/* Roll Initiative Modal */}
+      {showRollInitiativeModal && (
+        <RollInitiativeModal
+          onClose={() => setShowRollInitiativeModal(false)}
+          onRollAll={() => {
+            rollInitiative(true);
+            setShowRollInitiativeModal(false);
+          }}
+          onRollEmpty={() => {
+            rollInitiative(false);
+            setShowRollInitiativeModal(false);
+          }}
+        />
+      )}
+
+      {/* Initiative Tooltip */}
+      <InitiativeTooltip
+        show={initiativeTooltip.show}
+        x={initiativeTooltip.x}
+        y={initiativeTooltip.y}
+        combatant={initiativeTooltip.combatant}
+        onRoll={(combatant) => {
+          // Roll initiative for single combatant
+          const roll = rollD20();
+          const initiative = roll + (combatant.initiativeMod || 0);
+          const tieBreaker = roll / 100;
+          updateCombatant(combatant.id, { initiative, initiativeTieBreaker: tieBreaker });
+          setInitiativeTooltip({ show: false, x: 0, y: 0, combatant: null });
+        }}
+        onClose={() => setInitiativeTooltip({ show: false, x: 0, y: 0, combatant: null })}
+      />
+
       {/* Dice Context Menu */}
       {diceContextMenu.show && (
         <>
@@ -7156,6 +7293,15 @@ export default function App() {
                       className="flex-1 min-w-0 text-center text-lg font-bold text-blue-600 dark:text-blue-400 bg-transparent border-0 focus:ring-1 focus:ring-blue-400 rounded p-0"
                       value={selectedCombatant.initiative || ''}
                       onChange={(e) => updateCombatant(selectedCombatant.id, { initiative: parseInt(e.target.value) || 0 })}
+                      onFocus={(e) => {
+                        const rect = e.target.getBoundingClientRect();
+                        setInitiativeTooltip({
+                          show: true,
+                          x: rect.left + rect.width / 2,
+                          y: rect.top,
+                          combatant: selectedCombatant
+                        });
+                      }}
                       disabled={isCompleted}
                     />
                   </div>
@@ -7258,14 +7404,31 @@ export default function App() {
                           const num = parseInt(value);
                           if (!isNaN(num) || value === '') {
                             const updates = { hp: num || 0 };
-                            // Remove stable status if HP > 0
-                            if (num > 0 && selectedCombatant.isStable) {
-                              updates.isStable = false;
+
+                            // Remove stable and dying status if HP > 0
+                            if (num > 0) {
+                              if (selectedCombatant.isStable) updates.isStable = false;
+                              if (selectedCombatant.isDying) updates.isDying = false;
+                              if (selectedCombatant.isDead) updates.isDead = false;
+                              // Reset death saves when HP goes above 0
+                              updates.deathSaves = { successes: 0, failures: 0 };
                             }
-                            // Auto-kill non-PCs if setting is enabled and HP set to 0
-                            if (num === 0 && settings.deathSavesForPCsOnly && !selectedCombatant.isPC) {
-                              updates.isDead = true;
+
+                            // Handle HP = 0 case
+                            if (num === 0) {
+                              // Auto-kill non-PCs if setting is enabled
+                              if (settings.deathSavesForPCsOnly && !selectedCombatant.isPC) {
+                                updates.isDead = true;
+                                updates.isDying = false;
+                                updates.isStable = false;
+                              } else {
+                                // Set dying status for PCs or when death saves are enabled
+                                if (!selectedCombatant.isStable && !selectedCombatant.isDead) {
+                                  updates.isDying = true;
+                                }
+                              }
                             }
+
                             updateCombatant(selectedCombatant.id, updates);
                           }
                         }
@@ -7281,14 +7444,31 @@ export default function App() {
                             const num = parseInt(value);
                             if (!isNaN(num) || value === '') {
                               const updates = { hp: num || 0 };
-                              // Remove stable status if HP > 0
-                              if (num > 0 && selectedCombatant.isStable) {
-                                updates.isStable = false;
+
+                              // Remove stable and dying status if HP > 0
+                              if (num > 0) {
+                                if (selectedCombatant.isStable) updates.isStable = false;
+                                if (selectedCombatant.isDying) updates.isDying = false;
+                                if (selectedCombatant.isDead) updates.isDead = false;
+                                // Reset death saves when HP goes above 0
+                                updates.deathSaves = { successes: 0, failures: 0 };
                               }
-                              // Auto-kill non-PCs if setting is enabled and HP set to 0
-                              if (num === 0 && settings.deathSavesForPCsOnly && !selectedCombatant.isPC) {
-                                updates.isDead = true;
+
+                              // Handle HP = 0 case
+                              if (num === 0) {
+                                // Auto-kill non-PCs if setting is enabled
+                                if (settings.deathSavesForPCsOnly && !selectedCombatant.isPC) {
+                                  updates.isDead = true;
+                                  updates.isDying = false;
+                                  updates.isStable = false;
+                                } else {
+                                  // Set dying status for PCs or when death saves are enabled
+                                  if (!selectedCombatant.isStable && !selectedCombatant.isDead) {
+                                    updates.isDying = true;
+                                  }
+                                }
                               }
+
                               updateCombatant(selectedCombatant.id, updates);
                             }
                           }
@@ -7491,8 +7671,16 @@ export default function App() {
                               // Set stable status if 3 successes
                               if (newSuccesses >= 3) {
                                 updates.isStable = true;
+                                updates.isDying = false;
+                                updates.isDead = false;
                                 updates.deathSaves.successes = 0;
                                 updates.deathSaves.failures = 0;
+                              } else {
+                                // If less than 3 and HP is 0, set dying
+                                if (selectedCombatant.hp === 0) {
+                                  updates.isDying = true;
+                                  updates.isStable = false;
+                                }
                               }
 
                               updateCombatant(selectedCombatant.id, updates);
@@ -7536,6 +7724,14 @@ export default function App() {
                               // Set dead status if 3 failures
                               if (newFailures >= 3) {
                                 updates.isDead = true;
+                                updates.isDying = false;
+                                updates.isStable = false;
+                              } else {
+                                // If less than 3 and HP is 0, set dying
+                                if (selectedCombatant.hp === 0) {
+                                  updates.isDying = true;
+                                  updates.isDead = false;
+                                }
                               }
 
                               updateCombatant(selectedCombatant.id, updates);
@@ -9927,7 +10123,134 @@ function TagInput({ value, onChange }) {
   );
 }
 
-function ConditionAutocomplete({ value, onChange, conditionImmunities = [], settings }) {
+// Reset Combat Modal Component
+function ResetCombatModal({ onReset, onClose }) {
+  const [resetOptions, setResetOptions] = useState({
+    resetInitiative: true,
+    resetHP: true,
+    resetConditions: true,
+    resetSpellSlots: true,
+    resetStatus: true,
+  });
+
+  const handleToggle = (option) => {
+    setResetOptions({ ...resetOptions, [option]: !resetOptions[option] });
+  };
+
+  return (
+    <>
+      {/* Backdrop */}
+      <div
+        className="fixed inset-0 bg-black/50 z-50 animate-[fadeIn_0.2s_ease-out]"
+        onClick={onClose}
+      />
+
+      {/* Modal */}
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+        <div
+          className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-md w-full p-6 pointer-events-auto animate-[slideUpComplete_0.3s_ease-out]"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+              Combat zurücksetzen
+            </h2>
+            <button
+              onClick={onClose}
+              className="w-8 h-8 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center justify-center transition-colors"
+              title="Schließen"
+            >
+              <svg className="w-5 h-5 text-slate-600 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">
+            Wähle aus, was zurückgesetzt werden soll:
+          </p>
+
+          {/* Toggle Options */}
+          <div className="space-y-3 mb-6">
+            <ToggleOption
+              label="Initiative"
+              description="Setzt alle Initiative-Werte zurück"
+              checked={resetOptions.resetInitiative}
+              onChange={() => handleToggle('resetInitiative')}
+            />
+            <ToggleOption
+              label="HP"
+              description="Setzt HP und Temp HP zurück"
+              checked={resetOptions.resetHP}
+              onChange={() => handleToggle('resetHP')}
+            />
+            <ToggleOption
+              label="Conditions"
+              description="Entfernt alle Conditions"
+              checked={resetOptions.resetConditions}
+              onChange={() => handleToggle('resetConditions')}
+            />
+            <ToggleOption
+              label="Spell Slots"
+              description="Setzt alle Spell Slots zurück"
+              checked={resetOptions.resetSpellSlots}
+              onChange={() => handleToggle('resetSpellSlots')}
+            />
+            <ToggleOption
+              label="Status (Dead/Stable/Dying)"
+              description="Entfernt Dead, Stable und Dying Status"
+              checked={resetOptions.resetStatus}
+              onChange={() => handleToggle('resetStatus')}
+            />
+          </div>
+
+          {/* Footer Buttons */}
+          <div className="flex gap-3">
+            <button
+              onClick={onClose}
+              className="flex-1 px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors font-medium"
+            >
+              Abbrechen
+            </button>
+            <button
+              onClick={() => onReset(resetOptions)}
+              className="flex-1 px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white transition-colors font-medium shadow-lg shadow-red-500/30"
+            >
+              Zurücksetzen
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+// iOS-style Toggle Component
+function ToggleOption({ label, description, checked, onChange }) {
+  return (
+    <div className="flex items-center justify-between p-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+      <div className="flex-1">
+        <div className="font-medium text-slate-900 dark:text-slate-100">{label}</div>
+        <div className="text-sm text-slate-600 dark:text-slate-400">{description}</div>
+      </div>
+      <button
+        onClick={onChange}
+        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+          checked ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-600'
+        }`}
+      >
+        <span
+          className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition-transform ${
+            checked ? 'translate-x-6' : 'translate-x-0.5'
+          }`}
+        />
+      </button>
+    </div>
+  );
+}
+
+function ConditionAutocomplete({ value, onChange, conditionImmunities = [], settings, combatant, onStatusChange }) {
   const [input, setInput] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [pendingImmune, setPendingImmune] = useState({}); // Tracks immune conditions awaiting confirmation
@@ -10007,6 +10330,46 @@ function ConditionAutocomplete({ value, onChange, conditionImmunities = [], sett
   return (
     <div className="space-y-2">
       <div className="flex flex-wrap gap-2">
+        {/* Special status badges: Dead, Stable, Dying */}
+        {combatant?.isDead && (
+          <span className="inline-flex items-center gap-1 px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 rounded-full text-sm font-medium border border-red-300 dark:border-red-800">
+            💀 Dead
+            <button
+              onClick={() => onStatusChange?.({ isDead: false })}
+              className="hover:text-red-900 dark:hover:text-red-100"
+              title="Remove dead status"
+            >
+              ×
+            </button>
+          </span>
+        )}
+
+        {combatant?.isStable && (
+          <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full text-sm font-medium border border-blue-300 dark:border-blue-800">
+            Stable
+            <button
+              onClick={() => onStatusChange?.({ isStable: false, deathSaves: { successes: 0, failures: 0 } })}
+              className="hover:text-blue-900 dark:hover:text-blue-100"
+              title="Remove stable status"
+            >
+              ×
+            </button>
+          </span>
+        )}
+
+        {combatant?.isDying && (
+          <span className="inline-flex items-center gap-1 px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 rounded-full text-sm font-medium border border-orange-300 dark:border-orange-800">
+            💔 Dying
+            <button
+              onClick={() => onStatusChange?.({ isDying: false, deathSaves: { successes: 0, failures: 0 } })}
+              className="hover:text-orange-900 dark:hover:text-orange-100"
+              title="Remove dying status"
+            >
+              ×
+            </button>
+          </span>
+        )}
+
         {/* Pending immune conditions with confirm/reject buttons */}
         {Object.keys(pendingImmune).map((cond) => (
           <span
@@ -10095,13 +10458,125 @@ function ConditionAutocomplete({ value, onChange, conditionImmunities = [], sett
   );
 }
 
+// Initiative Roll Tooltip Component
+function InitiativeTooltip({ show, x, y, combatant, onRoll, onClose }) {
+  if (!show || !combatant) return null;
+
+  return (
+    <>
+      {/* Backdrop */}
+      <div
+        className="fixed inset-0 z-40"
+        onClick={onClose}
+      />
+      {/* Tooltip */}
+      <div
+        className="fixed z-50 bg-slate-800 dark:bg-slate-900 text-white rounded-lg shadow-2xl p-3 border-2 border-blue-500"
+        style={{
+          left: `${x}px`,
+          top: `${y - 60}px`, // Position above the input
+          transform: 'translateX(-50%)',
+        }}
+      >
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-semibold">Roll Initiative</span>
+          <button
+            className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1"
+            onClick={() => {
+              onRoll(combatant);
+              onClose();
+            }}
+          >
+            🎲 Roll
+          </button>
+        </div>
+        {/* Arrow pointing down */}
+        <div className="absolute left-1/2 -translate-x-1/2 -bottom-2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-blue-500"></div>
+      </div>
+    </>
+  );
+}
+
+// Roll Initiative Modal Component
+function RollInitiativeModal({ onClose, onRollAll, onRollEmpty }) {
+  return (
+    <>
+      {/* Backdrop */}
+      <div
+        className="fixed inset-0 bg-black/50 z-50 animate-[fadeIn_0.2s_ease-out]"
+        onClick={onClose}
+      />
+
+      {/* Modal */}
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+        <div
+          className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-md w-full p-6 pointer-events-auto animate-[slideUpComplete_0.3s_ease-out]"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+              Initiative würfeln
+            </h2>
+            <button
+              onClick={onClose}
+              className="w-8 h-8 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center justify-center transition-colors"
+              title="Schließen"
+            >
+              <svg className="w-5 h-5 text-slate-600 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">
+            Es sind bereits Initiative-Werte eingetragen. Was möchtest du tun?
+          </p>
+
+          {/* Buttons */}
+          <div className="flex flex-col gap-3">
+            <button
+              onClick={() => {
+                onRollAll();
+                onClose();
+              }}
+              className="w-full px-4 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors font-medium shadow-lg shadow-blue-500/30 text-left"
+            >
+              <div className="font-semibold">Alle überschreiben</div>
+              <div className="text-xs text-blue-200">Würfelt für alle Kreaturen neu</div>
+            </button>
+            <button
+              onClick={() => {
+                onRollEmpty();
+                onClose();
+              }}
+              className="w-full px-4 py-3 rounded-lg bg-green-600 hover:bg-green-700 text-white transition-colors font-medium shadow-lg shadow-green-500/30 text-left"
+            >
+              <div className="font-semibold">Nur leere Felder</div>
+              <div className="text-xs text-green-200">Würfelt nur für Kreaturen ohne Initiative</div>
+            </button>
+            <button
+              onClick={onClose}
+              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors font-medium"
+            >
+              Abbrechen
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
 function InlineEdit({
   value,
   onChange,
   className = "",
   type = "text",
   onBlur,
+  onFocus,
   editValue, // Optional: different value to show when editing starts
+  disabled = false,
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [tempValue, setTempValue] = useState(value);
@@ -10111,6 +10586,7 @@ function InlineEdit({
     if (isEditing && inputRef.current) {
       inputRef.current.focus();
       inputRef.current.select();
+      if (onFocus) onFocus(inputRef.current);
     }
   }, [isEditing]);
 
@@ -10123,8 +10599,9 @@ function InlineEdit({
   if (!isEditing) {
     return (
       <div
-        className={`cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700 rounded px-2 py-1 transition-colors ${className}`}
+        className={`${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700'} rounded px-2 py-1 transition-colors ${className}`}
         onClick={() => {
+          if (disabled) return;
           // Use editValue if provided, otherwise use value
           setTempValue(editValue !== undefined ? editValue : value);
           setIsEditing(true);
@@ -10349,6 +10826,7 @@ function CombatantRow({
   setShowConditionModal,
   settings,
   isCompleted = false,
+  setInitiativeTooltip,
 }) {
   const [open, setOpen] = useState(false);
   const [showHPInput, setShowHPInput] = useState(false);
@@ -10450,6 +10928,12 @@ function CombatantRow({
             Stable
           </div>
         )}
+
+        {c.isDying && (
+          <div className="px-2 py-1 bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300 text-xs font-semibold rounded-full flex items-center gap-1">
+            💔 Dying
+          </div>
+        )}
       </div>
 
       <div className="space-y-2">
@@ -10483,6 +10967,15 @@ function CombatantRow({
               type="number"
               className="w-16 text-center font-bold text-2xl text-blue-600 dark:text-blue-400"
               disabled={isCompleted}
+              onFocus={(inputElement) => {
+                const rect = inputElement.getBoundingClientRect();
+                setInitiativeTooltip({
+                  show: true,
+                  x: rect.left + rect.width / 2,
+                  y: rect.top,
+                  combatant: c
+                });
+              }}
             />
             <div className="text-[10px] text-slate-400 dark:text-slate-500 flex gap-2">
               <span>Mod: {c.initiativeMod >= 0 ? '+' : ''}{c.initiativeMod || 0}</span>
@@ -10670,6 +11163,8 @@ function CombatantRow({
                 onChange={(conditions) => onChange({ conditions })}
                 conditionImmunities={c.conditionImmunities || []}
                 settings={settings}
+                combatant={c}
+                onStatusChange={(updates) => onChange(updates)}
               />
             </div>
           </div>

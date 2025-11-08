@@ -71,11 +71,11 @@ export function Settings({ isOpen, onClose }) {
       {/* Settings Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
         <div
-          className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-md w-full p-6 pointer-events-auto animate-[slideUpComplete_0.3s_ease-out]"
+          className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-6xl w-full max-h-[85vh] flex flex-col p-6 pointer-events-auto animate-[slideUpComplete_0.3s_ease-out]"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-6 flex-shrink-0">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
               <span>⚙️</span>
               <span>Einstellungen</span>
@@ -91,8 +91,9 @@ export function Settings({ isOpen, onClose }) {
             </button>
           </div>
 
-          {/* Settings Content */}
-          <div className="space-y-6">
+          {/* Settings Content - Scrollable */}
+          <div className="overflow-y-auto flex-1 pr-2">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Dice Roller Type Setting */}
             <div>
               <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
@@ -373,10 +374,11 @@ export function Settings({ isOpen, onClose }) {
                 </label>
               </div>
             </div>
+            </div>
           </div>
 
           {/* Footer Buttons */}
-          <div className="flex gap-3 mt-6">
+          <div className="flex gap-3 mt-6 flex-shrink-0">
             <button
               onClick={onClose}
               className="flex-1 px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors font-medium"

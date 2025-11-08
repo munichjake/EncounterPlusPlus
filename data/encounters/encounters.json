@@ -1967,17 +1967,17 @@
     {
       "id": "A34b1MSr1BafLXPiUOyA_",
       "name": "Halloween 2025",
-      "round": 7,
-      "turnIndex": 2,
+      "round": 1,
+      "turnIndex": 0,
       "initiativeOrder": [
-        "3c1aebbd-a707-4004-b169-851679995fcd",
-        "293a06f2-2b86-4242-9c3b-c0d695827b56",
         "2a5509fd-c411-4df8-8b38-6c0ecf54c9dd",
         "6a96e061-d66c-4de8-8fda-5e7c173daeb9",
         "8dd6c5cd-abf3-40f2-9dce-302cc66a588e",
         "d9af4e96-bdcf-4670-8975-48397cc29ca1",
+        "a53ca2d3-5b6d-4366-84bf-b143783b9bc5",
         "edd8986b-6487-4b18-b9e3-556c8c2a4ad8",
-        "a53ca2d3-5b6d-4366-84bf-b143783b9bc5"
+        "3c1aebbd-a707-4004-b169-851679995fcd",
+        "293a06f2-2b86-4242-9c3b-c0d695827b56"
       ],
       "combatants": {
         "edd8986b-6487-4b18-b9e3-556c8c2a4ad8": {
@@ -1985,7 +1985,7 @@
           "name": "Elkar",
           "ac": 10,
           "baseHP": 43,
-          "hp": 0,
+          "hp": 43,
           "tempHP": 0,
           "initiativeMod": 1,
           "initiativeTieBreaker": -2,
@@ -1996,16 +1996,18 @@
           "spellSlots": {},
           "dailySpellUses": {},
           "deathSaves": {
-            "successes": 1,
-            "failures": 1
+            "successes": 0,
+            "failures": 0
           },
           "reactionUsed": false,
           "sidekickOf": null,
-          "currentHp": 43,
           "tempHp": 0,
           "conditions": [],
-          "initiative": 7,
-          "maxHPModifier": 0
+          "maxHPModifier": 0,
+          "isDead": false,
+          "initiative": 9,
+          "isStable": false,
+          "isDying": false
         },
         "6a96e061-d66c-4de8-8fda-5e7c173daeb9": {
           "id": "6a96e061-d66c-4de8-8fda-5e7c173daeb9",
@@ -2018,7 +2020,7 @@
           "initiativeTieBreaker": 0,
           "player": true,
           "notes": "",
-          "concentration": true,
+          "concentration": false,
           "concentrationMod": 0,
           "spellSlots": {},
           "dailySpellUses": {},
@@ -2031,20 +2033,23 @@
           "currentHp": 43,
           "tempHp": 0,
           "conditions": [],
-          "initiative": 13
+          "initiative": 20,
+          "isDead": false,
+          "isStable": false,
+          "isDying": false
         },
         "8dd6c5cd-abf3-40f2-9dce-302cc66a588e": {
           "id": "8dd6c5cd-abf3-40f2-9dce-302cc66a588e",
           "name": "Paul, das Teufelchen",
           "ac": 10,
           "baseHP": 10,
-          "hp": 4,
+          "hp": 10,
           "tempHP": 0,
           "initiativeMod": 0,
           "initiativeTieBreaker": -0.5,
           "player": true,
           "notes": "",
-          "concentration": true,
+          "concentration": false,
           "concentrationMod": 0,
           "spellSlots": {},
           "dailySpellUses": {},
@@ -2061,7 +2066,10 @@
           "conditions": [],
           "sidekickOf": "6a96e061-d66c-4de8-8fda-5e7c173daeb9",
           "maxHPModifier": 0,
-          "initiative": 13
+          "initiative": 20,
+          "isDead": false,
+          "isStable": false,
+          "isDying": false
         },
         "d9af4e96-bdcf-4670-8975-48397cc29ca1": {
           "id": "d9af4e96-bdcf-4670-8975-48397cc29ca1",
@@ -2090,13 +2098,16 @@
           "tempHp": 0,
           "conditions": [],
           "sidekickOf": "6a96e061-d66c-4de8-8fda-5e7c173daeb9",
-          "initiative": 13,
-          "maxHPModifier": 0
+          "maxHPModifier": 0,
+          "initiative": 20,
+          "isDead": false,
+          "isStable": false,
+          "isDying": false
         },
         "3c1aebbd-a707-4004-b169-851679995fcd": {
           "id": "3c1aebbd-a707-4004-b169-851679995fcd",
           "initiativeTieBreaker": 0,
-          "hp": 0,
+          "hp": 67,
           "baseHP": 67,
           "hpFormula": "9d8 + 27",
           "tempHP": 0,
@@ -2211,13 +2222,13 @@
           "spellcasting": [],
           "tokenUrl": "http://localhost:4000/api/token/XMM/Wraith",
           "imageUrl": "http://localhost:4000/api/token/XMM/Wraith",
-          "currentHp": 59,
           "tempHp": 0,
           "conditions": [],
-          "initiativeRoll": 18,
-          "initiative": 21,
+          "initiativeRoll": 5,
           "isDead": false,
-          "isStable": true
+          "isStable": false,
+          "initiative": 8,
+          "isDying": false
         },
         "2a5509fd-c411-4df8-8b38-6c0ecf54c9dd": {
           "id": "2a5509fd-c411-4df8-8b38-6c0ecf54c9dd",
@@ -2241,7 +2252,7 @@
           "legendaryPoints": 0,
           "legendaryPointsMax": 0,
           "reactionUsed": false,
-          "name": "Swift Wraith",
+          "name": "Lazy Wraith",
           "ac": 13,
           "acFrom": null,
           "initiativeMod": 3,
@@ -2337,19 +2348,20 @@
           "spellcasting": [],
           "tokenUrl": "http://localhost:4000/api/token/XMM/Wraith",
           "imageUrl": "http://localhost:4000/api/token/XMM/Wraith",
-          "currentHp": 33,
           "tempHp": 0,
           "conditions": [],
-          "initiativeRoll": 13,
+          "initiativeRoll": 18,
           "maxHPModifier": 0,
-          "initiative": 16,
-          "isDead": true,
-          "visibleToPlayers": true
+          "isDead": false,
+          "visibleToPlayers": true,
+          "initiative": 21,
+          "isStable": false,
+          "isDying": false
         },
         "293a06f2-2b86-4242-9c3b-c0d695827b56": {
           "id": "293a06f2-2b86-4242-9c3b-c0d695827b56",
           "initiativeTieBreaker": 0,
-          "hp": 0,
+          "hp": 78,
           "baseHP": 78,
           "hpFormula": "12d10 + 12",
           "tempHP": 0,
@@ -2456,14 +2468,14 @@
           "spellcasting": [],
           "tokenUrl": "http://localhost:4000/api/token/XMM/Chasme",
           "imageUrl": "http://localhost:4000/api/token/XMM/Chasme",
-          "initiativeRoll": 16,
-          "currentHp": 78,
+          "initiativeRoll": 2,
           "tempHp": 0,
           "conditions": [],
-          "initiative": 18,
           "maxHPModifier": 0,
           "isDead": false,
-          "isStable": true
+          "isStable": false,
+          "initiative": 4,
+          "isDying": false
         },
         "a53ca2d3-5b6d-4366-84bf-b143783b9bc5": {
           "id": "a53ca2d3-5b6d-4366-84bf-b143783b9bc5",
@@ -2473,7 +2485,6 @@
           "hp": 10,
           "tempHP": 0,
           "initiativeMod": 0,
-          "initiative": 2,
           "initiativeTieBreaker": 0,
           "player": true,
           "notes": "",
@@ -2489,7 +2500,14 @@
           "legendaryPoints": 0,
           "legendaryPointsMax": 0,
           "reactionUsed": false,
-          "visibleToPlayers": false
+          "visibleToPlayers": false,
+          "currentHp": 10,
+          "tempHp": 0,
+          "conditions": [],
+          "initiative": 10,
+          "isDead": false,
+          "isStable": false,
+          "isDying": false
         }
       },
       "campaignId": null,
@@ -2497,7 +2515,7 @@
       "tags": [],
       "createdBy": "jonas.e.albrecht@gmail.com",
       "createdAt": "2025-10-31T16:14:57.336Z",
-      "updatedAt": "2025-11-07T12:25:19.669Z",
+      "updatedAt": "2025-11-08T09:39:05.523Z",
       "playerScreenSettings": {
         "blackMode": false,
         "showTurnButton": false,
